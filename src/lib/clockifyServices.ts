@@ -51,3 +51,18 @@ export async function getTimeEntryReportDetailed(
   const { data } = await axios.post<TimeEntryReportDetailed>(url, params, CLOCKIFY_AXIOS_CONFIG)
   return data as TimeEntryReportDetailed
 }
+
+export function formatDuration(duration: number | null) {
+  if (!duration) {
+    return '--'
+  }
+  const hours = Math.floor(duration / 3600)
+  const minutes = Math.floor((duration - hours * 3600) / 60)
+  const seconds = duration - hours * 3600 - minutes * 60
+
+  return `${hours}h ${minutes}m ${seconds}s`
+}
+
+export function sumDurations(entries: TimeEntryReportDetailedTimeEntry[]) {
+  return entries.map((item) => item.timeInterval.duration).reduce((a, b) => a + b, 0)
+}
