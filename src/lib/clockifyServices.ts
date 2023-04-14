@@ -52,17 +52,25 @@ export async function getTimeEntryReportDetailed(
   return data as TimeEntryReportDetailed
 }
 
-export function formatDuration(duration: number | null) {
-  if (!duration) {
-    return '--'
-  }
-  const hours = Math.floor(duration / 3600)
-  const minutes = Math.floor((duration - hours * 3600) / 60)
-  const seconds = duration - hours * 3600 - minutes * 60
-
-  return `${hours}h ${minutes}m ${seconds}s`
-}
-
 export function sumDurations(entries: TimeEntryReportDetailedTimeEntry[]) {
   return entries.map((item) => item.timeInterval.duration).reduce((a, b) => a + b, 0)
+}
+
+/**
+ * This method will return a string with the names of the users sorted by the sum of durations of their entries
+ * @param entries
+ */
+export function formatUserNamesSortedByParticipation(entries: TimeEntryReportDetailedTimeEntry[] | null) {
+  if (!entries) return ''
+  const users = entries.map((item) => item.userName)
+  const uniqueUsers = [...new Set(users)]
+  const userDurations = uniqueUsers.map((user) => {
+    const userEntries = entries.filter((item) => item.userName === user)
+    return {
+      user,
+      duration: sumDurations(userEntries),
+    }
+  })
+  const sortedUserDurations = userDurations.sort((a, b) => b.duration - a.duration)
+  return sortedUserDurations.map((item) => item.user).join(', ')
 }
