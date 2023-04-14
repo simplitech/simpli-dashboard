@@ -1,14 +1,6 @@
-import { PUBLIC_CLOCKIFY_API_KEY, PUBLIC_CLOCKIFY_WORKSPACE_ID } from '$env/static/public'
 import axios from 'axios'
 
 const CLOCKIFY_REPORTS_API_URL = 'https://reports.api.clockify.me/v1'
-
-const CLOCKIFY_AXIOS_CONFIG = {
-  headers: {
-    'Content-Type': 'application/json',
-    'X-Api-Key': PUBLIC_CLOCKIFY_API_KEY,
-  },
-}
 
 export interface TimeEntryReportDetailedParams {
   projectId: string | undefined
@@ -46,9 +38,15 @@ export interface TimeEntryReportDetailedTimeEntry {
 
 export async function getTimeEntryReportDetailed(
   params: TimeEntryReportDetailedParams,
+  config: { clockifyApiKey: string; clockifyWorkspaceId: string },
 ): Promise<TimeEntryReportDetailed> {
-  const url = `${CLOCKIFY_REPORTS_API_URL}/workspaces/${PUBLIC_CLOCKIFY_WORKSPACE_ID}/reports/detailed`
-  const { data } = await axios.post<TimeEntryReportDetailed>(url, params, CLOCKIFY_AXIOS_CONFIG)
+  const url = `${CLOCKIFY_REPORTS_API_URL}/workspaces/${config.clockifyWorkspaceId}/reports/detailed`
+  const { data } = await axios.post<TimeEntryReportDetailed>(url, params, {
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Api-Key': config.clockifyApiKey,
+    },
+  })
   return data as TimeEntryReportDetailed
 }
 

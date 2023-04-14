@@ -12,17 +12,6 @@ This project uses PNPM as its package manager, so in order to install the depend
 pnpm i
 ```
 
-### Environment Variables
-
-Create a `.env` file in the root directory of the project and add the following variables:
-
-```
-PUBLIC_CLOCKIFY_API_KEY=GET THIS API KEY BY CLICKING IN YOUR PROFILE AND "PROFILE SETTINGS"
-PUBLIC_CLOCKIFY_WORKSPACE_ID=6053a39bc15f5f7905d37b9d
-PUBLIC_CLICKUP_API_KEY=GET THIS API KEY ON "MY SETTINGS" > "APPS"
-PUBLIC_CLICKUP_WORKSPACE_ID=36116410
-```
-
 ### Start a Development Server:
 
 ```bash

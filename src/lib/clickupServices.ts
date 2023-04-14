@@ -1,12 +1,6 @@
-import { PUBLIC_CLICKUP_API_KEY, PUBLIC_CLICKUP_WORKSPACE_ID } from '$env/static/public'
 import axios from 'axios'
 
 const CLICKUP_API_URL = 'https://api.clickup.com/api/v2'
-
-const CLICKUP_HEADERS = {
-  'Content-Type': 'application/json',
-  Authorization: PUBLIC_CLICKUP_API_KEY,
-}
 
 export interface Task {
   id: string
@@ -51,9 +45,14 @@ export type Field =
   | boolean
   | null
 
-export async function getTask(taskId: string): Promise<Task> {
+export async function getTask(taskId: string, config: { clickupApiKey: string }): Promise<Task> {
   const url = `${CLICKUP_API_URL}/task/${taskId}`
-  const { data } = await axios.get<Task>(url, { headers: CLICKUP_HEADERS })
+  const { data } = await axios.get<Task>(url, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: config.clickupApiKey,
+    },
+  })
   return data as Task
 }
 
