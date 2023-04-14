@@ -1,14 +1,14 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte'
   import {
     getTimeEntryReportDetailed,
     sumDurations,
     formatUserNamesSortedByParticipation,
-  } from '$lib/clockifyServices.ts'
-  import { clickupIdFromText, getTask } from '$lib/clickupServices.ts'
-  import { getCacheItem, setCacheItem } from '$lib/cacheServices.ts'
-  import DatetimeInput from '$lib/components/DatetimeInput.svelte'
-  import Modal from '$lib/components/Modal.svelte'
+  } from './lib/clockifyServices.ts'
+  import { clickupIdFromText, getTask } from './lib/clickupServices.ts'
+  import { getCacheItem, setCacheItem } from './lib/cacheServices.ts'
+  import DatetimeInput from './lib/components/DatetimeInput.svelte'
+  import Modal from './lib/components/Modal.svelte'
 
   let report = null
   let loading = false
@@ -140,7 +140,7 @@
   }
 </script>
 
-<body class="dark:bg-gray-900 dark:text-gray-300">
+<main class="w-full min-h-full dark:bg-gray-900 dark:text-gray-300">
   <div class="flex justify-between p-2">
     <h1 class="text-3xl font-bold">Clockify and ClickUp</h1>
     <button on:click={() => (configOpen = true)}>
@@ -273,4 +273,4 @@
       </form>
     </Modal>
   {/if}
-</body>
+</main>

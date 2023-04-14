@@ -1,75 +1,47 @@
-# Simpli Dashboard
+# Svelte + TS + Vite
 
-A Dashboard to facilitate Simpli work processes.
+This template should help get you started developing with Svelte and TypeScript in Vite.
 
-## Development Enviroment Setup
+## Recommended IDE Setup
 
-### Installing Dependencies
+[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
 
-This project uses PNPM as its package manager, so in order to install the dependencies, run the following command in your terminal:
+## Need an official Svelte framework?
 
-```bash
-pnpm i
+Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+
+## Technical considerations
+
+**Why use this over SvelteKit?**
+
+- It brings its own routing solution which might not be preferable for some users.
+- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
+
+This template contains as little as possible to get started with Vite + TypeScript + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
+
+Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
+
+**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
+
+Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
+
+**Why include `.vscode/extensions.json`?**
+
+Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
+
+**Why enable `allowJs` in the TS template?**
+
+While `allowJs: false` would indeed prevent the use of `.js` files in the project, it does not prevent the use of JavaScript syntax in `.svelte` files. In addition, it would force `checkJs: false`, bringing the worst of both worlds: not being able to guarantee the entire codebase is TypeScript, and also having worse typechecking for the existing JavaScript. In addition, there are valid use cases in which a mixed codebase may be relevant.
+
+**Why is HMR not preserving my local component state?**
+
+HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
+
+If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
+
+```ts
+// store.ts
+// An extremely simple external store
+import { writable } from 'svelte/store'
+export default writable(0)
 ```
-
-### Start a Development Server:
-
-```bash
-pnpm dev
-```
-
-Or, if you prefer to start the server and open the app in a new browser tab, use this command:
-
-```bash
-pnpm dev --open
-```
-
-### Code Formatting
-
-To ensure your code follows the correct format, run the following command:
-
-```sh
-pnpm lint
-```
-
-To automatically fix the lint errors, run
-
-```sh
-pnpm format
-```
-
-If you're using a JetBrains IDE, you can set it up to run the lint on save. Go to `File > Settings`, then navigate to `Languages and Frameworks > Javascript > Code Quality Tools > ESLint` and check the option **Run eslint --fix on save**.
-
-## Building
-
-To create a production version of the app, run the following command:
-
-```bash
-pnpm build
-```
-
-You can preview the production build with `pnpm preview`.
-
-> Note: You may need to install an [adapter](https://kit.svelte.dev/docs/adapters) to deploy your app to your target environment.
-
-## Technologies
-
-This project uses the following technologies:
-
-- [TypeScript](https://www.typescriptlang.org/) as the main language
-- [Svelte](https://svelte.dev/) as the frontend library
-- [SvelteKit](https://kit.svelte.dev/) as the SSR framework
-- [TailwindCSS](https://tailwindcss.com/) as the CSS framework
-- [PNPM](https://pnpm.io/) as the package manager
-- [Vite](https://vitejs.dev/) as the bundler
-- [PostCSS](https://postcss.org/) as the CSS preprocessor
-- [ESLint](https://eslint.org/) as the linter
-- [Prettier](https://prettier.io/) as the code formatter
-- [Husky](https://typicode.github.io/husky/#/) as the pre-commit hook
-
-## Project Structure
-
-The project follows the [SvelteKit project structure](https://kit.svelte.dev/docs/project-structure).
-
-- Components that can be reused on multiple pages are located in `src/lib/components`.
-- Components that are only used on a single page are located in `src/routes/<page-name>/<component-name>`.
