@@ -32,13 +32,10 @@
     console.log(report)
   })
 
-  const openTimeEntry = (description) => {
-    window.open(
-      `https://app.clockify.me/reports/detailed?start=${dateRangeStart}&end=${dateRangeEnd}&description=${encodeURI(
-        description,
-      )}&page=1&pageSize=50`,
-      '_blank',
-    )
+  const clockifyUrl = (description) => {
+    return `https://app.clockify.me/reports/detailed?start=${dateRangeStart}&end=${dateRangeEnd}&description=${encodeURI(
+      description,
+    )}&page=1&pageSize=50`
   }
 </script>
 
@@ -66,13 +63,17 @@
               <a href={entry.task.url} target="_blank" class="text-blue-500 hover:text-blue-600">🔗</a>
             {/if}
           </td>
-          <td class="whitespace-nowrap px-6 py-4">{entry.task?.name ?? id}</td>
-          <td class="whitespace-nowrap px-6 py-4">{entry.task?.list.name ?? entry.timeentries?.[0]?.projectName}</td>
+          <td class="whitespace-nowrap px-6 py-4"
+            ><div class="w-64 whitespace-break-spaces">{entry.task?.name ?? id}</div></td
+          >
+          <td class="whitespace-nowrap px-6 py-4"
+            >{entry.task?.list.name ?? entry.timeEntry?.[0]?.projectName ?? 'No project'}</td
+          >
           <td class="whitespace-nowrap px-6 py-4">{formatDuration(entry.task?.time_estimate / 1000)}</td>
           <td class="whitespace-nowrap px-6 py-4">
             {formatDuration(sumDurations(entry.timeEntry))}
             {#if entry.timeEntry?.length}
-              <a on:click={openTimeEntry(entry.timeentries?.[0]?.description)}>🔎</a>
+              <a href={clockifyUrl(id)} target="_blank">🔎</a>
             {/if}
           </td>
         </tr>
