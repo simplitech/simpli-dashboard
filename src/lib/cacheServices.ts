@@ -1,4 +1,4 @@
-export function setCacheItem(key: string, value: any, ttl = 2 * 24 * 60 * 60 * 1000) {
+export function setCacheItem(key: string, value: unknown, ttl = 2 * 24 * 60 * 60 * 1000) {
   localStorage.setItem(
     key,
     JSON.stringify({

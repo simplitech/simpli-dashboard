@@ -11,7 +11,7 @@
     "format": "prettier --plugin-search-dir . --write .",
     "prepare": "husky install",
     "predeploy": "pnpm build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.0.3",
