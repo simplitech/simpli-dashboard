@@ -37,7 +37,7 @@ export interface TimeEntryReportDetailedTimeEntry {
 }
 
 export async function getTimeEntryReportDetailed(
-  params: TimeEntryReportDetailedParams,
+  params: { dateRangeEnd: string; detailedFilter: { pageSize: number; page: number }; dateRangeStart: string },
   config: { clockifyApiKey: string; clockifyWorkspaceId: string },
 ): Promise<TimeEntryReportDetailed> {
   const url = `${CLOCKIFY_REPORTS_API_URL}/workspaces/${config.clockifyWorkspaceId}/reports/detailed`
