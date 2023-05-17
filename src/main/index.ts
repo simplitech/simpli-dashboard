@@ -1,4 +1,4 @@
-import { app, shell, BrowserWindow } from 'electron'
+import { app, shell, BrowserWindow, session } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -8,7 +8,7 @@ import icon from '../../resources/icon.png'
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 900,
+    width: 1400,
     height: 670,
     show: false,
     autoHideMenuBar: true,
@@ -17,19 +17,6 @@ function createWindow(): void {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false,
     },
-  })
-
-  mainWindow.webContents.session.webRequest.onBeforeSendHeaders((details, callback) => {
-    callback({ requestHeaders: { Origin: '*', ...details.requestHeaders } })
-  })
-
-  mainWindow.webContents.session.webRequest.onHeadersReceived((details, callback) => {
-    callback({
-      responseHeaders: {
-        'Access-Control-Allow-Origin': ['*'],
-        ...details.responseHeaders,
-      },
-    })
   })
 
   mainWindow.on('ready-to-show', () => {
@@ -84,3 +71,22 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
+app.on('ready', () => {
+  session.defaultSession.webRequest.onBeforeSendHeaders(
+    {
+      urls: ['https://reports.api.clockify.me/v1/*'],
+    },
+    (details, callback) => {
+      callback({ requestHeaders: { Origin: 'https://app.clockify.me/tracker', ...details.requestHeaders } })
+    },
+  )
+
+  session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+    callback({
+      responseHeaders: {
+        'access-control-allow-origin': ['*'],
+        ...details.responseHeaders,
+      },
+    })
+  })
+})

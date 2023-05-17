@@ -1,10 +1,9 @@
-<script lang="ts">
+<script>
   import { onMount } from 'svelte'
   import { getCacheItem, setCacheItem } from './cacheServices'
-  import { getTimeEntryReportDetailed } from './clockifyServices'
+  import { getTimeEntryReportDetailed, formatUserNamesSortedByParticipation, sumDurations } from './clockifyServices'
   import { clickupIdFromText, getTask } from './clickupServices'
   import DatetimeInput from './components/DatetimeInput.svelte'
-  import { formatUserNamesSortedByParticipation, sumDurations } from './clockifyServices.js'
   import Modal from './components/Modal.svelte'
 
   let report = null
