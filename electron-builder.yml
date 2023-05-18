@@ -1,5 +1,5 @@
-appId: com.electron.app
-productName: my-app
+appId: br.com.simplitech.clickclock
+productName: click-clock
 directories:
   buildResources: build
 files:
@@ -11,9 +11,8 @@ files:
   - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
 asarUnpack:
   - resources/**
-afterSign: build/notarize.js
 win:
-  executableName: my-app
+  executableName: click-clock
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
