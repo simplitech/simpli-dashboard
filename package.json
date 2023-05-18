@@ -4,8 +4,7 @@
   "private": true,
   "main": "./out/main/index.js",
   "scripts": {
-    "dev": "vite",
-    "dev:app": "electron-vite dev",
+    "dev": "electron-vite dev",
     "build": "npm run check && electron-vite build",
     "postinstall": "electron-builder install-app-deps",
     "build:win": "npm run build && electron-builder --win --config",
