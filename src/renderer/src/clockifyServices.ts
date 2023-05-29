@@ -50,6 +50,19 @@ export async function getTimeEntryReportDetailed(
   return data as TimeEntryReportDetailed
 }
 
+function sortUserDurations(entries: TimeEntryReportDetailedTimeEntry[]) {
+  const users = entries.map((item) => item.userName)
+  const uniqueUsers = [...new Set(users)]
+  const userDurations = uniqueUsers.map((user) => {
+    const userEntries = entries.filter((item) => item.userName === user)
+    return {
+      user,
+      duration: sumDurations(userEntries),
+    }
+  })
+  return userDurations.sort((a, b) => b.duration - a.duration)
+}
+
 export function sumDurations(entries: TimeEntryReportDetailedTimeEntry[]) {
   return entries.map((item) => item.timeInterval.duration).reduce((a, b) => a + b, 0)
 }
@@ -60,15 +73,12 @@ export function sumDurations(entries: TimeEntryReportDetailedTimeEntry[]) {
  */
 export function formatUserNamesSortedByParticipation(entries: TimeEntryReportDetailedTimeEntry[] | null) {
   if (!entries) return ''
-  const users = entries.map((item) => item.userName)
-  const uniqueUsers = [...new Set(users)]
-  const userDurations = uniqueUsers.map((user) => {
-    const userEntries = entries.filter((item) => item.userName === user)
-    return {
-      user,
-      duration: sumDurations(userEntries),
-    }
-  })
-  const sortedUserDurations = userDurations.sort((a, b) => b.duration - a.duration)
+  const sortedUserDurations = sortUserDurations(entries)
   return sortedUserDurations.map((item) => item.user).join(', ')
+}
+
+export function getMainGroupOfDurations(entries: TimeEntryReportDetailedTimeEntry[]) {
+  if (!entries) return 0
+  const sortedUserDurations = sortUserDurations(entries)
+  return sortedUserDurations[0]?.duration ?? 0
 }

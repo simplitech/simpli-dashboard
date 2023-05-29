@@ -1,7 +1,12 @@
 <script>
   import { onMount } from 'svelte'
   import { getCacheItem, setCacheItem } from './cacheServices'
-  import { getTimeEntryReportDetailed, formatUserNamesSortedByParticipation, sumDurations } from './clockifyServices'
+  import {
+    getTimeEntryReportDetailed,
+    formatUserNamesSortedByParticipation,
+    sumDurations,
+    getMainGroupOfDurations,
+  } from './clockifyServices'
   import { clickupIdFromText, getTask } from './clickupServices'
   import DatetimeInput from './components/DatetimeInput.svelte'
   import Modal from './components/Modal.svelte'
@@ -119,24 +124,26 @@
 
   /**
    * gets white or black color to contrast with the given color
-   * @param colorInRgbFormat color in the following format: rgb(123, 123, 123)
+   * @param colorInHexFormat color in the following format: #00ffdd
    * @returns {string|string}
    */
-  const getContrastColor = (colorInRgbFormat) => {
-    if (!colorInRgbFormat) {
+  const getContrastColorHex = (colorInHexFormat) => {
+    if (!colorInHexFormat) {
       return 'black'
     }
-    const rgb = colorInRgbFormat
-      .replace('rgb(', '')
-      .replace(')', '')
-      .split(',')
-      .map((x) => parseInt(x))
-    const brightness = (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000
+
+    const hex = colorInHexFormat.replace('#', '')
+    const bigint = parseInt(hex, 16)
+    const r = (bigint >> 16) & 255
+    const g = (bigint >> 8) & 255
+    const b = bigint & 255
+
+    const brightness = (r * 299 + g * 587 + b * 114) / 1000
     return brightness > 125 ? 'black' : 'white'
   }
 </script>
 
-<main class="w-full min-h-full dark:bg-gray-900 dark:text-gray-300">
+<main>
   <div class="flex h-full justify-between p-2">
     <h1 class="text-3xl font-bold">Clockify and ClickUp</h1>
     <button on:click={() => (configOpen = true)}>
@@ -166,9 +173,7 @@
       <span class="font-bold">End Date</span>
       <DatetimeInput bind:value={dateRangeEnd} class="bg-transparent" />
     </label>
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
-      Generate Report
-    </button>
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit"> Filter </button>
   </form>
   {#if loading}
     <p>Loading...</p>
@@ -180,11 +185,14 @@
           <th scope="col" class="p-3">Task ID</th>
           <th scope="col" class="p-3">Description</th>
           <th scope="col" class="p-3">Project</th>
-          <th scope="col" class="p-3">Estimate</th>
-          <th scope="col" class="p-3">Logged Roundup</th>
           <th scope="col" class="p-3">Logged</th>
+          <th scope="col" class="p-3">Logged Roundup</th>
+          <th scope="col" class="p-3">Estimate</th>
+          <th scope="col" class="p-3">L.Assignee seconds</th>
+          <th scope="col" class="p-3">Estimate seconds</th>
           <th scope="col" class="p-3">First Log Date</th>
           <th scope="col" class="p-3">Last Log Date</th>
+          <th scope="col" class="p-3">Status</th>
           <th scope="col" class="p-3">Tags</th>
           <th scope="col" class="p-3">Assignees</th>
         </tr>
@@ -205,16 +213,20 @@
               {/if}
             </td>
             <td class="p-3">{entry.task?.list.name ?? entry.timeEntry?.[0]?.projectName ?? 'No project'}</td>
-            <td class="p-3">{formatDuration(entry.task?.time_estimate / 1000)}</td>
-            <td class="p-3">
-              {formatDuration(durationRoundUpByHalfHour(sumDurations(entry.timeEntry)))}
-            </td>
             <td class="p-3 flex whitespace-nowrap justify-between">
               <span>{formatDuration(sumDurations(entry.timeEntry))}</span>
               {#if entry.timeEntry?.length}
                 <a href={clockifyUrl(id)} target="_blank">🔎</a>
               {/if}
             </td>
+            <td class="p-3">
+              {formatDuration(durationRoundUpByHalfHour(sumDurations(entry.timeEntry)))}
+            </td>
+            <td class="p-3">{formatDuration(entry.task?.time_estimate / 1000)}</td>
+            <td class="p-3">
+              {getMainGroupOfDurations(entry.timeEntry)}
+            </td>
+            <td class="p-3">{(entry.task?.time_estimate ?? 0) / 1000}</td>
             <td class="p-3">
               {#if entry.timeEntry?.length}
                 {entry.timeEntry[0]?.timeInterval?.start}
@@ -227,11 +239,23 @@
             </td>
             <td class="p-3">
               {#if entry.task}
+                <span
+                  class="rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 whitespace-nowrap"
+                  style="background-color: {entry.task.status.color}; color: {getContrastColorHex(
+                    entry.task.status.color,
+                  )}"
+                >
+                  {entry.task.status.status}
+                </span>
+              {/if}
+            </td>
+            <td class="p-3">
+              {#if entry.task}
                 <div class="w-64">
                   {#each entry.task.tags as tag}
                     <span
                       class="rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
-                      style="background-color: {tag.tag_bg}; color: {getContrastColor(tag.tag_bg)}"
+                      style="background-color: {tag.tag_bg}; color: {getContrastColorHex(tag.tag_bg)}"
                     >
                       {tag.name}
                     </span>
@@ -269,3 +293,10 @@
     </Modal>
   {/if}
 </main>
+
+<style global>
+  body {
+    background-color: #001122;
+    color: #eee;
+  }
+</style>
