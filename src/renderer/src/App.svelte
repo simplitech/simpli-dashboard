@@ -10,8 +10,10 @@
   import { clickupIdFromText, getTask } from './clickupServices'
   import DatetimeInput from './components/DatetimeInput.svelte'
   import Modal from './components/Modal.svelte'
+  import Select from 'svelte-select'
 
   let report = null
+  let reportFiltered = null
   let loading = false
   let configOpen = false
   let config = {
@@ -19,6 +21,14 @@
     clockifyWorkspaceId: '6053a39bc15f5f7905d37b9d',
     clickupApiKey: '',
   }
+
+  let projectFilter = []
+  let statusFilter = []
+  let assigneeFilter = []
+
+  let selectedProject = null
+  let selectedStatus = null
+  let selectedAssignee = null
 
   let now = new Date()
   let dateRangeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7)
@@ -77,6 +87,18 @@
       resp[id].timeEntry.push(clockifyEntry)
     }
     report = resp
+    reportFiltered = resp
+    projectFilter = [
+      ...new Set(Object.values(report).map((item) => item.task?.list.name ?? item.timeEntry?.[0]?.projectName ?? '')),
+    ].sort()
+    statusFilter = [...new Set(Object.values(report).map((item) => item.task?.status.status ?? ''))].sort()
+    assigneeFilter = [
+      ...new Set(
+        Object.values(report)
+          .map((item) => formatUserNamesSortedByParticipation(item.timeEntry).split(', '))
+          .flat(),
+      ),
+    ].sort()
     loading = false
   }
 
@@ -141,6 +163,34 @@
     const brightness = (r * 299 + g * 587 + b * 114) / 1000
     return brightness > 125 ? 'black' : 'white'
   }
+
+  function handleFilters() {
+    reportFiltered = report
+
+    if (selectedStatus) {
+      reportFiltered = Object.values(reportFiltered).filter((item) =>
+        Object.values(selectedStatus).some((filterItem) => (item.task?.status.status ?? '') === filterItem.value),
+      )
+    }
+
+    if (selectedProject) {
+      reportFiltered = Object.values(reportFiltered).filter((item) =>
+        Object.values(selectedProject).some(
+          (filterItem) => (item.task?.list.name ?? item.timeEntry?.[0]?.projectName ?? '') === filterItem.value,
+        ),
+      )
+    }
+
+    if (selectedAssignee) {
+      reportFiltered = Object.values(reportFiltered).filter((item) =>
+        Object.values(selectedAssignee).some((filterItem) =>
+          formatUserNamesSortedByParticipation(item.timeEntry)
+            .split(', ')
+            .some((name) => name === filterItem.value),
+        ),
+      )
+    }
+  }
 </script>
 
 <main>
@@ -174,11 +224,47 @@
       <DatetimeInput bind:value={dateRangeEnd} class="bg-transparent" />
     </label>
     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit"> Filter </button>
+
+    {#if !loading}
+      <div class="flex flex-row gap-x-5 px-5">
+        <Select
+          class="multiselect"
+          on:input={handleFilters}
+          bind:value={selectedProject}
+          items={projectFilter}
+          searchable
+          multiple
+          showChevron
+          placeholder="Selecione um Projeto"
+        />
+        <Select
+          class="multiselect"
+          on:input={handleFilters}
+          bind:value={selectedAssignee}
+          items={assigneeFilter}
+          searchable
+          multiple
+          showChevron
+          placeholder="Selecione um Assignee"
+        />
+        <Select
+          class="multiselect"
+          on:input={handleFilters}
+          bind:value={selectedStatus}
+          items={statusFilter}
+          searchable
+          multiple
+          showChevron
+          placeholder="Selecione um Status"
+        />
+      </div>
+    {/if}
   </form>
+
   {#if loading}
     <p>Loading...</p>
   {/if}
-  {#if report}
+  {#if reportFiltered}
     <table class="min-w-full text-left text-sm font-light">
       <thead class="border-b font-medium dark:border-neutral-500">
         <tr>
@@ -198,7 +284,7 @@
         </tr>
       </thead>
       <tbody>
-        {#each Object.entries(report) as [id, entry]}
+        {#each Object.entries(reportFiltered) as [id, entry]}
           <tr class="border-b dark:border-neutral-500">
             <td class="p-3 font-medium whitespace-nowrap">
               {entry.task ? id : 'Flex'}
@@ -298,5 +384,9 @@
   body {
     background-color: #001122;
     color: #eee;
+  }
+
+  .multiselect {
+    color: black !important;
   }
 </style>
