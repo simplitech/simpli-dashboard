@@ -168,25 +168,31 @@
     reportFiltered = report
 
     if (selectedStatus) {
-      reportFiltered = Object.values(reportFiltered).filter((item) =>
-        Object.values(selectedStatus).some((filterItem) => (item.task?.status.status ?? '') === filterItem.value),
+      reportFiltered = Object.fromEntries(
+        Object.entries(reportFiltered).filter(([, value]) =>
+          Object.values(selectedStatus).some((status) => (value.task?.status.status ?? '') === status.value),
+        ),
       )
     }
 
     if (selectedProject) {
-      reportFiltered = Object.values(reportFiltered).filter((item) =>
-        Object.values(selectedProject).some(
-          (filterItem) => (item.task?.list.name ?? item.timeEntry?.[0]?.projectName ?? '') === filterItem.value,
+      reportFiltered = Object.fromEntries(
+        Object.entries(reportFiltered).filter(([, value]) =>
+          Object.values(selectedProject).some(
+            (project) => (value.task?.list.name ?? value.timeEntry?.[0]?.projectName ?? '') === project.value,
+          ),
         ),
       )
     }
 
     if (selectedAssignee) {
-      reportFiltered = Object.values(reportFiltered).filter((item) =>
-        Object.values(selectedAssignee).some((filterItem) =>
-          formatUserNamesSortedByParticipation(item.timeEntry)
-            .split(', ')
-            .some((name) => name === filterItem.value),
+      reportFiltered = Object.fromEntries(
+        Object.entries(reportFiltered).filter(([, value]) =>
+          Object.values(selectedAssignee).some((assignee) =>
+            formatUserNamesSortedByParticipation(value.timeEntry)
+              .split(', ')
+              .some((name) => name === assignee.value),
+          ),
         ),
       )
     }
