@@ -7,7 +7,7 @@
     sumDurations,
     getMainGroupOfDurations,
   } from './clockifyServices'
-  import { clickupIdFromText, getTask, getTaskTime, getTaskTimeStatus } from './clickupServices'
+  import { clickupIdFromText, getTask, getTaskTime, getTaskTimeStatus, getTimeEntries, sumClickUpDurations} from './clickupServices'
   import DatetimeInput from './components/DatetimeInput.svelte'
   import Modal from './components/Modal.svelte'
   import Select from 'svelte-select'
@@ -64,7 +64,7 @@
       id = id || clockifyEntry.description
 
       if (!resp[id]) {
-        resp[id] = { timeEntry: [], task: null }
+        resp[id] = { timeEntry: [], task: null, clickUpTimeEntry: [] }
       }
       if (idFound && !resp[id].task) {
         const cache = await getCacheItem(`clickup-task-${id}`)
@@ -88,8 +88,8 @@
       }
       resp[id].timeEntry.push(clockifyEntry)
     }
-    report = resp
-    reportFiltered = resp
+    report = await matchTimeEntries(resp)
+    reportFiltered = report
     projectFilter = [
       ...new Set(Object.values(report).map((item) => item.task?.list.name ?? item.timeEntry?.[0]?.projectName ?? '')),
     ].sort()
@@ -102,6 +102,27 @@
       ),
     ].sort()
     loading = false
+  }
+
+  const matchTimeEntries = async (data) => {
+    try {
+      const clickupTimeEntries = await getTimeEntries(dateRangeStart.getTime(), dateRangeEnd.getTime(), config)
+
+      for (const entry of clickupTimeEntries) {
+        const id = entry.task.id
+        if (data[id]) {
+          data[id].clickUpTimeEntry.push(entry)
+        } else {
+          // Se não existe no Clockify, criar uma entrada para ser exibida na listagem
+          const clickupTask = await getTask(id, config)
+          data[id] = { timeEntry: [], task: clickupTask, clickUpTimeEntry: [entry] }
+        }
+      }
+    } catch (e) {
+      console.error('Error: ', e)
+    }
+
+    return data
   }
 
   const clockifyUrl = (description) => {
@@ -341,7 +362,11 @@
             </td>
             <td class="p-3">{entry.task?.list.name ?? entry.timeEntry?.[0]?.projectName ?? 'No project'}</td>
             <td class="p-3 flex whitespace-nowrap justify-between">
-              <span>{formatDuration(sumDurations(entry.timeEntry))}</span>
+              <span
+                >{formatDuration(
+                  sumDurations(entry.timeEntry) + sumClickUpDurations(entry.clickUpTimeEntry ?? []),
+                )}</span
+              >
               {#if entry.timeEntry?.length}
                 <a href={clockifyUrl(id)} target="_blank">🔎</a>
               {/if}
