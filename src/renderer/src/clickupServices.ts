@@ -24,6 +24,23 @@ export interface Task {
   url: string
   list: { id: string; name: string }
   custom_fields: { id: string; name: string; type: string; value: Field | Field[] }[]
+  timeStatus: TaskStatus
+}
+
+export interface TaskTotalTime {
+  by_minute: number
+  since: number
+}
+
+export interface TaskTimeStatus {
+  color: string
+  orderindex: number | undefined
+  status: string
+  total_time: TaskTotalTime
+}
+export interface TaskStatus {
+  current_status: TaskTimeStatus
+  status_history: TaskTimeStatus[]
 }
 
 export interface User {
@@ -56,6 +73,26 @@ export async function getTask(taskId: string, config: { clickupApiKey: string })
   return data as Task
 }
 
+export async function getTaskTime(taskId: string, config: { clickupApiKey: string }): Promise<TaskStatus> {
+  const url = `${CLICKUP_API_URL}/task/${taskId}/time_in_status`
+  const { data } = await axios.get<TaskStatus>(url, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: config.clickupApiKey,
+    },
+  })
+
+  return data as TaskStatus
+}
+
 export function clickupIdFromText(text: string): string | undefined {
   return /(?:^|\s)(?:CU-|#)?([a-zA-Z]*\d[a-zA-Z\d]*)(?=\s|$)/g.exec(text)?.[1]
+}
+
+export function getTaskTimeStatus(taskStatus: TaskStatus | null, statusName: string): number {
+  const status = taskStatus?.status_history.find((item) => item.status.trim() === statusName.trim())
+  if (taskStatus && status) {
+    return Math.abs(Date.now() - status.total_time.since)
+  }
+  return 0
 }

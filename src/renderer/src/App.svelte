@@ -7,7 +7,7 @@
     sumDurations,
     getMainGroupOfDurations,
   } from './clockifyServices'
-  import { clickupIdFromText, getTask } from './clickupServices'
+  import { clickupIdFromText, getTask, getTaskTime, getTaskTimeStatus } from './clickupServices'
   import DatetimeInput from './components/DatetimeInput.svelte'
   import Modal from './components/Modal.svelte'
   import Select from 'svelte-select'
@@ -70,11 +70,13 @@
         const cache = await getCacheItem(`clickup-task-${id}`)
         if (cache) {
           resp[id].task = cache
+          resp[id].task.timeStatus = await getTaskTime(id, config)
           continue
         }
 
         try {
           const clickupTask = await getTask(id, config)
+          clickupTask.timeStatus = await getTaskTime(id, config)
           resp[id].task = clickupTask
           setCacheItem(`clickup-task-${id}`, clickupTask)
         } catch (e) {
@@ -126,6 +128,32 @@
     const seconds = duration - hours * 3600 - minutes * 60
 
     let output = ''
+    if (hours > 0) {
+      output += `${hours}h `
+    }
+    if (minutes > 0) {
+      output += `${minutes}m `
+    }
+    if (seconds > 0) {
+      output += `${seconds}s`
+    }
+    return output.trim()
+  }
+
+  const formatDurationWithDays = (duration) => {
+    if (!duration) {
+      return '--'
+    }
+
+    const days = Math.floor(duration / daysToMilis(1))
+    const hours = Math.floor(duration - days / 3600)
+    const minutes = Math.floor((duration - days - hours * 3600) / 60)
+    const seconds = duration - days - hours * 3600 - minutes * 60
+
+    let output = ''
+    if (days > 0) {
+      output += `${days}d `
+    }
     if (hours > 0) {
       output += `${hours}h `
     }
@@ -196,6 +224,10 @@
         ),
       )
     }
+  }
+
+  const daysToMilis = (days) => {
+    return days * 86400
   }
 </script>
 
@@ -287,6 +319,8 @@
           <th scope="col" class="p-3">Status</th>
           <th scope="col" class="p-3">Tags</th>
           <th scope="col" class="p-3">Assignees</th>
+          <th scope="col" class="p-3">Days in Review</th>
+          <th scope="col" class="p-3">Days in Test</th>
         </tr>
       </thead>
       <tbody>
@@ -357,6 +391,18 @@
             </td>
             <td class="p-3">
               {formatUserNamesSortedByParticipation(entry.timeEntry)}
+            </td>
+            <td
+              class="p-3"
+              class:text-red-300={getTaskTimeStatus(entry.task?.timeStatus, 'to review') >= daysToMilis(3)}
+            >
+              {formatDurationWithDays(getTaskTimeStatus(entry.task?.timeStatus, 'to review'))}
+            </td>
+            <td
+              class="p-3"
+              class:text-red-300={getTaskTimeStatus(entry.task?.timeStatus, 'to review') >= daysToMilis(3)}
+            >
+              {formatDurationWithDays(getTaskTimeStatus(entry.task?.timeStatus, 'to test'))}
             </td>
           </tr>
         {/each}
