@@ -144,11 +144,11 @@
     if (!duration) {
       return '--'
     }
-
-    const days = Math.floor(duration / daysToMilis(1))
-    const hours = Math.floor(duration - days / 3600)
-    const minutes = Math.floor((duration - days - hours * 3600) / 60)
-    const seconds = duration - days - hours * 3600 - minutes * 60
+    const durationInSeconds = Math.floor(duration / 1000)
+    const days = Math.floor(durationInSeconds / 86400)
+    const hours = Math.floor((durationInSeconds - days * 86400) / 3600)
+    const minutes = Math.floor((durationInSeconds - days * 86400 - hours * 3600) / 60)
+    const seconds = Math.floor(durationInSeconds - days * 86400 - hours * 3600 - minutes * 60)
 
     let output = ''
     if (days > 0) {
@@ -227,7 +227,8 @@
   }
 
   const daysToMilis = (days) => {
-    return days * 86400
+    // days * 24 h * 60 m * 60 s * 1000 ms
+    return days * 86400000
   }
 </script>
 
@@ -398,10 +399,7 @@
             >
               {formatDurationWithDays(getTaskTimeStatus(entry.task?.timeStatus, 'to review'))}
             </td>
-            <td
-              class="p-3"
-              class:text-red-300={getTaskTimeStatus(entry.task?.timeStatus, 'to review') >= daysToMilis(3)}
-            >
+            <td class="p-3" class:text-red-300={getTaskTimeStatus(entry.task?.timeStatus, 'to test') >= daysToMilis(3)}>
               {formatDurationWithDays(getTaskTimeStatus(entry.task?.timeStatus, 'to test'))}
             </td>
           </tr>
