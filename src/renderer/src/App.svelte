@@ -7,7 +7,14 @@
     sumDurations,
     getMainGroupOfDurations,
   } from './clockifyServices'
-  import { clickupIdFromText, getTask, getTaskTime, getTaskTimeStatus, getTimeEntries, sumClickUpDurations} from './clickupServices'
+  import {
+    clickupIdFromText,
+    getTask,
+    getTaskTime,
+    getTaskTimeStatus,
+    getTimeEntries,
+    sumClickUpDurations,
+  } from './clickupServices'
   import DatetimeInput from './components/DatetimeInput.svelte'
   import Modal from './components/Modal.svelte'
   import Select from 'svelte-select'
@@ -49,6 +56,31 @@
 
   const generateReport = async () => {
     loading = true
+
+    const clockifyEntries = await getClockifyEntries()
+    const clickupEntries = await getClickupEntries()
+
+    const resp = await matchClickupAndClockifyTimeEntries(clickupEntries, clockifyEntries)
+
+    report = resp
+    reportFiltered = resp
+
+    projectFilter = [
+      ...new Set(Object.values(report).map((item) => item.task?.list.name ?? item.timeEntry?.[0]?.projectName ?? '')),
+    ].sort()
+    statusFilter = [...new Set(Object.values(report).map((item) => item.task?.status.status ?? ''))].sort()
+    assigneeFilter = [
+      ...new Set(
+        Object.values(report)
+          .map((item) => formatUserNamesSortedByParticipation(item.timeEntry).split(', '))
+          .flat(),
+      ),
+    ].sort()
+
+    loading = false
+  }
+
+  const getClockifyEntries = async () => {
     const clockifyData = await getTimeEntryReportDetailed(
       {
         dateRangeStart: dateRangeStart.toISOString(),
@@ -66,6 +98,9 @@
       if (!resp[id]) {
         resp[id] = { timeEntry: [], task: null, clickUpTimeEntry: [] }
       }
+
+      resp[id].timeEntry.push(clockifyEntry)
+
       if (idFound && !resp[id].task) {
         const cache = await getCacheItem(`clickup-task-${id}`)
         if (cache) {
@@ -86,43 +121,49 @@
           }
         }
       }
-      resp[id].timeEntry.push(clockifyEntry)
     }
-    report = await matchTimeEntries(resp)
-    reportFiltered = report
-    projectFilter = [
-      ...new Set(Object.values(report).map((item) => item.task?.list.name ?? item.timeEntry?.[0]?.projectName ?? '')),
-    ].sort()
-    statusFilter = [...new Set(Object.values(report).map((item) => item.task?.status.status ?? ''))].sort()
-    assigneeFilter = [
-      ...new Set(
-        Object.values(report)
-          .map((item) => formatUserNamesSortedByParticipation(item.timeEntry).split(', '))
-          .flat(),
-      ),
-    ].sort()
-    loading = false
+
+    return resp
   }
 
-  const matchTimeEntries = async (data) => {
+  const getClickupEntries = async () => {
+    const resp = {}
+
     try {
       const clickupTimeEntries = await getTimeEntries(dateRangeStart.getTime(), dateRangeEnd.getTime(), config)
 
       for (const entry of clickupTimeEntries) {
         const id = entry.task.id
-        if (data[id]) {
-          data[id].clickUpTimeEntry.push(entry)
+
+        if (!resp[id]) {
+          resp[id] = [entry]
         } else {
-          // Se não existe no Clockify, criar uma entrada para ser exibida na listagem
-          const clickupTask = await getTask(id, config)
-          data[id] = { timeEntry: [], task: clickupTask, clickUpTimeEntry: [entry] }
+          resp[id].push(entry)
         }
       }
     } catch (e) {
-      console.error('Error: ', e)
+      console.error('Erro: ', e)
     }
 
-    return data
+    return resp
+  }
+
+  const matchClickupAndClockifyTimeEntries = async (clickupEntries, clockifyEntries) => {
+    try {
+      Object.keys(clickupEntries).forEach(async (id) => {
+        const clickupTime = clickupEntries[id]
+        if (clockifyEntries[id]) {
+          clockifyEntries[id].clickUpTimeEntry = clickupTime
+        } else {
+          // Se não existe no Clockify, criar uma entrada para ser exibida na listagem
+          const clickupTask = await getTask(id, config)
+          clockifyEntries[id] = { timeEntry: [], task: clickupTask, clickUpTimeEntry: clickupTime }
+        }
+      })
+    } catch (e) {
+      console.error('Error: ', e)
+    }
+    return clockifyEntries
   }
 
   const clockifyUrl = (description) => {
