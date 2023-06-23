@@ -82,3 +82,9 @@ export function getMainGroupOfDurations(entries: TimeEntryReportDetailedTimeEntr
   const sortedUserDurations = sortUserDurations(entries)
   return sortedUserDurations[0]?.duration ?? 0
 }
+
+export const clockifyUrl = (dateRangeStart: Date, dateRangeEnd: Date, description: string) => {
+  return `https://app.clockify.me/reports/detailed?start=${dateRangeStart.toISOString()}&end=${dateRangeEnd.toISOString()}&description=${encodeURI(
+    description,
+  )}&page=1&pageSize=1000`
+}
