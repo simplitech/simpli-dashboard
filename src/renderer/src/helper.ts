@@ -1,5 +1,7 @@
+import { showToast } from './toast'
+
 export function copyToClipboard(text: string) {
-  navigator.clipboard.writeText(text)
+  navigator.clipboard.writeText(text).then(() => showToast('Copiado com sucesso!'))
 }
 
 export const durationRoundUpByHalfHour = (duration: number) => {

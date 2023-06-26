@@ -36,8 +36,12 @@ export const formatReport: Record<
   Tags: (_id, entry) => {
     if (entry.task) {
       let value = ''
-      entry.task.tags.forEach((tag) => {
-        value += tag.name + ' '
+      entry.task.tags.forEach((tag, index) => {
+        if (entry.task.tags.length - 1 !== index) {
+          value += tag.name + ', '
+        } else {
+          value += tag.name
+        }
       })
       return value
     }
