@@ -216,6 +216,7 @@
     Object.entries(report).forEach(([id, entry]) => {
       Object.keys(format).forEach((reportItem) => {
         rows += format[reportItem](id, entry, dateRangeStart, dateRangeEnd)
+        rows += '\t'
       })
       rows += '\n'
     })
@@ -296,7 +297,7 @@
 
         <button
           class="border border-solid p-2 bg-green-500 hover:bg-green-700 text-white font-bold rounded"
-          on:click={() => copyReportToClipboard(reportFiltered, formatReport)}>Exportar</button
+          on:click={() => copyReportToClipboard(reportFiltered, formatReport)}>Export</button
         >
       </div>
     {/if}
