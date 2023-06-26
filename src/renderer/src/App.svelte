@@ -158,10 +158,9 @@
   const getTasksTime = async () => {
     const tasksChunkList = chunkArray(taskList, 100)
     const taskTimes = []
-    tasksChunkList.forEach(async (taskChunk) => {
+    for (const taskChunk of tasksChunkList) {
       taskTimes.push(await getTaskListTime(taskChunk, config))
-    })
-
+    }
     return taskTimes
   }
 
@@ -184,8 +183,10 @@
   }
 
   const matchTaskTime = (report, taskTimes) => {
-    Object.entries(taskTimes).forEach(([key, value]) => {
-      report[key].task.timeStatus = value
+    taskTimes.forEach((task) => {
+      Object.entries(task).forEach(([key, value]) => {
+        report[key].task.timeStatus = value
+      })
     })
 
     return report
