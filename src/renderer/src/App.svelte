@@ -6,6 +6,7 @@
     formatUserNamesSortedByParticipation,
     sumDurations,
     getMainGroupOfDurations,
+    clockifyUrl,
   } from './clockifyServices'
   import {
     clickupIdFromText,
@@ -18,6 +19,8 @@
   import DatetimeInput from './components/DatetimeInput.svelte'
   import Modal from './components/Modal.svelte'
   import Select from 'svelte-select'
+  import { copyToClipboard, durationRoundUpByHalfHour, daysToMilis, getContrastColorHex } from './helper'
+  import { formatReport, formatDuration, formatDurationWithDays } from './format'
 
   let report = null
   let reportFiltered = null
@@ -166,92 +169,10 @@
     return clockifyEntries
   }
 
-  const clockifyUrl = (description) => {
-    return `https://app.clockify.me/reports/detailed?start=${dateRangeStart.toISOString()}&end=${dateRangeEnd.toISOString()}&description=${encodeURI(
-      description,
-    )}&page=1&pageSize=1000`
-  }
-
-  const durationRoundUpByHalfHour = (duration) => {
-    if (!duration) {
-      return 0
-    }
-    const minutes = Math.floor((duration - Math.floor(duration / 3600) * 3600) / 60)
-    const minutesRounded = Math.ceil(minutes / 30) * 30
-    return Math.floor(duration / 3600) * 3600 + minutesRounded * 60
-  }
-
-  const formatDuration = (duration) => {
-    if (!duration) {
-      return '--'
-    }
-    const hours = Math.floor(duration / 3600)
-    const minutes = Math.floor((duration - hours * 3600) / 60)
-    const seconds = duration - hours * 3600 - minutes * 60
-
-    let output = ''
-    if (hours > 0) {
-      output += `${hours}h `
-    }
-    if (minutes > 0) {
-      output += `${minutes}m `
-    }
-    if (seconds > 0) {
-      output += `${seconds}s`
-    }
-    return output.trim()
-  }
-
-  const formatDurationWithDays = (duration) => {
-    if (!duration) {
-      return '--'
-    }
-    const durationInSeconds = Math.floor(duration / 1000)
-    const days = Math.floor(durationInSeconds / 86400)
-    const hours = Math.floor((durationInSeconds - days * 86400) / 3600)
-    const minutes = Math.floor((durationInSeconds - days * 86400 - hours * 3600) / 60)
-    const seconds = Math.floor(durationInSeconds - days * 86400 - hours * 3600 - minutes * 60)
-
-    let output = ''
-    if (days > 0) {
-      output += `${days}d `
-    }
-    if (hours > 0) {
-      output += `${hours}h `
-    }
-    if (minutes > 0) {
-      output += `${minutes}m `
-    }
-    if (seconds > 0) {
-      output += `${seconds}s`
-    }
-    return output.trim()
-  }
-
   const saveConfig = async () => {
     await setCacheItem('config', config, 365 * 24 * 60 * 60 * 1000)
     generateReport()
     configOpen = false
-  }
-
-  /**
-   * gets white or black color to contrast with the given color
-   * @param colorInHexFormat color in the following format: #00ffdd
-   * @returns {string|string}
-   */
-  const getContrastColorHex = (colorInHexFormat) => {
-    if (!colorInHexFormat) {
-      return 'black'
-    }
-
-    const hex = colorInHexFormat.replace('#', '')
-    const bigint = parseInt(hex, 16)
-    const r = (bigint >> 16) & 255
-    const g = (bigint >> 8) & 255
-    const b = bigint & 255
-
-    const brightness = (r * 299 + g * 587 + b * 114) / 1000
-    return brightness > 125 ? 'black' : 'white'
   }
 
   function handleFilters() {
@@ -288,9 +209,19 @@
     }
   }
 
-  const daysToMilis = (days) => {
-    // days * 24 h * 60 m * 60 s * 1000 ms
-    return days * 86400000
+  const copyReportToClipboard = (report, format) => {
+    let headers = Object.keys(formatReport).join('\t') + '\n'
+    let rows = ''
+
+    Object.entries(report).forEach(([id, entry]) => {
+      Object.keys(format).forEach((reportItem) => {
+        rows += format[reportItem](id, entry, dateRangeStart, dateRangeEnd)
+        rows += '\t'
+      })
+      rows += '\n'
+    })
+
+    copyToClipboard(headers + rows)
   }
 </script>
 
@@ -315,16 +246,21 @@
       </svg>
     </button>
   </div>
-  <form on:submit|preventDefault={generateReport} class="flex m-3">
-    <label class="flex flex-col mr-3">
-      <span class="font-bold">Start Date</span>
-      <DatetimeInput bind:value={dateRangeStart} class="bg-transparent" />
-    </label>
-    <label class="flex flex-col mr-3">
-      <span class="font-bold">End Date</span>
-      <DatetimeInput bind:value={dateRangeEnd} class="bg-transparent" />
-    </label>
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit"> Filter </button>
+
+  <div class="flex flex-row">
+    <form on:submit|preventDefault={generateReport} class="flex m-3">
+      <label class="flex flex-col mr-3">
+        <span class="font-bold">Start Date</span>
+        <DatetimeInput bind:value={dateRangeStart} class="bg-transparent" />
+      </label>
+      <label class="flex flex-col mr-3">
+        <span class="font-bold">End Date</span>
+        <DatetimeInput bind:value={dateRangeEnd} class="bg-transparent" />
+      </label>
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
+        Filter
+      </button>
+    </form>
 
     {#if !loading}
       <div class="flex flex-row gap-x-5 px-5">
@@ -358,9 +294,14 @@
           showChevron
           placeholder="Selecione um Status"
         />
+
+        <button
+          class="border border-solid p-2 bg-green-500 hover:bg-green-700 text-white font-bold rounded"
+          on:click={() => copyReportToClipboard(reportFiltered, formatReport)}>Export</button
+        >
       </div>
     {/if}
-  </form>
+  </div>
 
   {#if loading}
     <p>Loading...</p>
@@ -409,7 +350,7 @@
                 )}</span
               >
               {#if entry.timeEntry?.length}
-                <a href={clockifyUrl(id)} target="_blank">🔎</a>
+                <a href={clockifyUrl(dateRangeStart, dateRangeEnd, id)} target="_blank">🔎</a>
               {/if}
             </td>
             <td class="p-3">
