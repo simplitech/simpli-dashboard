@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte'
   import { getCacheItem, setCacheItem } from './cacheServices'
   import {
@@ -15,15 +15,31 @@
     getTaskTimeStatus,
     getTimeEntries,
     sumClickUpDurations,
+    type BulkTimeStatus,
+    type TimeEntry,
   } from './clickupServices'
   import DatetimeInput from './components/DatetimeInput.svelte'
   import Modal from './components/Modal.svelte'
   import Select from 'svelte-select'
   import { copyToClipboard, durationRoundUpByHalfHour, daysToMilis, getContrastColorHex, chunkArray } from './helper'
-  import { formatReport, formatDuration, formatDurationWithDays } from './format'
+  import { formatReport, formatDuration, formatDurationWithDays, type Entry } from './format'
 
-  let report = null
-  let reportFiltered = null
+  type SelectedValue = {
+    value: string
+    index: number
+    label: string
+  }
+
+  type Report = {
+    [id: string]: Entry
+  }
+
+  type ClickUpEntry = {
+    [id: string]: TimeEntry[]
+  }
+
+  let report: Report = null
+  let reportFiltered: Report = null
   let loading = false
   let configOpen = false
   let config = {
@@ -32,19 +48,19 @@
     clickupApiKey: '',
   }
 
-  let projectFilter = []
-  let statusFilter = []
-  let assigneeFilter = []
+  let projectFilter: string[] = []
+  let statusFilter: string[] = []
+  let assigneeFilter: string[] = []
 
-  let selectedProject = null
-  let selectedStatus = null
-  let selectedAssignee = null
+  let selectedProject: SelectedValue[] = null
+  let selectedStatus: SelectedValue[] = null
+  let selectedAssignee: SelectedValue[] = null
 
   let now = new Date()
   let dateRangeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7)
   let dateRangeEnd = now
 
-  let taskList = []
+  let taskList: string[] = []
 
   onMount(async () => {
     const cacheConfig = await getCacheItem('config')
@@ -73,13 +89,15 @@
     reportFiltered = resp
 
     projectFilter = [
-      ...new Set(Object.values(report).map((item) => item.task?.list.name ?? item.timeEntry?.[0]?.projectName ?? '')),
+      ...new Set(
+        Object.values(report).map((item: Entry) => item.task?.list.name ?? item.timeEntry?.[0]?.projectName ?? ''),
+      ),
     ].sort()
-    statusFilter = [...new Set(Object.values(report).map((item) => item.task?.status.status ?? ''))].sort()
+    statusFilter = [...new Set(Object.values(report).map((item: Entry) => item.task?.status.status ?? ''))].sort()
     assigneeFilter = [
       ...new Set(
         Object.values(report)
-          .map((item) => formatUserNamesSortedByParticipation(item.timeEntry).split(', '))
+          .map((item: Entry) => formatUserNamesSortedByParticipation(item.timeEntry).split(', '))
           .flat(),
       ),
     ].sort()
@@ -96,7 +114,7 @@
       },
       config,
     )
-    const resp = {}
+    const resp: Report = {}
     for (const clockifyEntry of clockifyData.timeentries) {
       let id = clickupIdFromText(clockifyEntry.description)
       const idFound = Boolean(id)
@@ -134,7 +152,7 @@
   }
 
   const getClickupEntries = async () => {
-    const resp = {}
+    const resp: ClickUpEntry = {}
 
     try {
       const clickupTimeEntries = await getTimeEntries(dateRangeStart.getTime(), dateRangeEnd.getTime(), config)
@@ -157,7 +175,7 @@
 
   const getTasksTime = async () => {
     const tasksChunkList = chunkArray(taskList, 100)
-    const taskTimes = []
+    const taskTimes: BulkTimeStatus[] = []
     for (const taskChunk of tasksChunkList) {
       taskTimes.push(await getTaskListTime(taskChunk, config))
     }
