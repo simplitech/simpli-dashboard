@@ -8,9 +8,10 @@ import {
 import { durationRoundUpByHalfHour } from './helper'
 import { getTaskTimeStatus, type Task, type TimeEntry } from './clickupServices'
 
-interface Entry {
+export type Entry = {
   task: Task
-  clickupTimeEntry: TimeEntry[]
+  taskError?: string
+  clickUpTimeEntry: TimeEntry[]
   timeEntry: TimeEntryReportDetailedTimeEntry[]
 }
 

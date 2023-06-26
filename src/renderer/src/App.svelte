@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte'
   import { getCacheItem, setCacheItem } from './cacheServices'
   import {
@@ -20,10 +20,20 @@
   import Modal from './components/Modal.svelte'
   import Select from 'svelte-select'
   import { copyToClipboard, durationRoundUpByHalfHour, daysToMilis, getContrastColorHex, chunkArray } from './helper'
-  import { formatReport, formatDuration, formatDurationWithDays } from './format'
+  import { formatReport, formatDuration, formatDurationWithDays, type Entry } from './format'
 
-  let report = null
-  let reportFiltered = null
+  type SelectedValue = {
+    value: string
+    index: number
+    label: string
+  }
+
+  type Report = {
+    [id: string]: Entry
+  }
+
+  let report: Report = null
+  let reportFiltered: Report = null
   let loading = false
   let configOpen = false
   let config = {
@@ -36,9 +46,9 @@
   let statusFilter = []
   let assigneeFilter = []
 
-  let selectedProject = null
-  let selectedStatus = null
-  let selectedAssignee = null
+  let selectedProject: SelectedValue[] = null
+  let selectedStatus: SelectedValue[] = null
+  let selectedAssignee: SelectedValue[] = null
 
   let now = new Date()
   let dateRangeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7)
@@ -73,13 +83,15 @@
     reportFiltered = resp
 
     projectFilter = [
-      ...new Set(Object.values(report).map((item) => item.task?.list.name ?? item.timeEntry?.[0]?.projectName ?? '')),
+      ...new Set(
+        Object.values(report).map((item: Entry) => item.task?.list.name ?? item.timeEntry?.[0]?.projectName ?? ''),
+      ),
     ].sort()
-    statusFilter = [...new Set(Object.values(report).map((item) => item.task?.status.status ?? ''))].sort()
+    statusFilter = [...new Set(Object.values(report).map((item: Entry) => item.task?.status.status ?? ''))].sort()
     assigneeFilter = [
       ...new Set(
         Object.values(report)
-          .map((item) => formatUserNamesSortedByParticipation(item.timeEntry).split(', '))
+          .map((item: Entry) => formatUserNamesSortedByParticipation(item.timeEntry).split(', '))
           .flat(),
       ),
     ].sort()
