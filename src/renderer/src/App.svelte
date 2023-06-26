@@ -11,7 +11,7 @@
   import {
     clickupIdFromText,
     getTask,
-    getTaskTime,
+    getTaskListTime,
     getTaskTimeStatus,
     getTimeEntries,
     sumClickUpDurations,
@@ -19,7 +19,7 @@
   import DatetimeInput from './components/DatetimeInput.svelte'
   import Modal from './components/Modal.svelte'
   import Select from 'svelte-select'
-  import { copyToClipboard, durationRoundUpByHalfHour, daysToMilis, getContrastColorHex } from './helper'
+  import { copyToClipboard, durationRoundUpByHalfHour, daysToMilis, getContrastColorHex, chunkArray } from './helper'
   import { formatReport, formatDuration, formatDurationWithDays } from './format'
 
   let report = null
@@ -44,6 +44,8 @@
   let dateRangeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7)
   let dateRangeEnd = now
 
+  let taskList = []
+
   onMount(async () => {
     const cacheConfig = await getCacheItem('config')
     if (cacheConfig) {
@@ -62,8 +64,10 @@
 
     const clockifyEntries = await getClockifyEntries()
     const clickupEntries = await getClickupEntries()
+    const taskTimes = await getTasksTime()
 
-    const resp = await matchClickupAndClockifyTimeEntries(clickupEntries, clockifyEntries)
+    const entries = await matchClickupAndClockifyTimeEntries(clickupEntries, clockifyEntries)
+    const resp = await matchTaskTime(entries, taskTimes)
 
     report = resp
     reportFiltered = resp
@@ -108,14 +112,14 @@
         const cache = await getCacheItem(`clickup-task-${id}`)
         if (cache) {
           resp[id].task = cache
-          resp[id].task.timeStatus = await getTaskTime(id, config)
+          taskList.push(id)
           continue
         }
 
         try {
           const clickupTask = await getTask(id, config)
-          clickupTask.timeStatus = await getTaskTime(id, config)
           resp[id].task = clickupTask
+          taskList.push(id)
           setCacheItem(`clickup-task-${id}`, clickupTask)
         } catch (e) {
           resp[id].taskError = e.response.data.err
@@ -151,6 +155,16 @@
     return resp
   }
 
+  const getTasksTime = async () => {
+    const tasksChunkList = chunkArray(taskList, 100)
+    const taskTimes = []
+    tasksChunkList.forEach(async (taskChunk) => {
+      taskTimes.push(await getTaskListTime(taskChunk, config))
+    })
+
+    return taskTimes
+  }
+
   const matchClickupAndClockifyTimeEntries = async (clickupEntries, clockifyEntries) => {
     try {
       Object.keys(clickupEntries).forEach(async (id) => {
@@ -167,6 +181,14 @@
       console.error('Error: ', e)
     }
     return clockifyEntries
+  }
+
+  const matchTaskTime = (report, taskTimes) => {
+    Object.entries(taskTimes).forEach(([key, value]) => {
+      report[key].task.timeStatus = value
+    })
+
+    return report
   }
 
   const saveConfig = async () => {
