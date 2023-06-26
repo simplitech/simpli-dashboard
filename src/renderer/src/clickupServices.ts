@@ -79,6 +79,10 @@ export type Field =
   | boolean
   | null
 
+export interface BulkTimeStatus {
+  [name: string]: TaskStatus
+}
+
 export async function getTask(taskId: string, config: { clickupApiKey: string }): Promise<Task> {
   const url = `${CLICKUP_API_URL}/task/${taskId}`
   const { data } = await axios.get<Task>(url, {
@@ -90,16 +94,23 @@ export async function getTask(taskId: string, config: { clickupApiKey: string })
   return data as Task
 }
 
-export async function getTaskTime(taskId: string, config: { clickupApiKey: string }): Promise<TaskStatus> {
-  const url = `${CLICKUP_API_URL}/task/${taskId}/time_in_status`
-  const { data } = await axios.get<TaskStatus>(url, {
+export async function getTaskListTime(taskIds: string[], config: { clickupApiKey: string }): Promise<BulkTimeStatus> {
+  const format = taskIds
+    .map((value) => {
+      return `task_ids=${value}`
+    })
+    .join('&')
+
+  const url = `${CLICKUP_API_URL}/task/bulk_time_in_status/task_ids?${format}`
+
+  const { data } = await axios.get<BulkTimeStatus>(url, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: config.clickupApiKey,
     },
   })
 
-  return data as TaskStatus
+  return data as BulkTimeStatus
 }
 
 export function clickupIdFromText(text: string): string | undefined {

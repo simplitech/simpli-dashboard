@@ -35,3 +35,12 @@ export const getContrastColorHex = (colorInHexFormat) => {
   const brightness = (r * 299 + g * 587 + b * 114) / 1000
   return brightness > 125 ? 'black' : 'white'
 }
+
+export const chunkArray = (array, chunkSize) => {
+  const chunkedArray = []
+  for (let i = 0; i < array.length; i += chunkSize) {
+    const chunk = array.slice(i, i + chunkSize)
+    chunkedArray.push(chunk)
+  }
+  return chunkedArray
+}
