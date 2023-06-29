@@ -4,6 +4,7 @@ import {
   getMainGroupOfDurations,
   clockifyUrl,
   type TimeEntryReportDetailedTimeEntry,
+  calculateEstimationError,
 } from './clockifyServices'
 import { durationRoundUpByHalfHour } from './helper'
 import { getTaskTimeStatus, type Task } from './clickupServices'
@@ -29,6 +30,7 @@ export const formatReport: Record<
   Estimate: (_id, entry) => formatDuration(entry.task?.time_estimate / 1000),
   'L.Assignee seconds': (_id, entry) => String(getMainGroupOfDurations(entry.timeEntry)),
   'Estimate seconds': (_id, entry) => String((entry.task?.time_estimate ?? 0) / 1000),
+  'Estimate error': (_id, entry) => String(calculateEstimationError(entry)),
   'First Log Date': (_id, entry) => (entry.timeEntry?.length ? entry.timeEntry[0]?.timeInterval?.start : ''),
   'Last Log Date': (_id, entry) =>
     entry.timeEntry?.length ? entry.timeEntry[entry.timeEntry.length - 1]?.timeInterval?.end : '',

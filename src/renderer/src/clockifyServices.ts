@@ -1,4 +1,5 @@
 import axios from 'axios'
+import type { Entry } from './format'
 
 const CLOCKIFY_REPORTS_API_URL = 'https://reports.api.clockify.me/v1'
 
@@ -87,4 +88,9 @@ export const clockifyUrl = (dateRangeStart: Date, dateRangeEnd: Date, descriptio
   return `https://app.clockify.me/reports/detailed?start=${dateRangeStart.toISOString()}&end=${dateRangeEnd.toISOString()}&description=${encodeURI(
     description,
   )}&page=1&pageSize=1000`
+}
+
+export const calculateEstimationError = (entry: Entry) => {
+  const estimation = (entry.task?.time_estimate ?? 0) / 1000
+  return estimation ? Number((getMainGroupOfDurations(entry.timeEntry) / estimation).toFixed(2)) : 0
 }
