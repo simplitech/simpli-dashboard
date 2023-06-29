@@ -6,12 +6,11 @@ import {
   type TimeEntryReportDetailedTimeEntry,
 } from './clockifyServices'
 import { durationRoundUpByHalfHour } from './helper'
-import { getTaskTimeStatus, type Task, type TimeEntry } from './clickupServices'
+import { getTaskTimeStatus, type Task } from './clickupServices'
 
 export type Entry = {
   task: Task
   taskError?: string
-  clickUpTimeEntry: TimeEntry[]
   timeEntry: TimeEntryReportDetailedTimeEntry[]
 }
 

@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 const CLICKUP_API_URL = 'https://api.clickup.com/api/v2'
-const TEAM_ID = '36116410'
 
 export interface Task {
   id: string
@@ -42,22 +41,6 @@ export interface TaskTimeStatus {
 export interface TaskStatus {
   current_status: TaskTimeStatus
   status_history: TaskTimeStatus[]
-}
-
-export interface TimeEntry {
-  id: string
-  task: Task
-  wid: string
-  user: User
-  billable: boolean
-  start: number
-  end: number
-  duration: number
-  description: string
-  tags: { name: string; tag_fg: string; tag_bg: string; creator: number }[]
-  source: string
-  at: string
-  task_url: string
 }
 
 export interface User {
@@ -123,30 +106,4 @@ export function getTaskTimeStatus(taskStatus: TaskStatus | null, statusName: str
     return Math.abs(Date.now() - status.total_time.since)
   }
   return 0
-}
-
-export async function getTimeEntries(
-  startDate: number,
-  endDate: number,
-  config: { clickupApiKey: string },
-): Promise<TimeEntry[]> {
-  const query = new URLSearchParams({
-    start_date: String(startDate),
-    end_date: String(endDate),
-  }).toString()
-
-  const url = `${CLICKUP_API_URL}/team/${TEAM_ID}/time_entries?${query}`
-
-  const { data } = await axios.get(url, {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: config.clickupApiKey,
-    },
-  })
-
-  return data.data as TimeEntry[]
-}
-
-export function sumClickUpDurations(entries: TimeEntry[]) {
-  return entries.map((item) => item.duration / 1000).reduce((a, b) => a + b, 0)
 }

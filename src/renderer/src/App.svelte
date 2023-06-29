@@ -13,10 +13,7 @@
     getTask,
     getTaskListTime,
     getTaskTimeStatus,
-    getTimeEntries,
-    sumClickUpDurations,
     type BulkTimeStatus,
-    type TimeEntry,
   } from './clickupServices'
   import DatetimeInput from './components/DatetimeInput.svelte'
   import Modal from './components/Modal.svelte'
@@ -32,10 +29,6 @@
 
   type Report = {
     [id: string]: Entry
-  }
-
-  type ClickUpEntry = {
-    [id: string]: TimeEntry[]
   }
 
   let report: Report = null
@@ -79,11 +72,9 @@
     loading = true
 
     const clockifyEntries = await getClockifyEntries()
-    const clickupEntries = await getClickupEntries()
     const taskTimes = await getTasksTime()
 
-    const entries = await matchClickupAndClockifyTimeEntries(clickupEntries, clockifyEntries)
-    const resp = await matchTaskTime(entries, taskTimes)
+    const resp = await matchTaskTime(clockifyEntries, taskTimes)
 
     report = resp
     reportFiltered = resp
@@ -121,7 +112,7 @@
       id = id || clockifyEntry.description
 
       if (!resp[id]) {
-        resp[id] = { timeEntry: [], task: null, clickUpTimeEntry: [] }
+        resp[id] = { timeEntry: [], task: null }
       }
 
       resp[id].timeEntry.push(clockifyEntry)
@@ -151,28 +142,6 @@
     return resp
   }
 
-  const getClickupEntries = async () => {
-    const resp: ClickUpEntry = {}
-
-    try {
-      const clickupTimeEntries = await getTimeEntries(dateRangeStart.getTime(), dateRangeEnd.getTime(), config)
-
-      for (const entry of clickupTimeEntries) {
-        const id = entry.task.id
-
-        if (!resp[id]) {
-          resp[id] = [entry]
-        } else {
-          resp[id].push(entry)
-        }
-      }
-    } catch (e) {
-      console.error('Erro: ', e)
-    }
-
-    return resp
-  }
-
   const getTasksTime = async () => {
     const tasksChunkList = chunkArray(taskList, 100)
     const taskTimes: BulkTimeStatus[] = []
@@ -180,24 +149,6 @@
       taskTimes.push(await getTaskListTime(taskChunk, config))
     }
     return taskTimes
-  }
-
-  const matchClickupAndClockifyTimeEntries = async (clickupEntries, clockifyEntries) => {
-    try {
-      Object.keys(clickupEntries).forEach(async (id) => {
-        const clickupTime = clickupEntries[id]
-        if (clockifyEntries[id]) {
-          clockifyEntries[id].clickUpTimeEntry = clickupTime
-        } else {
-          // Se não existe no Clockify, criar uma entrada para ser exibida na listagem
-          const clickupTask = await getTask(id, config)
-          clockifyEntries[id] = { timeEntry: [], task: clickupTask, clickUpTimeEntry: clickupTime }
-        }
-      })
-    } catch (e) {
-      console.error('Error: ', e)
-    }
-    return clockifyEntries
   }
 
   const matchTaskTime = (report, taskTimes) => {
@@ -385,11 +336,7 @@
             </td>
             <td class="p-3">{entry.task?.list.name ?? entry.timeEntry?.[0]?.projectName ?? 'No project'}</td>
             <td class="p-3 flex whitespace-nowrap justify-between">
-              <span
-                >{formatDuration(
-                  sumDurations(entry.timeEntry) + sumClickUpDurations(entry.clickUpTimeEntry ?? []),
-                )}</span
-              >
+              <span>{formatDuration(sumDurations(entry.timeEntry))}</span>
               {#if entry.timeEntry?.length}
                 <a href={clockifyUrl(dateRangeStart, dateRangeEnd, id)} target="_blank">🔎</a>
               {/if}
