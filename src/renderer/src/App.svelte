@@ -53,7 +53,7 @@
 
   let now = new Date()
   let dateRangeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7)
-  let dateRangeEnd = now
+  let dateRangeEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1)
 
   let taskList: string[] = []
 
