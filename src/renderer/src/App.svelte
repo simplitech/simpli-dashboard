@@ -7,6 +7,7 @@
     sumDurations,
     getMainGroupOfDurations,
     clockifyUrl,
+    calculateEstimationError,
   } from './clockifyServices'
   import {
     clickupIdFromText,
@@ -317,6 +318,7 @@
           <th scope="col" class="p-3">Estimate</th>
           <th scope="col" class="p-3">L.Assignee seconds</th>
           <th scope="col" class="p-3">Estimate seconds</th>
+          <th scope="col" class="p-3">Estimation Error</th>
           <th scope="col" class="p-3">First Log Date</th>
           <th scope="col" class="p-3">Last Log Date</th>
           <th scope="col" class="p-3">Status</th>
@@ -356,6 +358,9 @@
               {getMainGroupOfDurations(entry.timeEntry)}
             </td>
             <td class="p-3">{(entry.task?.time_estimate ?? 0) / 1000}</td>
+            <td class="p-3" class:text-red-300={calculateEstimationError(entry) > 2.5}>
+              {calculateEstimationError(entry)}
+            </td>
             <td class="p-3">
               {#if entry.timeEntry?.length}
                 {entry.timeEntry[0]?.timeInterval?.start}
