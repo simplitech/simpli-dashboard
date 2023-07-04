@@ -57,6 +57,8 @@
 
   let taskList: string[] = []
 
+  let searchValue: string = null
+
   onMount(async () => {
     const cacheConfig = await getCacheItem('config')
     if (cacheConfig) {
@@ -217,6 +219,25 @@
 
     copyToClipboard(headers + rows)
   }
+
+  const search = () => {
+    if (!searchValue) {
+      handleFilters()
+    }
+
+    if (searchValue) {
+      const searchFormatted = searchValue.toLowerCase()
+      reportFiltered = Object.fromEntries(
+        Object.entries(reportFiltered).filter(
+          ([key, value]) =>
+            key.toLowerCase().includes(searchFormatted) ||
+            value.task?.id.toLowerCase().includes(searchFormatted) ||
+            value.task?.name.toLowerCase().includes(searchFormatted) ||
+            value.task?.description?.toLowerCase().includes(searchFormatted),
+        ),
+      )
+    }
+  }
 </script>
 
 <main>
@@ -302,6 +323,21 @@
       </div>
     {/if}
   </div>
+
+  {#if !loading}
+    <form on:submit|preventDefault={search} class="m-3">
+      <input
+        type="text"
+        class="w-96 h-10 text-black"
+        bind:value={searchValue}
+        placeholder="Search for ID or description"
+      />
+      <button
+        type="submit"
+        class="m-5 border border-solid p-2 bg-pink-500 hover:bg-pink-700 text-white font-bold rounded">Search</button
+      >
+    </form>
+  {/if}
 
   {#if loading}
     <p>Loading...</p>
