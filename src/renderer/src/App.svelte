@@ -203,6 +203,19 @@
         ),
       )
     }
+
+    if (searchValue) {
+      const searchFormatted = searchValue.toLowerCase()
+      reportFiltered = Object.fromEntries(
+        Object.entries(reportFiltered).filter(
+          ([key, value]) =>
+            key.toLowerCase().includes(searchFormatted) ||
+            value.task?.id.toLowerCase().includes(searchFormatted) ||
+            value.task?.name.toLowerCase().includes(searchFormatted) ||
+            value.task?.description?.toLowerCase().includes(searchFormatted),
+        ),
+      )
+    }
   }
 
   const copyReportToClipboard = (report, format) => {
@@ -218,25 +231,6 @@
     })
 
     copyToClipboard(headers + rows)
-  }
-
-  const search = () => {
-    if (!searchValue) {
-      handleFilters()
-    }
-
-    if (searchValue) {
-      const searchFormatted = searchValue.toLowerCase()
-      reportFiltered = Object.fromEntries(
-        Object.entries(reportFiltered).filter(
-          ([key, value]) =>
-            key.toLowerCase().includes(searchFormatted) ||
-            value.task?.id.toLowerCase().includes(searchFormatted) ||
-            value.task?.name.toLowerCase().includes(searchFormatted) ||
-            value.task?.description?.toLowerCase().includes(searchFormatted),
-        ),
-      )
-    }
   }
 </script>
 
@@ -284,7 +278,16 @@
     </form>
 
     {#if !loading}
-      <div class="flex flex-row gap-x-5 px-5">
+      <button
+        class="border border-solid p-2 bg-green-500 hover:bg-green-700 text-white font-bold rounded m-3"
+        on:click={() => copyReportToClipboard(reportFiltered, formatReport)}>Export</button
+      >
+    {/if}
+  </div>
+
+  {#if !loading}
+    <form on:submit|preventDefault={handleFilters} class="flex flex-row items-center my-3">
+      <div class="flex flex-row gap-x-5 px-3">
         <Select
           class="multiselect"
           on:input={handleFilters}
@@ -315,20 +318,10 @@
           showChevron
           placeholder="Selecione um Status"
         />
-
-        <button
-          class="border border-solid p-2 bg-green-500 hover:bg-green-700 text-white font-bold rounded"
-          on:click={() => copyReportToClipboard(reportFiltered, formatReport)}>Export</button
-        >
       </div>
-    {/if}
-  </div>
-
-  {#if !loading}
-    <form on:submit|preventDefault={search} class="m-3">
       <input
         type="text"
-        class="w-96 h-10 text-black"
+        class="w-96 h-10 text-black p-2"
         bind:value={searchValue}
         placeholder="Search for ID or description"
       />
