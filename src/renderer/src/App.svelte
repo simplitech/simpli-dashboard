@@ -211,8 +211,7 @@
           ([key, value]) =>
             key.toLowerCase().includes(searchFormatted) ||
             value.task?.id.toLowerCase().includes(searchFormatted) ||
-            value.task?.name.toLowerCase().includes(searchFormatted) ||
-            value.task?.description?.toLowerCase().includes(searchFormatted),
+            value.task?.name.toLowerCase().includes(searchFormatted),
         ),
       )
     }
