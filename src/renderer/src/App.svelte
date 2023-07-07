@@ -97,6 +97,8 @@
       ),
     ].sort()
 
+    handleFilters()
+
     loading = false
   }
 
@@ -110,6 +112,7 @@
       config,
     )
     const resp: Report = {}
+    taskList = []
     for (const clockifyEntry of clockifyData.timeentries) {
       let id = clickupIdFromText(clockifyEntry.description)
       const idFound = Boolean(id)
