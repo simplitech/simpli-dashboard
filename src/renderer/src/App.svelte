@@ -20,7 +20,7 @@
   import Modal from './components/Modal.svelte'
   import Select from 'svelte-select'
   import { copyToClipboard, durationRoundUpByHalfHour, daysToMilis, getContrastColorHex, chunkArray } from './helper'
-  import { formatReport, formatDuration, formatDurationWithDays, type Entry } from './format'
+  import { formatReport, formatDuration, formatDurationWithDays, type Entry, formatDurationOnlyDays } from './format'
   import { version } from '../../../package.json'
 
   type SelectedValue = {
@@ -435,10 +435,10 @@
               class="p-3"
               class:text-red-300={getTaskTimeStatus(entry.task?.timeStatus, 'to review') >= daysToMilis(3)}
             >
-              {formatDurationWithDays(getTaskTimeStatus(entry.task?.timeStatus, 'to review'))}
+              {formatDurationOnlyDays(getTaskTimeStatus(entry.task?.timeStatus, 'to review'))}
             </td>
             <td class="p-3" class:text-red-300={getTaskTimeStatus(entry.task?.timeStatus, 'to test') >= daysToMilis(3)}>
-              {formatDurationWithDays(getTaskTimeStatus(entry.task?.timeStatus, 'to test'))}
+              {formatDurationOnlyDays(getTaskTimeStatus(entry.task?.timeStatus, 'to test'))}
             </td>
           </tr>
         {/each}

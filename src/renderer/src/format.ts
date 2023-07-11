@@ -101,3 +101,12 @@ export const formatDurationWithDays = (duration: number) => {
 
   return output.trim()
 }
+
+export const formatDurationOnlyDays = (duration: number) => {
+  if (!duration) {
+    return '--'
+  }
+  const durationInSeconds = Math.floor(duration / 1000)
+  const days = Math.floor(durationInSeconds / 86400)
+  return `${days}d`
+}
