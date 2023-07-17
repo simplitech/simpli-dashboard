@@ -161,7 +161,9 @@
   const matchTaskTime = (report, taskTimes) => {
     taskTimes.forEach((task) => {
       Object.entries(task).forEach(([key, value]) => {
-        report[key].task.timeStatus = value
+        if (report[key].task) {
+          report[key].task.timeStatus = value
+        }
       })
     })
 
