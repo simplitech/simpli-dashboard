@@ -15,6 +15,20 @@ export type Entry = {
   timeEntry: TimeEntryReportDetailedTimeEntry[]
 }
 
+export type Report = {
+  [id: string]: Entry
+}
+
+export type Filters = {
+  [name: string]: string[]
+}
+
+export type SelectedValue = {
+  value: string
+  index: number
+  label: string
+}
+
 export const formatReport: Record<
   string,
   (id: string, entry: Entry, dateRangeStart: Date, dateRangeEnd: Date) => string
@@ -75,6 +89,19 @@ export const formatDuration = (duration: number) => {
   return output.trim()
 }
 
+export const formatDurationClock = (duration: number) => {
+  if (!duration) {
+    return '--'
+  }
+  const hours = Math.floor(duration / 3600)
+  const minutes = Math.floor((duration - hours * 3600) / 60)
+  const seconds = duration - hours * 3600 - minutes * 60
+
+  return `${hours.toLocaleString('en-US', { minimumIntegerDigits: 2 })}:${minutes.toLocaleString('en-US', {
+    minimumIntegerDigits: 2,
+  })}:${seconds.toLocaleString('en-US', { minimumIntegerDigits: 2 })}`
+}
+
 export const formatDurationWithDays = (duration: number) => {
   if (!duration) {
     return '--'
@@ -109,4 +136,19 @@ export const formatDurationOnlyDays = (duration: number) => {
   const durationInSeconds = Math.floor(duration / 1000)
   const days = Math.floor(durationInSeconds / 86400)
   return `${days}d`
+}
+
+export const formatDateDayMonth = (date: string | Date) => {
+  return `${new Date(date).getDay()} ${new Date(date).toLocaleString('en', { month: 'short' })}`
+}
+
+export const formatUnixDate = (unixDate: string | number) => {
+  return formatDateDayMonth(new Date(Number(unixDate)))
+}
+
+export const getUserInitials = (name: string) => {
+  return name
+    .split(' ')
+    .map((word) => word[0])
+    .join('')
 }

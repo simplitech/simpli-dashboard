@@ -17,3 +17,9 @@
 </script>
 
 <input type="datetime-local" bind:value={output} class={$$props.class} />
+
+<style>
+  ::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+  }
+</style>

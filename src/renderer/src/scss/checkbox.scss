@@ -1,0 +1,30 @@
+.checkbox {
+  @apply relative bg-white w-5 h-5 p-0 mr-2 cursor-pointer rounded outline-none;
+  min-width: 1.25rem;
+
+  -webkit-appearance: none;
+  display: inline-block;
+  box-shadow: none;
+  min-height: unset;
+
+  &:checked {
+    @apply bg-lilac;
+  }
+
+  &:after {
+    @apply transition absolute h-5 w-5 opacity-0;
+    content: ' ';
+    background: url('/images/check.svg');
+    background-size: 1.1rem;
+    background-repeat: no-repeat;
+  }
+
+  &:checked:after,
+  &--active:after {
+    @apply opacity-100;
+  }
+
+  &[disabled] {
+    @apply opacity-25;
+  }
+}
