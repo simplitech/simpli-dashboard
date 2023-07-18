@@ -1,7 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import { getCacheItem, setCacheItem } from './cacheServices'
-  import { getTimeEntryReportDetailed, formatUserNamesSortedByParticipation } from './clockifyServices'
+  import {
+    getTimeEntryReportDetailed,
+    formatUserNamesSortedByParticipation,
+    type TimeEntryReportDetailed,
+  } from './clockifyServices'
   import { clickupIdFromText, getTask, getTaskListTime, type BulkTimeStatus } from './clickupServices'
   import Modal from './components/Modal.svelte'
   import { chunkArray } from './helper'
@@ -104,14 +108,25 @@
   }
 
   const getClockifyEntries = async () => {
-    const clockifyData = await getTimeEntryReportDetailed(
-      {
-        dateRangeStart: dateRangeStart.toISOString(),
-        dateRangeEnd: dateRangeEnd.toISOString(),
-        detailedFilter: { page: 0, pageSize: 1000 },
-      },
-      config,
-    )
+    let page = 1
+    let clockifyData: TimeEntryReportDetailed | null = null
+    do {
+      let pageClockifyData = await getTimeEntryReportDetailed(
+        {
+          dateRangeStart: dateRangeStart.toISOString(),
+          dateRangeEnd: dateRangeEnd.toISOString(),
+          detailedFilter: { page, pageSize: 1000 },
+        },
+        config,
+      )
+      if (!clockifyData) {
+        clockifyData = pageClockifyData
+      } else {
+        clockifyData.timeentries.push(...pageClockifyData.timeentries)
+      }
+      page++
+    } while (clockifyData.totals[0].entriesCount > clockifyData.timeentries.length)
+
     const resp: Report = {}
     taskList = []
     for (const clockifyEntry of clockifyData.timeentries) {

@@ -18,7 +18,7 @@ export interface TimeEntryReportDetailedParams {
 
 export interface TimeEntryReportDetailed {
   timeentries: TimeEntryReportDetailedTimeEntry[]
-  totals: { totalTime: number }[]
+  totals: { totalTime: number; entriesCount: number }[]
 }
 
 export interface TimeEntryReportDetailedTimeEntry {
