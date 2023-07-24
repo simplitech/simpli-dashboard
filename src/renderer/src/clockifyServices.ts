@@ -1,5 +1,5 @@
-import axios from 'axios'
 import type { Entry } from './format'
+import axios from './axiosConfig'
 
 const CLOCKIFY_REPORTS_API_URL = 'https://reports.api.clockify.me/v1'
 
