@@ -47,6 +47,7 @@
 
 <div
   class="bg-purple-gray text-sm rounded-lg px-5 flex flex-row items-center justify-between shadow-[6px_8px_25px_0px_rgba(0,0,0,0.39)] relative {$$props.class}"
+  class:opacity-30={disabled}
 >
   <div class="flex flex-row gap-x-2">
     <Select
@@ -116,10 +117,6 @@
     <img src="/images/folder.svg" alt="copy icon" class="mr-2" />
     Copy Data to Clipboard
   </button>
-
-  {#if disabled}
-    <div class="w-full h-full bg-dark-gray rounded-lg absolute inset-0 opacity-70" />
-  {/if}
 </div>
 
 <style>

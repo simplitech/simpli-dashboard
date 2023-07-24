@@ -29,7 +29,7 @@
 </script>
 
 <div class="bg-dark-purple rounded-full flex items-center justify-between py-4 px-8 text-sm {$$props.class}">
-  <div class="flex flex-row items-center justify-center">
+  <div class="flex flex-row items-center justify-center" class:opacity-30={disabled}>
     <div class="flex flex-row mr-5">
       <img src="/images/logo.svg" alt="clickclock logo" class="mr-2" />
       <span class="text-2xl font-extrabold">ClickClock</span>
@@ -87,10 +87,3 @@
     </button>
   </div>
 </div>
-
-<style>
-  button:disabled,
-  input:disabled {
-    @apply opacity-70;
-  }
-</style>
