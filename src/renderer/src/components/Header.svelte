@@ -5,6 +5,7 @@
 
   export let dateRangeEnd: Date
   export let dateRangeStart: Date
+  export let disabled = false
 
   let searchValue = null
   const dispatch = createEventDispatcher()
@@ -42,8 +43,9 @@
         class="w-96 h-10 text-white p-4 rounded-full bg-transparent border border-white focus:outline-none"
         placeholder="ID or Description"
         bind:value={searchValue}
+        {disabled}
       />
-      <button type="submit" class="-ml-8">
+      <button type="submit" class="-ml-8" {disabled}>
         <img src="/images/search.svg" alt="search icon" class="w-4 h-4" />
       </button>
     </form>
@@ -52,6 +54,7 @@
       <DatetimeInput
         bind:value={dateRangeStart}
         class="bg-transparent border rounded-full border-lilac flex items-center justify-center p-2 text-white"
+        {disabled}
       />
 
       <span class="mx-5">to</span>
@@ -59,11 +62,13 @@
       <DatetimeInput
         bind:value={dateRangeEnd}
         class="bg-transparent border rounded-full border-lilac flex items-center justify-center p-2 mr-5"
+        {disabled}
       />
 
       <button
         class="bg-lilac text-white font-bold py-2 px-8 rounded-full flex flex-row items-center whitespace-nowrap"
         type="submit"
+        {disabled}
       >
         <img class="mr-2" src="/images/reverse.svg" alt="reverse icon" />
         Fetch Data
@@ -82,3 +87,10 @@
     </button>
   </div>
 </div>
+
+<style>
+  button:disabled,
+  input:disabled {
+    @apply opacity-70;
+  }
+</style>

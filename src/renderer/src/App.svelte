@@ -13,10 +13,14 @@
   import Toolbar from './components/Toolbar.svelte'
   import Table from './components/Table.svelte'
   import type { Entry, Filters, Report, SelectedValue } from './format'
+  import Loading from './components/Loading.svelte'
+  import { scale } from 'svelte/transition'
 
   let report: Report = null
   let reportFiltered: Report = null
   let loading = false
+  let loadingText = ''
+  let loadingOrigin = ''
 
   let configOpen = false
   let config = {
@@ -108,6 +112,7 @@
   }
 
   const getClockifyEntries = async () => {
+    loadingOrigin = 'Clockify...'
     let page = 1
     let clockifyData: TimeEntryReportDetailed | null = null
     do {
@@ -149,6 +154,8 @@
         }
 
         try {
+          loadingOrigin = 'ClickUp'
+          loadingText = `${id}...`
           const clickupTask = await getTask(id, config)
           resp[id].task = clickupTask
           taskList.push(id)
@@ -166,6 +173,8 @@
   }
 
   const getTasksTime = async () => {
+    loadingOrigin = 'ClickUp'
+    loadingText = 'bulk_time_in_status...'
     const tasksChunkList = chunkArray(taskList, 100)
     const taskTimes: BulkTimeStatus[] = []
     for (const taskChunk of tasksChunkList) {
@@ -294,21 +303,26 @@
     class="w-full mb-10 h-[87px]"
     {dateRangeStart}
     {dateRangeEnd}
+    disabled={loading}
     on:generate={setDateAndGenerate}
     on:openConfigModal={openConfigModal}
     on:search={setSearch}
   />
+
+  {#if loading}
+    <div transition:scale={{ duration: 500 }}>
+      <Loading {loadingText} {loadingOrigin} />
+    </div>
+  {/if}
   <Toolbar
     report={reportFiltered}
     {dateRangeStart}
     {dateRangeEnd}
     {filters}
+    disabled={loading}
     on:doFilter={setFilterValue}
     class="w-full h-[73px] mb-10"
   />
-  {#if loading}
-    <p>Loading...</p>
-  {/if}
   {#if reportFiltered}
     <Table {dateRangeStart} {dateRangeEnd} class="w-full" report={reportFiltered} />
   {/if}

@@ -18,6 +18,7 @@
   export let dateRangeStart: Date
   export let dateRangeEnd: Date
   export let filters: Filters
+  export let disabled = false
 
   const copyReportToClipboard = (report, format) => {
     let headers = Object.keys(report).join('\t') + '\n'
@@ -45,7 +46,7 @@
 </script>
 
 <div
-  class="bg-purple-gray text-sm rounded-lg px-5 flex flex-row items-center justify-between shadow-[6px_8px_25px_0px_rgba(0,0,0,0.39)] {$$props.class}"
+  class="bg-purple-gray text-sm rounded-lg px-5 flex flex-row items-center justify-between shadow-[6px_8px_25px_0px_rgba(0,0,0,0.39)] relative {$$props.class}"
 >
   <div class="flex flex-row gap-x-2">
     <Select
@@ -56,6 +57,7 @@
       items={filters.assignee}
       bind:value={selectedAssignee}
       on:input={filter}
+      {disabled}
     />
     <Select
       searchable
@@ -65,6 +67,7 @@
       items={filters.project}
       bind:value={selectedProject}
       on:input={filter}
+      {disabled}
     />
     <Select
       searchable
@@ -74,6 +77,7 @@
       items={filters.status}
       bind:value={selectedStatus}
       on:input={filter}
+      {disabled}
     />
     <Select
       searchable
@@ -83,6 +87,7 @@
       items={filters.status}
       bind:value={selectedStatusInPeriod}
       on:input={filter}
+      {disabled}
     />
   </div>
 
@@ -111,6 +116,10 @@
     <img src="/images/folder.svg" alt="copy icon" class="mr-2" />
     Copy Data to Clipboard
   </button>
+
+  {#if disabled}
+    <div class="w-full h-full bg-dark-gray rounded-lg absolute inset-0 opacity-70" />
+  {/if}
 </div>
 
 <style>

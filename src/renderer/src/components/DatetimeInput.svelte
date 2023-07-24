@@ -1,5 +1,7 @@
-<script>
+<script lang="ts">
   export let value
+  export let disabled = false
+
   let output
   let inF = (date) => {
     const newDate = date ? new Date(date) : new Date()
@@ -16,10 +18,14 @@
   $: outF(output)
 </script>
 
-<input type="datetime-local" bind:value={output} class={$$props.class} />
+<input type="datetime-local" bind:value={output} {disabled} class={$$props.class} />
 
 <style>
   ::-webkit-calendar-picker-indicator {
     filter: invert(1);
+  }
+
+  input:disabled {
+    @apply opacity-70;
   }
 </style>

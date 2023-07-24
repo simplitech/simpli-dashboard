@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from './axiosConfig'
 
 const CLICKUP_API_URL = 'https://api.clickup.com/api/v2'
 
