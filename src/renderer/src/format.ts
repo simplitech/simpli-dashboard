@@ -45,9 +45,9 @@ export const formatReport: Record<
   'L.Assignee seconds': (_id, entry) => String(getMainGroupOfDurations(entry.timeEntry)),
   'Estimate seconds': (_id, entry) => String((entry.task?.time_estimate ?? 0) / 1000),
   'Estimate error': (_id, entry) => String(calculateEstimationError(entry)),
-  'First Log Date': (_id, entry) => (entry.timeEntry?.length ? entry.timeEntry[0]?.timeInterval?.start : ''),
-  'Last Log Date': (_id, entry) =>
-    entry.timeEntry?.length ? entry.timeEntry[entry.timeEntry.length - 1]?.timeInterval?.end : '',
+  'First Log Date': (_id, entry) =>
+    entry.timeEntry?.length ? entry.timeEntry[entry.timeEntry.length - 1]?.timeInterval?.start : '',
+  'Last Log Date': (_id, entry) => (entry.timeEntry?.length ? entry.timeEntry[0]?.timeInterval?.end : ''),
   Status: (_id, entry) => (entry.task ? entry.task.status.status : ''),
   Tags: (_id, entry) => {
     if (entry.task) {
@@ -139,7 +139,7 @@ export const formatDurationOnlyDays = (duration: number) => {
 }
 
 export const formatDateDayMonth = (date: string | Date) => {
-  return `${new Date(date).getDay()} ${new Date(date).toLocaleString('en', { month: 'short' })}`
+  return `${new Date(date).getDate()} ${new Date(date).toLocaleString('en', { month: 'short' })}`
 }
 
 export const formatUnixDate = (unixDate: string | number) => {
