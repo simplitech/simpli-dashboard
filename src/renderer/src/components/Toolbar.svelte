@@ -21,7 +21,7 @@
   export let disabled = false
 
   const copyReportToClipboard = (report, format) => {
-    let headers = Object.keys(report).join('\t') + '\n'
+    let headers = Object.keys(format).join('\t') + '\n'
     let rows = ''
 
     Object.entries(report).forEach(([id, entry]) => {
