@@ -159,7 +159,7 @@
   }
 
   .table-grid__row {
-    @apply bg-purple-gray px-5 h-[85px] whitespace-nowrap;
+    @apply bg-purple-gray px-5 h-[85px];
     display: flex;
     justify-content: center;
     align-items: center;
