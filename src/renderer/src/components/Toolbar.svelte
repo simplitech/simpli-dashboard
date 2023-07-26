@@ -6,9 +6,6 @@
 
   const dispatch = createEventDispatcher()
 
-  let showSummary = false
-  let showDetails = false
-
   let selectedAssignee: SelectedValue[] = null
   let selectedProject: SelectedValue[] = null
   let selectedStatus: SelectedValue[] = null
@@ -19,6 +16,8 @@
   export let dateRangeEnd: Date
   export let filters: Filters
   export let disabled = false
+  export let showSummary = true
+  export let showDetails = true
 
   const copyReportToClipboard = (report, format) => {
     let headers = Object.keys(format).join('\t') + '\n'
@@ -95,12 +94,12 @@
   <div class="w-[2px] h-9 bg-dark-gray mr-5" />
 
   <label class="flex flex-row items-center">
-    <input type="checkbox" bind:value={showSummary} class="checkbox" />
+    <input type="checkbox" bind:checked={showSummary} class="checkbox" {disabled} />
     Show Summary
   </label>
 
   <label class="flex flex-row items-center">
-    <input type="checkbox" bind:value={showDetails} class="checkbox" />
+    <input type="checkbox" bind:checked={showDetails} class="checkbox" {disabled} />
     Show Details
   </label>
 

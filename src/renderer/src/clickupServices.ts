@@ -1,4 +1,6 @@
 import axios from './axiosConfig'
+import { calculateEstimationError } from './clockifyServices'
+import { formatDuration, type Entry, type Report, formatDurationOnlyDays } from './format'
 
 const CLICKUP_API_URL = 'https://api.clickup.com/api/v2'
 
@@ -137,4 +139,30 @@ export function getTaskTimeStatus(taskStatus: TaskStatus | null, statusName: str
     return Math.abs(Date.now() - status.total_time.since)
   }
   return 0
+}
+
+export const sumTimeEstimate = (report: Report) => {
+  return formatDuration(
+    Object.values(report)
+      .map((item: Entry) => item.task?.time_estimate || 0)
+      .reduce((a, b) => a + b, 0) / 1000,
+  )
+}
+
+export const avgEstimativeError = (report: Report) => {
+  const tasksWithEstimation = Object.values(report).filter((item) => item.task?.time_estimate != null)
+  return (
+    tasksWithEstimation.map((item) => calculateEstimationError(item)).reduce((a, b) => a + b, 0) /
+    tasksWithEstimation.length
+  ).toFixed(2)
+}
+
+export const avgDaysStatus = (report: Report, statusName: string) => {
+  const tasksWithStatus = Object.values(report).filter((item) =>
+    item.task?.timeStatus?.status_history.find((item) => item.status.trim() === statusName.trim()),
+  )
+  return formatDurationOnlyDays(
+    tasksWithStatus.map((item) => getTaskTimeStatus(item.task?.timeStatus, statusName)).reduce((a, b) => a + b, 0) /
+      tasksWithStatus.length,
+  )
 }

@@ -1,5 +1,5 @@
-import type { Entry } from './format'
 import axios from './axiosConfig'
+import { formatDurationClock, type Entry, type Report } from './format'
 
 const CLOCKIFY_REPORTS_API_URL = 'https://reports.api.clockify.me/v1'
 
@@ -93,4 +93,22 @@ export const clockifyUrl = (dateRangeStart: Date, dateRangeEnd: Date, descriptio
 export const calculateEstimationError = (entry: Entry) => {
   const estimation = (entry.task?.time_estimate ?? 0) / 1000
   return estimation ? Number((getMainGroupOfDurations(entry.timeEntry) / estimation).toFixed(2)) : 0
+}
+
+export const countUserNames = (report: Report | null) => {
+  return [
+    ...new Set(
+      Object.values(report)
+        .map((item: Entry) => formatUserNamesSortedByParticipation(item.timeEntry).split(', '))
+        .flat(),
+    ),
+  ].length
+}
+
+export const sumTimeTracked = (report: Report) => {
+  return formatDurationClock(
+    Object.values(report)
+      .map((item: Entry) => sumDurations(item.timeEntry))
+      .reduce((a, b) => a + b, 0),
+  )
 }

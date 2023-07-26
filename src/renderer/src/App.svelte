@@ -46,6 +46,9 @@
 
   let taskList: string[] = []
 
+  $: showSummary = true
+  $: showDetails = true
+
   onMount(async () => {
     const cacheConfig = await getCacheItem('config')
     if (cacheConfig) {
@@ -308,7 +311,6 @@
     on:openConfigModal={openConfigModal}
     on:search={setSearch}
   />
-
   {#if loading}
     <div transition:scale={{ duration: 500 }}>
       <Loading {loadingText} {loadingOrigin} />
@@ -320,11 +322,13 @@
     {dateRangeEnd}
     {filters}
     disabled={loading}
+    bind:showDetails
+    bind:showSummary
     on:doFilter={setFilterValue}
     class="w-full h-[73px] mb-10"
   />
   {#if reportFiltered}
-    <Table {dateRangeStart} {dateRangeEnd} class="w-full" report={reportFiltered} />
+    <Table {dateRangeStart} {dateRangeEnd} bind:showSummary bind:showDetails class="w-full" report={reportFiltered} />
   {/if}
   {#if configOpen}
     <Modal on:close={() => (configOpen = false)} title="Config">
