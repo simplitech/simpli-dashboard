@@ -29,6 +29,14 @@ export type SelectedValue = {
   label: string
 }
 
+export type GroupItem = {
+  [key: string]: Report
+}
+
+export type Group = {
+  [key: string]: GroupItem | Report
+}
+
 export const formatReport: Record<
   string,
   (id: string, entry: Entry, dateRangeStart: Date, dateRangeEnd: Date, selectedAssignee: SelectedValue[]) => string
@@ -153,4 +161,8 @@ export const getUserInitials = (name: string): string => {
     .split(' ')
     .map((word) => word[0])
     .join('')
+}
+
+export const formatDayMonthYear = (date: string) => {
+  return `${new Date(date).getDate()}/${new Date(date).getMonth() + 1}/${new Date(date).getFullYear()}`
 }

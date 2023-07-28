@@ -10,6 +10,7 @@
   let selectedProject: SelectedValue[] = null
   let selectedStatus: SelectedValue[] = null
   let selectedStatusInPeriod: SelectedValue[] = null
+  let selectedGroupBy: SelectedValue[] = null
 
   export let report: Report
   export let dateRangeStart: Date
@@ -18,6 +19,8 @@
   export let disabled = false
   export let showSummary = true
   export let showDetails = true
+
+  let groupByItems = ['Project', 'Assignee', 'Date']
 
   const copyReportToClipboard = (
     report: Report,
@@ -46,6 +49,7 @@
       selectedProject: selectedProject,
       selectedStatus: selectedStatus,
       selectedStatusInPeriod: selectedStatusInPeriod,
+      selectedGroupBy: selectedGroupBy,
     })
   }
 </script>
@@ -111,7 +115,15 @@
 
   <div class="w-[2px] h-9 bg-dark-gray" />
 
-  <span>Group By</span>
+  <Select
+    items={groupByItems}
+    multiple
+    showChevron
+    placeholder="Group By"
+    bind:value={selectedGroupBy}
+    on:input={filter}
+    {disabled}
+  />
 
   <div class="w-[2px] h-9 bg-dark-gray mr-5" />
 

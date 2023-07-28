@@ -4,6 +4,7 @@
   import {
     getTimeEntryReportDetailed,
     formatUserNamesSortedByParticipation,
+    formatUserNamesDailyParticipation,
     type TimeEntryReportDetailed,
   } from './clockifyServices'
   import {
@@ -18,10 +19,10 @@
   import { chunkArray, type Config } from './helper'
   import Header from './components/Header.svelte'
   import Toolbar from './components/Toolbar.svelte'
-  import Table from './components/Table.svelte'
-  import type { Entry, Filters, Report, SelectedValue } from './format'
+  import { formatDayMonthYear, type Entry, type Filters, type Report, type SelectedValue, type Group } from './format'
   import Loading from './components/Loading.svelte'
   import { scale } from 'svelte/transition'
+  import TableRender from './components/TableRender.svelte'
 
   let report: Report = null
   let reportFiltered: Report = null
@@ -45,6 +46,7 @@
   let selectedStatus: SelectedValue[] = null
   let selectedAssignee: SelectedValue[] = null
   let selectedStatusInPeriod: SelectedValue[] = null
+  let selectedGroupBy: SelectedValue[] = null
   let searchValue: string = null
 
   let now = new Date()
@@ -52,6 +54,9 @@
   let dateRangeEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1)
 
   let taskList: string[] = []
+
+  let reportGroup: Group = {}
+  let auxReportGroup: Group = {}
 
   $: showSummary = true
   $: showDetails = true
@@ -216,6 +221,7 @@
     selectedProject = event.detail.selectedProject
     selectedStatus = event.detail.selectedStatus
     selectedStatusInPeriod = event.detail.selectedStatusInPeriod
+    selectedGroupBy = event.detail.selectedGroupBy
 
     handleFilters()
   }
@@ -283,6 +289,73 @@
         ),
       )
     }
+
+    handleGroupBy()
+  }
+
+  const handleGroupBy = () => {
+    reportGroup = {}
+    auxReportGroup = {}
+
+    if (selectedGroupBy?.some((item: SelectedValue) => item.value === 'Date')) {
+      for (const [idIssue, entry] of Object.entries(reportFiltered)) {
+        const dates = new Set(entry.timeEntry.map((item) => formatDayMonthYear(item.timeInterval.start)))
+
+        dates.forEach((date: string) => {
+          if (!reportGroup[date]) {
+            reportGroup[date] = {}
+          }
+          reportGroup[date][idIssue] = entry
+        })
+      }
+    } else {
+      reportGroup['allDates'] = reportFiltered
+    }
+
+    for (const [dateKey, value] of Object.entries(reportGroup)) {
+      auxReportGroup[dateKey] = {}
+
+      if (selectedGroupBy?.some((item: SelectedValue) => item.value === 'Project')) {
+        for (const [taskKey, taskValue] of Object.entries(value)) {
+          const entry = taskValue as Entry
+          const projectKey = entry.task?.list.name ?? entry.timeEntry?.[0]?.projectName ?? 'No project'
+          if (!auxReportGroup[dateKey][projectKey]) {
+            auxReportGroup[dateKey][projectKey] = {}
+          }
+          auxReportGroup[dateKey][projectKey][taskKey] = entry
+        }
+      } else {
+        auxReportGroup[dateKey]['allProjects'] = value as Report
+      }
+    }
+    reportGroup = auxReportGroup
+
+    auxReportGroup = {}
+    for (const [key, value] of Object.entries(reportGroup)) {
+      auxReportGroup[key] = {}
+
+      for (const [projKey, projVal] of Object.entries(value)) {
+        auxReportGroup[key][projKey] = {}
+
+        if (selectedGroupBy?.some((item) => item.value === 'Assignee')) {
+          for (const [taskKey, taskValue] of Object.entries<Entry>(projVal)) {
+            const assignees =
+              key === 'allDates'
+                ? formatUserNamesSortedByParticipation(taskValue.timeEntry).split(', ').flat()
+                : formatUserNamesDailyParticipation(taskValue.timeEntry, key)
+            assignees.forEach((assignee) => {
+              if (!auxReportGroup[key][projKey][assignee]) {
+                auxReportGroup[key][projKey][assignee] = {}
+              }
+              auxReportGroup[key][projKey][assignee][taskKey] = taskValue as Entry
+            })
+          }
+        } else {
+          auxReportGroup[key][projKey]['allAssignees'] = projVal as Report
+        }
+      }
+    }
+    reportGroup = auxReportGroup
   }
 
   const checkIfStatusInRange = (
@@ -345,17 +418,11 @@
     on:doFilter={setFilterValue}
     class="w-full h-[73px] mb-10"
   />
-  {#if reportFiltered}
-    <Table
-      {dateRangeStart}
-      {dateRangeEnd}
-      bind:showSummary
-      bind:showDetails
-      class="w-full"
-      report={reportFiltered}
-      {selectedAssignee}
-    />
+
+  {#if reportGroup}
+    <TableRender {reportGroup} {selectedGroupBy} {dateRangeEnd} {dateRangeStart} bind:showDetails bind:showSummary />
   {/if}
+
   {#if configOpen}
     <Modal on:close={() => (configOpen = false)} title="Config">
       <form on:submit|preventDefault={saveConfig} class="flex flex-col m-3">
