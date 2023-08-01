@@ -25,7 +25,7 @@
 
     Object.entries(report).forEach(([id, entry]) => {
       Object.keys(format).forEach((reportItem) => {
-        rows += format[reportItem](id, entry, dateRangeStart, dateRangeEnd)
+        rows += format[reportItem](id, entry, dateRangeStart, dateRangeEnd, selectedAssignee)
         rows += '\t'
       })
       rows += '\n'

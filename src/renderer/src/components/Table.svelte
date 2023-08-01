@@ -14,6 +14,7 @@
     formatDuration,
     formatDurationClock,
     getUserInitials,
+    type SelectedValue,
   } from '../format'
   import { daysToMilis, getContrastColorHex } from '../helper'
   import TableSummary from './TableSummary.svelte'
@@ -23,6 +24,7 @@
   export let dateRangeEnd: Date
   export let showSummary = true
   export let showDetails = true
+  export let selectedAssignee: SelectedValue[] = []
 </script>
 
 <div class="table-grid text-sm {$$props.class}">
@@ -39,7 +41,7 @@
 
   <!-- Summary -->
   {#if showSummary}
-    <TableSummary {report} />
+    <TableSummary {report} {selectedAssignee} />
   {/if}
 
   {#if showDetails}
@@ -106,7 +108,7 @@
             target="_blank"
             title="Clockify URL"
             class="hover:bg-dark-blue hover:rounded p-1 text-center"
-            >{formatDurationClock(sumDurations(entry.timeEntry))}</a
+            >{formatDurationClock(sumDurations(entry.timeEntry, selectedAssignee))}</a
           >
         {/if}
       </div>

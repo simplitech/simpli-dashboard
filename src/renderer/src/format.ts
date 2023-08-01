@@ -31,7 +31,7 @@ export type SelectedValue = {
 
 export const formatReport: Record<
   string,
-  (id: string, entry: Entry, dateRangeStart: Date, dateRangeEnd: Date) => string
+  (id: string, entry: Entry, dateRangeStart: Date, dateRangeEnd: Date, selectedAssignee: SelectedValue[]) => string
 > = {
   'Task ID': (id, entry) => (entry.task ? id : 'Flex'),
   'ClickUp URL': (_id, entry) => (entry.task ? entry.task.url : ''),
@@ -39,8 +39,10 @@ export const formatReport: Record<
   Project: (_id, entry) => entry.task?.list.name ?? entry.timeEntry?.[0]?.projectName ?? 'No project',
   'Clockify URL': (id, entry, dateRangeStart, dateRangeEnd) =>
     entry.timeEntry?.length ? clockifyUrl(dateRangeStart, dateRangeEnd, id) : '',
-  Logged: (_id, entry) => formatDuration(sumDurations(entry.timeEntry)),
-  'Logged Roundup': (_id, entry) => formatDuration(durationRoundUpByHalfHour(sumDurations(entry.timeEntry))),
+  Logged: (_id, entry, _dateRangeStart, _dateRangeEnd, selectedAssignee) =>
+    formatDuration(sumDurations(entry.timeEntry, selectedAssignee)),
+  'Logged Roundup': (_id, entry, _dateRangeStart, _dateRangeEnd, selectedAssignee) =>
+    formatDuration(durationRoundUpByHalfHour(sumDurations(entry.timeEntry, selectedAssignee))),
   Estimate: (_id, entry) => formatDuration(entry.task?.time_estimate / 1000),
   'L.Assignee seconds': (_id, entry) => String(getMainGroupOfDurations(entry.timeEntry)),
   'Estimate seconds': (_id, entry) => String((entry.task?.time_estimate ?? 0) / 1000),
