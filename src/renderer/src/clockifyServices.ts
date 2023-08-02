@@ -51,7 +51,7 @@ export async function getTimeEntryReportDetailed(
   return data as TimeEntryReportDetailed
 }
 
-function sortUserDurations(entries: TimeEntryReportDetailedTimeEntry[]) {
+function sortUserDurations(entries: TimeEntryReportDetailedTimeEntry[]): { user: string; duration: number }[] {
   const users = entries.map((item) => item.userName)
   const uniqueUsers = [...new Set(users)]
   const userDurations = uniqueUsers.map((user) => {
@@ -64,7 +64,7 @@ function sortUserDurations(entries: TimeEntryReportDetailedTimeEntry[]) {
   return userDurations.sort((a, b) => b.duration - a.duration)
 }
 
-export function sumDurations(entries: TimeEntryReportDetailedTimeEntry[], usernames?: SelectedValue[]) {
+export function sumDurations(entries: TimeEntryReportDetailedTimeEntry[], usernames?: SelectedValue[]): number {
   const usernameList = usernames?.map((username: SelectedValue) => username.value)
   const filteredEntriesByUsername = usernames ? entries.filter((item) => usernameList.includes(item.userName)) : entries
   return filteredEntriesByUsername.map((item) => item.timeInterval.duration).reduce((a, b) => a + b, 0)
@@ -74,30 +74,30 @@ export function sumDurations(entries: TimeEntryReportDetailedTimeEntry[], userna
  * This method will return a string with the names of the users sorted by the sum of durations of their entries
  * @param entries
  */
-export function formatUserNamesSortedByParticipation(entries: TimeEntryReportDetailedTimeEntry[] | null) {
+export function formatUserNamesSortedByParticipation(entries: TimeEntryReportDetailedTimeEntry[] | null): string {
   if (!entries) return ''
   const sortedUserDurations = sortUserDurations(entries)
   return sortedUserDurations.map((item) => item.user).join(', ')
 }
 
-export function getMainGroupOfDurations(entries: TimeEntryReportDetailedTimeEntry[]) {
+export function getMainGroupOfDurations(entries: TimeEntryReportDetailedTimeEntry[]): number {
   if (!entries) return 0
   const sortedUserDurations = sortUserDurations(entries)
   return sortedUserDurations[0]?.duration ?? 0
 }
 
-export const clockifyUrl = (dateRangeStart: Date, dateRangeEnd: Date, description: string) => {
+export const clockifyUrl = (dateRangeStart: Date, dateRangeEnd: Date, description: string): string => {
   return `https://app.clockify.me/reports/detailed?start=${dateRangeStart.toISOString()}&end=${dateRangeEnd.toISOString()}&description=${encodeURI(
     description,
   )}&page=1&pageSize=1000`
 }
 
-export const calculateEstimationError = (entry: Entry) => {
+export const calculateEstimationError = (entry: Entry): number => {
   const estimation = (entry.task?.time_estimate ?? 0) / 1000
   return estimation ? Number((getMainGroupOfDurations(entry.timeEntry) / estimation).toFixed(2)) : 0
 }
 
-export const countUserNames = (report: Report | null) => {
+export const countUserNames = (report: Report | null): number => {
   return [
     ...new Set(
       Object.values(report)
@@ -107,7 +107,7 @@ export const countUserNames = (report: Report | null) => {
   ].length
 }
 
-export const sumTimeTracked = (report: Report, selectedAssignee: SelectedValue[]) => {
+export const sumTimeTracked = (report: Report, selectedAssignee: SelectedValue[]): string => {
   return formatDurationClock(
     Object.values(report)
       .map((item: Entry) => sumDurations(item.timeEntry, selectedAssignee))

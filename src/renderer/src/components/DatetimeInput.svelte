@@ -1,13 +1,13 @@
 <script lang="ts">
-  export let value
+  export let value: Date
   export let disabled = false
 
-  let output
-  let inF = (date) => {
+  let output: string
+  let inF = (date: Date | string) => {
     const newDate = date ? new Date(date) : new Date()
     output = new Date(newDate.getTime() - newDate.getTimezoneOffset() * 60000).toISOString().slice(0, -1)
   }
-  let outF = (text) => {
+  let outF = (text: string) => {
     const date = new Date(text)
     if (!isNaN(date.getTime())) {
       value = new Date(text)

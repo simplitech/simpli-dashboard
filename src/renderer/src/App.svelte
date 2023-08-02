@@ -6,9 +6,16 @@
     formatUserNamesSortedByParticipation,
     type TimeEntryReportDetailed,
   } from './clockifyServices'
-  import { clickupIdFromText, getTask, getTaskListTime, type BulkTimeStatus } from './clickupServices'
+  import {
+    clickupIdFromText,
+    getTask,
+    getTaskListTime,
+    type BulkTimeStatus,
+    type Task,
+    type TaskTimeStatus,
+  } from './clickupServices'
   import Modal from './components/Modal.svelte'
-  import { chunkArray } from './helper'
+  import { chunkArray, type Config } from './helper'
   import Header from './components/Header.svelte'
   import Toolbar from './components/Toolbar.svelte'
   import Table from './components/Table.svelte'
@@ -23,7 +30,7 @@
   let loadingOrigin = ''
 
   let configOpen = false
-  let config = {
+  let config: Config = {
     clockifyApiKey: '',
     clockifyWorkspaceId: '6053a39bc15f5f7905d37b9d',
     clickupApiKey: '',
@@ -52,7 +59,7 @@
   onMount(async () => {
     const cacheConfig = await getCacheItem('config')
     if (cacheConfig) {
-      config = cacheConfig
+      config = cacheConfig as Config
     }
     if (!config.clockifyApiKey || !config.clickupApiKey) {
       configOpen = true
@@ -71,7 +78,7 @@
     configOpen = true
   }
 
-  const setDateAndGenerate = async (event) => {
+  const setDateAndGenerate = async (event: CustomEvent) => {
     dateRangeStart = event.detail.dateRangeStart
     dateRangeEnd = event.detail.dateRangeEnd
 
@@ -114,7 +121,7 @@
     loading = false
   }
 
-  const getClockifyEntries = async () => {
+  const getClockifyEntries = async (): Promise<Report> => {
     loadingOrigin = 'Clockify...'
     let page = 1
     let clockifyData: TimeEntryReportDetailed | null = null
@@ -149,7 +156,7 @@
       resp[id].timeEntry.push(clockifyEntry)
 
       if (idFound && !resp[id].task) {
-        const cache = await getCacheItem(`clickup-task-${id}`)
+        const cache = (await getCacheItem(`clickup-task-${id}`)) as Task
         if (cache) {
           resp[id].task = cache
           taskList.push(id)
@@ -175,7 +182,7 @@
     return resp
   }
 
-  const getTasksTime = async () => {
+  const getTasksTime = async (): Promise<BulkTimeStatus[]> => {
     loadingOrigin = 'ClickUp'
     loadingText = 'bulk_time_in_status...'
     const tasksChunkList = chunkArray(taskList, 100)
@@ -186,8 +193,8 @@
     return taskTimes
   }
 
-  const matchTaskTime = (report, taskTimes) => {
-    taskTimes.forEach((task) => {
+  const matchTaskTime = (report: Report, taskTimes: BulkTimeStatus[]): Report => {
+    taskTimes.forEach((task: BulkTimeStatus) => {
       Object.entries(task).forEach(([key, value]) => {
         if (report[key].task) {
           report[key].task.timeStatus = value
@@ -198,13 +205,13 @@
     return report
   }
 
-  const setSearch = (event) => {
+  const setSearch = (event: CustomEvent) => {
     searchValue = event.detail.searchValue
 
     handleFilters()
   }
 
-  const setFilterValue = (event) => {
+  const setFilterValue = (event: CustomEvent) => {
     selectedAssignee = event.detail.selectedAssignee
     selectedProject = event.detail.selectedProject
     selectedStatus = event.detail.selectedStatus
@@ -219,7 +226,9 @@
     if (selectedStatus) {
       reportFiltered = Object.fromEntries(
         Object.entries(reportFiltered).filter(([, value]) =>
-          Object.values(selectedStatus).some((status) => (value.task?.status.status ?? '') === status.value),
+          Object.values(selectedStatus).some(
+            (status: SelectedValue) => (value.task?.status.status ?? '') === status.value,
+          ),
         ),
       )
     }
@@ -228,7 +237,8 @@
       reportFiltered = Object.fromEntries(
         Object.entries(reportFiltered).filter(([, value]) =>
           Object.values(selectedProject).some(
-            (project) => (value.task?.list.name ?? value.timeEntry?.[0]?.projectName ?? '') === project.value,
+            (project: SelectedValue) =>
+              (value.task?.list.name ?? value.timeEntry?.[0]?.projectName ?? '') === project.value,
           ),
         ),
       )
@@ -237,10 +247,10 @@
     if (selectedAssignee) {
       reportFiltered = Object.fromEntries(
         Object.entries(reportFiltered).filter(([, value]) =>
-          Object.values(selectedAssignee).some((assignee) =>
+          Object.values(selectedAssignee).some((assignee: SelectedValue) =>
             formatUserNamesSortedByParticipation(value.timeEntry)
               .split(', ')
-              .some((name) => name === assignee.value),
+              .some((name: string) => name === assignee.value),
           ),
         ),
       )
@@ -249,7 +259,7 @@
     if (selectedStatusInPeriod) {
       reportFiltered = Object.fromEntries(
         Object.entries(reportFiltered).filter(([, value]) =>
-          Object.values(selectedStatusInPeriod).some((timeInStatus) => {
+          Object.values(selectedStatusInPeriod).some((timeInStatus: SelectedValue) => {
             if (!value.task) return false
             return checkIfStatusInRange(
               dateRangeStart,
@@ -275,18 +285,26 @@
     }
   }
 
-  const checkIfStatusInRange = (dateRangeStart, dateRangeEnd, statusHistory, selectedTimeInStatus: string) => {
+  const checkIfStatusInRange = (
+    dateRangeStart: Date,
+    dateRangeEnd: Date,
+    statusHistory: TaskTimeStatus[],
+    selectedTimeInStatus: string,
+  ) => {
     if (statusHistory) {
-      statusHistory.sort((a, b) => b.total_time.since - a.total_time.since)
+      statusHistory.sort((a: TaskTimeStatus, b: TaskTimeStatus) => b.total_time.since - a.total_time.since)
 
       // Pego todos os valores que estão no range da data, ordeno pelo mais atual e pego ele
       const valueInRange = statusHistory
-        .filter((item) => item.total_time.since >= dateRangeStart && item.total_time.since <= dateRangeEnd)
-        .sort((a, b) => b.total_time.since - a.total_time.since)
+        .filter(
+          (item: TaskTimeStatus) =>
+            new Date(item.total_time.since) >= dateRangeStart && new Date(item.total_time.since) <= dateRangeEnd,
+        )
+        .sort((a: TaskTimeStatus, b: TaskTimeStatus) => b.total_time.since - a.total_time.since)
       // Se não existir valor no range, o status da issue não mudou no range de data filtrado. Então pega o status mais atual
       const valoresMenores = statusHistory
-        .filter((item) => item.total_time.since < dateRangeStart)
-        .sort((a, b) => b.total_time.since - a.total_time.since)
+        .filter((item: TaskTimeStatus) => new Date(item.total_time.since) < dateRangeStart)
+        .sort((a: TaskTimeStatus, b: TaskTimeStatus) => b.total_time.since - a.total_time.since)
 
       if (valueInRange.length) {
         return valueInRange[0].status === selectedTimeInStatus
