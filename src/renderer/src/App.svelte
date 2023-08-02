@@ -328,7 +328,15 @@
     class="w-full h-[73px] mb-10"
   />
   {#if reportFiltered}
-    <Table {dateRangeStart} {dateRangeEnd} bind:showSummary bind:showDetails class="w-full" report={reportFiltered} />
+    <Table
+      {dateRangeStart}
+      {dateRangeEnd}
+      bind:showSummary
+      bind:showDetails
+      class="w-full"
+      report={reportFiltered}
+      {selectedAssignee}
+    />
   {/if}
   {#if configOpen}
     <Modal on:close={() => (configOpen = false)} title="Config">
