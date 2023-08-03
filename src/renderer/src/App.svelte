@@ -152,14 +152,20 @@
     for (const clockifyEntry of clockifyData.timeentries) {
       let id = clickupIdFromText(clockifyEntry.description)
       const idFound = Boolean(id)
-      id = id || clockifyEntry.description
+      /** Eu coloco a description + projeto por conta que podem existir 2
+       * tasks flex com o mesmo nome, mas de projetos diferentes (Ex: CR)
+       *  e como o id será usado como atributo do resp, então não daria
+       *  pra ter vários atributos com mesmo nome. Como toda task tem
+       *  pelo menos uma timeEntry, então deve se pegar o nome da issue
+       *  por ela.
+       */
+      id = id || `${clockifyEntry.description} - ${clockifyEntry.projectName}`
 
       if (!resp[id]) {
         resp[id] = { timeEntry: [], task: null }
       }
 
       resp[id].timeEntry.push(clockifyEntry)
-
       if (idFound && !resp[id].task) {
         const cache = (await getCacheItem(`clickup-task-${id}`)) as Task
         if (cache) {
