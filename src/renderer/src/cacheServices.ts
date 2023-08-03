@@ -1,3 +1,6 @@
+import type { Task } from './clickupServices'
+import type { Config } from './helper'
+
 export function setCacheItem(key: string, value: unknown, ttl = 2 * 24 * 60 * 60 * 1000) {
   localStorage.setItem(
     key,
@@ -8,7 +11,7 @@ export function setCacheItem(key: string, value: unknown, ttl = 2 * 24 * 60 * 60
   )
 }
 
-export function getCacheItem(key: string) {
+export function getCacheItem(key: string): Task | Config | null {
   const itemStr = localStorage.getItem(key)
 
   if (!itemStr) {

@@ -1,10 +1,16 @@
 import { showToast } from './toast'
 
+export type Config = {
+  clockifyApiKey: string
+  clockifyWorkspaceId: string
+  clickupApiKey: string
+}
+
 export function copyToClipboard(text: string) {
   navigator.clipboard.writeText(text).then(() => showToast('Copiado com sucesso!'))
 }
 
-export const durationRoundUpByHalfHour = (duration: number) => {
+export const durationRoundUpByHalfHour = (duration: number): number => {
   if (!duration) {
     return 0
   }
@@ -13,7 +19,7 @@ export const durationRoundUpByHalfHour = (duration: number) => {
   return Math.floor(duration / 3600) * 3600 + minutesRounded * 60
 }
 
-export const daysToMilis = (days: number) => {
+export const daysToMilis = (days: number): number => {
   // days * 24 h * 60 m * 60 s * 1000 ms
   return days * 86400000
 }
@@ -23,7 +29,7 @@ export const daysToMilis = (days: number) => {
  * @param colorInHexFormat color in the following format: #00ffdd
  * @returns {string|string}
  */
-export const getContrastColorHex = (colorInHexFormat) => {
+export const getContrastColorHex = (colorInHexFormat: string): 'black' | 'white' => {
   if (!colorInHexFormat) {
     return 'black'
   }
@@ -38,7 +44,7 @@ export const getContrastColorHex = (colorInHexFormat) => {
   return brightness > 125 ? 'black' : 'white'
 }
 
-export const chunkArray = (array, chunkSize) => {
+export const chunkArray = (array: string[], chunkSize: number): string[][] => {
   const chunkedArray = []
   for (let i = 0; i < array.length; i += chunkSize) {
     const chunk = array.slice(i, i + chunkSize)

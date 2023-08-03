@@ -1,6 +1,6 @@
 <script lang="ts">
   import Select from 'svelte-select'
-  import { formatReport, type Report, type Filters, type SelectedValue } from '../format'
+  import { formatReport, type Report, type Filters, type SelectedValue, type Entry } from '../format'
   import { copyToClipboard } from '../helper'
   import { createEventDispatcher } from 'svelte'
 
@@ -19,12 +19,18 @@
   export let showSummary = true
   export let showDetails = true
 
-  const copyReportToClipboard = (report, format) => {
+  const copyReportToClipboard = (
+    report: Report,
+    format: Record<
+      string,
+      (id: string, entry: Entry, dateRangeStart: Date, dateRangeEnd: Date, selectedAssignee: SelectedValue[]) => string
+    >,
+  ) => {
     let headers = Object.keys(format).join('\t') + '\n'
     let rows = ''
 
     Object.entries(report).forEach(([id, entry]) => {
-      Object.keys(format).forEach((reportItem) => {
+      Object.keys(format).forEach((reportItem: string) => {
         rows += format[reportItem](id, entry, dateRangeStart, dateRangeEnd, selectedAssignee)
         rows += '\t'
       })

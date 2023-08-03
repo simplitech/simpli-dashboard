@@ -141,7 +141,7 @@ export function getTaskTimeStatus(taskStatus: TaskStatus | null, statusName: str
   return 0
 }
 
-export const sumTimeEstimate = (report: Report) => {
+export const sumTimeEstimate = (report: Report): string => {
   return formatDuration(
     Object.values(report)
       .map((item: Entry) => item.task?.time_estimate || 0)
@@ -149,7 +149,7 @@ export const sumTimeEstimate = (report: Report) => {
   )
 }
 
-export const avgEstimativeError = (report: Report) => {
+export const avgEstimativeError = (report: Report): string => {
   const tasksWithEstimation = Object.values(report).filter((item) => item.task?.time_estimate != null)
   return (
     tasksWithEstimation.map((item) => calculateEstimationError(item)).reduce((a, b) => a + b, 0) /
@@ -157,7 +157,7 @@ export const avgEstimativeError = (report: Report) => {
   ).toFixed(2)
 }
 
-export const avgDaysStatus = (report: Report, statusName: string) => {
+export const avgDaysStatus = (report: Report, statusName: string): string => {
   const tasksWithStatus = Object.values(report).filter((item) =>
     item.task?.timeStatus?.status_history.find((item) => item.status.trim() === statusName.trim()),
   )

@@ -70,7 +70,7 @@ export const formatReport: Record<
   'Days in Test': (_id, entry) => formatDurationWithDays(getTaskTimeStatus(entry.task?.timeStatus, 'to test')),
 }
 
-export const formatDuration = (duration: number) => {
+export const formatDuration = (duration: number): string => {
   if (!duration) {
     return '--'
   }
@@ -91,7 +91,7 @@ export const formatDuration = (duration: number) => {
   return output.trim()
 }
 
-export const formatDurationClock = (duration: number) => {
+export const formatDurationClock = (duration: number): string => {
   if (!duration) {
     return '--'
   }
@@ -104,7 +104,7 @@ export const formatDurationClock = (duration: number) => {
   })}:${seconds.toLocaleString('en-US', { minimumIntegerDigits: 2 })}`
 }
 
-export const formatDurationWithDays = (duration: number) => {
+export const formatDurationWithDays = (duration: number): string => {
   if (!duration) {
     return '--'
   }
@@ -131,7 +131,7 @@ export const formatDurationWithDays = (duration: number) => {
   return output.trim()
 }
 
-export const formatDurationOnlyDays = (duration: number) => {
+export const formatDurationOnlyDays = (duration: number): string => {
   if (!duration) {
     return '--'
   }
@@ -140,15 +140,15 @@ export const formatDurationOnlyDays = (duration: number) => {
   return `${days}d`
 }
 
-export const formatDateDayMonth = (date: string | Date) => {
+export const formatDateDayMonth = (date: string | Date): string => {
   return `${new Date(date).getDate()} ${new Date(date).toLocaleString('en', { month: 'short' })}`
 }
 
-export const formatUnixDate = (unixDate: string | number) => {
+export const formatUnixDate = (unixDate: string | number): string => {
   return formatDateDayMonth(new Date(Number(unixDate)))
 }
 
-export const getUserInitials = (name: string) => {
+export const getUserInitials = (name: string): string => {
   return name
     .split(' ')
     .map((word) => word[0])

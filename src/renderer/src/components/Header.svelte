@@ -7,7 +7,7 @@
   export let dateRangeStart: Date
   export let disabled = false
 
-  let searchValue = null
+  let searchValue: string = null
   const dispatch = createEventDispatcher()
 
   const generateReport = () => {
