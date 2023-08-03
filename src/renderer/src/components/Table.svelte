@@ -15,6 +15,7 @@
     formatDurationClock,
     getUserInitials,
     type SelectedValue,
+    Entry,
   } from '../format'
   import { daysToMilis, getContrastColorHex } from '../helper'
   import TableSummary from './TableSummary.svelte'
@@ -25,6 +26,14 @@
   export let showSummary = true
   export let showDetails = true
   export let selectedAssignee: SelectedValue[] = []
+
+  function getProjectName(entry: Entry): string {
+    return entry.task?.list.name ?? entry.timeEntry?.[0]?.projectName ?? 'No project'
+  }
+
+  function getTaskName(entry: Entry): string {
+    return (entry.task?.name ?? entry.timeEntry[0].description) as string
+  }
 </script>
 
 <div class="table-grid text-sm {$$props.class}">
@@ -59,10 +68,10 @@
 
         <div class="text-left">
           <p class="font-semibold text-light-gray">
-            {entry.task?.list.name ?? entry.timeEntry?.[0]?.projectName ?? 'No project'}
+            {getProjectName(entry)}
           </p>
           <div>
-            <span class="mr-2">{entry.task?.name ?? id}</span>
+            <span class="mr-2">{getTaskName(entry)}</span>
             {#if entry.task}
               {#each entry.task.tags as tag}
                 <span
