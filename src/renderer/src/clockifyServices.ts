@@ -1,5 +1,5 @@
 import axios from './axiosConfig'
-import { formatDurationClock, type Entry, type Report, type SelectedValue } from './format'
+import { formatDurationClock, type Entry, type Report, type SelectedValue, formatDayMonthYear } from './format'
 
 const CLOCKIFY_REPORTS_API_URL = 'https://reports.api.clockify.me/v1'
 
@@ -78,6 +78,13 @@ export function formatUserNamesSortedByParticipation(entries: TimeEntryReportDet
   if (!entries) return ''
   const sortedUserDurations = sortUserDurations(entries)
   return sortedUserDurations.map((item) => item.user).join(', ')
+}
+
+export function formatUserNamesDailyParticipation(entries: TimeEntryReportDetailedTimeEntry[] | null, date: string) {
+  if (!entries) return []
+  const filteredEntriesByDay = entries.filter((item) => formatDayMonthYear(item.timeInterval.start) === date)
+  const users = [...new Set(filteredEntriesByDay.map((item) => item.userName))]
+  return users
 }
 
 export function getMainGroupOfDurations(entries: TimeEntryReportDetailedTimeEntry[]): number {
