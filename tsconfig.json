@@ -18,7 +18,7 @@
     "preserveValueImports": true,
     "strict": false,
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "noImplicitAny": true,
+    "noImplicitAny": true
   },
   "include": [
     "src/renderer/src/env.d.ts",

@@ -1,5 +1,5 @@
 import axios from './axiosConfig'
-import { formatDurationClock, type Entry, type Report, type SelectedValue, formatDayMonthYear } from './format'
+import { formatDurationClock, type Entry, type Report, formatDayMonthYear } from './format'
 
 const CLOCKIFY_REPORTS_API_URL = 'https://reports.api.clockify.me/v1'
 
@@ -64,10 +64,8 @@ function sortUserDurations(entries: TimeEntryReportDetailedTimeEntry[]): { user:
   return userDurations.sort((a, b) => b.duration - a.duration)
 }
 
-export function sumDurations(entries: TimeEntryReportDetailedTimeEntry[], usernames?: SelectedValue[]): number {
-  const usernameList = usernames?.map((username: SelectedValue) => username.value)
-  const filteredEntriesByUsername = usernames ? entries.filter((item) => usernameList.includes(item.userName)) : entries
-  return filteredEntriesByUsername.map((item) => item.timeInterval.duration).reduce((a, b) => a + b, 0)
+export function sumDurations(entries: TimeEntryReportDetailedTimeEntry[]) {
+  return entries.map((item) => item.timeInterval.duration).reduce((a, b) => a + b, 0)
 }
 
 /**
@@ -114,10 +112,10 @@ export const countUserNames = (report: Report | null): number => {
   ].length
 }
 
-export const sumTimeTracked = (report: Report, selectedAssignee: SelectedValue[]): string => {
+export const sumTimeTracked = (report: Report) => {
   return formatDurationClock(
     Object.values(report)
-      .map((item: Entry) => sumDurations(item.timeEntry, selectedAssignee))
+      .map((item: Entry) => sumDurations(item.timeEntry))
       .reduce((a, b) => a + b, 0),
   )
 }

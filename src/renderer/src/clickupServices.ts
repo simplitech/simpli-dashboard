@@ -79,25 +79,6 @@ export async function getTask(taskId: string, config: { clickupApiKey: string })
   return data as Task
 }
 
-export async function getTaskListTime(taskIds: string[], config: { clickupApiKey: string }): Promise<BulkTimeStatus> {
-  const format = taskIds
-    .map((value) => {
-      return `task_ids=${value}`
-    })
-    .join('&')
-
-  const url = `${CLICKUP_API_URL}/task/bulk_time_in_status/task_ids?${format}`
-
-  const { data } = await axios.get<BulkTimeStatus>(url, {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: config.clickupApiKey,
-    },
-  })
-
-  return data as BulkTimeStatus
-}
-
 export function clickupIdFromText(text: string): string | undefined {
   const regexCU = /CU-([a-z]+|\d+)+\b/g
   const matchesCU = text.match(regexCU)

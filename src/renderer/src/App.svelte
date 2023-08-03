@@ -7,16 +7,9 @@
     formatUserNamesDailyParticipation,
     type TimeEntryReportDetailed,
   } from './clockifyServices'
-  import {
-    clickupIdFromText,
-    getTask,
-    getTaskListTime,
-    type BulkTimeStatus,
-    type Task,
-    type TaskTimeStatus,
-  } from './clickupServices'
+  import { clickupIdFromText, getTask, type Task, type TaskTimeStatus } from './clickupServices'
   import Modal from './components/Modal.svelte'
-  import { chunkArray, type Config } from './helper'
+  import { type Config } from './helper'
   import Header from './components/Header.svelte'
   import Toolbar from './components/Toolbar.svelte'
   import { formatDayMonthYear, type Entry, type Filters, type Report, type SelectedValue, type Group } from './format'
@@ -94,12 +87,9 @@
     loading = true
 
     const clockifyEntries = await getClockifyEntries()
-    const taskTimes = await getTasksTime()
 
-    const resp = await matchTaskTime(clockifyEntries, taskTimes)
-
-    report = resp
-    reportFiltered = resp
+    report = clockifyEntries
+    reportFiltered = clockifyEntries
 
     projectFilter = [
       ...new Set(
@@ -191,29 +181,6 @@
     }
 
     return resp
-  }
-
-  const getTasksTime = async (): Promise<BulkTimeStatus[]> => {
-    loadingOrigin = 'ClickUp'
-    loadingText = 'bulk_time_in_status...'
-    const tasksChunkList = chunkArray(taskList, 100)
-    const taskTimes: BulkTimeStatus[] = []
-    for (const taskChunk of tasksChunkList) {
-      taskTimes.push(await getTaskListTime(taskChunk, config))
-    }
-    return taskTimes
-  }
-
-  const matchTaskTime = (report: Report, taskTimes: BulkTimeStatus[]): Report => {
-    taskTimes.forEach((task: BulkTimeStatus) => {
-      Object.entries(task).forEach(([key, value]) => {
-        if (report[key].task) {
-          report[key].task.timeStatus = value
-        }
-      })
-    })
-
-    return report
   }
 
   const setSearch = (event: CustomEvent) => {
@@ -451,9 +418,3 @@
     </Modal>
   {/if}
 </main>
-
-<style global>
-  body {
-    color: #eee;
-  }
-</style>

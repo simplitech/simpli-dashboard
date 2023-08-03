@@ -15,7 +15,7 @@
     formatDurationClock,
     getUserInitials,
     type SelectedValue,
-    Entry,
+    type Entry,
   } from '../format'
   import { daysToMilis, getContrastColorHex } from '../helper'
   import TableSummary from './TableSummary.svelte'
@@ -88,7 +88,7 @@
           </div>
         </div>
       </div>
-      <div class="table-grid__row">
+      <div class="table-grid__cell">
         <div class="flex flex-row justify-center">
           {#each formatUserNamesSortedByParticipation(entry.timeEntry).split(',') as name, i}
             <div
@@ -101,7 +101,7 @@
           {/each}
         </div>
       </div>
-      <div class="table-grid__row">
+      <div class="table-grid__cell">
         {#if entry.task}
           <a href={entry.task.url} target="_blank" title="ClickUp URL" class="hover:bg-dark-blue hover:rounded p-1"
             >#{id}</a
@@ -110,42 +110,42 @@
           Flex
         {/if}
       </div>
-      <div class="table-grid__row">
+      <div class="table-grid__cell">
         {#if entry.timeEntry?.length}
           <a
             href={clockifyUrl(dateRangeStart, dateRangeEnd, id)}
             target="_blank"
             title="Clockify URL"
             class="hover:bg-dark-blue hover:rounded p-1 text-center"
-            >{formatDurationClock(sumDurations(entry.timeEntry, selectedAssignee))}</a
+            >{formatDurationClock(sumDurations(entry.timeEntry))}</a
           >
         {/if}
       </div>
-      <div class="table-grid__row">
+      <div class="table-grid__cell">
         <img src="/images/hourglass.svg" alt="hourglass" class="mr-2" />
         {formatDuration(entry.task?.time_estimate / 1000)}
       </div>
-      <div class="table-grid__row" class:text-red-300={calculateEstimationError(entry) > 2.5}>
+      <div class="table-grid__cell" class:text-red-300={calculateEstimationError(entry) > 2.5}>
         x {calculateEstimationError(entry)}
       </div>
-      <div class="table-grid__row">
+      <div class="table-grid__cell">
         {#if entry.task?.due_date}
           {formatUnixDate(entry.task.due_date)}
         {/if}
       </div>
-      <div class="table-grid__row">
+      <div class="table-grid__cell">
         {#if entry.timeEntry?.length}
           {formatDateDayMonth(entry.timeEntry[0]?.timeInterval?.end)}
         {/if}
       </div>
       <div
-        class="table-grid__row"
+        class="table-grid__cell"
         class:text-red-300={getTaskTimeStatus(entry.task?.timeStatus, 'to review') >= daysToMilis(3)}
       >
         {formatDurationOnlyDays(getTaskTimeStatus(entry.task?.timeStatus, 'to review'))}
       </div>
       <div
-        class="table-grid__row rounded-r-lg"
+        class="table-grid__cell rounded-r-lg"
         class:text-red-300={getTaskTimeStatus(entry.task?.timeStatus, 'to test') >= daysToMilis(3)}
       >
         {formatDurationOnlyDays(getTaskTimeStatus(entry.task?.timeStatus, 'to test'))}
@@ -169,7 +169,7 @@
     @apply text-light-gray font-semibold text-center;
   }
 
-  .table-grid__row {
+  .table-grid__cell {
     @apply bg-purple-gray px-5 h-[85px];
     display: flex;
     justify-content: center;
