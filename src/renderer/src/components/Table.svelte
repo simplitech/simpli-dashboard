@@ -50,7 +50,7 @@
 
   <!-- Summary -->
   {#if showSummary}
-    <TableSummary {report} {selectedAssignee} />
+    <TableSummary {report} />
   {/if}
 
   {#if showDetails}
