@@ -7,6 +7,7 @@
     formatUserNamesDailyParticipation,
     type TimeEntryReportDetailed,
   } from './clockifyServices'
+  import type { TimeEntryReportDetailedTimeEntry } from './clockifyServices'
   import { clickupIdFromText, getTask, type Task, type TaskTimeStatus } from './clickupServices'
   import Modal from './components/Modal.svelte'
   import { type Config } from './helper'
@@ -16,6 +17,7 @@
   import Loading from './components/Loading.svelte'
   import { scale } from 'svelte/transition'
   import TableRender from './components/TableRender.svelte'
+  import _ from 'lodash'
 
   let report: Report = null
   let reportFiltered: Report = null
@@ -200,7 +202,7 @@
   }
 
   function handleFilters() {
-    reportFiltered = report
+    reportFiltered = _.cloneDeep(report)
 
     if (selectedStatus) {
       reportFiltered = Object.fromEntries(
@@ -233,6 +235,12 @@
           ),
         ),
       )
+
+      Object.entries(reportFiltered).forEach(([, value]) => {
+        value.timeEntry = value.timeEntry.filter((entry: TimeEntryReportDetailedTimeEntry) =>
+          Object.values(selectedAssignee).some((assignee: SelectedValue) => entry.userName === assignee.value),
+        )
+      })
     }
 
     if (selectedStatusInPeriod) {

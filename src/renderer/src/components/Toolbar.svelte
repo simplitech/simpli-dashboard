@@ -24,17 +24,14 @@
 
   const copyReportToClipboard = (
     report: Report,
-    format: Record<
-      string,
-      (id: string, entry: Entry, dateRangeStart: Date, dateRangeEnd: Date, selectedAssignee: SelectedValue[]) => string
-    >,
+    format: Record<string, (id: string, entry: Entry, dateRangeStart: Date, dateRangeEnd: Date) => string>,
   ) => {
     let headers = Object.keys(format).join('\t') + '\n'
     let rows = ''
 
     Object.entries(report).forEach(([id, entry]) => {
       Object.keys(format).forEach((reportItem: string) => {
-        rows += format[reportItem](id, entry, dateRangeStart, dateRangeEnd, selectedAssignee)
+        rows += format[reportItem](id, entry, dateRangeStart, dateRangeEnd)
         rows += '\t'
       })
       rows += '\n'
