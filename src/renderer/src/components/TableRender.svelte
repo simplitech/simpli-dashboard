@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Group, SelectedValue, Report } from '../format'
+  import type { Group, SelectedValue, Report, GroupItem } from '../format'
   import GroupTitle from './GroupTitle.svelte'
   import Table from './Table.svelte'
 
@@ -11,7 +11,7 @@
   export let showDetails = true
   export let level = 0
 
-  const setAsReport = (item) => {
+  const asReport = (item: GroupItem | Report) => {
     return item as Report
   }
 
@@ -51,7 +51,7 @@
         bind:showSummary
         bind:showDetails
         class="w-full mb-8"
-        report={setAsReport(value)}
+        report={asReport(value)}
       />
     {/if}
   </div>

@@ -1,6 +1,6 @@
 {
   "name": "click-clock",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "private": false,
   "main": "./out/main/index.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "build:linux": "npm run build && electron-builder --linux --config",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "lint": "prettier --plugin-search-dir . --check . && eslint .",
+    "lint": "prettier --plugin-search-dir . --check . && eslint . && npm run check",
     "format": "prettier --plugin-search-dir . --write .",
     "prepare": "husky install",
     "release": "electron-builder -p onTag"

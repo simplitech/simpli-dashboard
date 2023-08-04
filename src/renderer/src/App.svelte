@@ -10,7 +10,7 @@
   import type { TimeEntryReportDetailedTimeEntry } from './clockifyServices'
   import { clickupIdFromText, getTask, type Task, type TaskTimeStatus } from './clickupServices'
   import Modal from './components/Modal.svelte'
-  import { type Config } from './helper'
+  import type { Config } from './helper'
   import Header from './components/Header.svelte'
   import Toolbar from './components/Toolbar.svelte'
   import { formatDayMonthYear, type Entry, type Filters, type Report, type SelectedValue, type Group } from './format'
