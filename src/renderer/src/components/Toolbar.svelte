@@ -52,7 +52,7 @@
 </script>
 
 <div
-  class="bg-purple-gray text-sm rounded-lg px-5 flex flex-row items-center justify-between shadow-[6px_8px_25px_0px_rgba(0,0,0,0.39)] relative {$$props.class}"
+  class="bg-purple-gray-500 text-sm rounded-lg px-5 flex flex-row items-center justify-between shadow-[6px_8px_25px_0px_rgba(0,0,0,0.39)] relative {$$props.class}"
   class:opacity-30={disabled}
 >
   <div class="flex flex-row gap-x-2">
@@ -125,10 +125,10 @@
   <div class="w-[2px] h-9 bg-dark-gray mr-5" />
 
   <button
-    class="flex flex-row items-center border border-white rounded-full py-2 px-5 whitespace-nowrap"
+    class="flex flex-row items-center justify-center border border-white rounded-full py-2 px-5 whitespace-nowrap"
     on:click={() => copyReportToClipboard(report, formatReport)}
   >
-    <img src="/images/folder.svg" alt="copy icon" class="mr-2" />
+    <img src="./images/folder.svg" alt="copy icon" class="mr-2" />
     Copy Data to Clipboard
   </button>
 </div>
@@ -138,9 +138,15 @@
     color: white !important;
     background-color: transparent !important;
     border: none !important;
-    width: 200px !important;
+    width: 170px !important;
   }
   :global(.svelte-select-list) {
     background-color: #242731 !important;
+  }
+  :global(.multi-item) {
+    color: #242731 !important;
+  }
+  :global(.item.hover) {
+    background-color: #6c61d0 !important;
   }
 </style>

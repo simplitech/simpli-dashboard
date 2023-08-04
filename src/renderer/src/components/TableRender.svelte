@@ -29,30 +29,32 @@
   }
 </script>
 
-{#each Object.entries(reportGroup).sort() as [key, value]}
-  <div class={getGroupTitle() ? 'border border-light-gray p-5 rounded-lg mb-5' : ''}>
-    {#if getGroupTitle()}
-      <GroupTitle title={key} />
-    {/if}
-    {#if level < 2}
-      <svelte:self
-        reportGroup={value}
-        {selectedGroupBy}
-        {dateRangeEnd}
-        {dateRangeStart}
-        {showDetails}
-        {showSummary}
-        level={level + 1}
-      />
-    {:else}
-      <Table
-        {dateRangeStart}
-        {dateRangeEnd}
-        bind:showSummary
-        bind:showDetails
-        class="w-full mb-8"
-        report={asReport(value)}
-      />
-    {/if}
-  </div>
-{/each}
+<div class={$$props.class}>
+  {#each Object.entries(reportGroup).sort() as [key, value]}
+    <div class={getGroupTitle() ? 'border border-light-gray p-5 rounded-lg mb-5' : ''}>
+      {#if getGroupTitle()}
+        <GroupTitle title={key} />
+      {/if}
+      {#if level < 2}
+        <svelte:self
+          reportGroup={value}
+          {selectedGroupBy}
+          {dateRangeEnd}
+          {dateRangeStart}
+          {showDetails}
+          {showSummary}
+          level={level + 1}
+        />
+      {:else}
+        <Table
+          {dateRangeStart}
+          {dateRangeEnd}
+          bind:showSummary
+          bind:showDetails
+          class="w-full mb-8"
+          report={asReport(value)}
+        />
+      {/if}
+    </div>
+  {/each}
+</div>

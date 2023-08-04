@@ -4,6 +4,8 @@ const tailwindNesting = require('tailwindcss/nesting')
 
 const config = {
   plugins: [
+    //Tailwind nesting is needed if we nest tailwind styles, like in the checkbox scss file
+    //with @apply
     tailwindNesting(),
     //Some plugins, like tailwindcss/nesting, need to run before Tailwind,
     tailwindcss(),
