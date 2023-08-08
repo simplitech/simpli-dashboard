@@ -1,4 +1,4 @@
-import axios from './axiosConfig'
+import axiosWithInterceptors from './axiosConfig'
 import { formatDurationClock, type Entry, type Report, formatDayMonthYear } from './format'
 
 const CLOCKIFY_REPORTS_API_URL = 'https://reports.api.clockify.me/v1'
@@ -42,7 +42,7 @@ export async function getTimeEntryReportDetailed(
   config: { clockifyApiKey: string; clockifyWorkspaceId: string },
 ): Promise<TimeEntryReportDetailed> {
   const url = `${CLOCKIFY_REPORTS_API_URL}/workspaces/${config.clockifyWorkspaceId}/reports/detailed`
-  const { data } = await axios.post<TimeEntryReportDetailed>(url, params, {
+  const { data } = await axiosWithInterceptors.post<TimeEntryReportDetailed>(url, params, {
     headers: {
       'Content-Type': 'application/json',
       'X-Api-Key': config.clockifyApiKey,

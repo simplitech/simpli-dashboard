@@ -1,4 +1,4 @@
-import axios from './axiosConfig'
+import axiosWithInterceptors from './axiosConfig'
 import { calculateEstimationError } from './clockifyServices'
 import { formatDuration, type Entry, type Report, formatDurationOnlyDays } from './format'
 
@@ -70,7 +70,7 @@ export interface BulkTimeStatus {
 
 export async function getTask(taskId: string, config: { clickupApiKey: string }): Promise<Task> {
   const url = `${CLICKUP_API_URL}/task/${taskId}`
-  const { data } = await axios.get<Task>(url, {
+  const { data } = await axiosWithInterceptors.get<Task>(url, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: config.clickupApiKey,
