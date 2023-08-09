@@ -100,9 +100,19 @@
         ),
       ),
     ].sort()
+
+    let index = projectFilter.indexOf('No Project')
+    projectFilter.splice(index, 1)
+    projectFilter.unshift('No Project')
+
     statusFilter = [
-      ...new Set(Object.values(report).map((item: Entry) => item.task?.status.status ?? 'no status')),
+      ...new Set(Object.values(report).map((item: Entry) => item.task?.status.status ?? 'No Status')),
     ].sort()
+
+    index = statusFilter.indexOf('No Status')
+    statusFilter.splice(index, 1)
+    statusFilter.unshift('No Status')
+
     assigneeFilter = [
       ...new Set(
         Object.values(report)
@@ -211,7 +221,7 @@
     if (selectedStatus) {
       reportFiltered = Object.fromEntries(
         Object.entries(reportFiltered).filter(([, value]) =>
-          Object.values(selectedStatus).some((status) => (value.task?.status.status ?? 'no status') === status.value),
+          Object.values(selectedStatus).some((status) => (value.task?.status.status ?? 'No Status') === status.value),
         ),
       )
     }

@@ -4,6 +4,7 @@
     calculateEstimationError,
     clockifyUrl,
     formatUserNamesSortedByParticipation,
+    getUserParticipation,
     sumDurations,
   } from '../clockifyServices'
   import {
@@ -91,7 +92,7 @@
           {#each formatUserNamesSortedByParticipation(entry.timeEntry).split(',').reverse() as name}
             <div
               class="w-10 h-10 bg-lilac rounded-full flex items-center justify-center border-2 border-purple-gray-400 cursor-default font-semibold relative -ml-5"
-              title={name}
+              title={`${name} - ${getUserParticipation(entry.timeEntry, name)}`}
             >
               {getUserInitials(name)}
             </div>
