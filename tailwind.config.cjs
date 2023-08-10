@@ -7,7 +7,10 @@ const config = {
         'dark-purple': '#131926',
         lilac: '#6C61D0',
         'dark-blue': '#1B1F29',
-        'purple-gray': '#242731',
+        'purple-gray': {
+          400: '#292D3A',
+          500: '#242731',
+        },
         'light-gray': '#67717C',
         'dark-gray': '#2F323B',
       },

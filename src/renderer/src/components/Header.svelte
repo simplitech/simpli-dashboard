@@ -29,13 +29,13 @@
 </script>
 
 <div class="bg-dark-purple rounded-full flex items-center justify-between py-4 px-8 text-sm {$$props.class}">
-  <div class="flex flex-row items-center justify-center" class:opacity-30={disabled}>
-    <div class="flex flex-row mr-5">
-      <img src="/images/logo.svg" alt="clickclock logo" class="mr-2" />
+  <div class="flex flex-row items-center justify-center flex-shrink-0" class:opacity-30={disabled}>
+    <div class="flex flex-row">
+      <img src="./images/logo.svg" alt="clickclock logo" class="mr-2" />
       <span class="text-2xl font-extrabold">ClickClock</span>
     </div>
 
-    <div class="w-[2px] h-9 bg-dark-gray mr-5" />
+    <div class="w-[2px] h-9 bg-dark-gray mx-5" />
 
     <form class="flex flex-row items-center mr-10" on:submit|preventDefault={search}>
       <input
@@ -46,7 +46,7 @@
         {disabled}
       />
       <button type="submit" class="-ml-8" {disabled}>
-        <img src="/images/search.svg" alt="search icon" class="w-4 h-4" />
+        <img src="./images/search.svg" alt="search icon" class="w-4 h-4" />
       </button>
     </form>
 
@@ -57,11 +57,11 @@
         {disabled}
       />
 
-      <span class="mx-5">to</span>
+      <span class="mx-4">to</span>
 
       <DatetimeInput
         bind:value={dateRangeEnd}
-        class="bg-transparent border rounded-full border-lilac flex items-center justify-center p-2 mr-5"
+        class="bg-transparent border rounded-full border-lilac flex items-center justify-center p-2 mr-4"
         {disabled}
       />
 
@@ -70,20 +70,20 @@
         type="submit"
         {disabled}
       >
-        <img class="mr-2" src="/images/reverse.svg" alt="reverse icon" />
+        <img class="mr-2" src="./images/reverse.svg" alt="reverse icon" />
         Fetch Data
       </button>
     </form>
   </div>
 
-  <div class="flex flex-row items-center justify-center">
-    <div class="w-[2px] h-9 bg-dark-gray mx-5" />
+  <div class="flex items-center justify-center flex-shrink-0">
+    <div class="w-[2px] h-9 bg-dark-gray mx-4" />
 
-    <div class="text-light-gray font-normal text-xs p-5">
+    <div class="text-light-gray font-normal text-xs pr-3">
       <span>v.{version}</span>
     </div>
-    <button on:click={openConfigModal}>
-      <img src="/images/settings.svg" alt="settings icon" />
+    <button on:click={openConfigModal} class="flex-shrink-0">
+      <img src="./images/settings.svg" alt="settings icon" />
     </button>
   </div>
 </div>

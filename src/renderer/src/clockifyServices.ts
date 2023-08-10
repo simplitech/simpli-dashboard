@@ -85,6 +85,12 @@ export function formatUserNamesDailyParticipation(entries: TimeEntryReportDetail
   return users
 }
 
+export function getUserParticipation(entries: TimeEntryReportDetailedTimeEntry[] | null, username: string): string {
+  if (!entries) return ''
+  const userEntries = entries.filter((item) => item.userName === username.trim())
+  return formatDurationClock(sumDurations(userEntries))
+}
+
 export function getMainGroupOfDurations(entries: TimeEntryReportDetailedTimeEntry[]): number {
   if (!entries) return 0
   const sortedUserDurations = sortUserDurations(entries)

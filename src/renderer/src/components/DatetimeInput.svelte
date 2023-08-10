@@ -21,6 +21,7 @@
 <input type="datetime-local" bind:value={output} {disabled} class={$$props.class} />
 
 <style>
+  /* Changes the color of the calendar icon to white */
   ::-webkit-calendar-picker-indicator {
     filter: invert(1);
   }

@@ -95,10 +95,24 @@
 
     projectFilter = [
       ...new Set(
-        Object.values(report).map((item: Entry) => item.task?.list.name ?? item.timeEntry?.[0]?.projectName ?? ''),
+        Object.values(report).map(
+          (item: Entry) => item.task?.list.name ?? item.timeEntry?.[0]?.projectName ?? 'No Project',
+        ),
       ),
     ].sort()
-    statusFilter = [...new Set(Object.values(report).map((item: Entry) => item.task?.status.status ?? ''))].sort()
+
+    let index = projectFilter.indexOf('No Project')
+    projectFilter.splice(index, 1)
+    projectFilter.unshift('No Project')
+
+    statusFilter = [
+      ...new Set(Object.values(report).map((item: Entry) => item.task?.status.status ?? 'No Status')),
+    ].sort()
+
+    index = statusFilter.indexOf('No Status')
+    statusFilter.splice(index, 1)
+    statusFilter.unshift('No Status')
+
     assigneeFilter = [
       ...new Set(
         Object.values(report)
@@ -207,9 +221,7 @@
     if (selectedStatus) {
       reportFiltered = Object.fromEntries(
         Object.entries(reportFiltered).filter(([, value]) =>
-          Object.values(selectedStatus).some(
-            (status: SelectedValue) => (value.task?.status.status ?? '') === status.value,
-          ),
+          Object.values(selectedStatus).some((status) => (value.task?.status.status ?? 'No Status') === status.value),
         ),
       )
     }
@@ -219,7 +231,7 @@
         Object.entries(reportFiltered).filter(([, value]) =>
           Object.values(selectedProject).some(
             (project: SelectedValue) =>
-              (value.task?.list.name ?? value.timeEntry?.[0]?.projectName ?? '') === project.value,
+              (value.task?.list.name ?? value.timeEntry?.[0]?.projectName ?? 'No Project') === project.value,
           ),
         ),
       )
@@ -373,9 +385,9 @@
   }
 </script>
 
-<main class="py-10 px-5 bg-dark-blue min-h-screen min-w-[1600px]">
+<main class="py-10 px-4 bg-dark-blue min-h-screen min-w-[1350px]">
   <Header
-    class="w-full mb-10 h-[87px]"
+    class="mb-10 h-[87px] min-w-[1300px]"
     {dateRangeStart}
     {dateRangeEnd}
     disabled={loading}
@@ -397,11 +409,19 @@
     bind:showDetails
     bind:showSummary
     on:doFilter={setFilterValue}
-    class="w-full h-[73px] mb-10"
+    class="min-w-[1300px] h-[73px] mb-10"
   />
 
   {#if reportGroup}
-    <TableRender {reportGroup} {selectedGroupBy} {dateRangeEnd} {dateRangeStart} bind:showDetails bind:showSummary />
+    <TableRender
+      class="min-w-[1300px]"
+      {reportGroup}
+      {selectedGroupBy}
+      {dateRangeEnd}
+      {dateRangeStart}
+      bind:showDetails
+      bind:showSummary
+    />
   {/if}
 
   {#if configOpen}
@@ -409,15 +429,15 @@
       <form on:submit|preventDefault={saveConfig} class="flex flex-col m-3">
         <label class="mb-3">
           <div class="font-bold">Clockify API Key</div>
-          <input type="text" bind:value={config.clockifyApiKey} class="w-64 bg-white dark:bg-black p-2 rounded" />
+          <input type="text" bind:value={config.clockifyApiKey} class="w-64 bg-black p-2 rounded" />
         </label>
         <label class="mb-3">
           <div class="font-bold">Clockify Workspace ID</div>
-          <input type="text" bind:value={config.clockifyWorkspaceId} class="w-64 bg-white dark:bg-black p-2 rounded" />
+          <input type="text" bind:value={config.clockifyWorkspaceId} class="w-64 bg-black p-2 rounded" />
         </label>
         <label class="mb-3">
           <div class="font-bold">ClickUp API Key</div>
-          <input type="text" bind:value={config.clickupApiKey} class="w-64 bg-white dark:bg-black p-2 rounded" />
+          <input type="text" bind:value={config.clickupApiKey} class="w-64 bg-black p-2 rounded" />
         </label>
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
           Save

@@ -6,7 +6,7 @@
   export let report: Report
 </script>
 
-<div class="table-summary w-[700px] rounded-l-lg" />
+<div class="table-summary min-w-[400px] max-w-[600px] rounded-l-lg" />
 <div class="table-summary">Count: {countUserNames(report)}</div>
 <div class="table-summary" />
 <div class="table-summary">Sum: {sumTimeTracked(report)}</div>
