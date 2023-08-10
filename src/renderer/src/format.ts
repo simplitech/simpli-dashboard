@@ -29,12 +29,8 @@ export type SelectedValue = {
   label: string
 }
 
-export type GroupItem = {
-  [key: string]: Report
-}
-
 export type Group = {
-  [key: string]: GroupItem | Report
+  [key: string]: Group | Report
 }
 
 export const formatReport: Record<

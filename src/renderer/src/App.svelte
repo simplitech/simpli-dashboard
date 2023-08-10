@@ -306,7 +306,8 @@
     }
 
     for (const [dateKey, value] of Object.entries(reportGroup)) {
-      auxReportGroup[dateKey] = {}
+      const group: Group = {}
+      auxReportGroup[dateKey] = group
 
       if (selectedGroupBy?.some((item: SelectedValue) => item.value === 'Project')) {
         for (const [taskKey, taskValue] of Object.entries(value)) {
@@ -315,7 +316,7 @@
           if (!auxReportGroup[dateKey][projectKey]) {
             auxReportGroup[dateKey][projectKey] = {}
           }
-          ;(auxReportGroup[dateKey] as Group)[projectKey][taskKey] = entry
+          group[projectKey][taskKey] = entry
         }
       } else {
         auxReportGroup[dateKey]['allProjects'] = value as Report
@@ -325,10 +326,12 @@
 
     auxReportGroup = {}
     for (const [key, value] of Object.entries(reportGroup)) {
-      auxReportGroup[key] = {}
+      const keyGroup: Group = {}
+      auxReportGroup[key] = keyGroup
 
       for (const [projKey, projVal] of Object.entries(value)) {
-        auxReportGroup[key][projKey] = {}
+        const projectGroup: Group = {}
+        keyGroup[projKey] = projectGroup
 
         if (selectedGroupBy?.some((item) => item.value === 'Assignee')) {
           for (const [taskKey, taskValue] of Object.entries<Entry>(projVal)) {
@@ -337,14 +340,14 @@
                 ? formatUserNamesSortedByParticipation(taskValue.timeEntry).split(', ').flat()
                 : formatUserNamesDailyParticipation(taskValue.timeEntry, key)
             assignees.forEach((assignee) => {
-              if (!(auxReportGroup[key] as Group)[projKey][assignee]) {
-                ;(auxReportGroup[key] as Group)[projKey][assignee] = {}
+              if (!projectGroup[assignee]) {
+                projectGroup[assignee] = {}
               }
-              ;((auxReportGroup[key] as Group)[projKey] as Group)[assignee][taskKey] = taskValue as Entry
+              projectGroup[assignee][taskKey] = taskValue as Entry
             })
           }
         } else {
-          ;(auxReportGroup[key] as Group)[projKey]['allAssignees'] = projVal as Report
+          projectGroup['allAssignees'] = projVal as Report
         }
       }
     }
