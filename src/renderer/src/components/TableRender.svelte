@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Group, SelectedValue, Report, GroupItem } from '../format'
+  import type { Group, SelectedValue, Report } from '../format'
   import GroupTitle from './GroupTitle.svelte'
   import Table from './Table.svelte'
 
@@ -11,7 +11,7 @@
   export let showDetails = true
   export let level = 0
 
-  const asReport = (item: GroupItem | Report) => {
+  const asReport = (item: Group | Report) => {
     return item as Report
   }
 
