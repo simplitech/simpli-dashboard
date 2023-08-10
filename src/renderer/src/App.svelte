@@ -315,7 +315,7 @@
           if (!auxReportGroup[dateKey][projectKey]) {
             auxReportGroup[dateKey][projectKey] = {}
           }
-          auxReportGroup[dateKey][projectKey][taskKey] = entry
+          ;(auxReportGroup[dateKey] as Group)[projectKey][taskKey] = entry
         }
       } else {
         auxReportGroup[dateKey]['allProjects'] = value as Report
@@ -337,14 +337,14 @@
                 ? formatUserNamesSortedByParticipation(taskValue.timeEntry).split(', ').flat()
                 : formatUserNamesDailyParticipation(taskValue.timeEntry, key)
             assignees.forEach((assignee) => {
-              if (!auxReportGroup[key][projKey][assignee]) {
-                auxReportGroup[key][projKey][assignee] = {}
+              if (!(auxReportGroup[key] as Group)[projKey][assignee]) {
+                ;(auxReportGroup[key] as Group)[projKey][assignee] = {}
               }
-              auxReportGroup[key][projKey][assignee][taskKey] = taskValue as Entry
+              ;((auxReportGroup[key] as Group)[projKey] as Group)[assignee][taskKey] = taskValue as Entry
             })
           }
         } else {
-          auxReportGroup[key][projKey]['allAssignees'] = projVal as Report
+          ;(auxReportGroup[key] as Group)[projKey]['allAssignees'] = projVal as Report
         }
       }
     }
