@@ -20,7 +20,7 @@ export type Report = {
 }
 
 export type Filters = {
-  [name: string]: string[]
+  [name: string]: FilterOptions[]
 }
 
 export type SelectedValue = {
@@ -31,6 +31,11 @@ export type SelectedValue = {
 
 export type Group = {
   [key: string]: Group | Report
+}
+
+export type FilterOptions = {
+  label: string
+  color?: string
 }
 
 export const formatReport: Record<
@@ -159,4 +164,8 @@ export const getUserInitials = (name: string): string => {
 
 export const formatDayMonthYear = (date: string) => {
   return `${new Date(date).getDate()}/${new Date(date).getMonth() + 1}/${new Date(date).getFullYear()}`
+}
+
+export function capitalizeFirstLetter(value: string) {
+  return value.charAt(0).toUpperCase() + value.slice(1)
 }

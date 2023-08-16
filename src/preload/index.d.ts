@@ -8,4 +8,10 @@ declare global {
       GRAPHQL_ENDPOINT: string
     }
   }
+
+  declare namespace svelteHTML {
+    interface HTMLAttributes<T> {
+      'on:click_outside'?: CompositionEventHandler<T>
+    }
+  }
 }

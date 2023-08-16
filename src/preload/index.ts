@@ -1,6 +1,6 @@
 import { contextBridge } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
-import { config } from "dotenv"
+import { config } from 'dotenv'
 
 // Custom APIs for renderer
 const api = {}
@@ -12,7 +12,7 @@ if (process.contextIsolated) {
   try {
     contextBridge.exposeInMainWorld('electron', electronAPI)
     contextBridge.exposeInMainWorld('api', api)
-    contextBridge.exposeInMainWorld("env", config().parsed)
+    contextBridge.exposeInMainWorld('env', config().parsed)
   } catch (error) {
     console.error(error)
   }
