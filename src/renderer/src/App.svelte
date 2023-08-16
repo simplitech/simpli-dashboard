@@ -1,5 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte'
+  import { Client, setContextClient, cacheExchange, fetchExchange } from '@urql/svelte'
+
   import { getCacheItem, setCacheItem } from './cacheServices'
   import {
     getTimeEntryReportDetailed,
@@ -386,6 +388,18 @@
       return false
     }
   }
+
+  const client = new Client({
+    url: window.env.GRAPHQL_ENDPOINT,
+    exchanges: [cacheExchange, fetchExchange],
+    fetchOptions: {
+      headers: {
+        'content-type': 'application/json',
+      },
+    },
+  })
+
+  setContextClient(client)
 </script>
 
 <main class="py-10 px-4 bg-dark-blue min-h-screen min-w-[1350px]">
