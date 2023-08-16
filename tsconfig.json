@@ -26,5 +26,6 @@
     "src/renderer/src/**/*.svelte",
     "src/preload/*.d.ts"
   ],
+  "exclude": ["src/renderer/src/graphql/generated.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

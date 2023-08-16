@@ -6,11 +6,81 @@ This template should help get you started developing with Svelte and TypeScript 
 
 [VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
 
+## Setup
+
+Create a .env file on the root folder with a content like the following.
+
+```
+GRAPHQL_ENDPOINT="http://localhost:4000/graphql"
+```
+- *This .env file is **not commited**, and should only be used for local, development variables.*
+
+Install the dependencies
+
+```shell
+npm i
+```
+
+Run this command to generate all graphql requests
+
+```shell
+npm run generate
+```
+
+## Graphql
+
+### Example
+
+```ts
+<script lang="ts">
+  import { getContextClient, mutationStore } from '@urql/svelte'
+  import * as gql from '../graphql/generated'
+
+  const auth = mutationStore({
+    client: getContextClient(),
+    query: gql.SigninDocument,
+    variables: {
+      email: 'example@example.com',
+      password: 'example',
+    },
+  })
+</script>
+
+<p>{$auth.data}</p>
+```
+
+### Generate new query or mutation
+Create a new file inside `src/renderer/src/graphql/operations` and follow the same structure
+
+Run this command to generate the graphql requests
+
+```shell
+npm run generate
+```
 ## Need an official Svelte framework?
 
 Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
 
 ## Technical considerations
+
+**Graphql Example**
+```ts
+<script lang="ts">
+  import { getContextClient, mutationStore } from '@urql/svelte'
+  import * as gql from '../graphql/generated'
+
+  const auth = mutationStore({
+    client: getContextClient(),
+    query: gql.SigninDocument,
+    variables: {
+      email: 'example@example.com',
+      password: 'example',
+    },
+  })
+</script>
+
+<p>{$auth.data}</p>
+```
 
 **Why use this over SvelteKit?**
 
