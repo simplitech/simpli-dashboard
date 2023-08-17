@@ -3,6 +3,7 @@
   import { fly, slide } from 'svelte/transition'
   import { capitalizeFirstLetter, type FilterOptions } from '../format'
   import { getContrastColorHex, clickOutside } from '../helper'
+  import CloseIcon from './icons/CloseIcon.svelte'
 
   export let title = ''
   export let placeholder = ''
@@ -52,6 +53,11 @@
     )
 
     isSearching = !!searchValue
+  }
+
+  function handleClear() {
+    searchValue = ''
+    searchAssignees()
   }
 
   function hasColor() {
@@ -105,16 +111,22 @@
       on:click_outside={() => handleClick()}
     >
       {#if showSearch}
-        <form on:submit|preventDefault={searchAssignees} class="flex">
+        <form on:input|preventDefault={searchAssignees} class="flex">
           <input
             type="text"
             class="w-full h-5 text-white p-4 rounded-full bg-purple-gray-400 border border-light-gray focus:outline-none focus:border-lilac focus:border-2"
             {placeholder}
             bind:value={searchValue}
           />
-          <button type="submit" class="-ml-7">
-            <img src="./images/search.svg" alt="search icon" class="w-4 h-4" />
-          </button>
+          {#if !searchValue}
+            <button type="submit" class="-ml-7">
+              <img src="./images/search.svg" alt="search icon" class="w-4 h-4" />
+            </button>
+          {:else}
+            <button class="-ml-7" on:click={() => handleClear()}>
+              <CloseIcon />
+            </button>
+          {/if}
         </form>
         <hr class="border-light-gray" />
       {/if}
@@ -124,13 +136,15 @@
         </div>
       {:else}
         <div class="flex items-center text-sm">
-          <input
-            type="checkbox"
-            class="checkbox"
-            checked={isSelectAllChecked()}
-            on:change={(event) => handleSelectAll(event)}
-          />
-          Select All
+          <label class="flex items-center cursor-pointer">
+            <input
+              type="checkbox"
+              class="checkbox"
+              checked={isSelectAllChecked()}
+              on:change={(event) => handleSelectAll(event)}
+            />
+            Select All
+          </label>
         </div>
       {/if}
       <hr class="border-light-gray" />
@@ -138,16 +152,18 @@
       <div class="flex flex-col space-y-3">
         {#each filteredItems as item}
           <div class="flex items-center text-sm">
-            <input
-              type="checkbox"
-              class="checkbox"
-              checked={isChecked(item)}
-              on:change={(event) => handleCheckboxChange(event, item)}
-            />
-            {capitalizeFirstLetter(item.label)}
-            {#if item.color}
-              <div class="w-2 h-2 ml-2 rounded-sm" style="background-color: {item.color}" />
-            {/if}
+            <label class="flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                class="checkbox"
+                checked={isChecked(item)}
+                on:change={(event) => handleCheckboxChange(event, item)}
+              />
+              {capitalizeFirstLetter(item.label)}
+              {#if item.color}
+                <div class="w-2 h-2 ml-2 rounded-sm" style="background-color: {item.color}" />
+              {/if}
+            </label>
           </div>
         {/each}
       </div>
