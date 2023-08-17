@@ -11,6 +11,7 @@
   let selectedStatus: FilterOptions[] = []
   let selectedStatusInPeriod: FilterOptions[] = []
   let selectedGroupBy: FilterOptions[] = []
+  let showWarnings = true
 
   export let report: Report
   export let dateRangeStart: Date
@@ -40,6 +41,22 @@
     copyToClipboard(headers + rows)
   }
 
+  const handleCheckWarnings = () => {
+    if (!showWarnings) {
+      showDetails = false
+    }
+
+    filter()
+  }
+
+  const handleCheckDetails = () => {
+    if (showDetails) {
+      showWarnings = true
+    }
+
+    filter()
+  }
+
   const filter = () => {
     dispatch('doFilter', {
       selectedAssignee: selectedAssignee,
@@ -47,6 +64,8 @@
       selectedStatus: selectedStatus,
       selectedStatusInPeriod: selectedStatusInPeriod,
       selectedGroupBy: selectedGroupBy,
+      showWarnings: showWarnings,
+      showDetails: showDetails,
     })
   }
 </script>
@@ -97,8 +116,13 @@
   </label>
 
   <label class="flex flex-row items-center">
-    <input type="checkbox" bind:checked={showDetails} class="checkbox" {disabled} />
+    <input type="checkbox" bind:checked={showDetails} on:change={handleCheckDetails} class="checkbox" {disabled} />
     Show Details
+  </label>
+
+  <label class="flex flex-row items-center">
+    <input type="checkbox" bind:checked={showWarnings} on:change={handleCheckWarnings} class="checkbox" {disabled} />
+    Show Warnings
   </label>
 
   <div class="w-[2px] h-9 bg-dark-gray" />
