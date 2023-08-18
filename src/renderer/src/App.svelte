@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { Client, setContextClient, cacheExchange, fetchExchange } from '@urql/svelte'
+  import { Client, cacheExchange, fetchExchange } from '@urql/svelte'
 
   import { getCacheItem, setCacheItem } from './cacheServices'
   import {
@@ -12,7 +12,7 @@
   import type { TimeEntryReportDetailedTimeEntry } from './clockifyServices'
   import { clickupIdFromText, getTask, type Task, type TaskTimeStatus } from './clickupServices'
   import Modal from './components/Modal.svelte'
-  import type { Config, Login } from './helper'
+  import type { Config } from './helper'
   import Header from './components/Header.svelte'
   import Toolbar from './components/Toolbar.svelte'
   import { formatDayMonthYear, type Entry, type Filters, type Report, type Group, type FilterOptions } from './format'
@@ -20,9 +20,9 @@
   import { scale } from 'svelte/transition'
   import TableRender from './components/TableRender.svelte'
   import _ from 'lodash'
-  import * as gql from './graphql/generated'
-  import { sha256 } from 'js-sha256'
   import { showToast } from './toast'
+  import { validateAndSignIn, type Login } from './loginServices'
+  import { graphqlClient } from './store'
 
   let report: Report = null
   let reportFiltered: Report = null
@@ -421,30 +421,17 @@
     },
   })
 
-  setContextClient(client)
+  graphqlClient.set(client)
 
-  const validateAndSignIn = () => {
-    if (loginData.email == null || loginData.email === '') {
-      showToast('E-mail cannot be empty', 'red')
-      return
+  const handleLogin = async () => {
+    try {
+      await validateAndSignIn(loginData)
+      showToast('Login Successful!')
+
+      loginOpen = false
+    } catch (e) {
+      showToast(e, 'red')
     }
-
-    if (loginData.password == null || loginData.password === '') {
-      showToast('Password cannot be empty', 'red')
-      return
-    }
-
-    client
-      .mutation(gql.SigninDocument, { email: loginData.email, password: sha256(loginData.password) })
-      .subscribe((result) => {
-        if (result.data) {
-          setCacheItem('token', result.data.signin.token)
-          showToast('Login Successful!')
-          loginOpen = false
-        } else if (result.error) {
-          showToast(result.error.message, 'red')
-        }
-      })
   }
 </script>
 
@@ -464,10 +451,6 @@
       <Loading {loadingText} {loadingOrigin} />
     </div>
   {/if}
-
-  <button on:click={() => (loginOpen = true)} title="Login" class="transition duration-500 hover:scale-110">
-    ( ಠ ͜ʖ ಠ)
-  </button>
 
   <Toolbar
     report={reportFiltered}
@@ -491,6 +474,9 @@
       bind:showDetails
       bind:showSummary
     />
+    <button on:click={() => (loginOpen = true)} title="Login" class="transition duration-500 hover:scale-110">
+      ( ಠ ͜ʖ ಠ)
+    </button>
   {/if}
 
   {#if configOpen}
@@ -517,10 +503,7 @@
 
   {#if loginOpen}
     <Modal on:close={() => (loginOpen = false)} title="Login">
-      <form
-        on:submit|preventDefault={validateAndSignIn}
-        class="flex flex-col items-center justify-center w-full pt-5 pb-10"
-      >
+      <form on:submit|preventDefault={handleLogin} class="flex flex-col items-center justify-center w-full pt-5 pb-10">
         <label class="mb-4">
           <div class="font-semibold mb-1">E-mail</div>
           <input
