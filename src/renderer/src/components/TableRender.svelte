@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { Group, SelectedValue, Report } from '../format'
+  import type { Group, Report, FilterOptions } from '../format'
   import GroupTitle from './GroupTitle.svelte'
   import Table from './Table.svelte'
 
   export let reportGroup: Group
-  export let selectedGroupBy: SelectedValue[]
+  export let selectedGroupBy: FilterOptions[]
   export let dateRangeStart: Date
   export let dateRangeEnd: Date
   export let showSummary = true
@@ -18,11 +18,11 @@
   $: getGroupTitle = () => {
     switch (level) {
       case 0:
-        return selectedGroupBy?.some((item) => item.value === 'Date')
+        return selectedGroupBy?.some((item: FilterOptions) => item.label === 'Date')
       case 1:
-        return selectedGroupBy?.some((item) => item.value === 'Project')
+        return selectedGroupBy?.some((item: FilterOptions) => item.label === 'Project')
       case 2:
-        return selectedGroupBy?.some((item) => item.value === 'Assignee')
+        return selectedGroupBy?.some((item: FilterOptions) => item.label === 'Assignee')
       default:
         return false
     }

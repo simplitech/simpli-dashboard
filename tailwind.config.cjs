@@ -8,6 +8,7 @@ const config = {
         lilac: '#6C61D0',
         'dark-blue': '#1B1F29',
         'purple-gray': {
+          300: '#3E4250',
           400: '#292D3A',
           500: '#242731',
         },

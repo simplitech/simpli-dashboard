@@ -7,5 +7,5 @@ export default defineConfig({
   plugins: [svelte()],
   optimizeDeps: {
     exclude: ['@urql/svelte'],
-  }
+  },
 })

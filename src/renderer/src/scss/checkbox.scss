@@ -1,5 +1,5 @@
 .checkbox {
-  @apply relative bg-white w-5 h-5 p-0 mr-2 cursor-pointer rounded outline-none;
+  @apply relative bg-transparent w-5 h-5 p-0 mr-2 cursor-pointer rounded outline-none border border-light-gray;
   min-width: 20px;
 
   -webkit-appearance: none;
@@ -8,7 +8,7 @@
   min-height: unset;
 
   &:checked {
-    @apply bg-lilac;
+    @apply bg-lilac border-none;
   }
 
   &:after {

@@ -15,7 +15,7 @@
   import type { Config } from './helper'
   import Header from './components/Header.svelte'
   import Toolbar from './components/Toolbar.svelte'
-  import { formatDayMonthYear, type Entry, type Filters, type Report, type SelectedValue, type Group } from './format'
+  import { formatDayMonthYear, type Entry, type Filters, type Report, type Group, type FilterOptions } from './format'
   import Loading from './components/Loading.svelte'
   import { scale } from 'svelte/transition'
   import TableRender from './components/TableRender.svelte'
@@ -35,15 +35,15 @@
   }
 
   let filters: Filters = {}
-  let projectFilter: string[] = []
-  let statusFilter: string[] = []
-  let assigneeFilter: string[] = []
+  let projectFilter: FilterOptions[] = []
+  let statusFilter: FilterOptions[] = []
+  let assigneeFilter: FilterOptions[] = []
 
-  let selectedProject: SelectedValue[] = null
-  let selectedStatus: SelectedValue[] = null
-  let selectedAssignee: SelectedValue[] = null
-  let selectedStatusInPeriod: SelectedValue[] = null
-  let selectedGroupBy: SelectedValue[] = null
+  let selectedProject: FilterOptions[] = []
+  let selectedStatus: FilterOptions[] = []
+  let selectedAssignee: FilterOptions[] = []
+  let selectedStatusInPeriod: FilterOptions[] = []
+  let selectedGroupBy: FilterOptions[] = []
   let searchValue: string = null
 
   let now = new Date()
@@ -101,19 +101,29 @@
           (item: Entry) => item.task?.list.name ?? item.timeEntry?.[0]?.projectName ?? 'No Project',
         ),
       ),
-    ].sort()
+    ]
+      .sort()
+      .map((filterItem: string) => ({ label: filterItem }))
 
-    let index = projectFilter.indexOf('No Project')
-    projectFilter.splice(index, 1)
-    projectFilter.unshift('No Project')
+    let index = projectFilter.findIndex((item) => item.label === 'No Project')
+    projectFilter.unshift(projectFilter[index])
+    projectFilter.splice(index + 1, 1)
 
-    statusFilter = [
-      ...new Set(Object.values(report).map((item: Entry) => item.task?.status.status ?? 'No Status')),
-    ].sort()
+    const statusMap: { [id: string]: FilterOptions } = {}
+    Object.values(report).forEach((item) => {
+      const status = item.task?.status.status || 'No Status'
+      if (!statusMap[status]) {
+        statusMap[status] = {
+          label: status,
+          color: item.task?.status.color || '#c2c2c2',
+        }
+      }
+    })
+    statusFilter = Object.values(statusMap)
 
-    index = statusFilter.indexOf('No Status')
-    statusFilter.splice(index, 1)
-    statusFilter.unshift('No Status')
+    index = statusFilter.findIndex((item) => item.label === 'No Status')
+    statusFilter.unshift(statusFilter[index])
+    statusFilter.splice(index + 1, 1)
 
     assigneeFilter = [
       ...new Set(
@@ -121,7 +131,9 @@
           .map((item: Entry) => formatUserNamesSortedByParticipation(item.timeEntry).split(', '))
           .flat(),
       ),
-    ].sort()
+    ]
+      .sort()
+      .map((filterItem: string) => ({ label: filterItem }))
 
     filters = {
       project: projectFilter,
@@ -130,7 +142,6 @@
     }
 
     handleFilters()
-
     loading = false
   }
 
@@ -220,53 +231,55 @@
   function handleFilters() {
     reportFiltered = _.cloneDeep(report)
 
-    if (selectedStatus) {
+    if (selectedStatus.length) {
       reportFiltered = Object.fromEntries(
         Object.entries(reportFiltered).filter(([, value]) =>
-          Object.values(selectedStatus).some((status) => (value.task?.status.status ?? 'No Status') === status.value),
-        ),
-      )
-    }
-
-    if (selectedProject) {
-      reportFiltered = Object.fromEntries(
-        Object.entries(reportFiltered).filter(([, value]) =>
-          Object.values(selectedProject).some(
-            (project: SelectedValue) =>
-              (value.task?.list.name ?? value.timeEntry?.[0]?.projectName ?? 'No Project') === project.value,
+          Object.values(selectedStatus).some(
+            (status: FilterOptions) => (value.task?.status.status ?? 'No Status') === status.label,
           ),
         ),
       )
     }
 
-    if (selectedAssignee) {
+    if (selectedProject.length) {
       reportFiltered = Object.fromEntries(
         Object.entries(reportFiltered).filter(([, value]) =>
-          Object.values(selectedAssignee).some((assignee: SelectedValue) =>
+          Object.values(selectedProject).some(
+            (project: FilterOptions) =>
+              (value.task?.list.name ?? value.timeEntry?.[0]?.projectName ?? 'No Project') === project.label,
+          ),
+        ),
+      )
+    }
+
+    if (selectedAssignee.length) {
+      reportFiltered = Object.fromEntries(
+        Object.entries(reportFiltered).filter(([, value]) =>
+          Object.values(selectedAssignee).some((assignee: FilterOptions) =>
             formatUserNamesSortedByParticipation(value.timeEntry)
               .split(', ')
-              .some((name: string) => name === assignee.value),
+              .some((name: string) => name === assignee.label),
           ),
         ),
       )
 
       Object.entries(reportFiltered).forEach(([, value]) => {
         value.timeEntry = value.timeEntry.filter((entry: TimeEntryReportDetailedTimeEntry) =>
-          Object.values(selectedAssignee).some((assignee: SelectedValue) => entry.userName === assignee.value),
+          Object.values(selectedAssignee).some((assignee: FilterOptions) => entry.userName === assignee.label),
         )
       })
     }
 
-    if (selectedStatusInPeriod) {
+    if (selectedStatusInPeriod.length) {
       reportFiltered = Object.fromEntries(
         Object.entries(reportFiltered).filter(([, value]) =>
-          Object.values(selectedStatusInPeriod).some((timeInStatus: SelectedValue) => {
+          Object.values(selectedStatusInPeriod).some((timeInStatus: FilterOptions) => {
             if (!value.task) return false
             return checkIfStatusInRange(
               dateRangeStart,
               dateRangeEnd,
               value.task?.timeStatus?.status_history,
-              timeInStatus.value,
+              timeInStatus.label,
             )
           }),
         ),
@@ -292,7 +305,7 @@
     reportGroup = {}
     auxReportGroup = {}
 
-    if (selectedGroupBy?.some((item: SelectedValue) => item.value === 'Date')) {
+    if (selectedGroupBy.some((item: FilterOptions) => item.label === 'Date')) {
       for (const [idIssue, entry] of Object.entries(reportFiltered)) {
         const dates = new Set(entry.timeEntry.map((item) => formatDayMonthYear(item.timeInterval.start)))
 
@@ -311,7 +324,7 @@
       const group: Group = {}
       auxReportGroup[dateKey] = group
 
-      if (selectedGroupBy?.some((item: SelectedValue) => item.value === 'Project')) {
+      if (selectedGroupBy.some((item: FilterOptions) => item.label === 'Project')) {
         for (const [taskKey, taskValue] of Object.entries(value)) {
           const entry = taskValue as Entry
           const projectKey = entry.task?.list.name ?? entry.timeEntry?.[0]?.projectName ?? 'No project'
@@ -335,7 +348,7 @@
         const projectGroup: Group = {}
         keyGroup[projKey] = projectGroup
 
-        if (selectedGroupBy?.some((item) => item.value === 'Assignee')) {
+        if (selectedGroupBy.some((item: FilterOptions) => item.label === 'Assignee')) {
           for (const [taskKey, taskValue] of Object.entries<Entry>(projVal)) {
             const assignees =
               key === 'allDates'
@@ -402,7 +415,7 @@
   setContextClient(client)
 </script>
 
-<main class="py-10 px-4 bg-dark-blue min-h-screen min-w-[1350px]">
+<main class="py-10 px-4 bg-dark-blue min-h-screen min-w-[1350px] overflow-y-auto">
   <Header
     class="mb-10 h-[87px] min-w-[1300px]"
     {dateRangeStart}

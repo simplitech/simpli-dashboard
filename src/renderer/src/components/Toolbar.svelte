@@ -1,16 +1,16 @@
 <script lang="ts">
-  import Select from 'svelte-select'
-  import { formatReport, type Report, type Filters, type SelectedValue, type Entry } from '../format'
+  import { formatReport, type Report, type Filters, type Entry, type FilterOptions } from '../format'
   import { copyToClipboard } from '../helper'
   import { createEventDispatcher } from 'svelte'
+  import CustomSelect from './CustomSelect.svelte'
 
   const dispatch = createEventDispatcher()
 
-  let selectedAssignee: SelectedValue[] = null
-  let selectedProject: SelectedValue[] = null
-  let selectedStatus: SelectedValue[] = null
-  let selectedStatusInPeriod: SelectedValue[] = null
-  let selectedGroupBy: SelectedValue[] = null
+  let selectedAssignee: FilterOptions[] = []
+  let selectedProject: FilterOptions[] = []
+  let selectedStatus: FilterOptions[] = []
+  let selectedStatusInPeriod: FilterOptions[] = []
+  let selectedGroupBy: FilterOptions[] = []
 
   export let report: Report
   export let dateRangeStart: Date
@@ -20,7 +20,7 @@
   export let showSummary = true
   export let showDetails = true
 
-  let groupByItems = ['Project', 'Assignee', 'Date']
+  let groupByItems = ['Project', 'Assignee', 'Date'].map((item) => ({ label: item }))
 
   const copyReportToClipboard = (
     report: Report,
@@ -55,46 +55,37 @@
   class="bg-purple-gray-500 text-sm rounded-lg px-5 flex flex-row items-center justify-between shadow-[6px_8px_25px_0px_rgba(0,0,0,0.39)] relative {$$props.class}"
   class:opacity-30={disabled}
 >
-  <div class="flex flex-row gap-x-2">
-    <Select
-      searchable
-      multiple
-      showChevron
-      placeholder="Assignee"
+  <div class="flex flex-row gap-x-8">
+    <CustomSelect
+      class="mr-16"
+      title="Assignee"
+      placeholder="Find users"
       items={filters.assignee}
-      bind:value={selectedAssignee}
-      on:input={filter}
-      {disabled}
+      on:filter={filter}
+      bind:selectedItems={selectedAssignee}
     />
-    <Select
-      searchable
-      multiple
-      showChevron
-      placeholder="Project"
+    <CustomSelect
+      class="mr-16"
+      title="Project"
+      placeholder="Find projects"
       items={filters.project}
-      bind:value={selectedProject}
-      on:input={filter}
-      {disabled}
+      on:filter={filter}
+      bind:selectedItems={selectedProject}
     />
-    <Select
-      searchable
-      multiple
-      showChevron
-      placeholder="Status"
+    <CustomSelect
+      class="mr-16"
+      title="Status"
+      placeholder="Find status"
       items={filters.status}
-      bind:value={selectedStatus}
-      on:input={filter}
-      {disabled}
+      on:filter={filter}
+      bind:selectedItems={selectedStatus}
     />
-    <Select
-      searchable
-      multiple
-      showChevron
-      placeholder="Status in Period"
+    <CustomSelect
+      title="Status In Period"
+      placeholder="Find status in period"
       items={filters.status}
-      bind:value={selectedStatusInPeriod}
-      on:input={filter}
-      {disabled}
+      on:filter={filter}
+      bind:selectedItems={selectedStatusInPeriod}
     />
   </div>
 
@@ -112,14 +103,12 @@
 
   <div class="w-[2px] h-9 bg-dark-gray" />
 
-  <Select
+  <CustomSelect
+    title="Group By"
     items={groupByItems}
-    multiple
-    showChevron
-    placeholder="Group By"
-    bind:value={selectedGroupBy}
-    on:input={filter}
-    {disabled}
+    on:filter={filter}
+    bind:selectedItems={selectedGroupBy}
+    showSearch={false}
   />
 
   <div class="w-[2px] h-9 bg-dark-gray mr-5" />
