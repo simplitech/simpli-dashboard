@@ -6,6 +6,11 @@ export type Config = {
   clickupApiKey: string
 }
 
+export type Login = {
+  email: string | null
+  password: string | null
+}
+
 export function copyToClipboard(text: string) {
   navigator.clipboard.writeText(text).then(() => showToast('Copiado com sucesso!'))
 }

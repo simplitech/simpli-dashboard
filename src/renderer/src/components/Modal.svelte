@@ -15,10 +15,10 @@
   >
     <div class="relative w-full max-w-2xl max-h-full">
       <!-- Modal content -->
-      <div class="relative rounded-lg shadow bg-gray-700">
+      <div class="relative rounded-lg shadow bg-purple-gray-500">
         <!-- Modal header -->
         <div class="flex items-start justify-between p-4 border-b rounded-t border-gray-600">
-          <h3 class="text-xl font-semibold text-white">
+          <h3 class="text-xl font-semibold text-white px-1.5">
             <slot name="title">{title}</slot>
           </h3>
           <button

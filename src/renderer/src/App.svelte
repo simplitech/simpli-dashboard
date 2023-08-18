@@ -12,7 +12,7 @@
   import type { TimeEntryReportDetailedTimeEntry } from './clockifyServices'
   import { clickupIdFromText, getTask, type Task, type TaskTimeStatus } from './clickupServices'
   import Modal from './components/Modal.svelte'
-  import type { Config } from './helper'
+  import type { Config, Login } from './helper'
   import Header from './components/Header.svelte'
   import Toolbar from './components/Toolbar.svelte'
   import { formatDayMonthYear, type Entry, type Filters, type Report, type Group, type FilterOptions } from './format'
@@ -20,6 +20,9 @@
   import { scale } from 'svelte/transition'
   import TableRender from './components/TableRender.svelte'
   import _ from 'lodash'
+  import * as gql from './graphql/generated'
+  import { sha256 } from 'js-sha256'
+  import { showToast } from './toast'
 
   let report: Report = null
   let reportFiltered: Report = null
@@ -54,6 +57,12 @@
 
   let reportGroup: Group = {}
   let auxReportGroup: Group = {}
+
+  let loginOpen = false
+  let loginData: Login = {
+    email: null,
+    password: null,
+  }
 
   $: showSummary = true
   $: showDetails = true
@@ -413,6 +422,30 @@
   })
 
   setContextClient(client)
+
+  const validateAndSignIn = () => {
+    if (loginData.email == null || loginData.email === '') {
+      showToast('E-mail cannot be empty', 'red')
+      return
+    }
+
+    if (loginData.password == null || loginData.password === '') {
+      showToast('Password cannot be empty', 'red')
+      return
+    }
+
+    client
+      .mutation(gql.SigninDocument, { email: loginData.email, password: sha256(loginData.password) })
+      .subscribe((result) => {
+        if (result.data) {
+          setCacheItem('token', result.data.signin.token)
+          showToast('Login Successful!')
+          loginOpen = false
+        } else if (result.error) {
+          showToast(result.error.message, 'red')
+        }
+      })
+  }
 </script>
 
 <main class="py-10 px-4 bg-dark-blue min-h-screen min-w-[1350px] overflow-y-auto">
@@ -425,11 +458,17 @@
     on:openConfigModal={openConfigModal}
     on:search={setSearch}
   />
+
   {#if loading}
     <div transition:scale={{ duration: 500 }}>
       <Loading {loadingText} {loadingOrigin} />
     </div>
   {/if}
+
+  <button on:click={() => (loginOpen = true)} title="Login" class="transition duration-500 hover:scale-110">
+    ( ಠ ͜ʖ ಠ)
+  </button>
+
   <Toolbar
     report={reportFiltered}
     {dateRangeStart}
@@ -471,6 +510,38 @@
         </label>
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
           Save
+        </button>
+      </form>
+    </Modal>
+  {/if}
+
+  {#if loginOpen}
+    <Modal on:close={() => (loginOpen = false)} title="Login">
+      <form
+        on:submit|preventDefault={validateAndSignIn}
+        class="flex flex-col items-center justify-center w-full pt-5 pb-10"
+      >
+        <label class="mb-4">
+          <div class="font-semibold mb-1">E-mail</div>
+          <input
+            type="email"
+            bind:value={loginData.email}
+            class="w-96 bg-transparent border p-2 rounded focus:outline-none focus:border-lilac focus:border-2"
+          />
+        </label>
+        <label class="mb-10">
+          <div class="font-semibold mb-1">Password</div>
+          <input
+            type="password"
+            bind:value={loginData.password}
+            class="w-96 bg-transparent border p-2 rounded focus:outline-none focus:border-lilac focus:border-2"
+          />
+        </label>
+        <button
+          class="w-96 bg-lilac text-white font-bold py-2 px-4 rounded transition duration-500 hover:scale-110"
+          type="submit"
+        >
+          Login
         </button>
       </form>
     </Modal>
