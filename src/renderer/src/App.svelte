@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { Client, setContextClient, cacheExchange, fetchExchange } from '@urql/svelte'
+  import { Client, cacheExchange, fetchExchange } from '@urql/svelte'
 
   import { getCacheItem, setCacheItem } from './cacheServices'
   import {
@@ -20,6 +20,9 @@
   import { scale } from 'svelte/transition'
   import TableRender from './components/TableRender.svelte'
   import _ from 'lodash'
+  import { showToast } from './toast'
+  import { validateAndSignIn, type Login } from './loginServices'
+  import { graphqlClient } from './store'
 
   let report: Report = null
   let reportFiltered: Report = null
@@ -54,6 +57,12 @@
 
   let reportGroup: Group = {}
   let auxReportGroup: Group = {}
+
+  let loginOpen = false
+  let loginData: Login = {
+    email: null,
+    password: null,
+  }
 
   $: showSummary = true
   $: showDetails = true
@@ -412,7 +421,18 @@
     },
   })
 
-  setContextClient(client)
+  graphqlClient.set(client)
+
+  const handleLogin = async () => {
+    try {
+      await validateAndSignIn(loginData)
+      showToast('Login Successful!')
+
+      loginOpen = false
+    } catch (e) {
+      showToast(e, 'red')
+    }
+  }
 </script>
 
 <main class="py-10 px-4 bg-dark-blue min-h-screen min-w-[1350px] overflow-y-auto">
@@ -425,11 +445,13 @@
     on:openConfigModal={openConfigModal}
     on:search={setSearch}
   />
+
   {#if loading}
     <div transition:scale={{ duration: 500 }}>
       <Loading {loadingText} {loadingOrigin} />
     </div>
   {/if}
+
   <Toolbar
     report={reportFiltered}
     {dateRangeStart}
@@ -452,6 +474,9 @@
       bind:showDetails
       bind:showSummary
     />
+    <button on:click={() => (loginOpen = true)} title="Login" class="transition duration-500 hover:scale-110">
+      ( ಠ ͜ʖ ಠ)
+    </button>
   {/if}
 
   {#if configOpen}
@@ -471,6 +496,35 @@
         </label>
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
           Save
+        </button>
+      </form>
+    </Modal>
+  {/if}
+
+  {#if loginOpen}
+    <Modal on:close={() => (loginOpen = false)} title="Login">
+      <form on:submit|preventDefault={handleLogin} class="flex flex-col items-center justify-center w-full pt-5 pb-10">
+        <label class="mb-4">
+          <div class="font-semibold mb-1">E-mail</div>
+          <input
+            type="email"
+            bind:value={loginData.email}
+            class="w-96 bg-transparent border p-2 rounded focus:outline-none focus:border-lilac focus:border-2"
+          />
+        </label>
+        <label class="mb-10">
+          <div class="font-semibold mb-1">Password</div>
+          <input
+            type="password"
+            bind:value={loginData.password}
+            class="w-96 bg-transparent border p-2 rounded focus:outline-none focus:border-lilac focus:border-2"
+          />
+        </label>
+        <button
+          class="w-96 bg-lilac text-white font-bold py-2 px-4 rounded transition duration-500 hover:scale-110"
+          type="submit"
+        >
+          Login
         </button>
       </form>
     </Modal>

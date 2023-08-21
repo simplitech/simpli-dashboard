@@ -82,6 +82,9 @@ app.on('ready', () => {
   )
 
   session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+    // The requests had two headers: Access-Control-Allow-Origin and access-control-allow-origin
+    // and we were getting errors because of this. So we remove one of then
+    if (details.responseHeaders) delete details.responseHeaders['Access-Control-Allow-Origin']
     callback({
       responseHeaders: {
         'access-control-allow-origin': ['*'],
