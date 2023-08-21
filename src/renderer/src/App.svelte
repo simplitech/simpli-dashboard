@@ -403,7 +403,7 @@
   }
 
   const client = new Client({
-    url: window.env.GRAPHQL_ENDPOINT,
+    url: window.env?.GRAPHQL_ENDPOINT ?? '',
     exchanges: [cacheExchange, fetchExchange],
     fetchOptions: {
       headers: {
