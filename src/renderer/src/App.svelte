@@ -4,15 +4,16 @@
 
   import { getCacheItem, setCacheItem } from './cacheServices'
   import {
+    calculateEstimationError,
     getTimeEntryReportDetailed,
     formatUserNamesSortedByParticipation,
     formatUserNamesDailyParticipation,
     type TimeEntryReportDetailed,
   } from './clockifyServices'
   import type { TimeEntryReportDetailedTimeEntry } from './clockifyServices'
-  import { clickupIdFromText, getTask, type Task, type TaskTimeStatus } from './clickupServices'
+  import { clickupIdFromText, getTask, getTaskTimeStatus, type Task, type TaskTimeStatus } from './clickupServices'
   import Modal from './components/Modal.svelte'
-  import type { Config } from './helper'
+  import { daysToMilis, type Config } from './helper'
   import Header from './components/Header.svelte'
   import Toolbar from './components/Toolbar.svelte'
   import { formatDayMonthYear, type Entry, type Filters, type Report, type Group, type FilterOptions } from './format'
@@ -66,6 +67,7 @@
 
   $: showSummary = true
   $: showDetails = true
+  $: showWarnings = true
 
   onMount(async () => {
     const cacheConfig = await getCacheItem('config')
@@ -233,6 +235,8 @@
     selectedStatus = event.detail.selectedStatus
     selectedStatusInPeriod = event.detail.selectedStatusInPeriod
     selectedGroupBy = event.detail.selectedGroupBy
+    showWarnings = event.detail.showWarnings
+    showDetails = event.detail.showDetails
 
     handleFilters()
   }
@@ -303,6 +307,17 @@
             key.toLowerCase().includes(searchFormatted) ||
             value.task?.id.toLowerCase().includes(searchFormatted) ||
             value.task?.name.toLowerCase().includes(searchFormatted),
+        ),
+      )
+    }
+
+    if (showWarnings && !showDetails) {
+      reportFiltered = Object.fromEntries(
+        Object.entries(reportFiltered).filter(
+          ([, value]) =>
+            calculateEstimationError(value) > 2.5 ||
+            getTaskTimeStatus(value.task?.timeStatus, 'to review') >= daysToMilis(3) ||
+            getTaskTimeStatus(value.task?.timeStatus, 'to test') >= daysToMilis(3),
         ),
       )
     }
@@ -460,6 +475,7 @@
     disabled={loading}
     bind:showDetails
     bind:showSummary
+    bind:showWarnings
     on:doFilter={setFilterValue}
     class="min-w-[1300px] h-[73px] mb-10"
   />
@@ -473,6 +489,7 @@
       {dateRangeStart}
       bind:showDetails
       bind:showSummary
+      bind:showWarnings
     />
     <button on:click={() => (loginOpen = true)} title="Login" class="transition duration-500 hover:scale-110">
       ( ಠ ͜ʖ ಠ)

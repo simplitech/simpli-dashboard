@@ -9,6 +9,7 @@
   export let dateRangeEnd: Date
   export let showSummary = true
   export let showDetails = true
+  export let showWarnings = true
   export let level = 0
 
   const asReport = (item: Group | Report) => {
@@ -43,6 +44,7 @@
           {dateRangeStart}
           {showDetails}
           {showSummary}
+          {showWarnings}
           level={level + 1}
         />
       {:else}
@@ -51,6 +53,7 @@
           {dateRangeEnd}
           bind:showSummary
           bind:showDetails
+          bind:showWarnings
           class="w-full mb-8"
           report={asReport(value)}
         />

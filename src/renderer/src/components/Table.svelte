@@ -25,6 +25,7 @@
   export let dateRangeEnd: Date
   export let showSummary = true
   export let showDetails = true
+  export let showWarnings = true
 
   function getProjectName(entry: Entry): string {
     return entry.task?.list.name ?? entry.timeEntry?.[0]?.projectName ?? 'No project'
@@ -52,7 +53,7 @@
     <TableSummary {report} />
   {/if}
 
-  {#if showDetails}
+  {#if showDetails || showWarnings}
     {#each Object.entries(report) as [id, entry]}
       <div class="table-grid__first-cell min-w-[400px] max-w-[600px] rounded-l-lg">
         {#if entry.task}
