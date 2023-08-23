@@ -68,6 +68,10 @@ export interface BulkTimeStatus {
   [name: string]: TaskStatus
 }
 
+export enum Error {
+  ACCESS_078 = 'ACCESS_078',
+}
+
 export async function getTask(taskId: string, config: { clickupApiKey: string }): Promise<Task> {
   const url = `${CLICKUP_API_URL}/task/${taskId}`
   const { data } = await axios.get<Task>(url, {
