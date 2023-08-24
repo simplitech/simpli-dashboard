@@ -11,14 +11,7 @@
     type TimeEntryReportDetailed,
   } from './clockifyServices'
   import type { TimeEntryReportDetailedTimeEntry } from './clockifyServices'
-  import {
-    clickupIdFromText,
-    getTask,
-    getTaskTimeStatus,
-    type Task,
-    type TaskTimeStatus,
-    Error,
-  } from './clickupServices'
+  import { clickupIdFromText, getTask, getTaskTimeStatus, type Task, type TaskTimeStatus } from './clickupServices'
   import Modal from './components/Modal.svelte'
   import { daysToMilis, type Config } from './helper'
   import Header from './components/Header.svelte'
@@ -220,9 +213,6 @@
           setCacheItem(`clickup-task-${id}`, clickupTask)
         } catch (e) {
           resp[id].taskError = e.response.data.err
-          if (e.response.data.ECODE === Error.ACCESS_078) {
-            showToast(`You don't have access to Clickup Task: #${id}\n Skipping...`, 'red')
-          }
           if (e.response.data.err.includes('Rate limit')) {
             break
           }
