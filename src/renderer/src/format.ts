@@ -55,7 +55,7 @@ export const formatReport: Record<
     formatHourDecimals(durationRoundUpByHalfHour(sumDurations(entry.timeEntry))),
   'Time Estimate': (_id, entry) => formatDuration(entry.task?.time_estimate / 1000),
   'Time Estimate Decimals': (_id, entry) => formatHourDecimals(entry.task?.time_estimate / 1000),
-  'Time Tracked by Assignee': (_id, entry) => formatHourDecimals(getMainGroupOfDurations(entry.timeEntry)),
+  'Time Tracked by the Main Contributor': (_id, entry) => formatHourDecimals(getMainGroupOfDurations(entry.timeEntry)),
   'Estimative error': (_id, entry) => String(calculateEstimationError(entry)),
   'First Log': (_id, entry) =>
     entry.timeEntry?.length ? entry.timeEntry[entry.timeEntry.length - 1]?.timeInterval?.start : '',
