@@ -48,15 +48,18 @@ export const formatReport: Record<
   Project: (_id, entry) => entry.task?.list.name ?? entry.timeEntry?.[0]?.projectName ?? 'No project',
   'Clockify URL': (id, entry, dateRangeStart, dateRangeEnd) =>
     entry.timeEntry?.length ? clockifyUrl(dateRangeStart, dateRangeEnd, id) : '',
-  Logged: (_id, entry) => formatDuration(sumDurations(entry.timeEntry)),
-  'Logged Roundup': (_id, entry) => formatDuration(durationRoundUpByHalfHour(sumDurations(entry.timeEntry))),
-  Estimate: (_id, entry) => formatDuration(entry.task?.time_estimate / 1000),
-  'L.Assignee seconds': (_id, entry) => String(getMainGroupOfDurations(entry.timeEntry)),
-  'Estimate seconds': (_id, entry) => String((entry.task?.time_estimate ?? 0) / 1000),
-  'Estimate error': (_id, entry) => String(calculateEstimationError(entry)),
-  'First Log Date': (_id, entry) =>
+  'Time Tracked': (_id, entry) => formatDuration(sumDurations(entry.timeEntry)),
+  'Time Tracked Decimals': (_id, entry) => formatHourDecimals(sumDurations(entry.timeEntry)),
+  'Time Tracked Roundup': (_id, entry) => formatDuration(durationRoundUpByHalfHour(sumDurations(entry.timeEntry))),
+  'Time Tracked Roundup Decimals': (_id, entry) =>
+    formatHourDecimals(durationRoundUpByHalfHour(sumDurations(entry.timeEntry))),
+  'Time Estimate': (_id, entry) => formatDuration(entry.task?.time_estimate / 1000),
+  'Time Estimate Decimals': (_id, entry) => formatHourDecimals(entry.task?.time_estimate / 1000),
+  'Time Tracked by the Main Contributor': (_id, entry) => formatHourDecimals(getMainGroupOfDurations(entry.timeEntry)),
+  'Estimative error': (_id, entry) => String(calculateEstimationError(entry)),
+  'First Log': (_id, entry) =>
     entry.timeEntry?.length ? entry.timeEntry[entry.timeEntry.length - 1]?.timeInterval?.start : '',
-  'Last Log Date': (_id, entry) => (entry.timeEntry?.length ? entry.timeEntry[0]?.timeInterval?.end : ''),
+  'Last Log': (_id, entry) => (entry.timeEntry?.length ? entry.timeEntry[0]?.timeInterval?.end : ''),
   Status: (_id, entry) => (entry.task ? entry.task.status.status : ''),
   Tags: (_id, entry) => {
     if (entry.task) {
@@ -168,4 +171,10 @@ export const formatDayMonthYear = (date: string) => {
 
 export function capitalizeFirstLetter(value: string) {
   return value.charAt(0).toUpperCase() + value.slice(1)
+}
+
+export function formatHourDecimals(duration: number) {
+  if (!duration) return '--'
+
+  return (duration / 3600).toFixed(2)
 }
