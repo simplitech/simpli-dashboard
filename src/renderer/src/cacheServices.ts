@@ -1,4 +1,3 @@
-import type { Task } from './clickupServices'
 import type { Config } from './helper'
 
 export function setCacheItem(key: string, value: unknown, ttl = 2 * 24 * 60 * 60 * 1000) {
@@ -11,7 +10,7 @@ export function setCacheItem(key: string, value: unknown, ttl = 2 * 24 * 60 * 60
   )
 }
 
-export function getCacheItem(key: string): Task | Config | null {
+export function getCacheItem(key: string): Config | null {
   const itemStr = localStorage.getItem(key)
 
   if (!itemStr) {
@@ -25,4 +24,10 @@ export function getCacheItem(key: string): Task | Config | null {
     return null
   }
   return item.value
+}
+
+export function getToken() {
+  const token = getCacheItem('token')
+
+  return token ? `Bearer ${token}` : ''
 }

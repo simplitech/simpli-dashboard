@@ -2,16 +2,14 @@
   import { onMount } from 'svelte'
   import { Client, cacheExchange, fetchExchange } from '@urql/svelte'
 
-  import { getCacheItem, setCacheItem } from './cacheServices'
+  import { getCacheItem, getToken, setCacheItem } from './cacheServices'
   import {
     calculateEstimationError,
-    getTimeEntryReportDetailed,
     formatUserNamesSortedByParticipation,
     formatUserNamesDailyParticipation,
-    type TimeEntryReportDetailed,
+    getClockifyEntriesAPI,
   } from './clockifyServices'
-  import type { TimeEntryReportDetailedTimeEntry } from './clockifyServices'
-  import { clickupIdFromText, getTask, getTaskTimeStatus, type Task, type TaskTimeStatus } from './clickupServices'
+  import { clickupIdFromText, getLastStatus, getTaskTimeStatus } from './clickupServices'
   import Modal from './components/Modal.svelte'
   import { daysToMilis, type Config } from './helper'
   import Header from './components/Header.svelte'
@@ -24,6 +22,7 @@
   import { showToast } from './toast'
   import { validateAndSignIn, type Login } from './loginServices'
   import { graphqlClient } from './store'
+  import type { ClickupTasksStatus, ClockifyTimeEntry } from './graphql/generated'
 
   let report: Report = null
   let reportFiltered: Report = null
@@ -53,8 +52,6 @@
   let now = new Date()
   let dateRangeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7)
   let dateRangeEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1)
-
-  let taskList: string[] = []
 
   let reportGroup: Group = {}
   let auxReportGroup: Group = {}
@@ -109,7 +106,7 @@
     projectFilter = [
       ...new Set(
         Object.values(report).map(
-          (item: Entry) => item.task?.list.name ?? item.timeEntry?.[0]?.projectName ?? 'No Project',
+          (item: Entry) => item.task?.list.name ?? item.timeEntry?.[0]?.clockifyProject?.name ?? 'No Project',
         ),
       ),
     ]
@@ -121,14 +118,18 @@
     projectFilter.splice(index + 1, 1)
 
     const statusMap: { [id: string]: FilterOptions } = {}
-    Object.values(report).forEach((item) => {
-      const status = item.task?.status.status || 'No Status'
-      if (!statusMap[status]) {
-        statusMap[status] = {
-          label: status,
-          color: item.task?.status.color || '#c2c2c2',
+    Object.values(report).forEach((item: Entry) => {
+      const status = item.task?.clickupTasksStatus
+
+      status?.forEach((clickupStatus: ClickupTasksStatus) => {
+        const name = clickupStatus.status.status
+        if (!statusMap[name]) {
+          statusMap[name] = {
+            label: name,
+            color: clickupStatus.status.color || '#c2c2c2',
+          }
         }
-      }
+      })
     })
     statusFilter = Object.values(statusMap)
 
@@ -158,30 +159,15 @@
 
   const getClockifyEntries = async (): Promise<Report> => {
     loadingOrigin = 'Clockify...'
-    let page = 1
-    let clockifyData: TimeEntryReportDetailed | null = null
-    do {
-      let pageClockifyData = await getTimeEntryReportDetailed(
-        {
-          dateRangeStart: dateRangeStart.toISOString(),
-          dateRangeEnd: dateRangeEnd.toISOString(),
-          detailedFilter: { page, pageSize: 1000 },
-        },
-        config,
-      )
-      if (!clockifyData) {
-        clockifyData = pageClockifyData
-      } else {
-        clockifyData.timeentries.push(...pageClockifyData.timeentries)
-      }
-      page++
-    } while (clockifyData.totals[0].entriesCount > clockifyData.timeentries.length)
 
+    let clockifyData: ClockifyTimeEntry[] = await getClockifyEntriesAPI(
+      dateRangeStart.toISOString(),
+      dateRangeEnd.toISOString(),
+    )
     const resp: Report = {}
-    taskList = []
-    for (const clockifyEntry of clockifyData.timeentries) {
+
+    for (const clockifyEntry of clockifyData) {
       let id = clickupIdFromText(clockifyEntry.description)
-      const idFound = Boolean(id)
       /** Eu coloco a description + projeto por conta que podem existir 2
        * tasks flex com o mesmo nome, mas de projetos diferentes (Ex: CR)
        *  e como o id será usado como atributo do resp, então não daria
@@ -189,35 +175,13 @@
        *  pelo menos uma timeEntry, então deve se pegar o nome da issue
        *  por ela.
        */
-      id = id || `${clockifyEntry.description} - ${clockifyEntry.projectName}`
+      id = id || `${clockifyEntry.description} - ${clockifyEntry.clockifyProject.name}`
 
       if (!resp[id]) {
-        resp[id] = { timeEntry: [], task: null }
+        resp[id] = { timeEntry: [], task: clockifyEntry.clickupTask }
       }
 
       resp[id].timeEntry.push(clockifyEntry)
-      if (idFound && !resp[id].task) {
-        const cache = (await getCacheItem(`clickup-task-${id}`)) as Task
-        if (cache) {
-          resp[id].task = cache
-          taskList.push(id)
-          continue
-        }
-
-        try {
-          loadingOrigin = 'ClickUp'
-          loadingText = `${id}...`
-          const clickupTask = await getTask(id, config)
-          resp[id].task = clickupTask
-          taskList.push(id)
-          setCacheItem(`clickup-task-${id}`, clickupTask)
-        } catch (e) {
-          resp[id].taskError = e.response.data.err
-          if (e.response.data.err.includes('Rate limit')) {
-            break
-          }
-        }
-      }
     }
 
     return resp
@@ -248,7 +212,8 @@
       reportFiltered = Object.fromEntries(
         Object.entries(reportFiltered).filter(([, value]) =>
           Object.values(selectedStatus).some(
-            (status: FilterOptions) => (value.task?.status.status ?? 'No Status') === status.label,
+            (status: FilterOptions) =>
+              (getLastStatus(value.task?.clickupTasksStatus)?.status.status ?? 'No Status') === status.label,
           ),
         ),
       )
@@ -259,7 +224,7 @@
         Object.entries(reportFiltered).filter(([, value]) =>
           Object.values(selectedProject).some(
             (project: FilterOptions) =>
-              (value.task?.list.name ?? value.timeEntry?.[0]?.projectName ?? 'No Project') === project.label,
+              (value.task?.list.name ?? value.timeEntry[0]?.clockifyProject.name ?? 'No Project') === project.label,
           ),
         ),
       )
@@ -277,8 +242,8 @@
       )
 
       Object.entries(reportFiltered).forEach(([, value]) => {
-        value.timeEntry = value.timeEntry.filter((entry: TimeEntryReportDetailedTimeEntry) =>
-          Object.values(selectedAssignee).some((assignee: FilterOptions) => entry.userName === assignee.label),
+        value.timeEntry = value.timeEntry.filter((entry: ClockifyTimeEntry) =>
+          Object.values(selectedAssignee).some((assignee: FilterOptions) => entry.user.name === assignee.label),
         )
       })
     }
@@ -291,7 +256,7 @@
             return checkIfStatusInRange(
               dateRangeStart,
               dateRangeEnd,
-              value.task?.timeStatus?.status_history,
+              value.task?.clickupTasksStatus,
               timeInStatus.label,
             )
           }),
@@ -316,8 +281,8 @@
         Object.entries(reportFiltered).filter(
           ([, value]) =>
             calculateEstimationError(value) > 2.5 ||
-            getTaskTimeStatus(value.task?.timeStatus, 'to review') >= daysToMilis(3) ||
-            getTaskTimeStatus(value.task?.timeStatus, 'to test') >= daysToMilis(3),
+            getTaskTimeStatus(value.task?.clickupTasksStatus, 'to review') >= daysToMilis(3) ||
+            getTaskTimeStatus(value.task?.clickupTasksStatus, 'to test') >= daysToMilis(3),
         ),
       )
     }
@@ -351,7 +316,7 @@
       if (selectedGroupBy.some((item: FilterOptions) => item.label === 'Project')) {
         for (const [taskKey, taskValue] of Object.entries(value)) {
           const entry = taskValue as Entry
-          const projectKey = entry.task?.list.name ?? entry.timeEntry?.[0]?.projectName ?? 'No project'
+          const projectKey = entry.task?.list.name ?? entry.timeEntry[0]?.clockifyProject.name ?? 'No project'
           if (!auxReportGroup[dateKey][projectKey]) {
             auxReportGroup[dateKey][projectKey] = {}
           }
@@ -396,28 +361,28 @@
   const checkIfStatusInRange = (
     dateRangeStart: Date,
     dateRangeEnd: Date,
-    statusHistory: TaskTimeStatus[],
+    statusHistory: ClickupTasksStatus[],
     selectedTimeInStatus: string,
   ) => {
     if (statusHistory) {
-      statusHistory.sort((a: TaskTimeStatus, b: TaskTimeStatus) => b.total_time.since - a.total_time.since)
+      statusHistory.sort((a: ClickupTasksStatus, b: ClickupTasksStatus) => b.createdAt - a.createdAt)
 
       // Pego todos os valores que estão no range da data, ordeno pelo mais atual e pego ele
       const valueInRange = statusHistory
         .filter(
-          (item: TaskTimeStatus) =>
-            new Date(item.total_time.since) >= dateRangeStart && new Date(item.total_time.since) <= dateRangeEnd,
+          (item: ClickupTasksStatus) =>
+            new Date(item.createdAt) >= dateRangeStart && new Date(item.createdAt) <= dateRangeEnd,
         )
-        .sort((a: TaskTimeStatus, b: TaskTimeStatus) => b.total_time.since - a.total_time.since)
+        .sort((a: ClickupTasksStatus, b: ClickupTasksStatus) => b.createdAt - a.createdAt)
       // Se não existir valor no range, o status da issue não mudou no range de data filtrado. Então pega o status mais atual
       const valoresMenores = statusHistory
-        .filter((item: TaskTimeStatus) => new Date(item.total_time.since) < dateRangeStart)
-        .sort((a: TaskTimeStatus, b: TaskTimeStatus) => b.total_time.since - a.total_time.since)
+        .filter((item: ClickupTasksStatus) => new Date(item.createdAt) < dateRangeStart)
+        .sort((a: ClickupTasksStatus, b: ClickupTasksStatus) => b.createdAt - a.createdAt)
 
       if (valueInRange.length) {
-        return valueInRange[0].status === selectedTimeInStatus
+        return valueInRange[0].status.status === selectedTimeInStatus
       } else if (valoresMenores.length) {
-        return valoresMenores[0].status === selectedTimeInStatus
+        return valoresMenores[0].status.status === selectedTimeInStatus
       }
 
       return false
@@ -432,6 +397,7 @@
     fetchOptions: {
       headers: {
         'content-type': 'application/json',
+        Authorization: getToken(),
       },
     },
   })

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getTaskTimeStatus } from '../clickupServices'
+  import { getLastDueDate, getLastEstimative, getLastStatus, getTaskTimeStatus } from '../clickupServices'
   import {
     calculateEstimationError,
     clockifyUrl,
@@ -28,7 +28,7 @@
   export let showWarnings = true
 
   function getProjectName(entry: Entry): string {
-    return entry.task?.list.name ?? entry.timeEntry?.[0]?.projectName ?? 'No project'
+    return entry.task?.list.name ?? entry.timeEntry?.[0]?.clockifyProject.name ?? 'No project'
   }
 
   function getTaskName(entry: Entry): string {
@@ -56,11 +56,11 @@
   {#if showDetails || showWarnings}
     {#each Object.entries(report) as [id, entry]}
       <div class="table-grid__first-cell min-w-[400px] max-w-[600px] rounded-l-lg">
-        {#if entry.task}
+        {#if entry.task && entry.task.clickupTasksStatus}
           <div
             class="w-2 h-2 rounded-sm mr-3 flex-shrink-0"
-            title={entry.task.status.status}
-            style="background-color: {entry.task.status.color};"
+            title={getLastStatus(entry.task.clickupTasksStatus)?.status.status}
+            style="background-color: {getLastStatus(entry.task.clickupTasksStatus)?.status.color};"
           />
         {:else}
           <div class="w-2 h-2 rounded-sm bg-transparent mr-3" />
@@ -76,14 +76,11 @@
               {#each entry.task.tags as tag}
                 <span
                   class="rounded-r-full px-2 py-[2px] text-xs font-semibold text-gray-700 mr-2 whitespace-nowrap"
-                  style="background-color: {tag.tag_bg}; color: {getContrastColorHex(tag.tag_bg)}"
+                  style="background-color: {tag.tagBg}; color: {getContrastColorHex(tag.tagBg)}"
                 >
                   {tag.name}
                 </span>
               {/each}
-            {/if}
-            {#if entry.taskError}
-              <p class="text-red-500">{entry.taskError}</p>
             {/if}
           </div>
         </div>
@@ -122,14 +119,16 @@
       </div>
       <div class="table-grid__cell">
         <img src="./images/hourglass.svg" alt="hourglass" class="mr-2" />
-        {formatDuration(entry.task?.time_estimate / 1000)}
+        {formatDuration(getLastEstimative(entry.task?.clickupTasksTimeEstimates)?.estimate / 1000)}
       </div>
       <div class="table-grid__cell" class:text-red-300={calculateEstimationError(entry) > 2.5}>
         x {calculateEstimationError(entry)}
       </div>
       <div class="table-grid__cell">
-        {#if entry.task?.due_date}
-          <span title={new Date(Number(entry.task.due_date)).toString()}>{formatUnixDate(entry.task.due_date)}</span>
+        {#if getLastDueDate(entry.task?.clickupTasksDueDates)?.dueDate}
+          <span title={new Date(Number(getLastDueDate(entry.task?.clickupTasksDueDates)?.dueDate)).toString()}
+            >{formatUnixDate(getLastDueDate(entry.task?.clickupTasksDueDates)?.dueDate)}</span
+          >
         {/if}
       </div>
       <div class="table-grid__cell">
@@ -141,15 +140,15 @@
       </div>
       <div
         class="table-grid__cell"
-        class:text-red-300={getTaskTimeStatus(entry.task?.timeStatus, 'to review') >= daysToMilis(3)}
+        class:text-red-300={getTaskTimeStatus(entry.task?.clickupTasksStatus, 'to review') >= daysToMilis(3)}
       >
-        {formatDurationOnlyDays(getTaskTimeStatus(entry.task?.timeStatus, 'to review'))}
+        {formatDurationOnlyDays(getTaskTimeStatus(entry.task?.clickupTasksStatus, 'to review'))}
       </div>
       <div
         class="table-grid__cell rounded-r-lg"
-        class:text-red-300={getTaskTimeStatus(entry.task?.timeStatus, 'to test') >= daysToMilis(3)}
+        class:text-red-300={getTaskTimeStatus(entry.task?.clickupTasksStatus, 'to test') >= daysToMilis(3)}
       >
-        {formatDurationOnlyDays(getTaskTimeStatus(entry.task?.timeStatus, 'to test'))}
+        {formatDurationOnlyDays(getTaskTimeStatus(entry.task?.clickupTasksStatus, 'to test'))}
       </div>
     {/each}
   {/if}

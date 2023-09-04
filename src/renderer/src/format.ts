@@ -3,16 +3,15 @@ import {
   sumDurations,
   getMainGroupOfDurations,
   clockifyUrl,
-  type TimeEntryReportDetailedTimeEntry,
   calculateEstimationError,
 } from './clockifyServices'
 import { durationRoundUpByHalfHour } from './helper'
-import { getTaskTimeStatus, type Task } from './clickupServices'
+import { getLastEstimative, getLastStatus, getTaskTimeStatus } from './clickupServices'
+import type { ClickupTask, ClockifyTimeEntry } from './graphql/generated'
 
 export type Entry = {
-  task: Task
-  taskError?: string
-  timeEntry: TimeEntryReportDetailedTimeEntry[]
+  task: ClickupTask
+  timeEntry: ClockifyTimeEntry[]
 }
 
 export type Report = {
@@ -45,7 +44,7 @@ export const formatReport: Record<
   'Task ID': (id, entry) => (entry.task ? id : 'Flex'),
   'ClickUp URL': (_id, entry) => (entry.task ? entry.task.url : ''),
   Description: (id, entry) => entry.task?.name ?? id,
-  Project: (_id, entry) => entry.task?.list.name ?? entry.timeEntry?.[0]?.projectName ?? 'No project',
+  Project: (_id, entry) => entry.task?.list.name ?? entry.timeEntry[0]?.clockifyProject.name ?? 'No project',
   'Clockify URL': (id, entry, dateRangeStart, dateRangeEnd) =>
     entry.timeEntry?.length ? clockifyUrl(dateRangeStart, dateRangeEnd, id) : '',
   'Time Tracked': (_id, entry) => formatDuration(sumDurations(entry.timeEntry)),
@@ -53,14 +52,16 @@ export const formatReport: Record<
   'Time Tracked Roundup': (_id, entry) => formatDuration(durationRoundUpByHalfHour(sumDurations(entry.timeEntry))),
   'Time Tracked Roundup Decimals': (_id, entry) =>
     formatHourDecimals(durationRoundUpByHalfHour(sumDurations(entry.timeEntry))),
-  'Time Estimate': (_id, entry) => formatDuration(entry.task?.time_estimate / 1000),
-  'Time Estimate Decimals': (_id, entry) => formatHourDecimals(entry.task?.time_estimate / 1000),
+  'Time Estimate': (_id, entry) =>
+    formatDuration(getLastEstimative(entry.task?.clickupTasksTimeEstimates).estimate / 1000),
+  'Time Estimate Decimals': (_id, entry) =>
+    formatHourDecimals(getLastEstimative(entry.task?.clickupTasksTimeEstimates).estimate / 1000),
   'Time Tracked by the Main Contributor': (_id, entry) => formatHourDecimals(getMainGroupOfDurations(entry.timeEntry)),
   'Estimative error': (_id, entry) => String(calculateEstimationError(entry)),
   'First Log': (_id, entry) =>
     entry.timeEntry?.length ? entry.timeEntry[entry.timeEntry.length - 1]?.timeInterval?.start : '',
   'Last Log': (_id, entry) => (entry.timeEntry?.length ? entry.timeEntry[0]?.timeInterval?.end : ''),
-  Status: (_id, entry) => (entry.task ? entry.task.status.status : ''),
+  Status: (_id, entry) => (entry.task ? getLastStatus(entry.task?.clickupTasksStatus).status.status : ''),
   Tags: (_id, entry) => {
     if (entry.task) {
       let value = ''
@@ -76,8 +77,9 @@ export const formatReport: Record<
     return ''
   },
   Assignees: (_id, entry) => formatUserNamesSortedByParticipation(entry.timeEntry),
-  'Days in Review': (_id, entry) => formatDurationWithDays(getTaskTimeStatus(entry.task?.timeStatus, 'to review')),
-  'Days in Test': (_id, entry) => formatDurationWithDays(getTaskTimeStatus(entry.task?.timeStatus, 'to test')),
+  'Days in Review': (_id, entry) =>
+    formatDurationWithDays(getTaskTimeStatus(entry.task?.clickupTasksStatus, 'to review')),
+  'Days in Test': (_id, entry) => formatDurationWithDays(getTaskTimeStatus(entry.task?.clickupTasksStatus, 'to test')),
 }
 
 export const formatDuration = (duration: number): string => {

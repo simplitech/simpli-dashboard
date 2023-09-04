@@ -1,86 +1,9 @@
-import axios from './axiosConfig'
 import { calculateEstimationError } from './clockifyServices'
 import { formatDuration, type Entry, type Report, formatDurationOnlyDays } from './format'
-
-const CLICKUP_API_URL = 'https://api.clickup.com/api/v2'
-
-export interface Task {
-  id: string
-  name: string
-  description: string
-  status: { id: string; status: string; color: string; orderIndex: number }
-  date_created: string | null
-  date_updated: string | null
-  date_closed: string | null
-  date_done: string | null
-  archived: boolean
-  creator: User
-  assignees: User[]
-  watchers: User[]
-  tags: { name: string; tag_fg: string; tag_bg: string; creator: number }[]
-  priority: { id: string; priority: string; color: string; orderindex: string }
-  due_date: string | null
-  start_date: string | null
-  time_estimate: number | null
-  time_spent: number | null
-  url: string
-  list: { id: string; name: string }
-  custom_fields: { id: string; name: string; type: string; value: Field | Field[] }[]
-  timeStatus: TaskStatus
-}
-
-export interface TaskTotalTime {
-  by_minute: number
-  since: number
-}
-
-export interface TaskTimeStatus {
-  color: string
-  orderindex: number | undefined
-  status: string
-  total_time: TaskTotalTime
-}
-export interface TaskStatus {
-  current_status: TaskTimeStatus
-  status_history: TaskTimeStatus[]
-}
-
-export interface User {
-  id: number
-  username: string
-  email: string
-  profilePicture: string
-  color: string
-  initials: string | undefined
-}
-
-export type Field =
-  | {
-      id: string
-      name: string
-    }
-  | string
-  | number
-  | boolean
-  | null
-
-export interface BulkTimeStatus {
-  [name: string]: TaskStatus
-}
+import type { ClickupTasksDueDate, ClickupTasksStatus, ClickupTasksTimeEstimate } from './graphql/generated'
 
 export enum Error {
   ACCESS_078 = 'ACCESS_078',
-}
-
-export async function getTask(taskId: string, config: { clickupApiKey: string }): Promise<Task> {
-  const url = `${CLICKUP_API_URL}/task/${taskId}`
-  const { data } = await axios.get<Task>(url, {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: config.clickupApiKey,
-    },
-  })
-  return data as Task
 }
 
 export function clickupIdFromText(text: string): string | undefined {
@@ -118,10 +41,11 @@ export function clickupIdFromText(text: string): string | undefined {
   return undefined
 }
 
-export function getTaskTimeStatus(taskStatus: TaskStatus | null, statusName: string): number {
-  const status = taskStatus?.status_history.find((item) => item.status.trim() === statusName.trim())
-  if (taskStatus && status) {
-    return Math.abs(Date.now() - status.total_time.since)
+export function getTaskTimeStatus(taskStatus: ClickupTasksStatus[] | null, statusName: string): number {
+  const status = taskStatus?.filter((item: ClickupTasksStatus) => item.status.status.trim() === statusName.trim())
+
+  if (taskStatus && status.length) {
+    return Math.abs(Date.now() - new Date(getLastStatus(status).createdAt).getTime())
   }
   return 0
 }
@@ -129,13 +53,15 @@ export function getTaskTimeStatus(taskStatus: TaskStatus | null, statusName: str
 export const sumTimeEstimate = (report: Report): string => {
   return formatDuration(
     Object.values(report)
-      .map((item: Entry) => item.task?.time_estimate || 0)
+      .map((item: Entry) => item.task?.clickupTasksTimeEstimates[0]?.estimate || 0)
       .reduce((a, b) => a + b, 0) / 1000,
   )
 }
 
 export const avgEstimativeError = (report: Report): string => {
-  const tasksWithEstimation = Object.values(report).filter((item) => item.task?.time_estimate != null)
+  const tasksWithEstimation = Object.values(report).filter(
+    (item) => item.task?.clickupTasksTimeEstimates[0]?.estimate != null,
+  )
   return (
     tasksWithEstimation.map((item) => calculateEstimationError(item)).reduce((a, b) => a + b, 0) /
     tasksWithEstimation.length
@@ -144,10 +70,35 @@ export const avgEstimativeError = (report: Report): string => {
 
 export const avgDaysStatus = (report: Report, statusName: string): string => {
   const tasksWithStatus = Object.values(report).filter((item) =>
-    item.task?.timeStatus?.status_history.find((item) => item.status.trim() === statusName.trim()),
+    item.task?.clickupTasksStatus.some((item) => item.status.status.trim() === statusName.trim()),
   )
+
   return formatDurationOnlyDays(
-    tasksWithStatus.map((item) => getTaskTimeStatus(item.task?.timeStatus, statusName)).reduce((a, b) => a + b, 0) /
-      tasksWithStatus.length,
+    tasksWithStatus
+      .map((item) => getTaskTimeStatus(item.task?.clickupTasksStatus, statusName))
+      .reduce((a, b) => a + b, 0) / tasksWithStatus.length,
   )
+}
+
+export const getLastStatus = (clickupTasksStatus: ClickupTasksStatus[]): ClickupTasksStatus => {
+  if (!clickupTasksStatus) return null
+  return clickupTasksStatus.reduce((current, next) => {
+    return new Date(next.createdAt) > new Date(current.createdAt) ? next : current
+  }, clickupTasksStatus[0])
+}
+
+export const getLastEstimative = (clickupTasksTimeEstimate: ClickupTasksTimeEstimate[]): ClickupTasksTimeEstimate => {
+  if (!clickupTasksTimeEstimate) return null
+
+  return clickupTasksTimeEstimate.reduce((current, next) => {
+    return new Date(next.createdAt) > new Date(current.createdAt) ? next : current
+  }, clickupTasksTimeEstimate[0])
+}
+
+export const getLastDueDate = (clickupTasksDueDate: ClickupTasksDueDate[]): ClickupTasksDueDate => {
+  if (!clickupTasksDueDate) return null
+
+  return clickupTasksDueDate.reduce((current, next) => {
+    return new Date(next.createdAt) > new Date(current.createdAt) ? next : current
+  }, clickupTasksDueDate[0])
 }
