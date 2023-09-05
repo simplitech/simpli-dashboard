@@ -2,7 +2,7 @@
   import { onMount } from 'svelte'
   import { Client, cacheExchange, fetchExchange } from '@urql/svelte'
 
-  import { getCacheItem, getToken, setCacheItem } from './cacheServices'
+  import { getToken } from './cacheServices'
   import {
     calculateEstimationError,
     formatUserNamesSortedByParticipation,
@@ -11,7 +11,7 @@
   } from './clockifyServices'
   import { clickupIdFromText, getLastStatus, getTaskTimeStatus } from './clickupServices'
   import Modal from './components/Modal.svelte'
-  import { daysToMilis, type Config } from './helper'
+  import { daysToMilis } from './helper'
   import Header from './components/Header.svelte'
   import Toolbar from './components/Toolbar.svelte'
   import { formatDayMonthYear, type Entry, type Filters, type Report, type Group, type FilterOptions } from './format'
@@ -29,13 +29,6 @@
   let loading = false
   let loadingText = ''
   let loadingOrigin = ''
-
-  let configOpen = false
-  let config: Config = {
-    clockifyApiKey: '',
-    clockifyWorkspaceId: '6053a39bc15f5f7905d37b9d',
-    clickupApiKey: '',
-  }
 
   let filters: Filters = {}
   let projectFilter: FilterOptions[] = []
@@ -67,26 +60,13 @@
   $: showWarnings = true
 
   onMount(async () => {
-    const cacheConfig = await getCacheItem('config')
-    if (cacheConfig) {
-      config = cacheConfig as Config
-    }
-    if (!config.clockifyApiKey || !config.clickupApiKey) {
-      configOpen = true
+    const token = await getToken()
+    if (!token) {
+      loginOpen = true
     } else {
       await generateReport()
     }
   })
-
-  const saveConfig = async () => {
-    await setCacheItem('config', config, 365 * 24 * 60 * 60 * 1000)
-    generateReport()
-    configOpen = false
-  }
-
-  const openConfigModal = () => {
-    configOpen = true
-  }
 
   const setDateAndGenerate = async (event: CustomEvent) => {
     dateRangeStart = event.detail.dateRangeStart
@@ -423,7 +403,7 @@
     {dateRangeEnd}
     disabled={loading}
     on:generate={setDateAndGenerate}
-    on:openConfigModal={openConfigModal}
+    on:openLoginModal={() => (loginOpen = true)}
     on:search={setSearch}
   />
 
@@ -457,31 +437,6 @@
       bind:showSummary
       bind:showWarnings
     />
-    <button on:click={() => (loginOpen = true)} title="Login" class="transition duration-500 hover:scale-110">
-      ( ಠ ͜ʖ ಠ)
-    </button>
-  {/if}
-
-  {#if configOpen}
-    <Modal on:close={() => (configOpen = false)} title="Config">
-      <form on:submit|preventDefault={saveConfig} class="flex flex-col m-3">
-        <label class="mb-3">
-          <div class="font-bold">Clockify API Key</div>
-          <input type="text" bind:value={config.clockifyApiKey} class="w-64 bg-black p-2 rounded" />
-        </label>
-        <label class="mb-3">
-          <div class="font-bold">Clockify Workspace ID</div>
-          <input type="text" bind:value={config.clockifyWorkspaceId} class="w-64 bg-black p-2 rounded" />
-        </label>
-        <label class="mb-3">
-          <div class="font-bold">ClickUp API Key</div>
-          <input type="text" bind:value={config.clickupApiKey} class="w-64 bg-black p-2 rounded" />
-        </label>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
-          Save
-        </button>
-      </form>
-    </Modal>
   {/if}
 
   {#if loginOpen}

@@ -4976,17 +4976,9 @@ export type ClockifyTimeEntriesQuery = {
   __typename?: 'Query'
   clockifyTimeEntries: Array<{
     __typename?: 'ClockifyTimeEntry'
-    id: string
     clockifyId: string
     description: string
-    userId: string
-    billable: boolean
-    costRate?: number | null
-    currentlyRunning: boolean
-    customFieldValues?: any | null
     type: string
-    workspaceId: string
-    isLocked: boolean
     tags: Array<{ __typename?: 'ClockfyTimeEntryTag'; name: string }>
     clockifyProject?: { __typename?: 'ClockfyTimeEntryProject'; name: string; color: string } | null
     user: { __typename?: 'ClockfyTimeEntryUser'; id: string; name: string }
@@ -5002,32 +4994,7 @@ export type ClockifyTimeEntriesQuery = {
       clickupId: string
       name: string
       description: string
-      textContent: string
-      timeSpent?: any | null
-      archived: boolean
-      customId?: string | null
-      dateClosed?: string | null
-      dateCreated: string
-      dateDone?: string | null
-      dateUpdated: string
-      startDate?: string | null
-      orderindex: string
-      teamId: string
       url: string
-      points?: any | null
-      permissionLevel: string
-      parent?: any | null
-      watchers?: any | null
-      projectId?: string | null
-      creator: {
-        __typename?: 'ClickupUser'
-        color: string
-        email: string
-        id: number
-        profilePicture?: string | null
-        username: string
-        initials?: string | null
-      }
       assignees: Array<{
         __typename?: 'ClickupUser'
         color: string
@@ -5037,146 +5004,22 @@ export type ClockifyTimeEntriesQuery = {
         username: string
         initials?: string | null
       }>
-      checklists: Array<{
-        __typename?: 'ClickupChecklist'
-        creator: number
-        dateCreated: string
-        id: string
-        name: string
-        orderindex: number
-        resolved: number
-        taskId: string
-        unresolved: number
-        items: Array<{ __typename?: 'ClickupChecklistItem'; id: string }>
-      }>
-      dependencies: Array<{
-        __typename?: 'ClickupDependency'
-        dateCreated: string
-        dependsOn: string
-        taskId: string
-        type: number
-        userid: string
-        workspaceId: string
-      }>
-      folder: { __typename?: 'ClickupLocation'; access: boolean; id: string; name: string; hidden?: boolean | null }
-      space: { __typename?: 'ClickupSpace'; id: string }
-      clickupProject: {
-        __typename?: 'ClickupLocation'
-        access: boolean
-        id: string
-        name: string
-        hidden?: boolean | null
-      }
-      list: { __typename?: 'ClickupLocation'; access: boolean; id: string; name: string; hidden?: boolean | null }
-      priority?: {
-        __typename?: 'ClickupPriority'
-        color: string
-        id: string
-        orderindex: string
-        priority: string
-      } | null
-      sharing: {
-        __typename?: 'ClickupSharing'
-        public: boolean
-        publicFields: Array<string>
-        publicShareExpiresOn?: any | null
-        seoOptimized: boolean
-        token?: any | null
-      }
-      tags: Array<{ __typename?: 'ClickupTag'; creator: number; name: string; tagBg: string; tagFg: string }>
-      linkedTasks: Array<{
-        __typename?: 'ClickupLinkedTask'
-        dateCreated: string
-        linkId: string
-        taskId: string
-        userid: string
-        workspaceId: string
-      }>
-      customFields: Array<{
-        __typename?: 'ClickupTasksCustomField'
-        dateCreated: string
-        hideFromGuests: boolean
-        id: string
-        name: string
-        required?: boolean | null
-        type: string
-        typeConfig: any
-        value?: any | null
-      }>
-      attachments: Array<{
-        __typename?: 'ClickupAttachment'
-        date: string
-        deleted: boolean
-        emailData?: any | null
-        extension: string
-        hidden: boolean
-        id: string
-        isFolder?: boolean | null
-        mimetype: string
-        orientation?: any | null
-        parentId: string
-        resolvedComments: number
-        size: number
-        source: number
-        thumbnailLarge?: string | null
-        thumbnailMedium?: string | null
-        thumbnailSmall?: string | null
-        title: string
-        totalComments: number
-        type: number
-        url: string
-        urlWHost: string
-        urlWQuery: string
-        version: number
-        user: {
-          __typename?: 'ClickupUser'
-          color: string
-          email: string
-          id: number
-          profilePicture?: string | null
-          username: string
-          initials?: string | null
-        }
-      }>
+      list: { __typename?: 'ClickupLocation'; name: string }
+      tags: Array<{ __typename?: 'ClickupTag'; name: string; tagBg: string; tagFg: string }>
       clickupTasksTimeEstimates: Array<{
         __typename?: 'ClickupTasksTimeEstimate'
-        id: string
         createdAt: any
         updatedAt: any
-        clickupTaskId: string
         estimate: number
       }>
-      clickupTasksDueDates: Array<{
-        __typename?: 'ClickupTasksDueDate'
-        id: string
-        createdAt: any
-        updatedAt: any
-        clickupTaskId: string
-        dueDate: any
-      }>
+      clickupTasksDueDates: Array<{ __typename?: 'ClickupTasksDueDate'; createdAt: any; updatedAt: any; dueDate: any }>
       clickupTasksStatus: Array<{
         __typename?: 'ClickupTasksStatus'
         id: string
         createdAt: any
         updatedAt: any
-        clickupTaskId: string
-        status: {
-          __typename?: 'ClickupStatus'
-          color: string
-          id?: string | null
-          orderindex: number
-          status: string
-          type: string
-        }
+        status: { __typename?: 'ClickupStatus'; color: string; status: string }
       }>
-      project?: {
-        __typename?: 'Project'
-        id: string
-        createdAt: any
-        updatedAt: any
-        clickupProjectId: string
-        clockifyProjectId: string
-      } | null
     } | null
   }>
 }
@@ -5224,14 +5067,8 @@ export const ClockifyTimeEntriesDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'clockifyId' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'description' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'userId' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'billable' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'costRate' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'currentlyRunning' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'customFieldValues' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'tags' },
@@ -5241,8 +5078,6 @@ export const ClockifyTimeEntriesDocument = {
                   },
                 },
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'workspaceId' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'isLocked' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'clockifyProject' },
@@ -5287,35 +5122,7 @@ export const ClockifyTimeEntriesDocument = {
                       { kind: 'Field', name: { kind: 'Name', value: 'clickupId' } },
                       { kind: 'Field', name: { kind: 'Name', value: 'name' } },
                       { kind: 'Field', name: { kind: 'Name', value: 'description' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'textContent' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'timeSpent' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'archived' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'customId' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'dateClosed' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'dateCreated' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'dateDone' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'dateUpdated' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'startDate' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'orderindex' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'teamId' } },
                       { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'points' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'permissionLevel' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'creator' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'color' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'email' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'username' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'initials' } },
-                          ],
-                        },
-                      },
                       {
                         kind: 'Field',
                         name: { kind: 'Name', value: 'assignees' },
@@ -5333,116 +5140,10 @@ export const ClockifyTimeEntriesDocument = {
                       },
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'checklists' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'creator' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'dateCreated' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'items' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [{ kind: 'Field', name: { kind: 'Name', value: 'id' } }],
-                              },
-                            },
-                            { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'orderindex' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'resolved' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'taskId' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'unresolved' } },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'dependencies' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'dateCreated' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'dependsOn' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'taskId' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'userid' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'workspaceId' } },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'folder' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'access' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'hidden' } },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'space' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'id' } }],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'clickupProject' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'access' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'hidden' } },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
                         name: { kind: 'Name', value: 'list' },
                         selectionSet: {
                           kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'access' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'hidden' } },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'priority' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'color' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'orderindex' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'priority' } },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'sharing' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'public' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'publicFields' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'publicShareExpiresOn' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'seoOptimized' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'token' } },
-                          ],
+                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
                         },
                       },
                       {
@@ -5451,7 +5152,6 @@ export const ClockifyTimeEntriesDocument = {
                         selectionSet: {
                           kind: 'SelectionSet',
                           selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'creator' } },
                             { kind: 'Field', name: { kind: 'Name', value: 'name' } },
                             { kind: 'Field', name: { kind: 'Name', value: 'tagBg' } },
                             { kind: 'Field', name: { kind: 'Name', value: 'tagFg' } },
@@ -5460,95 +5160,12 @@ export const ClockifyTimeEntriesDocument = {
                       },
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'linkedTasks' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'dateCreated' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'linkId' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'taskId' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'userid' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'workspaceId' } },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'customFields' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'dateCreated' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'hideFromGuests' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'required' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'typeConfig' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'value' } },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'attachments' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'date' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'deleted' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'emailData' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'extension' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'hidden' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'isFolder' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'mimetype' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'orientation' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'parentId' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'resolvedComments' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'size' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'source' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'thumbnailLarge' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'thumbnailMedium' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'thumbnailSmall' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'totalComments' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'urlWHost' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'urlWQuery' } },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'user' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  { kind: 'Field', name: { kind: 'Name', value: 'color' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'email' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'username' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'initials' } },
-                                ],
-                              },
-                            },
-                            { kind: 'Field', name: { kind: 'Name', value: 'version' } },
-                          ],
-                        },
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'parent' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'watchers' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'projectId' } },
-                      {
-                        kind: 'Field',
                         name: { kind: 'Name', value: 'clickupTasksTimeEstimates' },
                         selectionSet: {
                           kind: 'SelectionSet',
                           selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                             { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
                             { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'clickupTaskId' } },
                             { kind: 'Field', name: { kind: 'Name', value: 'estimate' } },
                           ],
                         },
@@ -5559,10 +5176,8 @@ export const ClockifyTimeEntriesDocument = {
                         selectionSet: {
                           kind: 'SelectionSet',
                           selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                             { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
                             { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'clickupTaskId' } },
                             { kind: 'Field', name: { kind: 'Name', value: 'dueDate' } },
                           ],
                         },
@@ -5576,7 +5191,6 @@ export const ClockifyTimeEntriesDocument = {
                             { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                             { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
                             { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'clickupTaskId' } },
                             {
                               kind: 'Field',
                               name: { kind: 'Name', value: 'status' },
@@ -5584,27 +5198,10 @@ export const ClockifyTimeEntriesDocument = {
                                 kind: 'SelectionSet',
                                 selections: [
                                   { kind: 'Field', name: { kind: 'Name', value: 'color' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'orderindex' } },
                                   { kind: 'Field', name: { kind: 'Name', value: 'status' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'type' } },
                                 ],
                               },
                             },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'project' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'clickupProjectId' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'clockifyProjectId' } },
                           ],
                         },
                       },

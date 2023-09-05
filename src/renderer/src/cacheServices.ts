@@ -1,5 +1,3 @@
-import type { Config } from './helper'
-
 export function setCacheItem(key: string, value: unknown, ttl = 2 * 24 * 60 * 60 * 1000) {
   localStorage.setItem(
     key,
@@ -10,24 +8,19 @@ export function setCacheItem(key: string, value: unknown, ttl = 2 * 24 * 60 * 60
   )
 }
 
-export function getCacheItem(key: string): Config | null {
-  const itemStr = localStorage.getItem(key)
+export function getToken(): string {
+  const itemStr = localStorage.getItem('token')
 
   if (!itemStr) {
-    return null
+    return ''
   }
 
-  const item = JSON.parse(itemStr)
+  const token = JSON.parse(itemStr)
 
-  if (new Date().getTime() > item.expiry) {
-    localStorage.removeItem(key)
-    return null
+  if (new Date().getTime() > token.expiry) {
+    localStorage.removeItem('token')
+    return ''
   }
-  return item.value
-}
 
-export function getToken() {
-  const token = getCacheItem('token')
-
-  return token ? `Bearer ${token}` : ''
+  return token ? `Bearer ${token.value}` : ''
 }

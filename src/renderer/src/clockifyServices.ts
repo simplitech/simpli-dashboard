@@ -1,10 +1,10 @@
-import * as gql from './graphql/generated'
+import { ClockifyTimeEntriesDocument, type ClockifyTimeEntry } from './graphql/generated'
 import { formatDurationClock, type Entry, type Report, formatDayMonthYear } from './format'
 import { getGraphqlClient } from './store'
 import { parse, toSeconds } from 'iso8601-duration'
 import { getLastEstimative } from './clickupServices'
 
-function sortUserDurations(entries: gql.ClockifyTimeEntry[]): { user: string; duration: number }[] {
+function sortUserDurations(entries: ClockifyTimeEntry[]): { user: string; duration: number }[] {
   const users = entries.map((item) => item.user.name)
   const uniqueUsers = [...new Set(users)]
   const userDurations = uniqueUsers.map((user) => {
@@ -17,7 +17,7 @@ function sortUserDurations(entries: gql.ClockifyTimeEntry[]): { user: string; du
   return userDurations.sort((a, b) => b.duration - a.duration)
 }
 
-export function sumDurations(entries: gql.ClockifyTimeEntry[]) {
+export function sumDurations(entries: ClockifyTimeEntry[]) {
   return entries.map((item) => toSeconds(parse(item.timeInterval.duration))).reduce((a, b) => a + b, 0)
 }
 
@@ -25,26 +25,26 @@ export function sumDurations(entries: gql.ClockifyTimeEntry[]) {
  * This method will return a string with the names of the users sorted by the sum of durations of their entries
  * @param entries
  */
-export function formatUserNamesSortedByParticipation(entries: gql.ClockifyTimeEntry[] | null): string {
+export function formatUserNamesSortedByParticipation(entries: ClockifyTimeEntry[] | null): string {
   if (!entries) return ''
   const sortedUserDurations = sortUserDurations(entries)
   return sortedUserDurations.map((item) => item.user).join(', ')
 }
 
-export function formatUserNamesDailyParticipation(entries: gql.ClockifyTimeEntry[] | null, date: string) {
+export function formatUserNamesDailyParticipation(entries: ClockifyTimeEntry[] | null, date: string) {
   if (!entries) return []
   const filteredEntriesByDay = entries.filter((item) => formatDayMonthYear(item.timeInterval.start) === date)
   const users = [...new Set(filteredEntriesByDay.map((item) => item.user.name))]
   return users
 }
 
-export function getUserParticipation(entries: gql.ClockifyTimeEntry[] | null, username: string): string {
+export function getUserParticipation(entries: ClockifyTimeEntry[] | null, username: string): string {
   if (!entries) return ''
   const userEntries = entries.filter((item) => item.user.name === username.trim())
   return formatDurationClock(sumDurations(userEntries))
 }
 
-export function getMainGroupOfDurations(entries: gql.ClockifyTimeEntry[]): number {
+export function getMainGroupOfDurations(entries: ClockifyTimeEntry[]): number {
   if (!entries) return 0
   const sortedUserDurations = sortUserDurations(entries)
   return sortedUserDurations[0]?.duration ?? 0
@@ -79,9 +79,9 @@ export const sumTimeTracked = (report: Report) => {
   )
 }
 
-export async function getClockifyEntriesAPI(startDate: string, endDate: string): Promise<gql.ClockifyTimeEntry[]> {
+export async function getClockifyEntriesAPI(startDate: string, endDate: string): Promise<ClockifyTimeEntry[]> {
   const result = await getGraphqlClient()
-    .query(gql.ClockifyTimeEntriesDocument, {
+    .query(ClockifyTimeEntriesDocument, {
       where: {
         timeInterval: { is: { start: { gte: startDate }, end: { lte: endDate } } },
         currentlyRunning: { equals: false },
@@ -89,5 +89,5 @@ export async function getClockifyEntriesAPI(startDate: string, endDate: string):
     })
     .toPromise()
 
-  return result.data.clockifyTimeEntries as gql.ClockifyTimeEntry[]
+  return result.data.clockifyTimeEntries as ClockifyTimeEntry[]
 }
