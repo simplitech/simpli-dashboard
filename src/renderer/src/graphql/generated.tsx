@@ -261,6 +261,7 @@ export type ClickupChecklistCreateInput = {
 export type ClickupChecklistItem = {
   __typename?: 'ClickupChecklistItem'
   assignee?: Maybe<ClickupUser>
+  children?: Maybe<Scalars['JSON']['output']>
   dateCreated: Scalars['String']['output']
   groupAssignee?: Maybe<Scalars['JSON']['output']>
   id: Scalars['String']['output']
@@ -272,6 +273,7 @@ export type ClickupChecklistItem = {
 
 export type ClickupChecklistItemCreateInput = {
   assignee?: InputMaybe<ClickupUserCreateInput>
+  children?: InputMaybe<Scalars['JSON']['input']>
   dateCreated: Scalars['String']['input']
   groupAssignee?: InputMaybe<Scalars['JSON']['input']>
   id: Scalars['String']['input']
@@ -283,6 +285,7 @@ export type ClickupChecklistItemCreateInput = {
 
 export type ClickupChecklistItemObjectEqualityInput = {
   assignee?: InputMaybe<ClickupUserObjectEqualityInput>
+  children?: InputMaybe<Scalars['JSON']['input']>
   dateCreated: Scalars['String']['input']
   groupAssignee?: InputMaybe<Scalars['JSON']['input']>
   id: Scalars['String']['input']
@@ -719,6 +722,10 @@ export type ClickupTask = {
   checklists: Array<ClickupChecklist>
   clickupId: Scalars['String']['output']
   clickupProject: ClickupLocation
+  clickupTasksDueDates: Array<ClickupTasksDueDate>
+  clickupTasksStatus: Array<ClickupTasksStatus>
+  clickupTasksTimeEstimates: Array<ClickupTasksTimeEstimate>
+  clockfyTimeEntry: Array<ClockifyTimeEntry>
   creator: ClickupUser
   customFields: Array<ClickupTasksCustomField>
   customId?: Maybe<Scalars['String']['output']>
@@ -738,6 +745,7 @@ export type ClickupTask = {
   permissionLevel: Scalars['String']['output']
   points?: Maybe<Scalars['BigInt']['output']>
   priority?: Maybe<ClickupPriority>
+  project?: Maybe<Project>
   projectId?: Maybe<Scalars['String']['output']>
   sharing: ClickupSharing
   space: ClickupSpace
@@ -748,6 +756,46 @@ export type ClickupTask = {
   timeSpent?: Maybe<Scalars['BigInt']['output']>
   url: Scalars['String']['output']
   watchers?: Maybe<Scalars['JSON']['output']>
+}
+
+export type ClickupTaskClickupTasksDueDatesArgs = {
+  cursor?: InputMaybe<ClickupTasksDueDateWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupTasksDueDateScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupTasksDueDateOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupTasksDueDateWhereInput>
+}
+
+export type ClickupTaskClickupTasksStatusArgs = {
+  cursor?: InputMaybe<ClickupTasksStatusWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupTasksStatusScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupTasksStatusOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupTasksStatusWhereInput>
+}
+
+export type ClickupTaskClickupTasksTimeEstimatesArgs = {
+  cursor?: InputMaybe<ClickupTasksTimeEstimateWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupTasksTimeEstimateScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupTasksTimeEstimateOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupTasksTimeEstimateWhereInput>
+}
+
+export type ClickupTaskClockfyTimeEntryArgs = {
+  cursor?: InputMaybe<ClockifyTimeEntryWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClockifyTimeEntryScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClockifyTimeEntryOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClockifyTimeEntryWhereInput>
+}
+
+export type ClickupTaskProjectArgs = {
+  where?: InputMaybe<ProjectWhereInput>
 }
 
 export type ClickupTaskAvgAggregate = {
@@ -1871,6 +1919,7 @@ export type ClickupTasksCustomFieldOrderByCompositeAggregateInput = {
 
 export type ClickupTasksDueDate = {
   __typename?: 'ClickupTasksDueDate'
+  clickupTask: ClickupTask
   clickupTaskId: Scalars['String']['output']
   createdAt: Scalars['DateTime']['output']
   dueDate: Scalars['BigInt']['output']
@@ -2144,6 +2193,7 @@ export type ClickupTasksQueueWhereUniqueInput = {
 
 export type ClickupTasksStatus = {
   __typename?: 'ClickupTasksStatus'
+  clickupTask: ClickupTask
   clickupTaskId: Scalars['String']['output']
   createdAt: Scalars['DateTime']['output']
   id: Scalars['String']['output']
@@ -2333,6 +2383,7 @@ export type ClickupTasksStatusWhereUniqueInput = {
 
 export type ClickupTasksTimeEstimate = {
   __typename?: 'ClickupTasksTimeEstimate'
+  clickupTask: ClickupTask
   clickupTaskId: Scalars['String']['output']
   createdAt: Scalars['DateTime']['output']
   estimate: Scalars['Int']['output']
@@ -3053,6 +3104,7 @@ export type ClockfyTimeEntryUserWhereInput = {
 export type ClockifyTimeEntry = {
   __typename?: 'ClockifyTimeEntry'
   billable: Scalars['Boolean']['output']
+  clickupTask?: Maybe<ClickupTask>
   clickupTaskId?: Maybe<Scalars['String']['output']>
   clockifyId: Scalars['String']['output']
   clockifyProject?: Maybe<ClockfyTimeEntryProject>
@@ -3065,6 +3117,7 @@ export type ClockifyTimeEntry = {
   id: Scalars['String']['output']
   isLocked: Scalars['Boolean']['output']
   kioskId?: Maybe<Scalars['JSON']['output']>
+  project?: Maybe<Project>
   projectId?: Maybe<Scalars['String']['output']>
   tags: Array<ClockfyTimeEntryTag>
   task?: Maybe<Scalars['JSON']['output']>
@@ -3073,6 +3126,14 @@ export type ClockifyTimeEntry = {
   user: ClockfyTimeEntryUser
   userId: Scalars['String']['output']
   workspaceId: Scalars['String']['output']
+}
+
+export type ClockifyTimeEntryClickupTaskArgs = {
+  where?: InputMaybe<ClickupTaskWhereInput>
+}
+
+export type ClockifyTimeEntryProjectArgs = {
+  where?: InputMaybe<ProjectWhereInput>
 }
 
 export type ClockifyTimeEntryAvgAggregate = {
@@ -4907,6 +4968,62 @@ export type UserWhereUniqueInput = {
   username?: InputMaybe<StringFilter>
 }
 
+export type ClockifyTimeEntriesQueryVariables = Exact<{
+  where?: InputMaybe<ClockifyTimeEntryWhereInput>
+}>
+
+export type ClockifyTimeEntriesQuery = {
+  __typename?: 'Query'
+  clockifyTimeEntries: Array<{
+    __typename?: 'ClockifyTimeEntry'
+    clockifyId: string
+    description: string
+    type: string
+    tags: Array<{ __typename?: 'ClockfyTimeEntryTag'; name: string }>
+    clockifyProject?: { __typename?: 'ClockfyTimeEntryProject'; name: string; color: string } | null
+    user: { __typename?: 'ClockfyTimeEntryUser'; id: string; name: string }
+    timeInterval: {
+      __typename?: 'ClockfyTimeEntryTimeInterval'
+      start: string
+      end?: string | null
+      duration?: string | null
+    }
+    clickupTask?: {
+      __typename?: 'ClickupTask'
+      id: string
+      clickupId: string
+      name: string
+      description: string
+      url: string
+      assignees: Array<{
+        __typename?: 'ClickupUser'
+        color: string
+        email: string
+        id: number
+        profilePicture?: string | null
+        username: string
+        initials?: string | null
+      }>
+      list: { __typename?: 'ClickupLocation'; name: string }
+      tags: Array<{ __typename?: 'ClickupTag'; name: string; tagBg: string; tagFg: string }>
+      clickupTasksTimeEstimates: Array<{
+        __typename?: 'ClickupTasksTimeEstimate'
+        createdAt: any
+        updatedAt: any
+        estimate: number
+      }>
+      clickupTasksDueDates: Array<{ __typename?: 'ClickupTasksDueDate'; createdAt: any; updatedAt: any; dueDate: any }>
+      clickupTasksStatus: Array<{
+        __typename?: 'ClickupTasksStatus'
+        id: string
+        createdAt: any
+        updatedAt: any
+        status: { __typename?: 'ClickupStatus'; color: string; status: string }
+      }>
+    } | null
+  }>
+}
+
 export type UsersQueryVariables = Exact<{
   where: UserWhereInput
 }>
@@ -4920,6 +5037,185 @@ export type SigninMutationVariables = Exact<{
 
 export type SigninMutation = { __typename?: 'Mutation'; signin: { __typename?: 'SigninInfo'; token: string } }
 
+export const ClockifyTimeEntriesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'clockifyTimeEntries' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'where' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'ClockifyTimeEntryWhereInput' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'clockifyTimeEntries' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'where' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'clockifyId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tags' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
+                  },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'clockifyProject' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'color' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'user' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'timeInterval' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'start' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'end' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'duration' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'clickupTask' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'clickupId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'assignees' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'color' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'email' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'username' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'initials' } },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'list' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'tags' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'tagBg' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'tagFg' } },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'clickupTasksTimeEstimates' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'estimate' } },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'clickupTasksDueDates' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'dueDate' } },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'clickupTasksStatus' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'status' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  { kind: 'Field', name: { kind: 'Name', value: 'color' } },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'status' } },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ClockifyTimeEntriesQuery, ClockifyTimeEntriesQueryVariables>
 export const UsersDocument = {
   kind: 'Document',
   definitions: [

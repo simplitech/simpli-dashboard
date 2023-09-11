@@ -17,8 +17,8 @@
     })
   }
 
-  const openConfigModal = () => {
-    dispatch('openConfigModal')
+  const openLoginModal = () => {
+    dispatch('openLoginModal')
   }
 
   const search = () => {
@@ -82,7 +82,7 @@
     <div class="text-light-gray font-normal text-xs pr-3">
       <span>v.{version}</span>
     </div>
-    <button on:click={openConfigModal} class="flex-shrink-0">
+    <button on:click={openLoginModal} class="flex-shrink-0">
       <img src="./images/settings.svg" alt="settings icon" />
     </button>
   </div>
