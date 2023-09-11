@@ -1,8 +1,8 @@
 overwrite: true
 schema: ${GRAPHQL_ENDPOINT} # GraphQL endpoint via the apollo server
-documents: 'src/renderer/src/graphql/operations/*.ts' # parse graphql operations in matching files
+documents: 'src/graphql/operations/*.ts' # parse graphql operations in matching files
 generates:
-  src/renderer/src/graphql/generated.tsx: # location for generated types, hooks and components
+  src/graphql/generated.tsx: # location for generated types, hooks and components
     plugins:
       - 'typescript'
       - 'typescript-operations'
