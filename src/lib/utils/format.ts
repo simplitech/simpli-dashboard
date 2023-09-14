@@ -37,6 +37,21 @@ export type FilterOptions = {
   color?: string
 }
 
+export type Preset = {
+  name: string
+} & SelectedFilters
+
+export type SelectedFilters = {
+  selectedAssignee: FilterOptions[]
+  selectedProject: FilterOptions[]
+  selectedStatus: FilterOptions[]
+  selectedStatusInPeriod: FilterOptions[]
+  selectedGroupBy: FilterOptions[]
+  showWarnings: boolean
+  showDetails: boolean
+  showSummary: boolean
+}
+
 export const formatReport: Record<
   string,
   (id: string, entry: Entry, dateRangeStart: Date, dateRangeEnd: Date) => string

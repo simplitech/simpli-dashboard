@@ -2,10 +2,13 @@
   import DatetimeInput from './DatetimeInput.svelte'
   import { createEventDispatcher } from 'svelte'
   import { version } from '$app/environment'
+  import { type Entry, formatReport, type Report } from '$lib/utils/format'
+  import { copyToClipboard } from '$lib/utils/helper'
 
   export let dateRangeEnd: Date
   export let dateRangeStart: Date
   export let disabled = false
+  export let report: Report
 
   let searchValue: string = null
   const dispatch = createEventDispatcher()
@@ -25,6 +28,24 @@
     dispatch('search', {
       searchValue: searchValue,
     })
+  }
+
+  const copyReportToClipboard = (
+    report: Report,
+    format: Record<string, (id: string, entry: Entry, dateRangeStart: Date, dateRangeEnd: Date) => string>,
+  ) => {
+    let headers = Object.keys(format).join('\t') + '\n'
+    let rows = ''
+
+    Object.entries(report).forEach(([id, entry]) => {
+      Object.keys(format).forEach((reportItem: string) => {
+        rows += format[reportItem](id, entry, dateRangeStart, dateRangeEnd)
+        rows += '\t'
+      })
+      rows += '\n'
+    })
+
+    copyToClipboard(headers + rows)
   }
 </script>
 
@@ -50,7 +71,7 @@
       </button>
     </form>
 
-    <form on:submit|preventDefault={generateReport} class="flex items-center">
+    <form on:submit|preventDefault={generateReport} class="flex items-center mr-2">
       <DatetimeInput
         bind:value={dateRangeStart}
         class="bg-transparent border rounded-full border-lilac flex items-center justify-center p-2 text-white"
@@ -74,6 +95,14 @@
         Fetch Data
       </button>
     </form>
+
+    <button
+      class="flex flex-row items-center justify-center border border-white rounded-full py-2 px-5 whitespace-nowrap"
+      on:click={() => copyReportToClipboard(report, formatReport)}
+    >
+      <img src="./images/folder.svg" alt="copy icon" class="mr-2" />
+      Copy Data to Clipboard
+    </button>
   </div>
 
   <div class="flex items-center justify-center flex-shrink-0">

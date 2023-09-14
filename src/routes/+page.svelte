@@ -188,6 +188,7 @@
     selectedGroupBy = event.detail.selectedGroupBy
     showWarnings = event.detail.showWarnings
     showDetails = event.detail.showDetails
+    showSummary = event.detail.showSummary
 
     handleFilters()
   }
@@ -409,6 +410,7 @@
     {dateRangeStart}
     {dateRangeEnd}
     disabled={loading}
+    report={reportFiltered}
     on:generate={setDateAndGenerate}
     on:openLoginModal={() => (loginOpen = true)}
     on:search={setSearch}
@@ -421,7 +423,6 @@
   {/if}
 
   <Toolbar
-    report={reportFiltered}
     {dateRangeStart}
     {dateRangeEnd}
     {filters}

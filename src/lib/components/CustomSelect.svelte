@@ -19,7 +19,7 @@
   const dispatch = createEventDispatcher()
 
   $: isChecked = (item: FilterOptions): boolean => {
-    return selectedItems.includes(item)
+    return selectedItems.some((selectedItem: FilterOptions) => selectedItem.label === item.label)
   }
 
   function handleCheckboxChange(event: Event, item: FilterOptions) {
@@ -33,7 +33,7 @@
   }
 
   $: isSelectAllChecked = () => {
-    return items.every((item: FilterOptions) => selectedItems.includes(item))
+    return items.every((item: FilterOptions) => selectedItems.some((selectedItem) => selectedItem.label === item.label))
   }
 
   function handleSelectAll(event: Event) {

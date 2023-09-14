@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { formatReport, type Report, type Filters, type Entry, type FilterOptions } from '$lib/utils/format'
-  import { copyToClipboard } from '$lib/utils/helper'
+  import type { Filters, FilterOptions, SelectedFilters } from '$lib/utils/format'
   import { createEventDispatcher } from 'svelte'
   import CustomSelect from './CustomSelect.svelte'
+  import PresetPopover from './AddPreset.svelte'
+  import MyPresetsPopover from './Presets.svelte'
 
   const dispatch = createEventDispatcher()
 
@@ -13,9 +14,6 @@
   let selectedGroupBy: FilterOptions[] = []
   let showWarnings = true
 
-  export let report: Report
-  export let dateRangeStart: Date
-  export let dateRangeEnd: Date
   export let filters: Filters
   export let disabled = false
   export let showSummary = true
@@ -23,23 +21,16 @@
 
   let groupByItems = ['Project', 'Assignee', 'Date'].map((item) => ({ label: item }))
 
-  const copyReportToClipboard = (
-    report: Report,
-    format: Record<string, (id: string, entry: Entry, dateRangeStart: Date, dateRangeEnd: Date) => string>,
-  ) => {
-    let headers = Object.keys(format).join('\t') + '\n'
-    let rows = ''
-
-    Object.entries(report).forEach(([id, entry]) => {
-      Object.keys(format).forEach((reportItem: string) => {
-        rows += format[reportItem](id, entry, dateRangeStart, dateRangeEnd)
-        rows += '\t'
-      })
-      rows += '\n'
-    })
-
-    copyToClipboard(headers + rows)
-  }
+  $: selectedFilters = {
+    selectedAssignee: selectedAssignee,
+    selectedProject: selectedProject,
+    selectedStatus: selectedStatus,
+    selectedStatusInPeriod: selectedStatusInPeriod,
+    selectedGroupBy: selectedGroupBy,
+    showWarnings: showWarnings,
+    showDetails: showDetails,
+    showSummary: showSummary,
+  } as SelectedFilters
 
   const handleCheckWarnings = () => {
     if (!showWarnings) {
@@ -57,7 +48,17 @@
     filter()
   }
 
-  const filter = () => {
+  const filter = (event?: CustomEvent) => {
+    if (event.detail) {
+      selectedAssignee = event.detail?.selectedAssignee
+      selectedProject = event.detail?.selectedProject
+      ;(selectedStatus = event.detail?.selectedStatus), (selectedStatusInPeriod = event.detail?.selectedStatusInPeriod)
+      selectedGroupBy = event.detail?.selectedGroupBy
+      showWarnings = event.detail?.showWarnings
+      showDetails = event.detail?.showDetails
+      showSummary = event.detail?.showSummary
+    }
+
     dispatch('doFilter', {
       selectedAssignee: selectedAssignee,
       selectedProject: selectedProject,
@@ -66,6 +67,7 @@
       selectedGroupBy: selectedGroupBy,
       showWarnings: showWarnings,
       showDetails: showDetails,
+      showSummary: showSummary,
     })
   }
 </script>
@@ -137,13 +139,11 @@
 
   <div class="w-[2px] h-9 bg-dark-gray mr-5" />
 
-  <button
-    class="flex flex-row items-center justify-center border border-white rounded-full py-2 px-5 whitespace-nowrap"
-    on:click={() => copyReportToClipboard(report, formatReport)}
-  >
-    <img src="./images/folder.svg" alt="copy icon" class="mr-2" />
-    Copy Data to Clipboard
-  </button>
+  <div class="flex gap-x-4">
+    <PresetPopover {selectedFilters} />
+
+    <MyPresetsPopover on:doFilter={filter} />
+  </div>
 </div>
 
 <style>

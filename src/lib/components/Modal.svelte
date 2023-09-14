@@ -1,10 +1,13 @@
-<script>
+<script lang="ts">
   import { createEventDispatcher } from 'svelte'
   import CloseIcon from '$lib/components/icons/CloseIcon.svelte'
   const dispatch = createEventDispatcher()
 
   export let title = ''
   export let body = ''
+  export let headerClass = ''
+  export let width = 'w-full'
+  export let modalClass = ''
 </script>
 
 <!-- Main modal -->
@@ -13,12 +16,12 @@
     tabindex="-1"
     class="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full justify-center items-center flex"
   >
-    <div class="relative w-full max-w-2xl max-h-full">
+    <div class="relative {width} max-w-2xl max-h-full">
       <!-- Modal content -->
-      <div class="relative rounded-lg shadow bg-purple-gray-500">
+      <div class="relative rounded-lg shadow-md bg-purple-gray-500 {modalClass}">
         <!-- Modal header -->
-        <div class="flex items-start justify-between p-4 border-b rounded-t border-gray-600">
-          <h3 class="text-xl font-semibold text-white px-1.5">
+        <div class="flex items-center px-2 pt-2 justify-between border-b rounded-t border-gray-600 {headerClass}">
+          <h3 class="text-xl font-semibold text-white p-4">
             <slot name="title">{title}</slot>
           </h3>
           <button
@@ -31,7 +34,7 @@
           </button>
         </div>
         <!-- Modal body -->
-        <div class="p-6 space-y-6">
+        <div class="px-2">
           <slot>{body}</slot>
         </div>
       </div>
