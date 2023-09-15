@@ -14,6 +14,7 @@
 <div class="table-summary">Avg: {avgEstimativeError(report)}</div>
 <div class="table-summary" />
 <div class="table-summary" />
+<div class="table-summary" />
 <div class="table-summary">Avg: {avgDaysStatus(report, 'to review')}</div>
 <div class="table-summary rounded-r-lg">Avg: {avgDaysStatus(report, 'to test')}</div>
 

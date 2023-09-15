@@ -1,6 +1,17 @@
 import { calculateEstimationError } from '$lib/utils/clockifyServices'
-import { formatDuration, type Entry, type Report, formatDurationOnlyDays } from '$lib/utils/format'
-import type { ClickupTasksDueDate, ClickupTasksStatus, ClickupTasksTimeEstimate } from '../../graphql/generated'
+import {
+  formatDuration,
+  type Entry,
+  type Report,
+  formatDurationOnlyDays,
+  formatDurationToDays,
+} from '$lib/utils/format'
+import type {
+  ClickupTask,
+  ClickupTasksDueDate,
+  ClickupTasksStatus,
+  ClickupTasksTimeEstimate,
+} from '../../graphql/generated'
 
 export enum Error {
   ACCESS_078 = 'ACCESS_078',
@@ -101,4 +112,36 @@ export const getLastDueDate = (clickupTasksDueDate: ClickupTasksDueDate[]): Clic
   return clickupTasksDueDate.reduce((current, next) => {
     return new Date(next.createdAt) > new Date(current.createdAt) ? next : current
   }, clickupTasksDueDate[0])
+}
+
+export const calculateDelay = (task: ClickupTask): number => {
+  if (!task.clickupTasksDueDates.length) return 0
+
+  const currentStatus = getLastStatus(task.clickupTasksStatus)
+  const dueDate = getLastDueDate(task.clickupTasksDueDates).dueDate
+
+  if (!currentStatus || !dueDate) return 0
+
+  if (currentStatus.status.status.trim() === 'to do' || currentStatus.status.status.trim() === 'in progress') {
+    const now = Date.now()
+    const delay = now - dueDate
+
+    return dueDate > now ? 0 : formatDurationToDays(delay)
+  }
+
+  // ordenar o histórico pelo status mais antigo -> mais atual
+  const allStatus = task.clickupTasksStatus.sort(
+    (a, b) => new Date(a.createdAt).valueOf() - new Date(b.createdAt).valueOf(),
+  )
+
+  // pega a primeira vez que o status foi pra to do
+  const todoStatus = allStatus.findIndex((item) => item.status.status.trim() === 'to do')
+
+  if (todoStatus > 0 && todoStatus < allStatus.length - 2) {
+    // o próximo valor da lista é o status para que a task foi
+    const nextStatusCreationDate = allStatus[todoStatus + 1].createdAt
+    return formatDurationToDays(dueDate - new Date(nextStatusCreationDate).valueOf())
+  }
+
+  return 0
 }
