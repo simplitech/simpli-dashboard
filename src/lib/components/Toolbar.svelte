@@ -40,29 +40,13 @@
   }
 
   const applyPreset = (event: CustomEvent<FilterPreset>) => {
-    selectedFilters.selectedAssignee = event.detail.selectedAssignee
-    selectedFilters.selectedProject = event.detail.selectedProject
-    selectedFilters.selectedStatus = event.detail.selectedStatus
-    selectedFilters.selectedStatusInPeriod = event.detail.selectedStatusInPeriod
-    selectedFilters.selectedGroupBy = event.detail.selectedGroupBy
-    selectedFilters.showWarnings = event.detail.showWarnings
-    selectedFilters.showDetails = event.detail.showDetails
-    selectedFilters.showSummary = event.detail.showSummary
+    selectedFilters = event.detail
 
     filter()
   }
 
   const filter = () => {
-    dispatch('doFilter', {
-      selectedAssignee: selectedFilters.selectedAssignee,
-      selectedProject: selectedFilters.selectedProject,
-      selectedStatus: selectedFilters.selectedStatus,
-      selectedStatusInPeriod: selectedFilters.selectedStatusInPeriod,
-      selectedGroupBy: selectedFilters.selectedGroupBy,
-      showWarnings: selectedFilters.showWarnings,
-      showDetails: selectedFilters.showDetails,
-      showSummary: selectedFilters.showSummary,
-    })
+    dispatch('doFilter', selectedFilters)
   }
 </script>
 
