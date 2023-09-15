@@ -32,7 +32,7 @@
 
 <div class={$$props.class}>
   {#each Object.entries(reportGroup).sort() as [key, value]}
-    <div class={getGroupTitle() ? 'border border-light-gray p-5 rounded-lg mb-5' : ''}>
+    <div class={getGroupTitle() ? 'border border-gray-400 p-5 rounded-lg mb-5' : ''}>
       {#if getGroupTitle()}
         <GroupTitle title={key} />
       {/if}

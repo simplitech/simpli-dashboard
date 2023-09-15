@@ -5,9 +5,7 @@
 
   export let title = ''
   export let body = ''
-  export let headerClass = ''
   export let width = 'w-full'
-  export let modalClass = ''
 </script>
 
 <!-- Main modal -->
@@ -18,9 +16,9 @@
   >
     <div class="relative {width} max-w-2xl max-h-full">
       <!-- Modal content -->
-      <div class="relative rounded-lg shadow-md bg-purple-gray-500 {modalClass}">
+      <div class="relative rounded-lg shadow-md bg-purple-gray-300">
         <!-- Modal header -->
-        <div class="flex items-center px-2 pt-2 justify-between border-b rounded-t border-gray-600 {headerClass}">
+        <div class="flex items-center px-2 pt-2 justify-between">
           <h3 class="text-xl font-semibold text-white p-4">
             <slot name="title">{title}</slot>
           </h3>

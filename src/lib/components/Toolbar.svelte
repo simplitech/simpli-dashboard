@@ -1,73 +1,67 @@
 <script lang="ts">
-  import type { Filters, FilterOptions, SelectedFilters } from '$lib/utils/format'
+  import type { FilterItems, FilterOptions, Filters, FilterPreset } from '$lib/utils/format'
   import { createEventDispatcher } from 'svelte'
   import CustomSelect from './CustomSelect.svelte'
-  import PresetPopover from './AddPreset.svelte'
-  import MyPresetsPopover from './Presets.svelte'
+  import AddPreset from './AddPreset.svelte'
+  import Presets from './Presets.svelte'
 
   const dispatch = createEventDispatcher()
 
-  let selectedAssignee: FilterOptions[] = []
-  let selectedProject: FilterOptions[] = []
-  let selectedStatus: FilterOptions[] = []
-  let selectedStatusInPeriod: FilterOptions[] = []
-  let selectedGroupBy: FilterOptions[] = []
-  let showWarnings = true
-
-  export let filters: Filters
+  export let filters: FilterItems
   export let disabled = false
-  export let showSummary = true
-  export let showDetails = true
 
   let groupByItems = ['Project', 'Assignee', 'Date'].map((item) => ({ label: item }))
 
-  $: selectedFilters = {
-    selectedAssignee: selectedAssignee,
-    selectedProject: selectedProject,
-    selectedStatus: selectedStatus,
-    selectedStatusInPeriod: selectedStatusInPeriod,
-    selectedGroupBy: selectedGroupBy,
-    showWarnings: showWarnings,
-    showDetails: showDetails,
-    showSummary: showSummary,
-  } as SelectedFilters
+  let selectedFilters: Filters = {
+    selectedAssignee: [],
+    selectedProject: [],
+    selectedStatus: [],
+    selectedStatusInPeriod: [],
+    selectedGroupBy: [],
+    showWarnings: true,
+    showSummary: true,
+    showDetails: true,
+  }
 
   const handleCheckWarnings = () => {
-    if (!showWarnings) {
-      showDetails = false
+    if (!selectedFilters.showWarnings) {
+      selectedFilters.showDetails = false
     }
 
     filter()
   }
 
   const handleCheckDetails = () => {
-    if (showDetails) {
-      showWarnings = true
+    if (filters.showDetails) {
+      selectedFilters.showWarnings = true
     }
 
     filter()
   }
 
-  const filter = (event?: CustomEvent) => {
-    if (event.detail) {
-      selectedAssignee = event.detail?.selectedAssignee
-      selectedProject = event.detail?.selectedProject
-      ;(selectedStatus = event.detail?.selectedStatus), (selectedStatusInPeriod = event.detail?.selectedStatusInPeriod)
-      selectedGroupBy = event.detail?.selectedGroupBy
-      showWarnings = event.detail?.showWarnings
-      showDetails = event.detail?.showDetails
-      showSummary = event.detail?.showSummary
-    }
+  const applyPreset = (event: CustomEvent<FilterPreset>) => {
+    selectedFilters.selectedAssignee = event.detail.selectedAssignee
+    selectedFilters.selectedProject = event.detail.selectedProject
+    selectedFilters.selectedStatus = event.detail.selectedStatus
+    selectedFilters.selectedStatusInPeriod = event.detail.selectedStatusInPeriod
+    selectedFilters.selectedGroupBy = event.detail.selectedGroupBy
+    selectedFilters.showWarnings = event.detail.showWarnings
+    selectedFilters.showDetails = event.detail.showDetails
+    selectedFilters.showSummary = event.detail.showSummary
 
+    filter()
+  }
+
+  const filter = () => {
     dispatch('doFilter', {
-      selectedAssignee: selectedAssignee,
-      selectedProject: selectedProject,
-      selectedStatus: selectedStatus,
-      selectedStatusInPeriod: selectedStatusInPeriod,
-      selectedGroupBy: selectedGroupBy,
-      showWarnings: showWarnings,
-      showDetails: showDetails,
-      showSummary: showSummary,
+      selectedAssignee: selectedFilters.selectedAssignee,
+      selectedProject: selectedFilters.selectedProject,
+      selectedStatus: selectedFilters.selectedStatus,
+      selectedStatusInPeriod: selectedFilters.selectedStatusInPeriod,
+      selectedGroupBy: selectedFilters.selectedGroupBy,
+      showWarnings: selectedFilters.showWarnings,
+      showDetails: selectedFilters.showDetails,
+      showSummary: selectedFilters.showSummary,
     })
   }
 </script>
@@ -83,7 +77,7 @@
       placeholder="Find users"
       items={filters.assignee}
       on:filter={filter}
-      bind:selectedItems={selectedAssignee}
+      bind:selectedItems={selectedFilters.selectedAssignee}
     />
     <CustomSelect
       class="mr-16"
@@ -91,7 +85,7 @@
       placeholder="Find projects"
       items={filters.project}
       on:filter={filter}
-      bind:selectedItems={selectedProject}
+      bind:selectedItems={selectedFilters.selectedProject}
     />
     <CustomSelect
       class="mr-16"
@@ -99,50 +93,62 @@
       placeholder="Find status"
       items={filters.status}
       on:filter={filter}
-      bind:selectedItems={selectedStatus}
+      bind:selectedItems={selectedFilters.selectedStatus}
     />
     <CustomSelect
       title="Status In Period"
       placeholder="Find status in period"
       items={filters.status}
       on:filter={filter}
-      bind:selectedItems={selectedStatusInPeriod}
+      bind:selectedItems={selectedFilters.selectedStatusInPeriod}
     />
   </div>
 
-  <div class="w-[2px] h-9 bg-dark-gray mr-5" />
+  <div class="w-[2px] h-9 bg-gray-500 mr-5" />
 
   <label class="flex flex-row items-center">
-    <input type="checkbox" bind:checked={showSummary} class="checkbox" {disabled} />
+    <input type="checkbox" bind:checked={selectedFilters.showSummary} on:change={filter} class="checkbox" {disabled} />
     Show Summary
   </label>
 
   <label class="flex flex-row items-center">
-    <input type="checkbox" bind:checked={showDetails} on:change={handleCheckDetails} class="checkbox" {disabled} />
+    <input
+      type="checkbox"
+      bind:checked={selectedFilters.showDetails}
+      on:change={handleCheckDetails}
+      class="checkbox"
+      {disabled}
+    />
     Show Details
   </label>
 
   <label class="flex flex-row items-center">
-    <input type="checkbox" bind:checked={showWarnings} on:change={handleCheckWarnings} class="checkbox" {disabled} />
+    <input
+      type="checkbox"
+      bind:checked={selectedFilters.showWarnings}
+      on:change={handleCheckWarnings}
+      class="checkbox"
+      {disabled}
+    />
     Show Warnings
   </label>
 
-  <div class="w-[2px] h-9 bg-dark-gray" />
+  <div class="w-[2px] h-9 bg-gray-500" />
 
   <CustomSelect
     title="Group By"
     items={groupByItems}
     on:filter={filter}
-    bind:selectedItems={selectedGroupBy}
+    bind:selectedItems={selectedFilters.selectedGroupBy}
     showSearch={false}
   />
 
-  <div class="w-[2px] h-9 bg-dark-gray mr-5" />
+  <div class="w-[2px] h-9 bg-gray-500 mr-5" />
 
   <div class="flex gap-x-4">
-    <PresetPopover {selectedFilters} />
+    <AddPreset {selectedFilters} />
 
-    <MyPresetsPopover on:doFilter={filter} />
+    <Presets on:applyPreset={applyPreset} />
   </div>
 </div>
 

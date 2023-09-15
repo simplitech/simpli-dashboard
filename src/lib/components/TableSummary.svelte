@@ -19,7 +19,7 @@
 
 <style>
   .table-summary {
-    @apply bg-dark-purple px-5 h-[46px] text-xs font-bold text-light-gray text-center;
+    @apply bg-dark-purple px-5 h-[46px] text-xs font-bold text-gray-400 text-center;
     display: flex;
     justify-content: center;
     align-items: center;

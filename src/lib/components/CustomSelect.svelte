@@ -79,7 +79,7 @@
       <div class="flex flex-row-reverse relative justify-center items-center">
         {#if selectedItems.length > 1 || !hasColor()}
           <div
-            class:bg-light-gray={!isSelectAllChecked()}
+            class:bg-gray-400={!isSelectAllChecked()}
             class:bg-lilac={isSelectAllChecked()}
             class:-ml-[22px]={selectedItems.length > 1 && hasColor()}
             class="h-[18px] w-[18px] rounded text-[10px] font-bold flex items-center justify-center p-1 border border-purple-gray-500"
@@ -114,7 +114,7 @@
         <form on:input|preventDefault={searchAssignees} class="flex">
           <input
             type="text"
-            class="w-full h-5 text-white p-4 rounded-full bg-purple-gray-400 border border-light-gray focus:outline-none focus:border-lilac focus:border-2"
+            class="w-full h-5 text-white p-4 rounded-full bg-purple-gray-400 border border-gray-400 focus:outline-none focus:border-lilac focus:border-2"
             {placeholder}
             bind:value={searchValue}
           />
@@ -128,7 +128,7 @@
             </button>
           {/if}
         </form>
-        <hr class="border-light-gray" />
+        <hr class="border-gray-400" />
       {/if}
       {#if isSearching}
         <div class="flex items-center text-sm">
@@ -147,7 +147,7 @@
           </label>
         </div>
       {/if}
-      <hr class="border-light-gray" />
+      <hr class="border-gray-400" />
 
       <div class="flex flex-col space-y-3">
         {#each filteredItems as item}

@@ -18,7 +18,7 @@ export type Report = {
   [id: string]: Entry
 }
 
-export type Filters = {
+export type FilterItems = {
   [name: string]: FilterOptions[]
 }
 
@@ -37,11 +37,11 @@ export type FilterOptions = {
   color?: string
 }
 
-export type Preset = {
+export type FilterPreset = {
   name: string
-} & SelectedFilters
+} & Filters
 
-export type SelectedFilters = {
+export type Filters = {
   selectedAssignee: FilterOptions[]
   selectedProject: FilterOptions[]
   selectedStatus: FilterOptions[]

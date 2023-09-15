@@ -56,7 +56,7 @@
       <span class="text-2xl font-extrabold">ClickClock</span>
     </div>
 
-    <div class="w-[2px] h-9 bg-dark-gray mx-5" />
+    <div class="w-[2px] h-9 bg-gray-500 mx-5" />
 
     <form class="flex flex-row items-center mr-10" on:submit|preventDefault={search}>
       <input
@@ -106,9 +106,9 @@
   </div>
 
   <div class="flex items-center justify-center flex-shrink-0">
-    <div class="w-[2px] h-9 bg-dark-gray mx-4" />
+    <div class="w-[2px] h-9 bg-gray-500 mx-4" />
 
-    <div class="text-light-gray font-normal text-xs pr-3">
+    <div class="text-gray-400 font-normal text-xs pr-3">
       <span>v.{version}</span>
     </div>
     <button on:click={openLoginModal} class="flex-shrink-0">
