@@ -115,7 +115,7 @@ export const getLastDueDate = (clickupTasksDueDate: ClickupTasksDueDate[]): Clic
 }
 
 export const calculateDelay = (task: ClickupTask): number => {
-  if (!task.clickupTasksDueDates.length) return 0
+  if (!task || !task.clickupTasksDueDates.length) return 0
 
   const currentStatus = getLastStatus(task.clickupTasksStatus)
   const dueDate = getLastDueDate(task.clickupTasksDueDates).dueDate

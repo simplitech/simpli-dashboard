@@ -9,7 +9,7 @@
     formatUserNamesDailyParticipation,
     getClockifyEntriesAPI,
   } from '$lib/utils/clockifyServices'
-  import { clickupIdFromText, getLastStatus, getTaskTimeStatus } from '$lib/utils/clickupServices'
+  import { calculateDelay, clickupIdFromText, getLastStatus, getTaskTimeStatus } from '$lib/utils/clickupServices'
   import Modal from '$lib/components/Modal.svelte'
   import { daysToMilis } from '$lib/utils/helper'
   import Header from '$lib/components/Header.svelte'
@@ -269,7 +269,8 @@
           ([, value]) =>
             calculateEstimationError(value) > 2.5 ||
             getTaskTimeStatus(value.task?.clickupTasksStatus, 'to review') >= daysToMilis(3) ||
-            getTaskTimeStatus(value.task?.clickupTasksStatus, 'to test') >= daysToMilis(3),
+            getTaskTimeStatus(value.task?.clickupTasksStatus, 'to test') >= daysToMilis(3) ||
+            calculateDelay(value.task) >= 2,
         ),
       )
     }
