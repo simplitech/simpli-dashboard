@@ -17,10 +17,11 @@
   import {
     formatDayMonthYear,
     type Entry,
-    type Filters,
+    type FilterItems,
     type Report,
     type Group,
     type FilterOptions,
+    type Filters,
   } from '$lib/utils/format'
   import Loading from '$lib/components/Loading.svelte'
   import { scale } from 'svelte/transition'
@@ -37,7 +38,7 @@
   let loadingText = ''
   let loadingOrigin = ''
 
-  let filters: Filters = {}
+  let filters: FilterItems = {}
   let projectFilter: FilterOptions[] = []
   let statusFilter: FilterOptions[] = []
   let assigneeFilter: FilterOptions[] = []
@@ -75,7 +76,7 @@
     }
   })
 
-  const setDateAndGenerate = async (event: CustomEvent) => {
+  const setDateAndGenerate = async (event: CustomEvent<{ dateRangeStart: Date; dateRangeEnd: Date }>) => {
     dateRangeStart = event.detail.dateRangeStart
     dateRangeEnd = event.detail.dateRangeEnd
 
@@ -174,13 +175,13 @@
     return resp
   }
 
-  const setSearch = (event: CustomEvent) => {
+  const setSearch = (event: CustomEvent<{ searchValue: string }>) => {
     searchValue = event.detail.searchValue
 
     handleFilters()
   }
 
-  const setFilterValue = (event: CustomEvent) => {
+  const setFilterValue = (event: CustomEvent<Filters>) => {
     selectedAssignee = event.detail.selectedAssignee
     selectedProject = event.detail.selectedProject
     selectedStatus = event.detail.selectedStatus
@@ -188,6 +189,7 @@
     selectedGroupBy = event.detail.selectedGroupBy
     showWarnings = event.detail.showWarnings
     showDetails = event.detail.showDetails
+    showSummary = event.detail.showSummary
 
     handleFilters()
   }
@@ -409,6 +411,7 @@
     {dateRangeStart}
     {dateRangeEnd}
     disabled={loading}
+    report={reportFiltered}
     on:generate={setDateAndGenerate}
     on:openLoginModal={() => (loginOpen = true)}
     on:search={setSearch}
@@ -421,14 +424,10 @@
   {/if}
 
   <Toolbar
-    report={reportFiltered}
     {dateRangeStart}
     {dateRangeEnd}
     {filters}
     disabled={loading}
-    bind:showDetails
-    bind:showSummary
-    bind:showWarnings
     on:doFilter={setFilterValue}
     class="min-w-[1300px] h-[73px] mb-10"
   />

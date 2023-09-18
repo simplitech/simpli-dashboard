@@ -8,12 +8,16 @@ export default {
         lilac: '#6C61D0',
         'dark-blue': '#1B1F29',
         'purple-gray': {
+          200: '#374058',
           300: '#3E4250',
           400: '#292D3A',
           500: '#242731',
         },
-        'light-gray': '#67717C',
-        'dark-gray': '#2F323B',
+        gray: {
+          300: '#AEAFB2',
+          400: '#67717C',
+          500: '#2F323B',
+        },
       },
     },
   },

@@ -67,7 +67,7 @@
         {/if}
 
         <div class="text-left py-2">
-          <p class="font-semibold text-light-gray">
+          <p class="font-semibold text-gray-400">
             {getProjectName(entry)}
           </p>
           <div>
@@ -166,7 +166,7 @@
   }
 
   .table-grid__header {
-    @apply text-light-gray font-semibold text-center;
+    @apply text-gray-400 font-semibold text-center;
   }
 
   .table-grid__cell {

@@ -18,7 +18,7 @@ export type Report = {
   [id: string]: Entry
 }
 
-export type Filters = {
+export type FilterItems = {
   [name: string]: FilterOptions[]
 }
 
@@ -35,6 +35,21 @@ export type Group = {
 export type FilterOptions = {
   label: string
   color?: string
+}
+
+export type FilterPreset = {
+  name: string
+} & Filters
+
+export type Filters = {
+  selectedAssignee: FilterOptions[]
+  selectedProject: FilterOptions[]
+  selectedStatus: FilterOptions[]
+  selectedStatusInPeriod: FilterOptions[]
+  selectedGroupBy: FilterOptions[]
+  showWarnings: boolean
+  showDetails: boolean
+  showSummary: boolean
 }
 
 export const formatReport: Record<

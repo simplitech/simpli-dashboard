@@ -2,10 +2,13 @@
   import DatetimeInput from './DatetimeInput.svelte'
   import { createEventDispatcher } from 'svelte'
   import { version } from '$app/environment'
+  import { type Entry, formatReport, type Report } from '$lib/utils/format'
+  import { copyToClipboard } from '$lib/utils/helper'
 
   export let dateRangeEnd: Date
   export let dateRangeStart: Date
   export let disabled = false
+  export let report: Report
 
   let searchValue: string = null
   const dispatch = createEventDispatcher()
@@ -26,6 +29,24 @@
       searchValue: searchValue,
     })
   }
+
+  const copyReportToClipboard = (
+    report: Report,
+    format: Record<string, (id: string, entry: Entry, dateRangeStart: Date, dateRangeEnd: Date) => string>,
+  ) => {
+    let headers = Object.keys(format).join('\t') + '\n'
+    let rows = ''
+
+    Object.entries(report).forEach(([id, entry]) => {
+      Object.keys(format).forEach((reportItem: string) => {
+        rows += format[reportItem](id, entry, dateRangeStart, dateRangeEnd)
+        rows += '\t'
+      })
+      rows += '\n'
+    })
+
+    copyToClipboard(headers + rows)
+  }
 </script>
 
 <div class="bg-dark-purple rounded-full flex items-center justify-between py-4 px-8 text-sm {$$props.class}">
@@ -35,7 +56,7 @@
       <span class="text-2xl font-extrabold">ClickClock</span>
     </div>
 
-    <div class="w-[2px] h-9 bg-dark-gray mx-5" />
+    <div class="w-[2px] h-9 bg-gray-500 mx-5" />
 
     <form class="flex flex-row items-center mr-10" on:submit|preventDefault={search}>
       <input
@@ -50,7 +71,7 @@
       </button>
     </form>
 
-    <form on:submit|preventDefault={generateReport} class="flex items-center">
+    <form on:submit|preventDefault={generateReport} class="flex items-center mr-2">
       <DatetimeInput
         bind:value={dateRangeStart}
         class="bg-transparent border rounded-full border-lilac flex items-center justify-center p-2 text-white"
@@ -74,12 +95,20 @@
         Fetch Data
       </button>
     </form>
+
+    <button
+      class="flex flex-row items-center justify-center border border-white rounded-full py-2 px-5 whitespace-nowrap"
+      on:click={() => copyReportToClipboard(report, formatReport)}
+    >
+      <img src="./images/folder.svg" alt="copy icon" class="mr-2" />
+      Copy Data to Clipboard
+    </button>
   </div>
 
   <div class="flex items-center justify-center flex-shrink-0">
-    <div class="w-[2px] h-9 bg-dark-gray mx-4" />
+    <div class="w-[2px] h-9 bg-gray-500 mx-4" />
 
-    <div class="text-light-gray font-normal text-xs pr-3">
+    <div class="text-gray-400 font-normal text-xs pr-3">
       <span>v.{version}</span>
     </div>
     <button on:click={openLoginModal} class="flex-shrink-0">
