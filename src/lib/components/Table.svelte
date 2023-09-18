@@ -1,5 +1,11 @@
 <script lang="ts">
-  import { getLastDueDate, getLastEstimative, getLastStatus, getTaskTimeStatus } from '$lib/utils/clickupServices'
+  import {
+    calculateDelay,
+    getLastDueDate,
+    getLastEstimative,
+    getLastStatus,
+    getTaskTimeStatus,
+  } from '$lib/utils/clickupServices'
   import {
     calculateEstimationError,
     clockifyUrl,
@@ -16,6 +22,7 @@
     formatDurationClock,
     getUserInitials,
     type Entry,
+    formatDays,
   } from '$lib/utils/format'
   import { daysToMilis, getContrastColorHex } from '$lib/utils/helper'
   import TableSummary from '$lib/components/TableSummary.svelte'
@@ -44,6 +51,7 @@
   <div class="table-grid__header">TIME ESTIMATE</div>
   <div class="table-grid__header">ESTIMATIVE ERROR</div>
   <div class="table-grid__header">DUE DATE</div>
+  <div class="table-grid__header">DELAY</div>
   <div class="table-grid__header">LAST LOG</div>
   <div class="table-grid__header">TO REVIEW</div>
   <div class="table-grid__header">TO TEST</div>
@@ -132,6 +140,16 @@
         {/if}
       </div>
       <div class="table-grid__cell">
+        {#if entry.task}
+          <div
+            class:text-green-500={calculateDelay(entry.task) < 0}
+            class:text-red-500={calculateDelay(entry.task) >= 2}
+          >
+            {formatDays(calculateDelay(entry.task))}
+          </div>
+        {/if}
+      </div>
+      <div class="table-grid__cell">
         {#if entry.timeEntry?.length}
           <span title={new Date(entry.timeEntry[0]?.timeInterval?.end).toString()}
             >{formatDateDayMonth(entry.timeEntry[0]?.timeInterval?.end)}</span
@@ -157,7 +175,7 @@
 <style>
   .table-grid {
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
+    grid-template-columns: repeat(11, 1fr);
     row-gap: 10px;
   }
 

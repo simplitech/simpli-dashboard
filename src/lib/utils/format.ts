@@ -6,7 +6,13 @@ import {
   calculateEstimationError,
 } from '$lib/utils/clockifyServices'
 import { durationRoundUpByHalfHour } from '$lib/utils/helper'
-import { getLastEstimative, getLastStatus, getTaskTimeStatus } from '$lib/utils/clickupServices'
+import {
+  calculateDelay,
+  getLastDueDate,
+  getLastEstimative,
+  getLastStatus,
+  getTaskTimeStatus,
+} from '$lib/utils/clickupServices'
 import type { ClickupTask, ClockifyTimeEntry } from '../../graphql/generated'
 
 export type Entry = {
@@ -73,6 +79,11 @@ export const formatReport: Record<
     formatHourDecimals(getLastEstimative(entry.task?.clickupTasksTimeEstimates)?.estimate / 1000),
   'Time Tracked by the Main Contributor': (_id, entry) => formatHourDecimals(getMainGroupOfDurations(entry.timeEntry)),
   'Estimative error': (_id, entry) => String(calculateEstimationError(entry)),
+  'Due date': (_id, entry) =>
+    getLastDueDate(entry.task?.clickupTasksDueDates)?.dueDate
+      ? new Date(getLastDueDate(entry.task?.clickupTasksDueDates)?.dueDate).toString()
+      : '--',
+  Delay: (_id, entry) => (entry.task ? formatDays(calculateDelay(entry.task)) : ''),
   'First Log': (_id, entry) =>
     entry.timeEntry?.length ? entry.timeEntry[entry.timeEntry.length - 1]?.timeInterval?.start : '',
   'Last Log': (_id, entry) => (entry.timeEntry?.length ? entry.timeEntry[0]?.timeInterval?.end : ''),
@@ -173,6 +184,18 @@ export const formatDateDayMonth = (date: string | Date): string => {
 
 export const formatUnixDate = (unixDate: string | number): string => {
   return formatDateDayMonth(new Date(Number(unixDate)))
+}
+
+export const formatDurationToDays = (duration: number): number => {
+  if (!duration) {
+    return 0
+  }
+  const durationInSeconds = Math.floor(duration / 1000)
+  return Math.floor(durationInSeconds / 86400)
+}
+
+export const formatDays = (days: number) => {
+  return days ? `${days}d` : '-'
 }
 
 export const getUserInitials = (name: string): string => {
