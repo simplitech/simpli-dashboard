@@ -353,31 +353,37 @@
     statusHistory: ClickupTasksStatus[],
     selectedTimeInStatus: string,
   ) => {
-    if (statusHistory) {
-      statusHistory.sort((a: ClickupTasksStatus, b: ClickupTasksStatus) => b.createdAt - a.createdAt)
-
-      // Pego todos os valores que estão no range da data, ordeno pelo mais atual e pego ele
+    if (statusHistory.length) {
+      // Pego todos os valores que estão no range da data, ordeno pelo mais atual
       const valueInRange = statusHistory
         .filter(
           (item: ClickupTasksStatus) =>
             new Date(item.createdAt) >= dateRangeStart && new Date(item.createdAt) <= dateRangeEnd,
         )
-        .sort((a: ClickupTasksStatus, b: ClickupTasksStatus) => b.createdAt - a.createdAt)
-      // Se não existir valor no range, o status da issue não mudou no range de data filtrado. Então pega o status mais atual
-      const valoresMenores = statusHistory
+        .sort(
+          (a: ClickupTasksStatus, b: ClickupTasksStatus) =>
+            new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf(),
+        )
+
+      // Se não existir valor no range, o status da issue não mudou nesse período
+      // Então pega o status mais atual antes do range da data
+      const valuesBeforeRange = statusHistory
         .filter((item: ClickupTasksStatus) => new Date(item.createdAt) < dateRangeStart)
-        .sort((a: ClickupTasksStatus, b: ClickupTasksStatus) => b.createdAt - a.createdAt)
+        .sort(
+          (a: ClickupTasksStatus, b: ClickupTasksStatus) =>
+            new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf(),
+        )
 
       if (valueInRange.length) {
         return valueInRange[0].status.status === selectedTimeInStatus
-      } else if (valoresMenores.length) {
-        return valoresMenores[0].status.status === selectedTimeInStatus
       }
 
-      return false
-    } else {
-      return false
+      if (valuesBeforeRange.length) {
+        return valuesBeforeRange[0].status.status === selectedTimeInStatus
+      }
     }
+
+    return false
   }
 
   const client = new Client({
