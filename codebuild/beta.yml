@@ -1,0 +1,104 @@
+version: 0.2
+
+env:
+  variables:
+    # Environment
+    ENV_FILE: .env.beta
+    
+    # Bucket
+    BUCKET_NAME: beta.clickclock.simpli.com.br
+
+    # Cloudfront
+    DISTRIBUTION_ID: ERVTIKE2RITG1
+    
+    # Discord webhook
+    DISCORD_PROJECT_NAME_PRETTY: ClickClock Website
+    DISCORD_PROJECT_URL: https://beta.clickclock.simpli.com.br
+    DISCORD_WEBHOOK_ENDPOINT: https://discord.com/api/webhooks/590896848223469579/ZZM8x5xbB9RkLO-O0YI8fMUJePioJJY0SnQCJhnKs8GWpYXFFBRySqV0s5WnADRLrcHn
+phases:
+  install:
+    runtime-versions:
+      nodejs: 16
+    commands:
+      # Installs dependencies
+      - npm install
+
+  pre_build:
+    commands:
+      # Copies env file
+      - cp ./env/${ENV_FILE} ./.env
+
+  build:
+    commands:
+      # Builds application
+      - npm run build
+
+  post_build:
+    commands:
+      # Uploads docker image to ECR
+      - aws s3 sync ./build/ s3://${BUCKET_NAME}
+      
+      # Creates CloudFront invalidation
+      - aws cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID} --paths "/*"
+
+    finally:
+      # Checks build status for Discord notification
+      - |
+        if [ $CODEBUILD_BUILD_SUCCEEDING -eq 1 ];
+        then 
+        	export DISCORD_COLOR=1879160;
+        	export DISCORD_STATUS="Sucesso";
+        	export DISCORD_MENTION="";
+        else
+        	export DISCORD_COLOR=15605837;
+        	export DISCORD_STATUS="Falha";
+        	export DISCORD_MENTION="\"content\": \"<@&444573884696756244>\",";
+        fi;
+
+      # Fetches commit information
+      - export CODEBUILD_GIT_SUBJECT="$(git log -1 --pretty=%s)"
+      - export CODEBUILD_GIT_AUTHOR="$(git log -1 --pretty=%an)"
+
+      # Notifies Discord
+      - export CODEBUILD_PROJECT=${CODEBUILD_BUILD_ID%:$CODEBUILD_LOG_PATH}
+      - |
+        curl -X POST \
+          $DISCORD_WEBHOOK_ENDPOINT \
+          -H 'Content-Type:application/json' \
+          -d '{
+          '"$DISCORD_MENTION"'
+          "embeds": [
+        	  {
+        	    "description": "-",
+        	    "color": '"$DISCORD_COLOR"',
+        	    "timestamp": '"\"$(date --utc +%FT%TZ)\""',
+        	    "footer": {
+        	      "text": "CodeBuild Webhook"
+        	    },
+        	    "author": {
+        	      "name": '"\"$DISCORD_PROJECT_NAME_PRETTY\""',
+        	      "url": '"\"$DISCORD_PROJECT_URL\""'
+        	    },
+        	    "fields": [
+        	      {
+        	        "name": "**Commit**",
+        	        "value": '"\"$CODEBUILD_GIT_SUBJECT\""'
+        	      },
+        	      {
+        	        "name": "**Author**",
+        	        "value": '"\"$CODEBUILD_GIT_AUTHOR\""'
+        	      },
+        	      {
+        	        "name": "**Status**",
+        	        "value": '"\"$DISCORD_STATUS\""',
+        	        "inline": true
+        	      },
+        	      {
+        	        "name": "**Project**",
+        	        "value":  '"\"$CODEBUILD_PROJECT\""',
+        	        "inline": true
+        	      }
+        	    ]
+        	  }
+            ]
+          }'
