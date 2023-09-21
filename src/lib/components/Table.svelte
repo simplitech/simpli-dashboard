@@ -9,6 +9,7 @@
   import {
     calculateEstimationError,
     clockifyUrl,
+    formatUserNamesAndEmailSortedByParticipation,
     formatUserNamesSortedByParticipation,
     getUserParticipation,
     sumDurations,
@@ -26,6 +27,7 @@
   } from '$lib/utils/format'
   import { daysToMilis, getContrastColorHex } from '$lib/utils/helper'
   import TableSummary from '$lib/components/TableSummary.svelte'
+  import MD5 from 'crypto-js/md5'
 
   export let report: Report
   export let dateRangeStart: Date
@@ -94,13 +96,21 @@
         </div>
       </div>
       <div class="table-grid__cell">
-        <div class="flex flex-row-reverse relative justify-center">
-          {#each formatUserNamesSortedByParticipation(entry.timeEntry).split(',').reverse() as name}
+        <div
+          class="flex flex-row-reverse relative justify-center items-center"
+          class:ml-5={formatUserNamesSortedByParticipation(entry.timeEntry).split(',').length > 1}
+        >
+          {#each formatUserNamesAndEmailSortedByParticipation(entry.timeEntry).reverse() as user}
             <div
-              class="w-10 h-10 bg-lilac rounded-full flex items-center justify-center border-2 border-purple-gray-400 cursor-default font-semibold relative -ml-5"
-              title={`${name} - ${getUserParticipation(entry.timeEntry, name)}`}
+              class="flex items-center justify-center cursor-default font-semibold relative -ml-5 shrink-0"
+              class:-ml-5={formatUserNamesSortedByParticipation(entry.timeEntry).split(',').length > 1}
+              title={`${user.name} - ${getUserParticipation(entry.timeEntry, user.name)}`}
             >
-              {getUserInitials(name)}
+              <img
+                src="https://www.gravatar.com/avatar/{MD5(user.email)}"
+                class="w-10 h-10 bg-lilac rounded-full border-purple-gray-500 border-2"
+                alt="user profile img"
+              />
             </div>
           {/each}
         </div>

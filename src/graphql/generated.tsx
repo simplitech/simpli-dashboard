@@ -3109,6 +3109,8 @@ export type ClockifyTimeEntry = {
   clockifyId: Scalars['String']['output']
   clockifyProject?: Maybe<ClockfyTimeEntryProject>
   clockifyProjectId?: Maybe<Scalars['String']['output']>
+  clockifyUser: ClockfyTimeEntryUser
+  clockifyUserId: Scalars['String']['output']
   costRate?: Maybe<Scalars['Int']['output']>
   currentlyRunning: Scalars['Boolean']['output']
   customFieldValues?: Maybe<Scalars['JSON']['output']>
@@ -3123,8 +3125,8 @@ export type ClockifyTimeEntry = {
   task?: Maybe<Scalars['JSON']['output']>
   timeInterval: ClockfyTimeEntryTimeInterval
   type: Scalars['String']['output']
-  user: ClockfyTimeEntryUser
-  userId: Scalars['String']['output']
+  user?: Maybe<User>
+  userId?: Maybe<Scalars['String']['output']>
   workspaceId: Scalars['String']['output']
 }
 
@@ -3134,6 +3136,10 @@ export type ClockifyTimeEntryClickupTaskArgs = {
 
 export type ClockifyTimeEntryProjectArgs = {
   where?: InputMaybe<ProjectWhereInput>
+}
+
+export type ClockifyTimeEntryUserArgs = {
+  where?: InputMaybe<UserWhereInput>
 }
 
 export type ClockifyTimeEntryAvgAggregate = {
@@ -3149,6 +3155,7 @@ export type ClockifyTimeEntryCountAggregate = {
   clickupTaskId: Scalars['Int']['output']
   clockifyId: Scalars['Int']['output']
   clockifyProjectId: Scalars['Int']['output']
+  clockifyUserId: Scalars['Int']['output']
   costRate: Scalars['Int']['output']
   currentlyRunning: Scalars['Int']['output']
   customFieldValues: Scalars['Int']['output']
@@ -3170,6 +3177,8 @@ export type ClockifyTimeEntryCreateInput = {
   clockifyId: Scalars['String']['input']
   clockifyProject?: InputMaybe<ClockfyTimeEntryProjectNullableCreateEnvelopeInput>
   clockifyProjectId?: InputMaybe<Scalars['String']['input']>
+  clockifyUser: ClockfyTimeEntryUserCreateEnvelopeInput
+  clockifyUserId: Scalars['String']['input']
   costRate?: InputMaybe<Scalars['Int']['input']>
   currentlyRunning: Scalars['Boolean']['input']
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -3183,8 +3192,7 @@ export type ClockifyTimeEntryCreateInput = {
   task?: InputMaybe<Scalars['JSON']['input']>
   timeInterval: ClockfyTimeEntryTimeIntervalCreateEnvelopeInput
   type: Scalars['String']['input']
-  user: ClockfyTimeEntryUserCreateEnvelopeInput
-  userId: Scalars['String']['input']
+  user?: InputMaybe<UserCreateNestedOneWithoutClockifyTimeEntryInput>
   workspaceId: Scalars['String']['input']
 }
 
@@ -3193,6 +3201,8 @@ export type ClockifyTimeEntryCreateManyClickupTaskInput = {
   clockifyId: Scalars['String']['input']
   clockifyProject?: InputMaybe<ClockfyTimeEntryProjectNullableCreateEnvelopeInput>
   clockifyProjectId?: InputMaybe<Scalars['String']['input']>
+  clockifyUser: ClockfyTimeEntryUserCreateEnvelopeInput
+  clockifyUserId: Scalars['String']['input']
   costRate?: InputMaybe<Scalars['Int']['input']>
   currentlyRunning: Scalars['Boolean']['input']
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -3206,8 +3216,7 @@ export type ClockifyTimeEntryCreateManyClickupTaskInput = {
   task?: InputMaybe<Scalars['JSON']['input']>
   timeInterval: ClockfyTimeEntryTimeIntervalCreateEnvelopeInput
   type: Scalars['String']['input']
-  user: ClockfyTimeEntryUserCreateEnvelopeInput
-  userId: Scalars['String']['input']
+  userId?: InputMaybe<Scalars['String']['input']>
   workspaceId: Scalars['String']['input']
 }
 
@@ -3221,6 +3230,8 @@ export type ClockifyTimeEntryCreateManyInput = {
   clockifyId: Scalars['String']['input']
   clockifyProject?: InputMaybe<ClockfyTimeEntryProjectNullableCreateEnvelopeInput>
   clockifyProjectId?: InputMaybe<Scalars['String']['input']>
+  clockifyUser: ClockfyTimeEntryUserCreateEnvelopeInput
+  clockifyUserId: Scalars['String']['input']
   costRate?: InputMaybe<Scalars['Int']['input']>
   currentlyRunning: Scalars['Boolean']['input']
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -3234,8 +3245,7 @@ export type ClockifyTimeEntryCreateManyInput = {
   task?: InputMaybe<Scalars['JSON']['input']>
   timeInterval: ClockfyTimeEntryTimeIntervalCreateEnvelopeInput
   type: Scalars['String']['input']
-  user: ClockfyTimeEntryUserCreateEnvelopeInput
-  userId: Scalars['String']['input']
+  userId?: InputMaybe<Scalars['String']['input']>
   workspaceId: Scalars['String']['input']
 }
 
@@ -3245,6 +3255,8 @@ export type ClockifyTimeEntryCreateManyProjectInput = {
   clockifyId: Scalars['String']['input']
   clockifyProject?: InputMaybe<ClockfyTimeEntryProjectNullableCreateEnvelopeInput>
   clockifyProjectId?: InputMaybe<Scalars['String']['input']>
+  clockifyUser: ClockfyTimeEntryUserCreateEnvelopeInput
+  clockifyUserId: Scalars['String']['input']
   costRate?: InputMaybe<Scalars['Int']['input']>
   currentlyRunning: Scalars['Boolean']['input']
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -3257,13 +3269,40 @@ export type ClockifyTimeEntryCreateManyProjectInput = {
   task?: InputMaybe<Scalars['JSON']['input']>
   timeInterval: ClockfyTimeEntryTimeIntervalCreateEnvelopeInput
   type: Scalars['String']['input']
-  user: ClockfyTimeEntryUserCreateEnvelopeInput
-  userId: Scalars['String']['input']
+  userId?: InputMaybe<Scalars['String']['input']>
   workspaceId: Scalars['String']['input']
 }
 
 export type ClockifyTimeEntryCreateManyProjectInputEnvelope = {
   data: Array<ClockifyTimeEntryCreateManyProjectInput>
+}
+
+export type ClockifyTimeEntryCreateManyUserInput = {
+  billable: Scalars['Boolean']['input']
+  clickupTaskId?: InputMaybe<Scalars['String']['input']>
+  clockifyId: Scalars['String']['input']
+  clockifyProject?: InputMaybe<ClockfyTimeEntryProjectNullableCreateEnvelopeInput>
+  clockifyProjectId?: InputMaybe<Scalars['String']['input']>
+  clockifyUser: ClockfyTimeEntryUserCreateEnvelopeInput
+  clockifyUserId: Scalars['String']['input']
+  costRate?: InputMaybe<Scalars['Int']['input']>
+  currentlyRunning: Scalars['Boolean']['input']
+  customFieldValues?: InputMaybe<Scalars['JSON']['input']>
+  description: Scalars['String']['input']
+  hourlyRate?: InputMaybe<Scalars['Int']['input']>
+  id?: InputMaybe<Scalars['String']['input']>
+  isLocked: Scalars['Boolean']['input']
+  kioskId?: InputMaybe<Scalars['JSON']['input']>
+  projectId?: InputMaybe<Scalars['String']['input']>
+  tags?: InputMaybe<Array<ClockfyTimeEntryTagCreateInput>>
+  task?: InputMaybe<Scalars['JSON']['input']>
+  timeInterval: ClockfyTimeEntryTimeIntervalCreateEnvelopeInput
+  type: Scalars['String']['input']
+  workspaceId: Scalars['String']['input']
+}
+
+export type ClockifyTimeEntryCreateManyUserInputEnvelope = {
+  data: Array<ClockifyTimeEntryCreateManyUserInput>
 }
 
 export type ClockifyTimeEntryCreateNestedManyWithoutClickupTaskInput = {
@@ -3280,6 +3319,13 @@ export type ClockifyTimeEntryCreateNestedManyWithoutProjectInput = {
   createMany?: InputMaybe<ClockifyTimeEntryCreateManyProjectInputEnvelope>
 }
 
+export type ClockifyTimeEntryCreateNestedManyWithoutUserInput = {
+  connect?: InputMaybe<Array<ClockifyTimeEntryWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClockifyTimeEntryCreateOrConnectWithoutUserInput>>
+  create?: InputMaybe<Array<ClockifyTimeEntryCreateWithoutUserInput>>
+  createMany?: InputMaybe<ClockifyTimeEntryCreateManyUserInputEnvelope>
+}
+
 export type ClockifyTimeEntryCreateOrConnectWithoutClickupTaskInput = {
   create: ClockifyTimeEntryCreateWithoutClickupTaskInput
   where: ClockifyTimeEntryWhereUniqueInput
@@ -3290,11 +3336,18 @@ export type ClockifyTimeEntryCreateOrConnectWithoutProjectInput = {
   where: ClockifyTimeEntryWhereUniqueInput
 }
 
+export type ClockifyTimeEntryCreateOrConnectWithoutUserInput = {
+  create: ClockifyTimeEntryCreateWithoutUserInput
+  where: ClockifyTimeEntryWhereUniqueInput
+}
+
 export type ClockifyTimeEntryCreateWithoutClickupTaskInput = {
   billable: Scalars['Boolean']['input']
   clockifyId: Scalars['String']['input']
   clockifyProject?: InputMaybe<ClockfyTimeEntryProjectNullableCreateEnvelopeInput>
   clockifyProjectId?: InputMaybe<Scalars['String']['input']>
+  clockifyUser: ClockfyTimeEntryUserCreateEnvelopeInput
+  clockifyUserId: Scalars['String']['input']
   costRate?: InputMaybe<Scalars['Int']['input']>
   currentlyRunning: Scalars['Boolean']['input']
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -3308,8 +3361,7 @@ export type ClockifyTimeEntryCreateWithoutClickupTaskInput = {
   task?: InputMaybe<Scalars['JSON']['input']>
   timeInterval: ClockfyTimeEntryTimeIntervalCreateEnvelopeInput
   type: Scalars['String']['input']
-  user: ClockfyTimeEntryUserCreateEnvelopeInput
-  userId: Scalars['String']['input']
+  user?: InputMaybe<UserCreateNestedOneWithoutClockifyTimeEntryInput>
   workspaceId: Scalars['String']['input']
 }
 
@@ -3319,6 +3371,8 @@ export type ClockifyTimeEntryCreateWithoutProjectInput = {
   clockifyId: Scalars['String']['input']
   clockifyProject?: InputMaybe<ClockfyTimeEntryProjectNullableCreateEnvelopeInput>
   clockifyProjectId?: InputMaybe<Scalars['String']['input']>
+  clockifyUser: ClockfyTimeEntryUserCreateEnvelopeInput
+  clockifyUserId: Scalars['String']['input']
   costRate?: InputMaybe<Scalars['Int']['input']>
   currentlyRunning: Scalars['Boolean']['input']
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -3331,8 +3385,31 @@ export type ClockifyTimeEntryCreateWithoutProjectInput = {
   task?: InputMaybe<Scalars['JSON']['input']>
   timeInterval: ClockfyTimeEntryTimeIntervalCreateEnvelopeInput
   type: Scalars['String']['input']
-  user: ClockfyTimeEntryUserCreateEnvelopeInput
-  userId: Scalars['String']['input']
+  user?: InputMaybe<UserCreateNestedOneWithoutClockifyTimeEntryInput>
+  workspaceId: Scalars['String']['input']
+}
+
+export type ClockifyTimeEntryCreateWithoutUserInput = {
+  billable: Scalars['Boolean']['input']
+  clickupTask?: InputMaybe<ClickupTaskCreateNestedOneWithoutClockfyTimeEntryInput>
+  clockifyId: Scalars['String']['input']
+  clockifyProject?: InputMaybe<ClockfyTimeEntryProjectNullableCreateEnvelopeInput>
+  clockifyProjectId?: InputMaybe<Scalars['String']['input']>
+  clockifyUser: ClockfyTimeEntryUserCreateEnvelopeInput
+  clockifyUserId: Scalars['String']['input']
+  costRate?: InputMaybe<Scalars['Int']['input']>
+  currentlyRunning: Scalars['Boolean']['input']
+  customFieldValues?: InputMaybe<Scalars['JSON']['input']>
+  description: Scalars['String']['input']
+  hourlyRate?: InputMaybe<Scalars['Int']['input']>
+  id?: InputMaybe<Scalars['String']['input']>
+  isLocked: Scalars['Boolean']['input']
+  kioskId?: InputMaybe<Scalars['JSON']['input']>
+  project?: InputMaybe<ProjectCreateNestedOneWithoutClockfyTimeEntryInput>
+  tags?: InputMaybe<Array<ClockfyTimeEntryTagCreateInput>>
+  task?: InputMaybe<Scalars['JSON']['input']>
+  timeInterval: ClockfyTimeEntryTimeIntervalCreateEnvelopeInput
+  type: Scalars['String']['input']
   workspaceId: Scalars['String']['input']
 }
 
@@ -3348,6 +3425,7 @@ export type ClockifyTimeEntryMaxAggregate = {
   clickupTaskId?: Maybe<Scalars['String']['output']>
   clockifyId?: Maybe<Scalars['String']['output']>
   clockifyProjectId?: Maybe<Scalars['String']['output']>
+  clockifyUserId?: Maybe<Scalars['String']['output']>
   costRate?: Maybe<Scalars['Int']['output']>
   currentlyRunning?: Maybe<Scalars['Boolean']['output']>
   description?: Maybe<Scalars['String']['output']>
@@ -3366,6 +3444,7 @@ export type ClockifyTimeEntryMinAggregate = {
   clickupTaskId?: Maybe<Scalars['String']['output']>
   clockifyId?: Maybe<Scalars['String']['output']>
   clockifyProjectId?: Maybe<Scalars['String']['output']>
+  clockifyUserId?: Maybe<Scalars['String']['output']>
   costRate?: Maybe<Scalars['Int']['output']>
   currentlyRunning?: Maybe<Scalars['Boolean']['output']>
   description?: Maybe<Scalars['String']['output']>
@@ -3389,6 +3468,8 @@ export type ClockifyTimeEntryOrderByWithRelationInput = {
   clockifyId?: InputMaybe<SortOrder>
   clockifyProject?: InputMaybe<ClockfyTimeEntryProjectOrderByInput>
   clockifyProjectId?: InputMaybe<SortOrder>
+  clockifyUser?: InputMaybe<ClockfyTimeEntryUserOrderByInput>
+  clockifyUserId?: InputMaybe<SortOrder>
   costRate?: InputMaybe<SortOrder>
   currentlyRunning?: InputMaybe<SortOrder>
   customFieldValues?: InputMaybe<SortOrder>
@@ -3403,7 +3484,7 @@ export type ClockifyTimeEntryOrderByWithRelationInput = {
   task?: InputMaybe<SortOrder>
   timeInterval?: InputMaybe<ClockfyTimeEntryTimeIntervalOrderByInput>
   type?: InputMaybe<SortOrder>
-  user?: InputMaybe<ClockfyTimeEntryUserOrderByInput>
+  user?: InputMaybe<UserOrderByWithRelationInput>
   userId?: InputMaybe<SortOrder>
   workspaceId?: InputMaybe<SortOrder>
 }
@@ -3413,6 +3494,7 @@ export enum ClockifyTimeEntryScalarFieldEnum {
   ClickupTaskId = 'clickupTaskId',
   ClockifyId = 'clockifyId',
   ClockifyProjectId = 'clockifyProjectId',
+  ClockifyUserId = 'clockifyUserId',
   CostRate = 'costRate',
   CurrentlyRunning = 'currentlyRunning',
   CustomFieldValues = 'customFieldValues',
@@ -3436,6 +3518,7 @@ export type ClockifyTimeEntryScalarWhereInput = {
   clickupTaskId?: InputMaybe<StringNullableFilter>
   clockifyId?: InputMaybe<StringFilter>
   clockifyProjectId?: InputMaybe<StringNullableFilter>
+  clockifyUserId?: InputMaybe<StringFilter>
   costRate?: InputMaybe<IntNullableFilter>
   currentlyRunning?: InputMaybe<BoolFilter>
   customFieldValues?: InputMaybe<JsonNullableFilter>
@@ -3447,7 +3530,7 @@ export type ClockifyTimeEntryScalarWhereInput = {
   projectId?: InputMaybe<StringNullableFilter>
   task?: InputMaybe<JsonNullableFilter>
   type?: InputMaybe<StringFilter>
-  userId?: InputMaybe<StringFilter>
+  userId?: InputMaybe<StringNullableFilter>
   workspaceId?: InputMaybe<StringFilter>
 }
 
@@ -3463,6 +3546,8 @@ export type ClockifyTimeEntryUpdateInput = {
   clockifyId?: InputMaybe<StringFieldUpdateOperationsInput>
   clockifyProject?: InputMaybe<ClockfyTimeEntryProjectNullableUpdateEnvelopeInput>
   clockifyProjectId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  clockifyUser?: InputMaybe<ClockfyTimeEntryUserUpdateEnvelopeInput>
+  clockifyUserId?: InputMaybe<StringFieldUpdateOperationsInput>
   costRate?: InputMaybe<NullableIntFieldUpdateOperationsInput>
   currentlyRunning?: InputMaybe<BoolFieldUpdateOperationsInput>
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -3475,8 +3560,7 @@ export type ClockifyTimeEntryUpdateInput = {
   task?: InputMaybe<Scalars['JSON']['input']>
   timeInterval?: InputMaybe<ClockfyTimeEntryTimeIntervalUpdateEnvelopeInput>
   type?: InputMaybe<StringFieldUpdateOperationsInput>
-  user?: InputMaybe<ClockfyTimeEntryUserUpdateEnvelopeInput>
-  userId?: InputMaybe<StringFieldUpdateOperationsInput>
+  user?: InputMaybe<UserUpdateOneWithoutClockifyTimeEntryNestedInput>
   workspaceId?: InputMaybe<StringFieldUpdateOperationsInput>
 }
 
@@ -3485,6 +3569,8 @@ export type ClockifyTimeEntryUpdateManyMutationInput = {
   clockifyId?: InputMaybe<StringFieldUpdateOperationsInput>
   clockifyProject?: InputMaybe<ClockfyTimeEntryProjectNullableUpdateEnvelopeInput>
   clockifyProjectId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  clockifyUser?: InputMaybe<ClockfyTimeEntryUserUpdateEnvelopeInput>
+  clockifyUserId?: InputMaybe<StringFieldUpdateOperationsInput>
   costRate?: InputMaybe<NullableIntFieldUpdateOperationsInput>
   currentlyRunning?: InputMaybe<BoolFieldUpdateOperationsInput>
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -3496,8 +3582,6 @@ export type ClockifyTimeEntryUpdateManyMutationInput = {
   task?: InputMaybe<Scalars['JSON']['input']>
   timeInterval?: InputMaybe<ClockfyTimeEntryTimeIntervalUpdateEnvelopeInput>
   type?: InputMaybe<StringFieldUpdateOperationsInput>
-  user?: InputMaybe<ClockfyTimeEntryUserUpdateEnvelopeInput>
-  userId?: InputMaybe<StringFieldUpdateOperationsInput>
   workspaceId?: InputMaybe<StringFieldUpdateOperationsInput>
 }
 
@@ -3507,6 +3591,11 @@ export type ClockifyTimeEntryUpdateManyWithWhereWithoutClickupTaskInput = {
 }
 
 export type ClockifyTimeEntryUpdateManyWithWhereWithoutProjectInput = {
+  data: ClockifyTimeEntryUpdateManyMutationInput
+  where: ClockifyTimeEntryScalarWhereInput
+}
+
+export type ClockifyTimeEntryUpdateManyWithWhereWithoutUserInput = {
   data: ClockifyTimeEntryUpdateManyMutationInput
   where: ClockifyTimeEntryScalarWhereInput
 }
@@ -3539,6 +3628,20 @@ export type ClockifyTimeEntryUpdateManyWithoutProjectNestedInput = {
   upsert?: InputMaybe<Array<ClockifyTimeEntryUpsertWithWhereUniqueWithoutProjectInput>>
 }
 
+export type ClockifyTimeEntryUpdateManyWithoutUserNestedInput = {
+  connect?: InputMaybe<Array<ClockifyTimeEntryWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClockifyTimeEntryCreateOrConnectWithoutUserInput>>
+  create?: InputMaybe<Array<ClockifyTimeEntryCreateWithoutUserInput>>
+  createMany?: InputMaybe<ClockifyTimeEntryCreateManyUserInputEnvelope>
+  delete?: InputMaybe<Array<ClockifyTimeEntryWhereUniqueInput>>
+  deleteMany?: InputMaybe<Array<ClockifyTimeEntryScalarWhereInput>>
+  disconnect?: InputMaybe<Array<ClockifyTimeEntryWhereUniqueInput>>
+  set?: InputMaybe<Array<ClockifyTimeEntryWhereUniqueInput>>
+  update?: InputMaybe<Array<ClockifyTimeEntryUpdateWithWhereUniqueWithoutUserInput>>
+  updateMany?: InputMaybe<Array<ClockifyTimeEntryUpdateManyWithWhereWithoutUserInput>>
+  upsert?: InputMaybe<Array<ClockifyTimeEntryUpsertWithWhereUniqueWithoutUserInput>>
+}
+
 export type ClockifyTimeEntryUpdateWithWhereUniqueWithoutClickupTaskInput = {
   data: ClockifyTimeEntryUpdateWithoutClickupTaskInput
   where: ClockifyTimeEntryWhereUniqueInput
@@ -3549,11 +3652,18 @@ export type ClockifyTimeEntryUpdateWithWhereUniqueWithoutProjectInput = {
   where: ClockifyTimeEntryWhereUniqueInput
 }
 
+export type ClockifyTimeEntryUpdateWithWhereUniqueWithoutUserInput = {
+  data: ClockifyTimeEntryUpdateWithoutUserInput
+  where: ClockifyTimeEntryWhereUniqueInput
+}
+
 export type ClockifyTimeEntryUpdateWithoutClickupTaskInput = {
   billable?: InputMaybe<BoolFieldUpdateOperationsInput>
   clockifyId?: InputMaybe<StringFieldUpdateOperationsInput>
   clockifyProject?: InputMaybe<ClockfyTimeEntryProjectNullableUpdateEnvelopeInput>
   clockifyProjectId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  clockifyUser?: InputMaybe<ClockfyTimeEntryUserUpdateEnvelopeInput>
+  clockifyUserId?: InputMaybe<StringFieldUpdateOperationsInput>
   costRate?: InputMaybe<NullableIntFieldUpdateOperationsInput>
   currentlyRunning?: InputMaybe<BoolFieldUpdateOperationsInput>
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -3566,8 +3676,7 @@ export type ClockifyTimeEntryUpdateWithoutClickupTaskInput = {
   task?: InputMaybe<Scalars['JSON']['input']>
   timeInterval?: InputMaybe<ClockfyTimeEntryTimeIntervalUpdateEnvelopeInput>
   type?: InputMaybe<StringFieldUpdateOperationsInput>
-  user?: InputMaybe<ClockfyTimeEntryUserUpdateEnvelopeInput>
-  userId?: InputMaybe<StringFieldUpdateOperationsInput>
+  user?: InputMaybe<UserUpdateOneWithoutClockifyTimeEntryNestedInput>
   workspaceId?: InputMaybe<StringFieldUpdateOperationsInput>
 }
 
@@ -3577,6 +3686,8 @@ export type ClockifyTimeEntryUpdateWithoutProjectInput = {
   clockifyId?: InputMaybe<StringFieldUpdateOperationsInput>
   clockifyProject?: InputMaybe<ClockfyTimeEntryProjectNullableUpdateEnvelopeInput>
   clockifyProjectId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  clockifyUser?: InputMaybe<ClockfyTimeEntryUserUpdateEnvelopeInput>
+  clockifyUserId?: InputMaybe<StringFieldUpdateOperationsInput>
   costRate?: InputMaybe<NullableIntFieldUpdateOperationsInput>
   currentlyRunning?: InputMaybe<BoolFieldUpdateOperationsInput>
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -3588,8 +3699,30 @@ export type ClockifyTimeEntryUpdateWithoutProjectInput = {
   task?: InputMaybe<Scalars['JSON']['input']>
   timeInterval?: InputMaybe<ClockfyTimeEntryTimeIntervalUpdateEnvelopeInput>
   type?: InputMaybe<StringFieldUpdateOperationsInput>
-  user?: InputMaybe<ClockfyTimeEntryUserUpdateEnvelopeInput>
-  userId?: InputMaybe<StringFieldUpdateOperationsInput>
+  user?: InputMaybe<UserUpdateOneWithoutClockifyTimeEntryNestedInput>
+  workspaceId?: InputMaybe<StringFieldUpdateOperationsInput>
+}
+
+export type ClockifyTimeEntryUpdateWithoutUserInput = {
+  billable?: InputMaybe<BoolFieldUpdateOperationsInput>
+  clickupTask?: InputMaybe<ClickupTaskUpdateOneWithoutClockfyTimeEntryNestedInput>
+  clockifyId?: InputMaybe<StringFieldUpdateOperationsInput>
+  clockifyProject?: InputMaybe<ClockfyTimeEntryProjectNullableUpdateEnvelopeInput>
+  clockifyProjectId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  clockifyUser?: InputMaybe<ClockfyTimeEntryUserUpdateEnvelopeInput>
+  clockifyUserId?: InputMaybe<StringFieldUpdateOperationsInput>
+  costRate?: InputMaybe<NullableIntFieldUpdateOperationsInput>
+  currentlyRunning?: InputMaybe<BoolFieldUpdateOperationsInput>
+  customFieldValues?: InputMaybe<Scalars['JSON']['input']>
+  description?: InputMaybe<StringFieldUpdateOperationsInput>
+  hourlyRate?: InputMaybe<NullableIntFieldUpdateOperationsInput>
+  isLocked?: InputMaybe<BoolFieldUpdateOperationsInput>
+  kioskId?: InputMaybe<Scalars['JSON']['input']>
+  project?: InputMaybe<ProjectUpdateOneWithoutClockfyTimeEntryNestedInput>
+  tags?: InputMaybe<Array<ClockfyTimeEntryTagCreateInput>>
+  task?: InputMaybe<Scalars['JSON']['input']>
+  timeInterval?: InputMaybe<ClockfyTimeEntryTimeIntervalUpdateEnvelopeInput>
+  type?: InputMaybe<StringFieldUpdateOperationsInput>
   workspaceId?: InputMaybe<StringFieldUpdateOperationsInput>
 }
 
@@ -3605,6 +3738,12 @@ export type ClockifyTimeEntryUpsertWithWhereUniqueWithoutProjectInput = {
   where: ClockifyTimeEntryWhereUniqueInput
 }
 
+export type ClockifyTimeEntryUpsertWithWhereUniqueWithoutUserInput = {
+  create: ClockifyTimeEntryCreateWithoutUserInput
+  update: ClockifyTimeEntryUpdateWithoutUserInput
+  where: ClockifyTimeEntryWhereUniqueInput
+}
+
 export type ClockifyTimeEntryWhereInput = {
   AND?: InputMaybe<Array<ClockifyTimeEntryWhereInput>>
   NOT?: InputMaybe<Array<ClockifyTimeEntryWhereInput>>
@@ -3615,6 +3754,8 @@ export type ClockifyTimeEntryWhereInput = {
   clockifyId?: InputMaybe<StringFilter>
   clockifyProject?: InputMaybe<ClockfyTimeEntryProjectNullableCompositeFilter>
   clockifyProjectId?: InputMaybe<StringNullableFilter>
+  clockifyUser?: InputMaybe<ClockfyTimeEntryUserCompositeFilter>
+  clockifyUserId?: InputMaybe<StringFilter>
   costRate?: InputMaybe<IntNullableFilter>
   currentlyRunning?: InputMaybe<BoolFilter>
   customFieldValues?: InputMaybe<JsonNullableFilter>
@@ -3629,8 +3770,8 @@ export type ClockifyTimeEntryWhereInput = {
   task?: InputMaybe<JsonNullableFilter>
   timeInterval?: InputMaybe<ClockfyTimeEntryTimeIntervalCompositeFilter>
   type?: InputMaybe<StringFilter>
-  user?: InputMaybe<ClockfyTimeEntryUserCompositeFilter>
-  userId?: InputMaybe<StringFilter>
+  user?: InputMaybe<UserNullableRelationFilter>
+  userId?: InputMaybe<StringNullableFilter>
   workspaceId?: InputMaybe<StringFilter>
 }
 
@@ -3644,6 +3785,8 @@ export type ClockifyTimeEntryWhereUniqueInput = {
   clockifyId?: InputMaybe<Scalars['String']['input']>
   clockifyProject?: InputMaybe<ClockfyTimeEntryProjectNullableCompositeFilter>
   clockifyProjectId?: InputMaybe<StringNullableFilter>
+  clockifyUser?: InputMaybe<ClockfyTimeEntryUserCompositeFilter>
+  clockifyUserId?: InputMaybe<StringFilter>
   costRate?: InputMaybe<IntNullableFilter>
   currentlyRunning?: InputMaybe<BoolFilter>
   customFieldValues?: InputMaybe<JsonNullableFilter>
@@ -3658,8 +3801,8 @@ export type ClockifyTimeEntryWhereUniqueInput = {
   task?: InputMaybe<JsonNullableFilter>
   timeInterval?: InputMaybe<ClockfyTimeEntryTimeIntervalCompositeFilter>
   type?: InputMaybe<StringFilter>
-  user?: InputMaybe<ClockfyTimeEntryUserCompositeFilter>
-  userId?: InputMaybe<StringFilter>
+  user?: InputMaybe<UserNullableRelationFilter>
+  userId?: InputMaybe<StringNullableFilter>
   workspaceId?: InputMaybe<StringFilter>
 }
 
@@ -4762,6 +4905,79 @@ export enum QueryMode {
   Insensitive = 'insensitive',
 }
 
+export type RoleCreateNestedOneWithoutUsersInput = {
+  connect?: InputMaybe<RoleWhereUniqueInput>
+  connectOrCreate?: InputMaybe<RoleCreateOrConnectWithoutUsersInput>
+  create?: InputMaybe<RoleCreateWithoutUsersInput>
+}
+
+export type RoleCreateOrConnectWithoutUsersInput = {
+  create: RoleCreateWithoutUsersInput
+  where: RoleWhereUniqueInput
+}
+
+export type RoleCreateWithoutUsersInput = {
+  authority: Scalars['Int']['input']
+  id?: InputMaybe<Scalars['String']['input']>
+  name: Scalars['String']['input']
+}
+
+export type RoleOrderByWithRelationInput = {
+  authority?: InputMaybe<SortOrder>
+  id?: InputMaybe<SortOrder>
+  name?: InputMaybe<SortOrder>
+  users?: InputMaybe<UserOrderByRelationAggregateInput>
+}
+
+export type RoleRelationFilter = {
+  is?: InputMaybe<RoleWhereInput>
+  isNot?: InputMaybe<RoleWhereInput>
+}
+
+export type RoleUpdateOneRequiredWithoutUsersNestedInput = {
+  connect?: InputMaybe<RoleWhereUniqueInput>
+  connectOrCreate?: InputMaybe<RoleCreateOrConnectWithoutUsersInput>
+  create?: InputMaybe<RoleCreateWithoutUsersInput>
+  update?: InputMaybe<RoleUpdateToOneWithWhereWithoutUsersInput>
+  upsert?: InputMaybe<RoleUpsertWithoutUsersInput>
+}
+
+export type RoleUpdateToOneWithWhereWithoutUsersInput = {
+  data: RoleUpdateWithoutUsersInput
+  where?: InputMaybe<RoleWhereInput>
+}
+
+export type RoleUpdateWithoutUsersInput = {
+  authority?: InputMaybe<IntFieldUpdateOperationsInput>
+  name?: InputMaybe<StringFieldUpdateOperationsInput>
+}
+
+export type RoleUpsertWithoutUsersInput = {
+  create: RoleCreateWithoutUsersInput
+  update: RoleUpdateWithoutUsersInput
+  where?: InputMaybe<RoleWhereInput>
+}
+
+export type RoleWhereInput = {
+  AND?: InputMaybe<Array<RoleWhereInput>>
+  NOT?: InputMaybe<Array<RoleWhereInput>>
+  OR?: InputMaybe<Array<RoleWhereInput>>
+  authority?: InputMaybe<IntFilter>
+  id?: InputMaybe<StringFilter>
+  name?: InputMaybe<StringFilter>
+  users?: InputMaybe<UserListRelationFilter>
+}
+
+export type RoleWhereUniqueInput = {
+  AND?: InputMaybe<Array<RoleWhereInput>>
+  NOT?: InputMaybe<Array<RoleWhereInput>>
+  OR?: InputMaybe<Array<RoleWhereInput>>
+  authority?: InputMaybe<Scalars['Int']['input']>
+  id?: InputMaybe<Scalars['String']['input']>
+  name?: InputMaybe<Scalars['String']['input']>
+  users?: InputMaybe<UserListRelationFilter>
+}
+
 export type SigninInfo = {
   __typename?: 'SigninInfo'
   token: Scalars['String']['output']
@@ -4817,6 +5033,7 @@ export type StringNullableListFilter = {
 
 export type User = {
   __typename?: 'User'
+  _count?: Maybe<UserCount>
   clickupId?: Maybe<Scalars['String']['output']>
   clockifyId?: Maybe<Scalars['String']['output']>
   createdAt: Scalars['DateTime']['output']
@@ -4824,8 +5041,18 @@ export type User = {
   githubId?: Maybe<Scalars['String']['output']>
   id: Scalars['String']['output']
   password: Scalars['String']['output']
+  roleId: Scalars['String']['output']
   updatedAt: Scalars['DateTime']['output']
   username: Scalars['String']['output']
+}
+
+export type UserCount = {
+  __typename?: 'UserCount'
+  ClockifyTimeEntry: Scalars['Int']['output']
+}
+
+export type UserCountClockifyTimeEntryArgs = {
+  where?: InputMaybe<ClockifyTimeEntryWhereInput>
 }
 
 export type UserCountAggregate = {
@@ -4838,11 +5065,13 @@ export type UserCountAggregate = {
   githubId: Scalars['Int']['output']
   id: Scalars['Int']['output']
   password: Scalars['Int']['output']
+  roleId: Scalars['Int']['output']
   updatedAt: Scalars['Int']['output']
   username: Scalars['Int']['output']
 }
 
 export type UserCreateInput = {
+  ClockifyTimeEntry?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutUserInput>
   clickupId?: InputMaybe<Scalars['String']['input']>
   clockifyId?: InputMaybe<Scalars['String']['input']>
   createdAt?: InputMaybe<Scalars['DateTime']['input']>
@@ -4850,6 +5079,7 @@ export type UserCreateInput = {
   githubId?: InputMaybe<Scalars['String']['input']>
   id?: InputMaybe<Scalars['String']['input']>
   password: Scalars['String']['input']
+  role: RoleCreateNestedOneWithoutUsersInput
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>
   username: Scalars['String']['input']
 }
@@ -4862,8 +5092,39 @@ export type UserCreateManyInput = {
   githubId?: InputMaybe<Scalars['String']['input']>
   id?: InputMaybe<Scalars['String']['input']>
   password: Scalars['String']['input']
+  roleId: Scalars['String']['input']
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>
   username: Scalars['String']['input']
+}
+
+export type UserCreateNestedOneWithoutClockifyTimeEntryInput = {
+  connect?: InputMaybe<UserWhereUniqueInput>
+  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutClockifyTimeEntryInput>
+  create?: InputMaybe<UserCreateWithoutClockifyTimeEntryInput>
+}
+
+export type UserCreateOrConnectWithoutClockifyTimeEntryInput = {
+  create: UserCreateWithoutClockifyTimeEntryInput
+  where: UserWhereUniqueInput
+}
+
+export type UserCreateWithoutClockifyTimeEntryInput = {
+  clickupId?: InputMaybe<Scalars['String']['input']>
+  clockifyId?: InputMaybe<Scalars['String']['input']>
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>
+  email: Scalars['String']['input']
+  githubId?: InputMaybe<Scalars['String']['input']>
+  id?: InputMaybe<Scalars['String']['input']>
+  password: Scalars['String']['input']
+  role: RoleCreateNestedOneWithoutUsersInput
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>
+  username: Scalars['String']['input']
+}
+
+export type UserListRelationFilter = {
+  every?: InputMaybe<UserWhereInput>
+  none?: InputMaybe<UserWhereInput>
+  some?: InputMaybe<UserWhereInput>
 }
 
 export type UserMaxAggregate = {
@@ -4875,6 +5136,7 @@ export type UserMaxAggregate = {
   githubId?: Maybe<Scalars['String']['output']>
   id?: Maybe<Scalars['String']['output']>
   password?: Maybe<Scalars['String']['output']>
+  roleId?: Maybe<Scalars['String']['output']>
   updatedAt?: Maybe<Scalars['DateTime']['output']>
   username?: Maybe<Scalars['String']['output']>
 }
@@ -4888,11 +5150,22 @@ export type UserMinAggregate = {
   githubId?: Maybe<Scalars['String']['output']>
   id?: Maybe<Scalars['String']['output']>
   password?: Maybe<Scalars['String']['output']>
+  roleId?: Maybe<Scalars['String']['output']>
   updatedAt?: Maybe<Scalars['DateTime']['output']>
   username?: Maybe<Scalars['String']['output']>
 }
 
+export type UserNullableRelationFilter = {
+  is?: InputMaybe<UserWhereInput>
+  isNot?: InputMaybe<UserWhereInput>
+}
+
+export type UserOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>
+}
+
 export type UserOrderByWithRelationInput = {
+  ClockifyTimeEntry?: InputMaybe<ClockifyTimeEntryOrderByRelationAggregateInput>
   clickupId?: InputMaybe<SortOrder>
   clockifyId?: InputMaybe<SortOrder>
   createdAt?: InputMaybe<SortOrder>
@@ -4900,6 +5173,8 @@ export type UserOrderByWithRelationInput = {
   githubId?: InputMaybe<SortOrder>
   id?: InputMaybe<SortOrder>
   password?: InputMaybe<SortOrder>
+  role?: InputMaybe<RoleOrderByWithRelationInput>
+  roleId?: InputMaybe<SortOrder>
   updatedAt?: InputMaybe<SortOrder>
   username?: InputMaybe<SortOrder>
 }
@@ -4912,17 +5187,20 @@ export enum UserScalarFieldEnum {
   GithubId = 'githubId',
   Id = 'id',
   Password = 'password',
+  RoleId = 'roleId',
   UpdatedAt = 'updatedAt',
   Username = 'username',
 }
 
 export type UserUpdateInput = {
+  ClockifyTimeEntry?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutUserNestedInput>
   clickupId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   clockifyId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
   email?: InputMaybe<StringFieldUpdateOperationsInput>
   githubId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   password?: InputMaybe<StringFieldUpdateOperationsInput>
+  role?: InputMaybe<RoleUpdateOneRequiredWithoutUsersNestedInput>
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
   username?: InputMaybe<StringFieldUpdateOperationsInput>
 }
@@ -4938,8 +5216,42 @@ export type UserUpdateManyMutationInput = {
   username?: InputMaybe<StringFieldUpdateOperationsInput>
 }
 
+export type UserUpdateOneWithoutClockifyTimeEntryNestedInput = {
+  connect?: InputMaybe<UserWhereUniqueInput>
+  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutClockifyTimeEntryInput>
+  create?: InputMaybe<UserCreateWithoutClockifyTimeEntryInput>
+  delete?: InputMaybe<UserWhereInput>
+  disconnect?: InputMaybe<Scalars['Boolean']['input']>
+  update?: InputMaybe<UserUpdateToOneWithWhereWithoutClockifyTimeEntryInput>
+  upsert?: InputMaybe<UserUpsertWithoutClockifyTimeEntryInput>
+}
+
+export type UserUpdateToOneWithWhereWithoutClockifyTimeEntryInput = {
+  data: UserUpdateWithoutClockifyTimeEntryInput
+  where?: InputMaybe<UserWhereInput>
+}
+
+export type UserUpdateWithoutClockifyTimeEntryInput = {
+  clickupId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  clockifyId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+  email?: InputMaybe<StringFieldUpdateOperationsInput>
+  githubId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  password?: InputMaybe<StringFieldUpdateOperationsInput>
+  role?: InputMaybe<RoleUpdateOneRequiredWithoutUsersNestedInput>
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+  username?: InputMaybe<StringFieldUpdateOperationsInput>
+}
+
+export type UserUpsertWithoutClockifyTimeEntryInput = {
+  create: UserCreateWithoutClockifyTimeEntryInput
+  update: UserUpdateWithoutClockifyTimeEntryInput
+  where?: InputMaybe<UserWhereInput>
+}
+
 export type UserWhereInput = {
   AND?: InputMaybe<Array<UserWhereInput>>
+  ClockifyTimeEntry?: InputMaybe<ClockifyTimeEntryListRelationFilter>
   NOT?: InputMaybe<Array<UserWhereInput>>
   OR?: InputMaybe<Array<UserWhereInput>>
   clickupId?: InputMaybe<StringNullableFilter>
@@ -4949,12 +5261,15 @@ export type UserWhereInput = {
   githubId?: InputMaybe<StringNullableFilter>
   id?: InputMaybe<StringFilter>
   password?: InputMaybe<StringFilter>
+  role?: InputMaybe<RoleRelationFilter>
+  roleId?: InputMaybe<StringFilter>
   updatedAt?: InputMaybe<DateTimeFilter>
   username?: InputMaybe<StringFilter>
 }
 
 export type UserWhereUniqueInput = {
   AND?: InputMaybe<Array<UserWhereInput>>
+  ClockifyTimeEntry?: InputMaybe<ClockifyTimeEntryListRelationFilter>
   NOT?: InputMaybe<Array<UserWhereInput>>
   OR?: InputMaybe<Array<UserWhereInput>>
   clickupId?: InputMaybe<StringNullableFilter>
@@ -4964,6 +5279,8 @@ export type UserWhereUniqueInput = {
   githubId?: InputMaybe<StringNullableFilter>
   id?: InputMaybe<Scalars['String']['input']>
   password?: InputMaybe<StringFilter>
+  role?: InputMaybe<RoleRelationFilter>
+  roleId?: InputMaybe<StringFilter>
   updatedAt?: InputMaybe<DateTimeFilter>
   username?: InputMaybe<StringFilter>
 }
@@ -4978,10 +5295,10 @@ export type ClockifyTimeEntriesQuery = {
     __typename?: 'ClockifyTimeEntry'
     clockifyId: string
     description: string
-    type: string
     tags: Array<{ __typename?: 'ClockfyTimeEntryTag'; name: string }>
     clockifyProject?: { __typename?: 'ClockfyTimeEntryProject'; name: string; color: string } | null
-    user: { __typename?: 'ClockfyTimeEntryUser'; id: string; name: string }
+    clockifyUser: { __typename?: 'ClockfyTimeEntryUser'; id: string; name: string }
+    user?: { __typename?: 'User'; email: string } | null
     timeInterval: {
       __typename?: 'ClockfyTimeEntryTimeInterval'
       start: string
@@ -5077,7 +5394,6 @@ export const ClockifyTimeEntriesDocument = {
                     selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
                   },
                 },
-                { kind: 'Field', name: { kind: 'Name', value: 'type' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'clockifyProject' },
@@ -5091,13 +5407,21 @@ export const ClockifyTimeEntriesDocument = {
                 },
                 {
                   kind: 'Field',
-                  name: { kind: 'Name', value: 'user' },
+                  name: { kind: 'Name', value: 'clockifyUser' },
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
                       { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                       { kind: 'Field', name: { kind: 'Name', value: 'name' } },
                     ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'user' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'email' } }],
                   },
                 },
                 {
