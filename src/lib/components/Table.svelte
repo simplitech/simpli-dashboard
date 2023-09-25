@@ -9,9 +9,8 @@
   import {
     calculateEstimationError,
     clockifyUrl,
-    formatUserNamesAndEmailSortedByParticipation,
-    formatUserNamesSortedByParticipation,
     getUserParticipation,
+    sortUserNameAndEmailByParticipation,
     sumDurations,
   } from '$lib/utils/clockifyServices'
   import {
@@ -98,12 +97,12 @@
       <div class="table-grid__cell">
         <div
           class="flex flex-row-reverse relative justify-center items-center"
-          class:ml-5={formatUserNamesSortedByParticipation(entry.timeEntry).split(',').length > 1}
+          class:ml-5={sortUserNameAndEmailByParticipation(entry.timeEntry).length > 1}
         >
-          {#each formatUserNamesAndEmailSortedByParticipation(entry.timeEntry).reverse() as user}
+          {#each sortUserNameAndEmailByParticipation(entry.timeEntry).reverse() as user}
             <div
               class="flex items-center justify-center cursor-default font-semibold relative -ml-5 shrink-0"
-              class:-ml-5={formatUserNamesSortedByParticipation(entry.timeEntry).split(',').length > 1}
+              class:-ml-5={sortUserNameAndEmailByParticipation(entry.timeEntry).length > 1}
               title={`${user.name} - ${getUserParticipation(entry.timeEntry, user.name)}`}
             >
               <img

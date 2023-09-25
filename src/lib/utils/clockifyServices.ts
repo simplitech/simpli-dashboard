@@ -28,11 +28,11 @@ export function sumDurations(entries: ClockifyTimeEntry[]) {
  */
 export function formatUserNamesSortedByParticipation(entries: ClockifyTimeEntry[] | null): string {
   if (!entries) return ''
-  const sortedUserDurations = sortUserDurations(entries)
-  return sortedUserDurations.map((item) => item.user).join(', ')
+  const sortedUserDurations = sortUserNameAndEmailByParticipation(entries)
+  return sortedUserDurations.map((item) => item.name).join(', ')
 }
 
-export function formatUserNamesAndEmailSortedByParticipation(
+export function sortUserNameAndEmailByParticipation(
   entries: ClockifyTimeEntry[] | null,
 ): { name: string; email: string }[] {
   if (!entries) return []
