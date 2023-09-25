@@ -8,14 +8,16 @@ export const queries = gql`
       tags {
         name
       }
-      type
       clockifyProject {
         name
         color
       }
-      user {
+      clockifyUser {
         id
         name
+      }
+      user {
+        email
       }
       timeInterval {
         start

@@ -4,14 +4,15 @@ import { getGraphqlClient } from '$lib/utils/store'
 import { parse, toSeconds } from 'iso8601-duration'
 import { getLastEstimative } from '$lib/utils/clickupServices'
 
-function sortUserDurations(entries: ClockifyTimeEntry[]): { user: string; duration: number }[] {
-  const users = entries.map((item) => item.user.name)
+function sortUserDurations(entries: ClockifyTimeEntry[]): { user: string; duration: number; email: string }[] {
+  const users = entries.map((item) => item.clockifyUser.name)
   const uniqueUsers = [...new Set(users)]
   const userDurations = uniqueUsers.map((user) => {
-    const userEntries = entries.filter((item) => item.user.name === user)
+    const userEntries = entries.filter((item) => item.clockifyUser.name === user)
     return {
       user,
       duration: sumDurations(userEntries),
+      email: userEntries[0].user?.email ?? '',
     }
   })
   return userDurations.sort((a, b) => b.duration - a.duration)
@@ -27,20 +28,28 @@ export function sumDurations(entries: ClockifyTimeEntry[]) {
  */
 export function formatUserNamesSortedByParticipation(entries: ClockifyTimeEntry[] | null): string {
   if (!entries) return ''
+  const sortedUserDurations = sortUserNameAndEmailByParticipation(entries)
+  return sortedUserDurations.map((item) => item.name).join(', ')
+}
+
+export function sortUserNameAndEmailByParticipation(
+  entries: ClockifyTimeEntry[] | null,
+): { name: string; email: string }[] {
+  if (!entries) return []
   const sortedUserDurations = sortUserDurations(entries)
-  return sortedUserDurations.map((item) => item.user).join(', ')
+  return sortedUserDurations.map((item) => ({ name: item.user, email: item.email }))
 }
 
 export function formatUserNamesDailyParticipation(entries: ClockifyTimeEntry[] | null, date: string) {
   if (!entries) return []
   const filteredEntriesByDay = entries.filter((item) => formatDayMonthYear(item.timeInterval.start) === date)
-  const users = [...new Set(filteredEntriesByDay.map((item) => item.user.name))]
+  const users = [...new Set(filteredEntriesByDay.map((item) => item.user.username))]
   return users
 }
 
 export function getUserParticipation(entries: ClockifyTimeEntry[] | null, username: string): string {
   if (!entries) return ''
-  const userEntries = entries.filter((item) => item.user.name === username.trim())
+  const userEntries = entries.filter((item) => item.clockifyUser.name === username.trim())
   return formatDurationClock(sumDurations(userEntries))
 }
 

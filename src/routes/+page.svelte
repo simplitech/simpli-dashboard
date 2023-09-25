@@ -232,7 +232,7 @@
 
       Object.entries(reportFiltered).forEach(([, value]) => {
         value.timeEntry = value.timeEntry.filter((entry: ClockifyTimeEntry) =>
-          Object.values(selectedAssignee).some((assignee: FilterOptions) => entry.user.name === assignee.label),
+          Object.values(selectedAssignee).some((assignee: FilterOptions) => entry.clockifyUser.name === assignee.label),
         )
       })
     }

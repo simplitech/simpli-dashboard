@@ -24,6 +24,7 @@
     "@playwright/test": "^1.28.1",
     "@sveltejs/adapter-static": "^2.0.3",
     "@sveltejs/kit": "^1.20.4",
+    "@types/crypto-js": "^4.1.2",
     "@types/lodash": "^4.14.198",
     "@types/toastify-js": "^1.12.0",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
@@ -48,6 +49,7 @@
   },
   "dependencies": {
     "@urql/svelte": "^4.0.4",
+    "crypto-js": "^4.1.1",
     "graphql": "^16.8.0",
     "iso8601-duration": "^2.1.1",
     "js-sha256": "^0.9.0",
