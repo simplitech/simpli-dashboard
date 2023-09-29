@@ -62,6 +62,7 @@
       items={filters.assignee}
       on:filter={filter}
       bind:selectedItems={selectedFilters.selectedAssignee}
+      buttonClass="w-[75px]"
     />
     <CustomSelect
       class="mr-16"
@@ -70,6 +71,7 @@
       items={filters.project}
       on:filter={filter}
       bind:selectedItems={selectedFilters.selectedProject}
+      buttonClass="w-[75px]"
     />
     <CustomSelect
       class="mr-16"
@@ -78,6 +80,7 @@
       items={filters.status}
       on:filter={filter}
       bind:selectedItems={selectedFilters.selectedStatus}
+      buttonClass="w-[75px]"
     />
     <CustomSelect
       title="Status In Period"
@@ -85,6 +88,7 @@
       items={filters.status}
       on:filter={filter}
       bind:selectedItems={selectedFilters.selectedStatusInPeriod}
+      buttonClass="w-[125px]"
     />
   </div>
 
@@ -125,6 +129,7 @@
     on:filter={filter}
     bind:selectedItems={selectedFilters.selectedGroupBy}
     showSearch={false}
+    buttonClass="w-[85px]"
   />
 
   <div class="w-[2px] h-9 bg-gray-500 mr-5" />
