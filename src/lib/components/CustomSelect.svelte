@@ -10,6 +10,7 @@
   export let items: FilterOptions[]
   export let selectedItems: FilterOptions[] = []
   export let showSearch = true
+  export let buttonClass = ''
 
   $: filteredItems = items
   let isOpen = false
@@ -69,8 +70,12 @@
   }
 </script>
 
-<div class="relative {$$props.class}">
-  <button id="filter-button" class="flex flex-row items-center" on:click|stopPropagation={() => handleClick()}>
+<div class="relative {$$props.class} custom-scrollbar">
+  <button
+    id="filter-button"
+    class="flex flex-row items-center {buttonClass}"
+    on:click|stopPropagation={() => handleClick()}
+  >
     <span class="mr-2" class:font-bold={isOpen}>{title}</span>
     <img src="./images/chevron.svg" alt="chevron icon" />
   </button>
@@ -105,7 +110,7 @@
   {/if}
   {#if isOpen}
     <div
-      class="w-[219px] absolute bg-purple-gray-300 top-6 left-0 py-3 px-2 rounded-md flex flex-col space-y-3 z-[5]"
+      class="w-[219px] absolute bg-purple-gray-300 top-6 left-0 py-3 px-2 rounded-md flex flex-col space-y-3 z-[5] max-h-[500px] overflow-y-auto"
       transition:slide
       use:clickOutside={'#filter-button'}
       on:click_outside={() => handleClick()}
@@ -170,3 +175,27 @@
     </div>
   {/if}
 </div>
+
+<style lang="scss">
+  .custom-scrollbar {
+    /* width */
+    ::-webkit-scrollbar {
+      @apply w-1;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      @apply bg-lilac rounded;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: bg-lilac;
+    }
+  }
+</style>
