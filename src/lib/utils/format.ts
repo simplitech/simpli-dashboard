@@ -11,6 +11,7 @@ import {
   getLastDueDate,
   getLastEstimative,
   getLastStatus,
+  getTaskName,
   getTaskTimeStatus,
 } from '$lib/utils/clickupServices'
 import type { ClickupTask, ClockifyTimeEntry } from '../../graphql/generated'
@@ -67,7 +68,7 @@ export const formatReport: Record<
   Description: (id, entry) => entry.task?.name ?? id,
   Project: (_id, entry) => entry.task?.list.name ?? entry.timeEntry[0]?.clockifyProject.name ?? 'No project',
   'Clockify URL': (id, entry, dateRangeStart, dateRangeEnd) =>
-    entry.timeEntry?.length ? clockifyUrl(dateRangeStart, dateRangeEnd, id) : '',
+    entry.timeEntry?.length ? clockifyUrl(dateRangeStart, dateRangeEnd, getTaskName(entry)) : '',
   'Time Tracked': (_id, entry) => formatDuration(sumDurations(entry.timeEntry)),
   'Time Tracked Decimals': (_id, entry) => formatHourDecimals(sumDurations(entry.timeEntry)),
   'Time Tracked Roundup': (_id, entry) => formatDuration(durationRoundUpByHalfHour(sumDurations(entry.timeEntry))),

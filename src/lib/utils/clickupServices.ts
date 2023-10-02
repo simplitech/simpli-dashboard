@@ -145,3 +145,7 @@ export const calculateDelay = (task: ClickupTask): number => {
 
   return 0
 }
+
+export function getTaskName(entry: Entry): string {
+  return (entry.task?.name ?? entry.timeEntry[0].description) as string
+}

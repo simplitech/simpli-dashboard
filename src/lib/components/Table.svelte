@@ -4,6 +4,7 @@
     getLastDueDate,
     getLastEstimative,
     getLastStatus,
+    getTaskName,
     getTaskTimeStatus,
   } from '$lib/utils/clickupServices'
   import {
@@ -37,10 +38,6 @@
 
   function getProjectName(entry: Entry): string {
     return entry.task?.list.name ?? entry.timeEntry?.[0]?.clockifyProject.name ?? 'No project'
-  }
-
-  function getTaskName(entry: Entry): string {
-    return (entry.task?.name ?? entry.timeEntry[0].description) as string
   }
 </script>
 
@@ -126,7 +123,7 @@
       <div class="table-grid__cell">
         {#if entry.timeEntry?.length}
           <a
-            href={clockifyUrl(dateRangeStart, dateRangeEnd, id)}
+            href={clockifyUrl(dateRangeStart, dateRangeEnd, getTaskName(entry))}
             target="_blank"
             title="Clockify URL"
             class="hover:bg-dark-blue hover:rounded p-1 text-center"
