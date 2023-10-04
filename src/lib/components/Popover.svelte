@@ -11,7 +11,7 @@
   </button>
   {#if isOpen}
     <div
-      class="absolute top-10 {contentClass}"
+      class="absolute top-10 z-[5] {contentClass}"
       use:clickOutside={'#popover-button'}
       on:click_outside={() => (isOpen = !isOpen)}
     >

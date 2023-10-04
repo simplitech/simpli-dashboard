@@ -2,8 +2,8 @@
   import DatetimeInput from './DatetimeInput.svelte'
   import { createEventDispatcher } from 'svelte'
   import { version } from '$app/environment'
-  import { type Entry, formatReport, type Report } from '$lib/utils/format'
-  import { copyToClipboard } from '$lib/utils/helper'
+  import type { Report } from '$lib/utils/format'
+  import ExportPopover from './ExportPopover.svelte'
 
   export let dateRangeEnd: Date
   export let dateRangeStart: Date
@@ -28,24 +28,6 @@
     dispatch('search', {
       searchValue: searchValue,
     })
-  }
-
-  const copyReportToClipboard = (
-    report: Report,
-    format: Record<string, (id: string, entry: Entry, dateRangeStart: Date, dateRangeEnd: Date) => string>,
-  ) => {
-    let headers = Object.keys(format).join('\t') + '\n'
-    let rows = ''
-
-    Object.entries(report).forEach(([id, entry]) => {
-      Object.keys(format).forEach((reportItem: string) => {
-        rows += format[reportItem](id, entry, dateRangeStart, dateRangeEnd)
-        rows += '\t'
-      })
-      rows += '\n'
-    })
-
-    copyToClipboard(headers + rows)
   }
 </script>
 
@@ -96,13 +78,7 @@
       </button>
     </form>
 
-    <button
-      class="flex flex-row items-center justify-center border border-white rounded-full py-2 px-5 whitespace-nowrap"
-      on:click={() => copyReportToClipboard(report, formatReport)}
-    >
-      <img src="./images/folder.svg" alt="copy icon" class="mr-2" />
-      Copy Data to Clipboard
-    </button>
+    <ExportPopover {dateRangeEnd} {dateRangeStart} {report} />
   </div>
 
   <div class="flex items-center justify-center flex-shrink-0">

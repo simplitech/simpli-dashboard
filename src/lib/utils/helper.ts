@@ -6,8 +6,8 @@ export type Config = {
   clickupApiKey: string
 }
 
-export function copyToClipboard(text: string) {
-  navigator.clipboard.writeText(text).then(() => showToast('Copiado com sucesso!'))
+export function copyToClipboard(text: string, toastMessage?: string) {
+  navigator.clipboard.writeText(text).then(() => showToast(toastMessage || 'Successfully copied!'))
 }
 
 export const durationRoundUpByHalfHour = (duration: number): number => {
