@@ -66,7 +66,7 @@ export const formatReport: Record<
   'Task ID': (id, entry) => (entry.task ? id : 'Flex'),
   'ClickUp URL': (_id, entry) => (entry.task ? entry.task.url : ''),
   Description: (id, entry) => entry.task?.name ?? id,
-  Project: (_id, entry) => entry.task?.list.name ?? entry.timeEntry[0]?.clockifyProject.name ?? 'No project',
+  Project: (_id, entry) => entry.task?.list.name ?? entry.timeEntry[0]?.clockifyProject?.name ?? 'No project',
   'Clockify URL': (id, entry, dateRangeStart, dateRangeEnd) =>
     entry.timeEntry?.length ? clockifyUrl(dateRangeStart, dateRangeEnd, getTaskName(entry)) : '',
   'Time Tracked': (_id, entry) => formatDuration(sumDurations(entry.timeEntry)),

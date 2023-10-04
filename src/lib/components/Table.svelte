@@ -37,7 +37,7 @@
   export let showWarnings = true
 
   function getProjectName(entry: Entry): string {
-    return entry.task?.list.name ?? entry.timeEntry?.[0]?.clockifyProject.name ?? 'No project'
+    return entry.task?.list.name ?? entry.timeEntry?.[0]?.clockifyProject?.name ?? 'No project'
   }
 </script>
 
