@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Group, Report, FilterOptions } from '$lib/utils/format'
+  import type { OrderBy } from '$lib/utils/orderby'
   import GroupTitle from './GroupTitle.svelte'
   import Table from './Table.svelte'
 
@@ -11,6 +12,7 @@
   export let showDetails = true
   export let showWarnings = true
   export let level = 0
+  export let orderBy: OrderBy
 
   const asReport = (item: Group | Report) => {
     return item as Report
@@ -31,7 +33,7 @@
 </script>
 
 <div class={$$props.class}>
-  {#each Object.entries(reportGroup).sort() as [key, value]}
+  {#each Object.entries(reportGroup) as [key, value]}
     <div class={getGroupTitle() ? 'border border-gray-400 p-5 rounded-lg mb-5' : ''}>
       {#if getGroupTitle()}
         <GroupTitle title={key} />
@@ -45,17 +47,21 @@
           {showDetails}
           {showSummary}
           {showWarnings}
+          {orderBy}
           level={level + 1}
+          on:orderBy
         />
       {:else}
         <Table
           {dateRangeStart}
           {dateRangeEnd}
+          {orderBy}
           bind:showSummary
           bind:showDetails
           bind:showWarnings
           class="w-full mb-8"
           report={asReport(value)}
+          on:orderBy
         />
       {/if}
     </div>

@@ -31,6 +31,7 @@
   import { validateAndSignIn, type Login } from '$lib/utils/loginServices'
   import { graphqlClient } from '$lib/utils/store'
   import type { ClickupTasksStatus, ClockifyTimeEntry } from '../graphql/generated'
+  import { orderByColumns, type OrderBy, orderBySummary } from '$lib/utils/orderby'
 
   let report: Report = null
   let reportFiltered: Report = null
@@ -51,7 +52,7 @@
   let searchValue: string | null = null
 
   let now = new Date()
-  let dateRangeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7)
+  let dateRangeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 365)
   let dateRangeEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1)
 
   let reportGroup: Group = {}
@@ -61,6 +62,11 @@
   let loginData: Login = {
     email: null,
     password: null,
+  }
+
+  let orderBy: OrderBy = {
+    asc: false,
+    by: 'LAST LOG',
   }
 
   $: showSummary = true
@@ -181,6 +187,11 @@
     handleFilters()
   }
 
+  const setOrderByValue = (event: CustomEvent<OrderBy>) => {
+    orderBy = event.detail
+    handleFilters()
+  }
+
   const setFilterValue = (event: CustomEvent<Filters>) => {
     selectedAssignee = event.detail.selectedAssignee
     selectedProject = event.detail.selectedProject
@@ -213,7 +224,7 @@
         Object.entries(reportFiltered).filter(([, value]) =>
           Object.values(selectedProject).some(
             (project: FilterOptions) =>
-              (value.task?.list.name ?? value.timeEntry[0]?.clockifyProject.name ?? 'No Project') === project.label,
+              (value.task?.list.name ?? value.timeEntry[0]?.clockifyProject?.name ?? 'No Project') === project.label,
           ),
         ),
       )
@@ -277,6 +288,10 @@
       )
     }
 
+    if (orderBy) {
+      reportFiltered = orderByColumns[orderBy.by](reportFiltered, orderBy.asc)
+    }
+
     handleGroupBy()
   }
 
@@ -295,22 +310,31 @@
           reportGroup[date][idIssue] = entry
         })
       }
+
+      if (orderBy && orderBySummary[orderBy.by]) {
+        reportGroup = orderBySummary[orderBy.by](reportGroup, orderBy.asc)
+      }
     } else {
       reportGroup['allDates'] = reportFiltered
     }
 
     for (const [dateKey, value] of Object.entries(reportGroup)) {
-      const group: Group = {}
+      let group: Group = {}
       auxReportGroup[dateKey] = group
 
       if (selectedGroupBy.some((item: FilterOptions) => item.label === 'Project')) {
         for (const [taskKey, taskValue] of Object.entries(value)) {
           const entry = taskValue as Entry
-          const projectKey = entry.task?.list.name ?? entry.timeEntry[0]?.clockifyProject.name ?? 'No project'
-          if (!auxReportGroup[dateKey][projectKey]) {
-            auxReportGroup[dateKey][projectKey] = {}
+          const projectKey = entry.task?.list.name ?? entry.timeEntry[0]?.clockifyProject?.name ?? 'No project'
+          if (!group[projectKey]) {
+            group[projectKey] = {}
           }
           group[projectKey][taskKey] = entry
+        }
+
+        // faz a ordenaçao pra cada grupo de data
+        if (orderBy && orderBySummary[orderBy.by]) {
+          auxReportGroup[dateKey] = orderBySummary[orderBy.by](group, orderBy.asc)
         }
       } else {
         auxReportGroup[dateKey]['allProjects'] = value as Report
@@ -324,7 +348,7 @@
       auxReportGroup[key] = keyGroup
 
       for (const [projKey, projVal] of Object.entries(value)) {
-        const projectGroup: Group = {}
+        let projectGroup: Group = {}
         keyGroup[projKey] = projectGroup
 
         if (selectedGroupBy.some((item: FilterOptions) => item.label === 'Assignee')) {
@@ -339,6 +363,10 @@
               }
               projectGroup[assignee][taskKey] = taskValue as Entry
             })
+          }
+
+          if (orderBy && orderBySummary[orderBy.by]) {
+            keyGroup[projKey] = orderBySummary[orderBy.by](projectGroup, orderBy.asc)
           }
         } else {
           projectGroup['allAssignees'] = projVal as Report
@@ -446,9 +474,11 @@
       {selectedGroupBy}
       {dateRangeEnd}
       {dateRangeStart}
+      {orderBy}
       bind:showDetails
       bind:showSummary
       bind:showWarnings
+      on:orderBy={setOrderByValue}
     />
   {/if}
 

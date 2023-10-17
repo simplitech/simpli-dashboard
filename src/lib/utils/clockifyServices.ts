@@ -43,7 +43,7 @@ export function sortUserNameAndEmailByParticipation(
 export function formatUserNamesDailyParticipation(entries: ClockifyTimeEntry[] | null, date: string) {
   if (!entries) return []
   const filteredEntriesByDay = entries.filter((item) => formatDayMonthYear(item.timeInterval.start) === date)
-  const users = [...new Set(filteredEntriesByDay.map((item) => item.user.username))]
+  const users = [...new Set(filteredEntriesByDay.map((item) => item.clockifyUser.name))]
   return users
 }
 
@@ -81,11 +81,9 @@ export const countUserNames = (report: Report | null): number => {
 }
 
 export const sumTimeTracked = (report: Report) => {
-  return formatDurationClock(
-    Object.values(report)
-      .map((item: Entry) => sumDurations(item.timeEntry))
-      .reduce((a, b) => a + b, 0),
-  )
+  return Object.values(report)
+    .map((item: Entry) => sumDurations(item.timeEntry))
+    .reduce((a, b) => a + b, 0)
 }
 
 export async function getClockifyEntriesAPI(startDate: string, endDate: string): Promise<ClockifyTimeEntry[]> {

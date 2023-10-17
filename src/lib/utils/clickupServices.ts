@@ -61,22 +61,22 @@ export function getTaskTimeStatus(taskStatus: ClickupTasksStatus[] | null, statu
   return 0
 }
 
-export const sumTimeEstimate = (report: Report): string => {
-  return formatDuration(
+export const sumTimeEstimate = (report: Report): number => {
+  return (
     Object.values(report)
       .map((item: Entry) => item.task?.clickupTasksTimeEstimates[0]?.estimate || 0)
-      .reduce((a, b) => a + b, 0) / 1000,
+      .reduce((a, b) => a + b, 0) / 1000
   )
 }
 
-export const avgEstimativeError = (report: Report): string => {
+export const avgEstimativeError = (report: Report): number => {
   const tasksWithEstimation = Object.values(report).filter(
     (item) => item.task?.clickupTasksTimeEstimates[0]?.estimate != null,
   )
   return (
     tasksWithEstimation.map((item) => calculateEstimationError(item)).reduce((a, b) => a + b, 0) /
     tasksWithEstimation.length
-  ).toFixed(2)
+  )
 }
 
 export const avgDaysStatus = (report: Report, statusName: string): string => {

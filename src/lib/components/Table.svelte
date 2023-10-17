@@ -21,13 +21,14 @@
     formatUnixDate,
     formatDuration,
     formatDurationClock,
-    getUserInitials,
     type Entry,
     formatDays,
   } from '$lib/utils/format'
   import { daysToMilis, getContrastColorHex } from '$lib/utils/helper'
   import TableSummary from '$lib/components/TableSummary.svelte'
   import MD5 from 'crypto-js/md5'
+  import HeaderOrderBy from './HeaderOrderBy.svelte'
+  import type { OrderBy } from '$lib/utils/orderby'
 
   export let report: Report
   export let dateRangeStart: Date
@@ -35,6 +36,7 @@
   export let showSummary = true
   export let showDetails = true
   export let showWarnings = true
+  export let orderBy: OrderBy
 
   function getProjectName(entry: Entry): string {
     return entry.task?.list.name ?? entry.timeEntry?.[0]?.clockifyProject?.name ?? 'No project'
@@ -45,12 +47,12 @@
   <div class="table-grid__header min-w-[400px] max-w-[600px]">{Object.entries(report).length} TASKS</div>
   <div class="table-grid__header">ASSIGNEE</div>
   <div class="table-grid__header">TASK ID</div>
-  <div class="table-grid__header">TIME TRACKED</div>
-  <div class="table-grid__header">TIME ESTIMATE</div>
-  <div class="table-grid__header">ESTIMATIVE ERROR</div>
-  <div class="table-grid__header">DUE DATE</div>
+  <HeaderOrderBy on:orderBy {orderBy} headerText="TIME TRACKED" class="table-grid__header" />
+  <HeaderOrderBy on:orderBy {orderBy} headerText="TIME ESTIMATE" class="table-grid__header" />
+  <HeaderOrderBy on:orderBy {orderBy} headerText="ESTIMATIVE ERROR" class="table-grid__header" />
+  <HeaderOrderBy on:orderBy {orderBy} headerText="DUE DATE" class="table-grid__header" />
   <div class="table-grid__header">DELAY</div>
-  <div class="table-grid__header">LAST LOG</div>
+  <HeaderOrderBy on:orderBy {orderBy} headerText="LAST LOG" class="table-grid__header" />
   <div class="table-grid__header">TO REVIEW</div>
   <div class="table-grid__header">TO TEST</div>
 
@@ -189,7 +191,7 @@
     @apply text-left;
   }
 
-  .table-grid__header {
+  :global(.table-grid__header) {
     @apply text-gray-400 font-semibold text-center;
   }
 
