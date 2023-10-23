@@ -1,16 +1,10 @@
 import { calculateEstimationError } from '$lib/utils/clockifyServices'
-import {
-  formatDuration,
-  type Entry,
-  type Report,
-  formatDurationOnlyDays,
-  formatDurationToDays,
-} from '$lib/utils/format'
+import { type Entry, type Report, formatDurationOnlyDays, formatDurationToDays } from '$lib/utils/format'
 import type {
   ClickupTask,
-  ClickupTasksDueDate,
-  ClickupTasksStatus,
-  ClickupTasksTimeEstimate,
+  ClickupTaskDueDate,
+  ClickupTaskStatus,
+  ClickupTaskTimeEstimate,
 } from '../../graphql/generated'
 
 export enum Error {
@@ -52,8 +46,8 @@ export function clickupIdFromText(text: string): string | undefined {
   return undefined
 }
 
-export function getTaskTimeStatus(taskStatus: ClickupTasksStatus[] | null, statusName: string): number {
-  const status = taskStatus?.filter((item: ClickupTasksStatus) => item.status.status.trim() === statusName.trim())
+export function getTaskTimeStatus(taskStatus: ClickupTaskStatus[] | null, statusName: string): number {
+  const status = taskStatus?.filter((item: ClickupTaskStatus) => item.status.trim() === statusName.trim())
 
   if (taskStatus && status.length) {
     return Math.abs(Date.now() - new Date(getLastStatus(status).createdAt).getTime())
@@ -64,15 +58,13 @@ export function getTaskTimeStatus(taskStatus: ClickupTasksStatus[] | null, statu
 export const sumTimeEstimate = (report: Report): number => {
   return (
     Object.values(report)
-      .map((item: Entry) => item.task?.clickupTasksTimeEstimates[0]?.estimate || 0)
+      .map((item: Entry) => item.task?.timeEstimates[0]?.estimate || 0)
       .reduce((a, b) => a + b, 0) / 1000
   )
 }
 
 export const avgEstimativeError = (report: Report): number => {
-  const tasksWithEstimation = Object.values(report).filter(
-    (item) => item.task?.clickupTasksTimeEstimates[0]?.estimate != null,
-  )
+  const tasksWithEstimation = Object.values(report).filter((item) => item.task?.timeEstimates[0]?.estimate != null)
   return (
     tasksWithEstimation.map((item) => calculateEstimationError(item)).reduce((a, b) => a + b, 0) /
     tasksWithEstimation.length
@@ -81,24 +73,23 @@ export const avgEstimativeError = (report: Report): number => {
 
 export const avgDaysStatus = (report: Report, statusName: string): string => {
   const tasksWithStatus = Object.values(report).filter((item) =>
-    item.task?.clickupTasksStatus.some((item) => item.status.status.trim() === statusName.trim()),
+    item.task?.status.some((clickupStatus: ClickupTaskStatus) => clickupStatus.status.trim() === statusName.trim()),
   )
 
   return formatDurationOnlyDays(
-    tasksWithStatus
-      .map((item) => getTaskTimeStatus(item.task?.clickupTasksStatus, statusName))
-      .reduce((a, b) => a + b, 0) / tasksWithStatus.length,
+    tasksWithStatus.map((item) => getTaskTimeStatus(item.task?.status, statusName)).reduce((a, b) => a + b, 0) /
+      tasksWithStatus.length,
   )
 }
 
-export const getLastStatus = (clickupTasksStatus: ClickupTasksStatus[]): ClickupTasksStatus => {
+export const getLastStatus = (clickupTasksStatus: ClickupTaskStatus[]): ClickupTaskStatus => {
   if (!clickupTasksStatus) return null
   return clickupTasksStatus.reduce((current, next) => {
     return new Date(next.createdAt) > new Date(current.createdAt) ? next : current
   }, clickupTasksStatus[0])
 }
 
-export const getLastEstimative = (clickupTasksTimeEstimate: ClickupTasksTimeEstimate[]): ClickupTasksTimeEstimate => {
+export const getLastEstimative = (clickupTasksTimeEstimate: ClickupTaskTimeEstimate[]): ClickupTaskTimeEstimate => {
   if (!clickupTasksTimeEstimate) return null
 
   return clickupTasksTimeEstimate.reduce((current, next) => {
@@ -106,7 +97,7 @@ export const getLastEstimative = (clickupTasksTimeEstimate: ClickupTasksTimeEsti
   }, clickupTasksTimeEstimate[0])
 }
 
-export const getLastDueDate = (clickupTasksDueDate: ClickupTasksDueDate[]): ClickupTasksDueDate => {
+export const getLastDueDate = (clickupTasksDueDate: ClickupTaskDueDate[]): ClickupTaskDueDate => {
   if (!clickupTasksDueDate) return null
 
   return clickupTasksDueDate.reduce((current, next) => {
@@ -115,14 +106,14 @@ export const getLastDueDate = (clickupTasksDueDate: ClickupTasksDueDate[]): Clic
 }
 
 export const calculateDelay = (task: ClickupTask): number => {
-  if (!task || !task.clickupTasksDueDates.length) return 0
+  if (!task || !task.dueDates.length) return 0
 
-  const currentStatus = getLastStatus(task.clickupTasksStatus)
-  const dueDate = getLastDueDate(task.clickupTasksDueDates).dueDate
+  const currentStatus = getLastStatus(task.status)
+  const dueDate = getLastDueDate(task.dueDates).dueDate
 
   if (!currentStatus || !dueDate) return 0
 
-  if (currentStatus.status.status.trim() === 'to do' || currentStatus.status.status.trim() === 'in progress') {
+  if (currentStatus.status.trim() === 'to do' || currentStatus.status.trim() === 'in progress') {
     const now = Date.now()
     const delay = now - dueDate
 
@@ -130,12 +121,10 @@ export const calculateDelay = (task: ClickupTask): number => {
   }
 
   // ordenar o histórico pelo status mais antigo -> mais atual
-  const allStatus = task.clickupTasksStatus.sort(
-    (a, b) => new Date(a.createdAt).valueOf() - new Date(b.createdAt).valueOf(),
-  )
+  const allStatus = task.status.sort((a, b) => new Date(a.createdAt).valueOf() - new Date(b.createdAt).valueOf())
 
   // pega a primeira vez que o status foi pra to do
-  const todoStatus = allStatus.findIndex((item) => item.status.status.trim() === 'to do')
+  const todoStatus = allStatus.findIndex((item) => item.status.trim() === 'to do')
 
   if (todoStatus > 0 && todoStatus < allStatus.length - 2) {
     // o próximo valor da lista é o status para que a task foi

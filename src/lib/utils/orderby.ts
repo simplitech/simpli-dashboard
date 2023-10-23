@@ -30,8 +30,8 @@ const orderByTimeEstimate = (reportFiltered: Report, asc: boolean) => {
 
   entries.sort((a, b) =>
     calculateDiff(
-      getLastEstimative(a[1].task?.clickupTasksTimeEstimates)?.estimate || 0,
-      getLastEstimative(b[1].task?.clickupTasksTimeEstimates)?.estimate || 0,
+      getLastEstimative(a[1].task?.timeEstimates)?.estimate || 0,
+      getLastEstimative(b[1].task?.timeEstimates)?.estimate || 0,
       asc,
     ),
   )
@@ -43,8 +43,8 @@ const orderByDueDate = (reportFiltered: Report, asc: boolean) => {
   const entries = Object.entries(reportFiltered)
   entries.sort((a, b) =>
     calculateDiff(
-      getLastDueDate(b[1].task?.clickupTasksDueDates)?.dueDate || 0,
-      getLastDueDate(a[1].task?.clickupTasksDueDates)?.dueDate || 0,
+      getLastDueDate(b[1].task?.dueDates)?.dueDate || 0,
+      getLastDueDate(a[1].task?.dueDates)?.dueDate || 0,
       asc,
     ),
   )
@@ -54,11 +54,7 @@ const orderByDueDate = (reportFiltered: Report, asc: boolean) => {
 const orderByLastLog = (reportFiltered: Report, asc: boolean) => {
   const entries = Object.entries(reportFiltered)
   entries.sort((a, b) =>
-    calculateDiff(
-      new Date(a[1].timeEntry[0]?.timeInterval?.end).valueOf(),
-      new Date(b[1].timeEntry[0]?.timeInterval?.end).valueOf(),
-      asc,
-    ),
+    calculateDiff(new Date(a[1].timeEntry[0]?.end).valueOf(), new Date(b[1].timeEntry[0]?.end).valueOf(), asc),
   )
   return Object.fromEntries(entries)
 }

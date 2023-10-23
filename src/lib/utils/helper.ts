@@ -1,11 +1,5 @@
 import { showToast } from '$lib/utils/toast'
 
-export type Config = {
-  clockifyApiKey: string
-  clockifyWorkspaceId: string
-  clickupApiKey: string
-}
-
 export function copyToClipboard(text: string, toastMessage?: string) {
   navigator.clipboard.writeText(text).then(() => showToast(toastMessage || 'Successfully copied!'))
 }

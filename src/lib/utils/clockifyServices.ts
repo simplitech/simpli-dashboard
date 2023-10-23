@@ -19,7 +19,7 @@ function sortUserDurations(entries: ClockifyTimeEntry[]): { user: string; durati
 }
 
 export function sumDurations(entries: ClockifyTimeEntry[]) {
-  return entries.map((item) => toSeconds(parse(item.timeInterval.duration))).reduce((a, b) => a + b, 0)
+  return entries.map((item) => toSeconds(parse(item.duration))).reduce((a, b) => a + b, 0)
 }
 
 /**
@@ -42,7 +42,7 @@ export function sortUserNameAndEmailByParticipation(
 
 export function formatUserNamesDailyParticipation(entries: ClockifyTimeEntry[] | null, date: string) {
   if (!entries) return []
-  const filteredEntriesByDay = entries.filter((item) => formatDayMonthYear(item.timeInterval.start) === date)
+  const filteredEntriesByDay = entries.filter((item) => formatDayMonthYear(item.start) === date)
   const users = [...new Set(filteredEntriesByDay.map((item) => item.clockifyUser.name))]
   return users
 }
@@ -66,7 +66,7 @@ export const clockifyUrl = (dateRangeStart: Date, dateRangeEnd: Date, descriptio
 }
 
 export const calculateEstimationError = (entry: Entry): number => {
-  const estimation = (getLastEstimative(entry.task?.clickupTasksTimeEstimates)?.estimate ?? 0) / 1000
+  const estimation = (getLastEstimative(entry.task?.timeEstimates)?.estimate ?? 0) / 1000
   return estimation ? Number((getMainGroupOfDurations(entry.timeEntry) / estimation).toFixed(2)) : 0
 }
 
@@ -90,7 +90,8 @@ export async function getClockifyEntriesAPI(startDate: string, endDate: string):
   const result = await getGraphqlClient()
     .query(ClockifyTimeEntriesDocument, {
       where: {
-        timeInterval: { is: { start: { gte: startDate }, end: { lte: endDate } } },
+        start: { gte: startDate },
+        end: { lte: endDate },
         currentlyRunning: { equals: false },
       },
     })

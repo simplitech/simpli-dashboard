@@ -39,7 +39,7 @@
   export let orderBy: OrderBy
 
   function getProjectName(entry: Entry): string {
-    return entry.task?.list.name ?? entry.timeEntry?.[0]?.clockifyProject?.name ?? 'No project'
+    return entry.task?.listLocation.name ?? entry.timeEntry?.[0]?.clockifyProject?.name ?? 'No project'
   }
 </script>
 
@@ -64,11 +64,11 @@
   {#if showDetails || showWarnings}
     {#each Object.entries(report) as [id, entry]}
       <div class="table-grid__first-cell min-w-[400px] max-w-[600px] rounded-l-lg">
-        {#if entry.task && entry.task.clickupTasksStatus}
+        {#if entry.task && entry.task.status}
           <div
             class="w-2 h-2 rounded-sm mr-3 flex-shrink-0"
-            title={getLastStatus(entry.task.clickupTasksStatus)?.status.status}
-            style="background-color: {getLastStatus(entry.task.clickupTasksStatus)?.status.color};"
+            title={getLastStatus(entry.task.status)?.status}
+            style="background-color: {getLastStatus(entry.task.status)?.status.color || '#c2c2c2'};"
           />
         {:else}
           <div class="w-2 h-2 rounded-sm bg-transparent mr-3" />
@@ -135,15 +135,15 @@
       </div>
       <div class="table-grid__cell">
         <img src="./images/hourglass.svg" alt="hourglass" class="mr-2" />
-        {formatDuration(getLastEstimative(entry.task?.clickupTasksTimeEstimates)?.estimate / 1000)}
+        {formatDuration(getLastEstimative(entry.task?.timeEstimates)?.estimate / 1000)}
       </div>
       <div class="table-grid__cell" class:text-red-300={calculateEstimationError(entry) > 2.5}>
         x {calculateEstimationError(entry)}
       </div>
       <div class="table-grid__cell">
-        {#if getLastDueDate(entry.task?.clickupTasksDueDates)?.dueDate}
-          <span title={new Date(Number(getLastDueDate(entry.task?.clickupTasksDueDates)?.dueDate)).toString()}
-            >{formatUnixDate(getLastDueDate(entry.task?.clickupTasksDueDates)?.dueDate)}</span
+        {#if getLastDueDate(entry.task?.dueDates)?.dueDate}
+          <span title={new Date(Number(getLastDueDate(entry.task?.dueDates)?.dueDate)).toString()}
+            >{formatUnixDate(getLastDueDate(entry.task?.dueDates)?.dueDate)}</span
           >
         {/if}
       </div>
@@ -159,22 +159,21 @@
       </div>
       <div class="table-grid__cell">
         {#if entry.timeEntry?.length}
-          <span title={new Date(entry.timeEntry[0]?.timeInterval?.end).toString()}
-            >{formatDateDayMonth(entry.timeEntry[0]?.timeInterval?.end)}</span
+          <span title={new Date(entry.timeEntry[0]?.end).toString()}>{formatDateDayMonth(entry.timeEntry[0]?.end)}</span
           >
         {/if}
       </div>
       <div
         class="table-grid__cell"
-        class:text-red-300={getTaskTimeStatus(entry.task?.clickupTasksStatus, 'to review') >= daysToMilis(3)}
+        class:text-red-300={getTaskTimeStatus(entry.task?.status, 'to review') >= daysToMilis(3)}
       >
-        {formatDurationOnlyDays(getTaskTimeStatus(entry.task?.clickupTasksStatus, 'to review'))}
+        {formatDurationOnlyDays(getTaskTimeStatus(entry.task?.status, 'to review'))}
       </div>
       <div
         class="table-grid__cell rounded-r-lg"
-        class:text-red-300={getTaskTimeStatus(entry.task?.clickupTasksStatus, 'to test') >= daysToMilis(3)}
+        class:text-red-300={getTaskTimeStatus(entry.task?.status, 'to test') >= daysToMilis(3)}
       >
-        {formatDurationOnlyDays(getTaskTimeStatus(entry.task?.clickupTasksStatus, 'to test'))}
+        {formatDurationOnlyDays(getTaskTimeStatus(entry.task?.status, 'to test'))}
       </div>
     {/each}
   {/if}
