@@ -25,6 +25,7 @@ export const queries = gql`
       }
       clickupTask {
         id
+        name
         description
         url
         assignees {

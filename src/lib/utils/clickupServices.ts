@@ -67,7 +67,7 @@ export const avgEstimativeError = (report: Report): number => {
   const tasksWithEstimation = Object.values(report).filter((item) => item.task?.timeEstimates[0]?.estimate != null)
   return (
     tasksWithEstimation.map((item) => calculateEstimationError(item)).reduce((a, b) => a + b, 0) /
-    tasksWithEstimation.length
+      tasksWithEstimation.length || 0
   )
 }
 
