@@ -66,7 +66,7 @@ export const formatReport: Record<
   'Task ID': (id, entry) => (entry.task ? id : 'Flex'),
   'ClickUp URL': (_id, entry) => (entry.task ? entry.task.url : ''),
   Description: (id, entry) => entry.task?.name ?? id,
-  Project: (_id, entry) => entry.task?.list.name ?? entry.timeEntry[0]?.clockifyProject?.name ?? 'No project',
+  Project: (_id, entry) => entry.task?.listLocation.name ?? entry.timeEntry[0]?.clockifyProject?.name ?? 'No project',
   'Clockify URL': (id, entry, dateRangeStart, dateRangeEnd) =>
     entry.timeEntry?.length ? clockifyUrl(dateRangeStart, dateRangeEnd, getTaskName(entry)) : '',
   'Time Tracked': (_id, entry) => formatDuration(sumDurations(entry.timeEntry)),
@@ -74,21 +74,19 @@ export const formatReport: Record<
   'Time Tracked Roundup': (_id, entry) => formatDuration(durationRoundUpByHalfHour(sumDurations(entry.timeEntry))),
   'Time Tracked Roundup Decimals': (_id, entry) =>
     formatHourDecimals(durationRoundUpByHalfHour(sumDurations(entry.timeEntry))),
-  'Time Estimate': (_id, entry) =>
-    formatDuration(getLastEstimative(entry.task?.clickupTasksTimeEstimates)?.estimate / 1000),
+  'Time Estimate': (_id, entry) => formatDuration(getLastEstimative(entry.task?.timeEstimates)?.estimate / 1000),
   'Time Estimate Decimals': (_id, entry) =>
-    formatHourDecimals(getLastEstimative(entry.task?.clickupTasksTimeEstimates)?.estimate / 1000),
+    formatHourDecimals(getLastEstimative(entry.task?.timeEstimates)?.estimate / 1000),
   'Time Tracked by the Main Contributor': (_id, entry) => formatHourDecimals(getMainGroupOfDurations(entry.timeEntry)),
   'Estimative error': (_id, entry) => String(calculateEstimationError(entry)),
   'Due date': (_id, entry) =>
-    getLastDueDate(entry.task?.clickupTasksDueDates)?.dueDate
-      ? new Date(getLastDueDate(entry.task?.clickupTasksDueDates)?.dueDate).toString()
+    getLastDueDate(entry.task?.dueDates)?.dueDate
+      ? new Date(getLastDueDate(entry.task?.dueDates)?.dueDate).toString()
       : '--',
   Delay: (_id, entry) => (entry.task ? formatDays(calculateDelay(entry.task)) : ''),
-  'First Log': (_id, entry) =>
-    entry.timeEntry?.length ? entry.timeEntry[entry.timeEntry.length - 1]?.timeInterval?.start : '',
-  'Last Log': (_id, entry) => (entry.timeEntry?.length ? entry.timeEntry[0]?.timeInterval?.end : ''),
-  Status: (_id, entry) => (entry.task ? getLastStatus(entry.task?.clickupTasksStatus)?.status.status : ''),
+  'First Log': (_id, entry) => (entry.timeEntry?.length ? entry.timeEntry[entry.timeEntry.length - 1]?.start : ''),
+  'Last Log': (_id, entry) => (entry.timeEntry?.length ? entry.timeEntry[0]?.end : ''),
+  Status: (_id, entry) => (entry.task ? getLastStatus(entry.task?.status)?.status.status : ''),
   Tags: (_id, entry) => {
     if (entry.task) {
       let value = ''
@@ -104,9 +102,8 @@ export const formatReport: Record<
     return ''
   },
   Assignees: (_id, entry) => formatUserNamesSortedByParticipation(entry.timeEntry),
-  'Days in Review': (_id, entry) =>
-    formatDurationWithDays(getTaskTimeStatus(entry.task?.clickupTasksStatus, 'to review')),
-  'Days in Test': (_id, entry) => formatDurationWithDays(getTaskTimeStatus(entry.task?.clickupTasksStatus, 'to test')),
+  'Days in Review': (_id, entry) => formatDurationWithDays(getTaskTimeStatus(entry.task?.status, 'to review')),
+  'Days in Test': (_id, entry) => formatDurationWithDays(getTaskTimeStatus(entry.task?.status, 'to test')),
 }
 
 export const formatDuration = (duration: number): string => {

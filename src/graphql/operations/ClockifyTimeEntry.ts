@@ -3,8 +3,12 @@ import { gql } from '@urql/svelte'
 export const queries = gql`
   query clockifyTimeEntries($where: ClockifyTimeEntryWhereInput) {
     clockifyTimeEntries(where: $where) {
-      clockifyId
+      id
       description
+      start
+      end
+      duration
+      currentlyRunning
       tags {
         name
       }
@@ -13,32 +17,24 @@ export const queries = gql`
         color
       }
       clockifyUser {
-        id
         name
       }
       user {
-        email
-      }
-      timeInterval {
-        start
-        end
-        duration
+        username
+        githubId
       }
       clickupTask {
         id
-        clickupId
-        name
         description
         url
         assignees {
-          color
-          email
-          id
-          profilePicture
-          username
-          initials
+          clickupUser {
+            id
+            email
+            username
+          }
         }
-        list {
+        listLocation {
           name
         }
         tags {
@@ -46,24 +42,20 @@ export const queries = gql`
           tagBg
           tagFg
         }
-        clickupTasksTimeEstimates {
+        timeEstimates {
           createdAt
           updatedAt
           estimate
         }
-        clickupTasksDueDates {
+        dueDates {
           createdAt
           updatedAt
           dueDate
         }
-        clickupTasksStatus {
-          id
+        status {
           createdAt
           updatedAt
-          status {
-            color
-            status
-          }
+          status
         }
       }
     }

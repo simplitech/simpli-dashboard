@@ -30,7 +30,7 @@
   import { showToast } from '$lib/utils/toast'
   import { validateAndSignIn, type Login } from '$lib/utils/loginServices'
   import { graphqlClient } from '$lib/utils/store'
-  import type { ClickupTasksStatus, ClockifyTimeEntry } from '../graphql/generated'
+  import type { ClickupTaskStatus, ClockifyTimeEntry } from '../graphql/generated'
   import { orderByColumns, type OrderBy, orderBySummary } from '$lib/utils/orderby'
 
   let report: Report = null
@@ -100,7 +100,7 @@
     projectFilter = [
       ...new Set(
         Object.values(report).map(
-          (item: Entry) => item.task?.list.name ?? item.timeEntry?.[0]?.clockifyProject?.name ?? 'No Project',
+          (item: Entry) => item.task?.listLocation.name ?? item.timeEntry?.[0]?.clockifyProject?.name ?? 'No Project',
         ),
       ),
     ]
@@ -113,10 +113,10 @@
 
     const statusMap: { [id: string]: FilterOptions } = {}
     Object.values(report).forEach((item: Entry) => {
-      const status = item.task?.clickupTasksStatus
+      const status = item.task?.status
 
-      status?.forEach((clickupStatus: ClickupTasksStatus) => {
-        const name = clickupStatus.status.status
+      status?.forEach((clickupStatus: ClickupTaskStatus) => {
+        const name = clickupStatus.status
         if (!statusMap[name]) {
           statusMap[name] = {
             label: name,
@@ -212,8 +212,7 @@
       reportFiltered = Object.fromEntries(
         Object.entries(reportFiltered).filter(([, value]) =>
           Object.values(selectedStatus).some(
-            (status: FilterOptions) =>
-              (getLastStatus(value.task?.clickupTasksStatus)?.status.status ?? 'No Status') === status.label,
+            (status: FilterOptions) => (getLastStatus(value.task?.status)?.status ?? 'No Status') === status.label,
           ),
         ),
       )
@@ -224,7 +223,8 @@
         Object.entries(reportFiltered).filter(([, value]) =>
           Object.values(selectedProject).some(
             (project: FilterOptions) =>
-              (value.task?.list.name ?? value.timeEntry[0]?.clockifyProject?.name ?? 'No Project') === project.label,
+              (value.task?.listLocation.name ?? value.timeEntry[0]?.clockifyProject?.name ?? 'No Project') ===
+              project.label,
           ),
         ),
       )
@@ -253,12 +253,7 @@
         Object.entries(reportFiltered).filter(([, value]) =>
           Object.values(selectedStatusInPeriod).some((timeInStatus: FilterOptions) => {
             if (!value.task) return false
-            return checkIfStatusInRange(
-              dateRangeStart,
-              dateRangeEnd,
-              value.task?.clickupTasksStatus,
-              timeInStatus.label,
-            )
+            return checkIfStatusInRange(dateRangeStart, dateRangeEnd, value.task?.status, timeInStatus.label)
           }),
         ),
       )
@@ -281,8 +276,8 @@
         Object.entries(reportFiltered).filter(
           ([, value]) =>
             calculateEstimationError(value) > 2.5 ||
-            getTaskTimeStatus(value.task?.clickupTasksStatus, 'to review') >= daysToMilis(3) ||
-            getTaskTimeStatus(value.task?.clickupTasksStatus, 'to test') >= daysToMilis(3) ||
+            getTaskTimeStatus(value.task?.status, 'to review') >= daysToMilis(3) ||
+            getTaskTimeStatus(value.task?.status, 'to test') >= daysToMilis(3) ||
             calculateDelay(value.task) >= 2,
         ),
       )
@@ -301,7 +296,7 @@
 
     if (selectedGroupBy.some((item: FilterOptions) => item.label === 'Date')) {
       for (const [idIssue, entry] of Object.entries(reportFiltered)) {
-        const dates = new Set(entry.timeEntry.map((item) => formatDayMonthYear(item.timeInterval.start)))
+        const dates = new Set(entry.timeEntry.map((item) => formatDayMonthYear(item.start)))
 
         dates.forEach((date: string) => {
           if (!reportGroup[date]) {
@@ -325,7 +320,7 @@
       if (selectedGroupBy.some((item: FilterOptions) => item.label === 'Project')) {
         for (const [taskKey, taskValue] of Object.entries(value)) {
           const entry = taskValue as Entry
-          const projectKey = entry.task?.list.name ?? entry.timeEntry[0]?.clockifyProject?.name ?? 'No project'
+          const projectKey = entry.task?.listLocation.name ?? entry.timeEntry[0]?.clockifyProject?.name ?? 'No project'
           if (!group[projectKey]) {
             group[projectKey] = {}
           }
@@ -379,36 +374,36 @@
   const checkIfStatusInRange = (
     dateRangeStart: Date,
     dateRangeEnd: Date,
-    statusHistory: ClickupTasksStatus[],
+    statusHistory: ClickupTaskStatus[],
     selectedTimeInStatus: string,
   ) => {
     if (statusHistory.length) {
       // Pego todos os valores que estão no range da data, ordeno pelo mais atual
       const valueInRange = statusHistory
         .filter(
-          (item: ClickupTasksStatus) =>
+          (item: ClickupTaskStatus) =>
             new Date(item.createdAt) >= dateRangeStart && new Date(item.createdAt) <= dateRangeEnd,
         )
         .sort(
-          (a: ClickupTasksStatus, b: ClickupTasksStatus) =>
+          (a: ClickupTaskStatus, b: ClickupTaskStatus) =>
             new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf(),
         )
 
       // Se não existir valor no range, o status da issue não mudou nesse período
       // Então pega o status mais atual antes do range da data
       const valuesBeforeRange = statusHistory
-        .filter((item: ClickupTasksStatus) => new Date(item.createdAt) < dateRangeStart)
+        .filter((item: ClickupTaskStatus) => new Date(item.createdAt) < dateRangeStart)
         .sort(
-          (a: ClickupTasksStatus, b: ClickupTasksStatus) =>
+          (a: ClickupTaskStatus, b: ClickupTaskStatus) =>
             new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf(),
         )
 
       if (valueInRange.length) {
-        return valueInRange[0].status.status === selectedTimeInStatus
+        return valueInRange[0].status === selectedTimeInStatus
       }
 
       if (valuesBeforeRange.length) {
-        return valuesBeforeRange[0].status.status === selectedTimeInStatus
+        return valuesBeforeRange[0].status === selectedTimeInStatus
       }
     }
 
