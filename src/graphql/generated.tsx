@@ -13278,6 +13278,7 @@ export type ClockifyTimeEntriesQuery = {
     clickupTask?: {
       __typename?: 'ClickupTask'
       id: string
+      name: string
       description?: string | null
       url: string
       assignees: Array<{
@@ -13387,6 +13388,7 @@ export const ClockifyTimeEntriesDocument = {
                     kind: 'SelectionSet',
                     selections: [
                       { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
                       { kind: 'Field', name: { kind: 'Name', value: 'description' } },
                       { kind: 'Field', name: { kind: 'Name', value: 'url' } },
                       {

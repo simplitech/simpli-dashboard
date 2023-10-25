@@ -1,7 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import { Client, cacheExchange, fetchExchange } from '@urql/svelte'
-
   import { getToken } from '$lib/utils/cacheServices'
   import {
     calculateEstimationError,
@@ -52,7 +51,7 @@
   let searchValue: string | null = null
 
   let now = new Date()
-  let dateRangeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 365)
+  let dateRangeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7)
   let dateRangeEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1)
 
   let reportGroup: Group = {}
@@ -413,11 +412,14 @@
   const client = new Client({
     url: import.meta.env.VITE_GRAPHQL_ENDPOINT ?? '',
     exchanges: [cacheExchange, fetchExchange],
-    fetchOptions: {
-      headers: {
-        'content-type': 'application/json',
-        Authorization: getToken(),
-      },
+    fetchOptions: () => {
+      const token = getToken()
+      return {
+        headers: {
+          'content-type': 'application/json',
+          Authorization: token,
+        },
+      }
     },
   })
 
@@ -427,8 +429,8 @@
     try {
       await validateAndSignIn(loginData)
       showToast('Login Successful!')
-
       loginOpen = false
+      await generateReport()
     } catch (e) {
       showToast(e, 'red')
     }
