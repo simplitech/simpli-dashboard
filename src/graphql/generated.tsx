@@ -13274,7 +13274,7 @@ export type ClockifyTimeEntriesQuery = {
     tags: Array<{ __typename?: 'ClockifyTimeEntryTag'; name: string }>
     clockifyProject?: { __typename?: 'ClockifyTimeEntryProject'; name: string; color: string } | null
     clockifyUser: { __typename?: 'ClockifyUser'; name: string }
-    user?: { __typename?: 'User'; username: string; githubId?: string | null } | null
+    user?: { __typename?: 'User'; username: string; email: string } | null
     clickupTask?: {
       __typename?: 'ClickupTask'
       id: string
@@ -13377,7 +13377,7 @@ export const ClockifyTimeEntriesDocument = {
                     kind: 'SelectionSet',
                     selections: [
                       { kind: 'Field', name: { kind: 'Name', value: 'username' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'githubId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'email' } },
                     ],
                   },
                 },
