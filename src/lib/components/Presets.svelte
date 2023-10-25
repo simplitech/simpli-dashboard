@@ -27,7 +27,7 @@
     const filtered = presets().filter((item: FilterPreset) => item.name !== presetToDelete.name)
     localStorage.setItem('presets', JSON.stringify(filtered))
     showToast('Filter preset successfully deleted')
-    isOpen = false
+    presetToDelete = null
   }
 </script>
 
@@ -66,9 +66,7 @@
       <span class="text-xl font-bold">Are you sure you want to delete this preset?</span>
 
       <div class="flex gap-x-4">
-        <button class="py-1 bg-lilac text-white font-bold rounded-full w-[112px]" on:click={() => deletePreset}
-          >Yes</button
-        >
+        <button class="py-1 bg-lilac text-white font-bold rounded-full w-[112px]" on:click={deletePreset}>Yes</button>
         <button
           class="py-1 border border-white rounded-full whitespace-nowrap w-[112px]"
           on:click={() => (presetToDelete = null)}>No</button
