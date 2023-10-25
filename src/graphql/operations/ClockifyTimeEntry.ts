@@ -21,7 +21,7 @@ export const queries = gql`
       }
       user {
         username
-        githubId
+        email
       }
       clickupTask {
         id
