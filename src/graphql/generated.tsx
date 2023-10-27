@@ -8942,6 +8942,202 @@ export type ClickupWebhookWhereUniqueInput = {
   webhookId?: InputMaybe<Scalars['String']['input']>
 }
 
+export type ClockifyTagOnTimeEntry = {
+  __typename?: 'ClockifyTagOnTimeEntry'
+  clockifyTagId: Scalars['String']['output']
+  clockifyTimeEntryId: Scalars['String']['output']
+  createdAt: Scalars['DateTime']['output']
+}
+
+export type ClockifyTagOnTimeEntryClockifyTagIdClockifyTimeEntryIdCompoundUniqueInput = {
+  clockifyTagId: Scalars['String']['input']
+  clockifyTimeEntryId: Scalars['String']['input']
+}
+
+export type ClockifyTagOnTimeEntryCreateManyClockifyTagInput = {
+  clockifyTimeEntryId: Scalars['String']['input']
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>
+}
+
+export type ClockifyTagOnTimeEntryCreateManyClockifyTagInputEnvelope = {
+  data: Array<ClockifyTagOnTimeEntryCreateManyClockifyTagInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type ClockifyTagOnTimeEntryCreateManyClockifyTimeEntryInput = {
+  clockifyTagId: Scalars['String']['input']
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>
+}
+
+export type ClockifyTagOnTimeEntryCreateManyClockifyTimeEntryInputEnvelope = {
+  data: Array<ClockifyTagOnTimeEntryCreateManyClockifyTimeEntryInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type ClockifyTagOnTimeEntryCreateNestedManyWithoutClockifyTagInput = {
+  connect?: InputMaybe<Array<ClockifyTagOnTimeEntryWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClockifyTagOnTimeEntryCreateOrConnectWithoutClockifyTagInput>>
+  create?: InputMaybe<Array<ClockifyTagOnTimeEntryCreateWithoutClockifyTagInput>>
+  createMany?: InputMaybe<ClockifyTagOnTimeEntryCreateManyClockifyTagInputEnvelope>
+}
+
+export type ClockifyTagOnTimeEntryCreateNestedManyWithoutClockifyTimeEntryInput = {
+  connect?: InputMaybe<Array<ClockifyTagOnTimeEntryWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClockifyTagOnTimeEntryCreateOrConnectWithoutClockifyTimeEntryInput>>
+  create?: InputMaybe<Array<ClockifyTagOnTimeEntryCreateWithoutClockifyTimeEntryInput>>
+  createMany?: InputMaybe<ClockifyTagOnTimeEntryCreateManyClockifyTimeEntryInputEnvelope>
+}
+
+export type ClockifyTagOnTimeEntryCreateOrConnectWithoutClockifyTagInput = {
+  create: ClockifyTagOnTimeEntryCreateWithoutClockifyTagInput
+  where: ClockifyTagOnTimeEntryWhereUniqueInput
+}
+
+export type ClockifyTagOnTimeEntryCreateOrConnectWithoutClockifyTimeEntryInput = {
+  create: ClockifyTagOnTimeEntryCreateWithoutClockifyTimeEntryInput
+  where: ClockifyTagOnTimeEntryWhereUniqueInput
+}
+
+export type ClockifyTagOnTimeEntryCreateWithoutClockifyTagInput = {
+  clockifyTimeEntry: ClockifyTimeEntryCreateNestedOneWithoutTagsInput
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>
+}
+
+export type ClockifyTagOnTimeEntryCreateWithoutClockifyTimeEntryInput = {
+  clockifyTag: ClockifyTimeEntryTagCreateNestedOneWithoutTimeEntriesInput
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>
+}
+
+export type ClockifyTagOnTimeEntryListRelationFilter = {
+  every?: InputMaybe<ClockifyTagOnTimeEntryWhereInput>
+  none?: InputMaybe<ClockifyTagOnTimeEntryWhereInput>
+  some?: InputMaybe<ClockifyTagOnTimeEntryWhereInput>
+}
+
+export type ClockifyTagOnTimeEntryOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>
+}
+
+export type ClockifyTagOnTimeEntryOrderByWithRelationInput = {
+  clockifyTag?: InputMaybe<ClockifyTimeEntryTagOrderByWithRelationInput>
+  clockifyTagId?: InputMaybe<SortOrder>
+  clockifyTimeEntry?: InputMaybe<ClockifyTimeEntryOrderByWithRelationInput>
+  clockifyTimeEntryId?: InputMaybe<SortOrder>
+  createdAt?: InputMaybe<SortOrder>
+}
+
+export enum ClockifyTagOnTimeEntryScalarFieldEnum {
+  ClockifyTagId = 'clockifyTagId',
+  ClockifyTimeEntryId = 'clockifyTimeEntryId',
+  CreatedAt = 'createdAt',
+}
+
+export type ClockifyTagOnTimeEntryScalarWhereInput = {
+  AND?: InputMaybe<Array<ClockifyTagOnTimeEntryScalarWhereInput>>
+  NOT?: InputMaybe<Array<ClockifyTagOnTimeEntryScalarWhereInput>>
+  OR?: InputMaybe<Array<ClockifyTagOnTimeEntryScalarWhereInput>>
+  clockifyTagId?: InputMaybe<StringFilter>
+  clockifyTimeEntryId?: InputMaybe<StringFilter>
+  createdAt?: InputMaybe<DateTimeFilter>
+}
+
+export type ClockifyTagOnTimeEntryUpdateManyMutationInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+}
+
+export type ClockifyTagOnTimeEntryUpdateManyWithWhereWithoutClockifyTagInput = {
+  data: ClockifyTagOnTimeEntryUpdateManyMutationInput
+  where: ClockifyTagOnTimeEntryScalarWhereInput
+}
+
+export type ClockifyTagOnTimeEntryUpdateManyWithWhereWithoutClockifyTimeEntryInput = {
+  data: ClockifyTagOnTimeEntryUpdateManyMutationInput
+  where: ClockifyTagOnTimeEntryScalarWhereInput
+}
+
+export type ClockifyTagOnTimeEntryUpdateManyWithoutClockifyTagNestedInput = {
+  connect?: InputMaybe<Array<ClockifyTagOnTimeEntryWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClockifyTagOnTimeEntryCreateOrConnectWithoutClockifyTagInput>>
+  create?: InputMaybe<Array<ClockifyTagOnTimeEntryCreateWithoutClockifyTagInput>>
+  createMany?: InputMaybe<ClockifyTagOnTimeEntryCreateManyClockifyTagInputEnvelope>
+  delete?: InputMaybe<Array<ClockifyTagOnTimeEntryWhereUniqueInput>>
+  deleteMany?: InputMaybe<Array<ClockifyTagOnTimeEntryScalarWhereInput>>
+  disconnect?: InputMaybe<Array<ClockifyTagOnTimeEntryWhereUniqueInput>>
+  set?: InputMaybe<Array<ClockifyTagOnTimeEntryWhereUniqueInput>>
+  update?: InputMaybe<Array<ClockifyTagOnTimeEntryUpdateWithWhereUniqueWithoutClockifyTagInput>>
+  updateMany?: InputMaybe<Array<ClockifyTagOnTimeEntryUpdateManyWithWhereWithoutClockifyTagInput>>
+  upsert?: InputMaybe<Array<ClockifyTagOnTimeEntryUpsertWithWhereUniqueWithoutClockifyTagInput>>
+}
+
+export type ClockifyTagOnTimeEntryUpdateManyWithoutClockifyTimeEntryNestedInput = {
+  connect?: InputMaybe<Array<ClockifyTagOnTimeEntryWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClockifyTagOnTimeEntryCreateOrConnectWithoutClockifyTimeEntryInput>>
+  create?: InputMaybe<Array<ClockifyTagOnTimeEntryCreateWithoutClockifyTimeEntryInput>>
+  createMany?: InputMaybe<ClockifyTagOnTimeEntryCreateManyClockifyTimeEntryInputEnvelope>
+  delete?: InputMaybe<Array<ClockifyTagOnTimeEntryWhereUniqueInput>>
+  deleteMany?: InputMaybe<Array<ClockifyTagOnTimeEntryScalarWhereInput>>
+  disconnect?: InputMaybe<Array<ClockifyTagOnTimeEntryWhereUniqueInput>>
+  set?: InputMaybe<Array<ClockifyTagOnTimeEntryWhereUniqueInput>>
+  update?: InputMaybe<Array<ClockifyTagOnTimeEntryUpdateWithWhereUniqueWithoutClockifyTimeEntryInput>>
+  updateMany?: InputMaybe<Array<ClockifyTagOnTimeEntryUpdateManyWithWhereWithoutClockifyTimeEntryInput>>
+  upsert?: InputMaybe<Array<ClockifyTagOnTimeEntryUpsertWithWhereUniqueWithoutClockifyTimeEntryInput>>
+}
+
+export type ClockifyTagOnTimeEntryUpdateWithWhereUniqueWithoutClockifyTagInput = {
+  data: ClockifyTagOnTimeEntryUpdateWithoutClockifyTagInput
+  where: ClockifyTagOnTimeEntryWhereUniqueInput
+}
+
+export type ClockifyTagOnTimeEntryUpdateWithWhereUniqueWithoutClockifyTimeEntryInput = {
+  data: ClockifyTagOnTimeEntryUpdateWithoutClockifyTimeEntryInput
+  where: ClockifyTagOnTimeEntryWhereUniqueInput
+}
+
+export type ClockifyTagOnTimeEntryUpdateWithoutClockifyTagInput = {
+  clockifyTimeEntry?: InputMaybe<ClockifyTimeEntryUpdateOneRequiredWithoutTagsNestedInput>
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+}
+
+export type ClockifyTagOnTimeEntryUpdateWithoutClockifyTimeEntryInput = {
+  clockifyTag?: InputMaybe<ClockifyTimeEntryTagUpdateOneRequiredWithoutTimeEntriesNestedInput>
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+}
+
+export type ClockifyTagOnTimeEntryUpsertWithWhereUniqueWithoutClockifyTagInput = {
+  create: ClockifyTagOnTimeEntryCreateWithoutClockifyTagInput
+  update: ClockifyTagOnTimeEntryUpdateWithoutClockifyTagInput
+  where: ClockifyTagOnTimeEntryWhereUniqueInput
+}
+
+export type ClockifyTagOnTimeEntryUpsertWithWhereUniqueWithoutClockifyTimeEntryInput = {
+  create: ClockifyTagOnTimeEntryCreateWithoutClockifyTimeEntryInput
+  update: ClockifyTagOnTimeEntryUpdateWithoutClockifyTimeEntryInput
+  where: ClockifyTagOnTimeEntryWhereUniqueInput
+}
+
+export type ClockifyTagOnTimeEntryWhereInput = {
+  AND?: InputMaybe<Array<ClockifyTagOnTimeEntryWhereInput>>
+  NOT?: InputMaybe<Array<ClockifyTagOnTimeEntryWhereInput>>
+  OR?: InputMaybe<Array<ClockifyTagOnTimeEntryWhereInput>>
+  clockifyTag?: InputMaybe<ClockifyTimeEntryTagRelationFilter>
+  clockifyTagId?: InputMaybe<StringFilter>
+  clockifyTimeEntry?: InputMaybe<ClockifyTimeEntryRelationFilter>
+  clockifyTimeEntryId?: InputMaybe<StringFilter>
+  createdAt?: InputMaybe<DateTimeFilter>
+}
+
+export type ClockifyTagOnTimeEntryWhereUniqueInput = {
+  AND?: InputMaybe<Array<ClockifyTagOnTimeEntryWhereInput>>
+  NOT?: InputMaybe<Array<ClockifyTagOnTimeEntryWhereInput>>
+  OR?: InputMaybe<Array<ClockifyTagOnTimeEntryWhereInput>>
+  clockifyTag?: InputMaybe<ClockifyTimeEntryTagRelationFilter>
+  clockifyTagId?: InputMaybe<StringFilter>
+  clockifyTagId_clockifyTimeEntryId?: InputMaybe<ClockifyTagOnTimeEntryClockifyTagIdClockifyTimeEntryIdCompoundUniqueInput>
+  clockifyTimeEntry?: InputMaybe<ClockifyTimeEntryRelationFilter>
+  clockifyTimeEntryId?: InputMaybe<StringFilter>
+  createdAt?: InputMaybe<DateTimeFilter>
+}
+
 export type ClockifyTimeEntry = {
   __typename?: 'ClockifyTimeEntry'
   _count?: Maybe<ClockifyTimeEntryCount>
@@ -8965,7 +9161,7 @@ export type ClockifyTimeEntry = {
   isLocked: Scalars['Boolean']['output']
   kioskId?: Maybe<Scalars['JSON']['output']>
   start: Scalars['String']['output']
-  tags: Array<ClockifyTimeEntryTag>
+  tags: Array<ClockifyTagOnTimeEntry>
   task?: Maybe<Scalars['JSON']['output']>
   type: Scalars['String']['output']
   user?: Maybe<User>
@@ -8986,12 +9182,12 @@ export type ClockifyTimeEntryClockifyProjectArgs = {
 }
 
 export type ClockifyTimeEntryTagsArgs = {
-  cursor?: InputMaybe<ClockifyTimeEntryTagWhereUniqueInput>
-  distinct?: InputMaybe<Array<ClockifyTimeEntryTagScalarFieldEnum>>
-  orderBy?: InputMaybe<Array<ClockifyTimeEntryTagOrderByWithRelationInput>>
+  cursor?: InputMaybe<ClockifyTagOnTimeEntryWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClockifyTagOnTimeEntryScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClockifyTagOnTimeEntryOrderByWithRelationInput>>
   skip?: InputMaybe<Scalars['Int']['input']>
   take?: InputMaybe<Scalars['Int']['input']>
-  where?: InputMaybe<ClockifyTimeEntryTagWhereInput>
+  where?: InputMaybe<ClockifyTagOnTimeEntryWhereInput>
 }
 
 export type ClockifyTimeEntryUserArgs = {
@@ -9012,7 +9208,7 @@ export type ClockifyTimeEntryCount = {
 }
 
 export type ClockifyTimeEntryCountTagsArgs = {
-  where?: InputMaybe<ClockifyTimeEntryTagWhereInput>
+  where?: InputMaybe<ClockifyTagOnTimeEntryWhereInput>
 }
 
 export type ClockifyTimeEntryCountAggregate = {
@@ -9057,7 +9253,7 @@ export type ClockifyTimeEntryCreateInput = {
   isLocked: Scalars['Boolean']['input']
   kioskId?: InputMaybe<Scalars['JSON']['input']>
   start: Scalars['String']['input']
-  tags?: InputMaybe<ClockifyTimeEntryTagCreateNestedManyWithoutTimeEntriesInput>
+  tags?: InputMaybe<ClockifyTagOnTimeEntryCreateNestedManyWithoutClockifyTimeEntryInput>
   task?: InputMaybe<Scalars['JSON']['input']>
   type: Scalars['String']['input']
   user?: InputMaybe<UserCreateNestedOneWithoutClockifyTimeEntriesInput>
@@ -9250,17 +9446,17 @@ export type ClockifyTimeEntryCreateNestedManyWithoutClockifyUserInput = {
   createMany?: InputMaybe<ClockifyTimeEntryCreateManyClockifyUserInputEnvelope>
 }
 
-export type ClockifyTimeEntryCreateNestedManyWithoutTagsInput = {
-  connect?: InputMaybe<Array<ClockifyTimeEntryWhereUniqueInput>>
-  connectOrCreate?: InputMaybe<Array<ClockifyTimeEntryCreateOrConnectWithoutTagsInput>>
-  create?: InputMaybe<Array<ClockifyTimeEntryCreateWithoutTagsInput>>
-}
-
 export type ClockifyTimeEntryCreateNestedManyWithoutUserInput = {
   connect?: InputMaybe<Array<ClockifyTimeEntryWhereUniqueInput>>
   connectOrCreate?: InputMaybe<Array<ClockifyTimeEntryCreateOrConnectWithoutUserInput>>
   create?: InputMaybe<Array<ClockifyTimeEntryCreateWithoutUserInput>>
   createMany?: InputMaybe<ClockifyTimeEntryCreateManyUserInputEnvelope>
+}
+
+export type ClockifyTimeEntryCreateNestedOneWithoutTagsInput = {
+  connect?: InputMaybe<ClockifyTimeEntryWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClockifyTimeEntryCreateOrConnectWithoutTagsInput>
+  create?: InputMaybe<ClockifyTimeEntryCreateWithoutTagsInput>
 }
 
 export type ClockifyTimeEntryCreateOrConnectWithoutClickupClockifyProjectInput = {
@@ -9309,7 +9505,7 @@ export type ClockifyTimeEntryCreateWithoutClickupClockifyProjectInput = {
   isLocked: Scalars['Boolean']['input']
   kioskId?: InputMaybe<Scalars['JSON']['input']>
   start: Scalars['String']['input']
-  tags?: InputMaybe<ClockifyTimeEntryTagCreateNestedManyWithoutTimeEntriesInput>
+  tags?: InputMaybe<ClockifyTagOnTimeEntryCreateNestedManyWithoutClockifyTimeEntryInput>
   task?: InputMaybe<Scalars['JSON']['input']>
   type: Scalars['String']['input']
   user?: InputMaybe<UserCreateNestedOneWithoutClockifyTimeEntriesInput>
@@ -9332,7 +9528,7 @@ export type ClockifyTimeEntryCreateWithoutClickupTaskInput = {
   isLocked: Scalars['Boolean']['input']
   kioskId?: InputMaybe<Scalars['JSON']['input']>
   start: Scalars['String']['input']
-  tags?: InputMaybe<ClockifyTimeEntryTagCreateNestedManyWithoutTimeEntriesInput>
+  tags?: InputMaybe<ClockifyTagOnTimeEntryCreateNestedManyWithoutClockifyTimeEntryInput>
   task?: InputMaybe<Scalars['JSON']['input']>
   type: Scalars['String']['input']
   user?: InputMaybe<UserCreateNestedOneWithoutClockifyTimeEntriesInput>
@@ -9355,7 +9551,7 @@ export type ClockifyTimeEntryCreateWithoutClockifyProjectInput = {
   isLocked: Scalars['Boolean']['input']
   kioskId?: InputMaybe<Scalars['JSON']['input']>
   start: Scalars['String']['input']
-  tags?: InputMaybe<ClockifyTimeEntryTagCreateNestedManyWithoutTimeEntriesInput>
+  tags?: InputMaybe<ClockifyTagOnTimeEntryCreateNestedManyWithoutClockifyTimeEntryInput>
   task?: InputMaybe<Scalars['JSON']['input']>
   type: Scalars['String']['input']
   user?: InputMaybe<UserCreateNestedOneWithoutClockifyTimeEntriesInput>
@@ -9378,7 +9574,7 @@ export type ClockifyTimeEntryCreateWithoutClockifyUserInput = {
   isLocked: Scalars['Boolean']['input']
   kioskId?: InputMaybe<Scalars['JSON']['input']>
   start: Scalars['String']['input']
-  tags?: InputMaybe<ClockifyTimeEntryTagCreateNestedManyWithoutTimeEntriesInput>
+  tags?: InputMaybe<ClockifyTagOnTimeEntryCreateNestedManyWithoutClockifyTimeEntryInput>
   task?: InputMaybe<Scalars['JSON']['input']>
   type: Scalars['String']['input']
   user?: InputMaybe<UserCreateNestedOneWithoutClockifyTimeEntriesInput>
@@ -9425,7 +9621,7 @@ export type ClockifyTimeEntryCreateWithoutUserInput = {
   isLocked: Scalars['Boolean']['input']
   kioskId?: InputMaybe<Scalars['JSON']['input']>
   start: Scalars['String']['input']
-  tags?: InputMaybe<ClockifyTimeEntryTagCreateNestedManyWithoutTimeEntriesInput>
+  tags?: InputMaybe<ClockifyTagOnTimeEntryCreateNestedManyWithoutClockifyTimeEntryInput>
   task?: InputMaybe<Scalars['JSON']['input']>
   type: Scalars['String']['input']
   workspaceId: Scalars['String']['input']
@@ -9504,7 +9700,7 @@ export type ClockifyTimeEntryOrderByWithRelationInput = {
   isLocked?: InputMaybe<SortOrder>
   kioskId?: InputMaybe<SortOrderInput>
   start?: InputMaybe<SortOrder>
-  tags?: InputMaybe<ClockifyTimeEntryTagOrderByRelationAggregateInput>
+  tags?: InputMaybe<ClockifyTagOnTimeEntryOrderByRelationAggregateInput>
   task?: InputMaybe<SortOrderInput>
   type?: InputMaybe<SortOrder>
   user?: InputMaybe<UserOrderByWithRelationInput>
@@ -9845,6 +10041,11 @@ export type ClockifyTimeEntryProjectWhereUniqueInput = {
   workspaceId?: InputMaybe<StringFilter>
 }
 
+export type ClockifyTimeEntryRelationFilter = {
+  is?: InputMaybe<ClockifyTimeEntryWhereInput>
+  isNot?: InputMaybe<ClockifyTimeEntryWhereInput>
+}
+
 export enum ClockifyTimeEntryScalarFieldEnum {
   Billable = 'billable',
   ClickupClockifyProjectId = 'clickupClockifyProjectId',
@@ -9908,17 +10109,17 @@ export type ClockifyTimeEntryTag = {
   archived: Scalars['Boolean']['output']
   id: Scalars['String']['output']
   name: Scalars['String']['output']
-  timeEntries: Array<ClockifyTimeEntry>
+  timeEntries: Array<ClockifyTagOnTimeEntry>
   workspaceId: Scalars['String']['output']
 }
 
 export type ClockifyTimeEntryTagTimeEntriesArgs = {
-  cursor?: InputMaybe<ClockifyTimeEntryWhereUniqueInput>
-  distinct?: InputMaybe<Array<ClockifyTimeEntryScalarFieldEnum>>
-  orderBy?: InputMaybe<Array<ClockifyTimeEntryOrderByWithRelationInput>>
+  cursor?: InputMaybe<ClockifyTagOnTimeEntryWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClockifyTagOnTimeEntryScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClockifyTagOnTimeEntryOrderByWithRelationInput>>
   skip?: InputMaybe<Scalars['Int']['input']>
   take?: InputMaybe<Scalars['Int']['input']>
-  where?: InputMaybe<ClockifyTimeEntryWhereInput>
+  where?: InputMaybe<ClockifyTagOnTimeEntryWhereInput>
 }
 
 export type ClockifyTimeEntryTagCount = {
@@ -9927,7 +10128,7 @@ export type ClockifyTimeEntryTagCount = {
 }
 
 export type ClockifyTimeEntryTagCountTimeEntriesArgs = {
-  where?: InputMaybe<ClockifyTimeEntryWhereInput>
+  where?: InputMaybe<ClockifyTagOnTimeEntryWhereInput>
 }
 
 export type ClockifyTimeEntryTagCountAggregate = {
@@ -9943,7 +10144,7 @@ export type ClockifyTimeEntryTagCreateInput = {
   archived: Scalars['Boolean']['input']
   id: Scalars['String']['input']
   name: Scalars['String']['input']
-  timeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutTagsInput>
+  timeEntries?: InputMaybe<ClockifyTagOnTimeEntryCreateNestedManyWithoutClockifyTagInput>
   workspaceId: Scalars['String']['input']
 }
 
@@ -9954,10 +10155,10 @@ export type ClockifyTimeEntryTagCreateManyInput = {
   workspaceId: Scalars['String']['input']
 }
 
-export type ClockifyTimeEntryTagCreateNestedManyWithoutTimeEntriesInput = {
-  connect?: InputMaybe<Array<ClockifyTimeEntryTagWhereUniqueInput>>
-  connectOrCreate?: InputMaybe<Array<ClockifyTimeEntryTagCreateOrConnectWithoutTimeEntriesInput>>
-  create?: InputMaybe<Array<ClockifyTimeEntryTagCreateWithoutTimeEntriesInput>>
+export type ClockifyTimeEntryTagCreateNestedOneWithoutTimeEntriesInput = {
+  connect?: InputMaybe<ClockifyTimeEntryTagWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClockifyTimeEntryTagCreateOrConnectWithoutTimeEntriesInput>
+  create?: InputMaybe<ClockifyTimeEntryTagCreateWithoutTimeEntriesInput>
 }
 
 export type ClockifyTimeEntryTagCreateOrConnectWithoutTimeEntriesInput = {
@@ -9970,12 +10171,6 @@ export type ClockifyTimeEntryTagCreateWithoutTimeEntriesInput = {
   id: Scalars['String']['input']
   name: Scalars['String']['input']
   workspaceId: Scalars['String']['input']
-}
-
-export type ClockifyTimeEntryTagListRelationFilter = {
-  every?: InputMaybe<ClockifyTimeEntryTagWhereInput>
-  none?: InputMaybe<ClockifyTimeEntryTagWhereInput>
-  some?: InputMaybe<ClockifyTimeEntryTagWhereInput>
 }
 
 export type ClockifyTimeEntryTagMaxAggregate = {
@@ -9994,16 +10189,17 @@ export type ClockifyTimeEntryTagMinAggregate = {
   workspaceId?: Maybe<Scalars['String']['output']>
 }
 
-export type ClockifyTimeEntryTagOrderByRelationAggregateInput = {
-  _count?: InputMaybe<SortOrder>
-}
-
 export type ClockifyTimeEntryTagOrderByWithRelationInput = {
   archived?: InputMaybe<SortOrder>
   id?: InputMaybe<SortOrder>
   name?: InputMaybe<SortOrder>
-  timeEntries?: InputMaybe<ClockifyTimeEntryOrderByRelationAggregateInput>
+  timeEntries?: InputMaybe<ClockifyTagOnTimeEntryOrderByRelationAggregateInput>
   workspaceId?: InputMaybe<SortOrder>
+}
+
+export type ClockifyTimeEntryTagRelationFilter = {
+  is?: InputMaybe<ClockifyTimeEntryTagWhereInput>
+  isNot?: InputMaybe<ClockifyTimeEntryTagWhereInput>
 }
 
 export enum ClockifyTimeEntryTagScalarFieldEnum {
@@ -10013,21 +10209,11 @@ export enum ClockifyTimeEntryTagScalarFieldEnum {
   WorkspaceId = 'workspaceId',
 }
 
-export type ClockifyTimeEntryTagScalarWhereInput = {
-  AND?: InputMaybe<Array<ClockifyTimeEntryTagScalarWhereInput>>
-  NOT?: InputMaybe<Array<ClockifyTimeEntryTagScalarWhereInput>>
-  OR?: InputMaybe<Array<ClockifyTimeEntryTagScalarWhereInput>>
-  archived?: InputMaybe<BoolFilter>
-  id?: InputMaybe<StringFilter>
-  name?: InputMaybe<StringFilter>
-  workspaceId?: InputMaybe<StringFilter>
-}
-
 export type ClockifyTimeEntryTagUpdateInput = {
   archived?: InputMaybe<BoolFieldUpdateOperationsInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
-  timeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutTagsNestedInput>
+  timeEntries?: InputMaybe<ClockifyTagOnTimeEntryUpdateManyWithoutClockifyTagNestedInput>
   workspaceId?: InputMaybe<StringFieldUpdateOperationsInput>
 }
 
@@ -10038,27 +10224,17 @@ export type ClockifyTimeEntryTagUpdateManyMutationInput = {
   workspaceId?: InputMaybe<StringFieldUpdateOperationsInput>
 }
 
-export type ClockifyTimeEntryTagUpdateManyWithWhereWithoutTimeEntriesInput = {
-  data: ClockifyTimeEntryTagUpdateManyMutationInput
-  where: ClockifyTimeEntryTagScalarWhereInput
+export type ClockifyTimeEntryTagUpdateOneRequiredWithoutTimeEntriesNestedInput = {
+  connect?: InputMaybe<ClockifyTimeEntryTagWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClockifyTimeEntryTagCreateOrConnectWithoutTimeEntriesInput>
+  create?: InputMaybe<ClockifyTimeEntryTagCreateWithoutTimeEntriesInput>
+  update?: InputMaybe<ClockifyTimeEntryTagUpdateToOneWithWhereWithoutTimeEntriesInput>
+  upsert?: InputMaybe<ClockifyTimeEntryTagUpsertWithoutTimeEntriesInput>
 }
 
-export type ClockifyTimeEntryTagUpdateManyWithoutTimeEntriesNestedInput = {
-  connect?: InputMaybe<Array<ClockifyTimeEntryTagWhereUniqueInput>>
-  connectOrCreate?: InputMaybe<Array<ClockifyTimeEntryTagCreateOrConnectWithoutTimeEntriesInput>>
-  create?: InputMaybe<Array<ClockifyTimeEntryTagCreateWithoutTimeEntriesInput>>
-  delete?: InputMaybe<Array<ClockifyTimeEntryTagWhereUniqueInput>>
-  deleteMany?: InputMaybe<Array<ClockifyTimeEntryTagScalarWhereInput>>
-  disconnect?: InputMaybe<Array<ClockifyTimeEntryTagWhereUniqueInput>>
-  set?: InputMaybe<Array<ClockifyTimeEntryTagWhereUniqueInput>>
-  update?: InputMaybe<Array<ClockifyTimeEntryTagUpdateWithWhereUniqueWithoutTimeEntriesInput>>
-  updateMany?: InputMaybe<Array<ClockifyTimeEntryTagUpdateManyWithWhereWithoutTimeEntriesInput>>
-  upsert?: InputMaybe<Array<ClockifyTimeEntryTagUpsertWithWhereUniqueWithoutTimeEntriesInput>>
-}
-
-export type ClockifyTimeEntryTagUpdateWithWhereUniqueWithoutTimeEntriesInput = {
+export type ClockifyTimeEntryTagUpdateToOneWithWhereWithoutTimeEntriesInput = {
   data: ClockifyTimeEntryTagUpdateWithoutTimeEntriesInput
-  where: ClockifyTimeEntryTagWhereUniqueInput
+  where?: InputMaybe<ClockifyTimeEntryTagWhereInput>
 }
 
 export type ClockifyTimeEntryTagUpdateWithoutTimeEntriesInput = {
@@ -10068,10 +10244,10 @@ export type ClockifyTimeEntryTagUpdateWithoutTimeEntriesInput = {
   workspaceId?: InputMaybe<StringFieldUpdateOperationsInput>
 }
 
-export type ClockifyTimeEntryTagUpsertWithWhereUniqueWithoutTimeEntriesInput = {
+export type ClockifyTimeEntryTagUpsertWithoutTimeEntriesInput = {
   create: ClockifyTimeEntryTagCreateWithoutTimeEntriesInput
   update: ClockifyTimeEntryTagUpdateWithoutTimeEntriesInput
-  where: ClockifyTimeEntryTagWhereUniqueInput
+  where?: InputMaybe<ClockifyTimeEntryTagWhereInput>
 }
 
 export type ClockifyTimeEntryTagWhereInput = {
@@ -10081,7 +10257,7 @@ export type ClockifyTimeEntryTagWhereInput = {
   archived?: InputMaybe<BoolFilter>
   id?: InputMaybe<StringFilter>
   name?: InputMaybe<StringFilter>
-  timeEntries?: InputMaybe<ClockifyTimeEntryListRelationFilter>
+  timeEntries?: InputMaybe<ClockifyTagOnTimeEntryListRelationFilter>
   workspaceId?: InputMaybe<StringFilter>
 }
 
@@ -10092,7 +10268,7 @@ export type ClockifyTimeEntryTagWhereUniqueInput = {
   archived?: InputMaybe<BoolFilter>
   id?: InputMaybe<Scalars['String']['input']>
   name?: InputMaybe<StringFilter>
-  timeEntries?: InputMaybe<ClockifyTimeEntryListRelationFilter>
+  timeEntries?: InputMaybe<ClockifyTagOnTimeEntryListRelationFilter>
   workspaceId?: InputMaybe<StringFilter>
 }
 
@@ -10113,7 +10289,7 @@ export type ClockifyTimeEntryUpdateInput = {
   isLocked?: InputMaybe<BoolFieldUpdateOperationsInput>
   kioskId?: InputMaybe<Scalars['JSON']['input']>
   start?: InputMaybe<StringFieldUpdateOperationsInput>
-  tags?: InputMaybe<ClockifyTimeEntryTagUpdateManyWithoutTimeEntriesNestedInput>
+  tags?: InputMaybe<ClockifyTagOnTimeEntryUpdateManyWithoutClockifyTimeEntryNestedInput>
   task?: InputMaybe<Scalars['JSON']['input']>
   type?: InputMaybe<StringFieldUpdateOperationsInput>
   user?: InputMaybe<UserUpdateOneWithoutClockifyTimeEntriesNestedInput>
@@ -10154,11 +10330,6 @@ export type ClockifyTimeEntryUpdateManyWithWhereWithoutClockifyProjectInput = {
 }
 
 export type ClockifyTimeEntryUpdateManyWithWhereWithoutClockifyUserInput = {
-  data: ClockifyTimeEntryUpdateManyMutationInput
-  where: ClockifyTimeEntryScalarWhereInput
-}
-
-export type ClockifyTimeEntryUpdateManyWithWhereWithoutTagsInput = {
   data: ClockifyTimeEntryUpdateManyMutationInput
   where: ClockifyTimeEntryScalarWhereInput
 }
@@ -10224,19 +10395,6 @@ export type ClockifyTimeEntryUpdateManyWithoutClockifyUserNestedInput = {
   upsert?: InputMaybe<Array<ClockifyTimeEntryUpsertWithWhereUniqueWithoutClockifyUserInput>>
 }
 
-export type ClockifyTimeEntryUpdateManyWithoutTagsNestedInput = {
-  connect?: InputMaybe<Array<ClockifyTimeEntryWhereUniqueInput>>
-  connectOrCreate?: InputMaybe<Array<ClockifyTimeEntryCreateOrConnectWithoutTagsInput>>
-  create?: InputMaybe<Array<ClockifyTimeEntryCreateWithoutTagsInput>>
-  delete?: InputMaybe<Array<ClockifyTimeEntryWhereUniqueInput>>
-  deleteMany?: InputMaybe<Array<ClockifyTimeEntryScalarWhereInput>>
-  disconnect?: InputMaybe<Array<ClockifyTimeEntryWhereUniqueInput>>
-  set?: InputMaybe<Array<ClockifyTimeEntryWhereUniqueInput>>
-  update?: InputMaybe<Array<ClockifyTimeEntryUpdateWithWhereUniqueWithoutTagsInput>>
-  updateMany?: InputMaybe<Array<ClockifyTimeEntryUpdateManyWithWhereWithoutTagsInput>>
-  upsert?: InputMaybe<Array<ClockifyTimeEntryUpsertWithWhereUniqueWithoutTagsInput>>
-}
-
 export type ClockifyTimeEntryUpdateManyWithoutUserNestedInput = {
   connect?: InputMaybe<Array<ClockifyTimeEntryWhereUniqueInput>>
   connectOrCreate?: InputMaybe<Array<ClockifyTimeEntryCreateOrConnectWithoutUserInput>>
@@ -10249,6 +10407,19 @@ export type ClockifyTimeEntryUpdateManyWithoutUserNestedInput = {
   update?: InputMaybe<Array<ClockifyTimeEntryUpdateWithWhereUniqueWithoutUserInput>>
   updateMany?: InputMaybe<Array<ClockifyTimeEntryUpdateManyWithWhereWithoutUserInput>>
   upsert?: InputMaybe<Array<ClockifyTimeEntryUpsertWithWhereUniqueWithoutUserInput>>
+}
+
+export type ClockifyTimeEntryUpdateOneRequiredWithoutTagsNestedInput = {
+  connect?: InputMaybe<ClockifyTimeEntryWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClockifyTimeEntryCreateOrConnectWithoutTagsInput>
+  create?: InputMaybe<ClockifyTimeEntryCreateWithoutTagsInput>
+  update?: InputMaybe<ClockifyTimeEntryUpdateToOneWithWhereWithoutTagsInput>
+  upsert?: InputMaybe<ClockifyTimeEntryUpsertWithoutTagsInput>
+}
+
+export type ClockifyTimeEntryUpdateToOneWithWhereWithoutTagsInput = {
+  data: ClockifyTimeEntryUpdateWithoutTagsInput
+  where?: InputMaybe<ClockifyTimeEntryWhereInput>
 }
 
 export type ClockifyTimeEntryUpdateWithWhereUniqueWithoutClickupClockifyProjectInput = {
@@ -10268,11 +10439,6 @@ export type ClockifyTimeEntryUpdateWithWhereUniqueWithoutClockifyProjectInput = 
 
 export type ClockifyTimeEntryUpdateWithWhereUniqueWithoutClockifyUserInput = {
   data: ClockifyTimeEntryUpdateWithoutClockifyUserInput
-  where: ClockifyTimeEntryWhereUniqueInput
-}
-
-export type ClockifyTimeEntryUpdateWithWhereUniqueWithoutTagsInput = {
-  data: ClockifyTimeEntryUpdateWithoutTagsInput
   where: ClockifyTimeEntryWhereUniqueInput
 }
 
@@ -10297,7 +10463,7 @@ export type ClockifyTimeEntryUpdateWithoutClickupClockifyProjectInput = {
   isLocked?: InputMaybe<BoolFieldUpdateOperationsInput>
   kioskId?: InputMaybe<Scalars['JSON']['input']>
   start?: InputMaybe<StringFieldUpdateOperationsInput>
-  tags?: InputMaybe<ClockifyTimeEntryTagUpdateManyWithoutTimeEntriesNestedInput>
+  tags?: InputMaybe<ClockifyTagOnTimeEntryUpdateManyWithoutClockifyTimeEntryNestedInput>
   task?: InputMaybe<Scalars['JSON']['input']>
   type?: InputMaybe<StringFieldUpdateOperationsInput>
   user?: InputMaybe<UserUpdateOneWithoutClockifyTimeEntriesNestedInput>
@@ -10320,7 +10486,7 @@ export type ClockifyTimeEntryUpdateWithoutClickupTaskInput = {
   isLocked?: InputMaybe<BoolFieldUpdateOperationsInput>
   kioskId?: InputMaybe<Scalars['JSON']['input']>
   start?: InputMaybe<StringFieldUpdateOperationsInput>
-  tags?: InputMaybe<ClockifyTimeEntryTagUpdateManyWithoutTimeEntriesNestedInput>
+  tags?: InputMaybe<ClockifyTagOnTimeEntryUpdateManyWithoutClockifyTimeEntryNestedInput>
   task?: InputMaybe<Scalars['JSON']['input']>
   type?: InputMaybe<StringFieldUpdateOperationsInput>
   user?: InputMaybe<UserUpdateOneWithoutClockifyTimeEntriesNestedInput>
@@ -10343,7 +10509,7 @@ export type ClockifyTimeEntryUpdateWithoutClockifyProjectInput = {
   isLocked?: InputMaybe<BoolFieldUpdateOperationsInput>
   kioskId?: InputMaybe<Scalars['JSON']['input']>
   start?: InputMaybe<StringFieldUpdateOperationsInput>
-  tags?: InputMaybe<ClockifyTimeEntryTagUpdateManyWithoutTimeEntriesNestedInput>
+  tags?: InputMaybe<ClockifyTagOnTimeEntryUpdateManyWithoutClockifyTimeEntryNestedInput>
   task?: InputMaybe<Scalars['JSON']['input']>
   type?: InputMaybe<StringFieldUpdateOperationsInput>
   user?: InputMaybe<UserUpdateOneWithoutClockifyTimeEntriesNestedInput>
@@ -10366,7 +10532,7 @@ export type ClockifyTimeEntryUpdateWithoutClockifyUserInput = {
   isLocked?: InputMaybe<BoolFieldUpdateOperationsInput>
   kioskId?: InputMaybe<Scalars['JSON']['input']>
   start?: InputMaybe<StringFieldUpdateOperationsInput>
-  tags?: InputMaybe<ClockifyTimeEntryTagUpdateManyWithoutTimeEntriesNestedInput>
+  tags?: InputMaybe<ClockifyTagOnTimeEntryUpdateManyWithoutClockifyTimeEntryNestedInput>
   task?: InputMaybe<Scalars['JSON']['input']>
   type?: InputMaybe<StringFieldUpdateOperationsInput>
   user?: InputMaybe<UserUpdateOneWithoutClockifyTimeEntriesNestedInput>
@@ -10413,7 +10579,7 @@ export type ClockifyTimeEntryUpdateWithoutUserInput = {
   isLocked?: InputMaybe<BoolFieldUpdateOperationsInput>
   kioskId?: InputMaybe<Scalars['JSON']['input']>
   start?: InputMaybe<StringFieldUpdateOperationsInput>
-  tags?: InputMaybe<ClockifyTimeEntryTagUpdateManyWithoutTimeEntriesNestedInput>
+  tags?: InputMaybe<ClockifyTagOnTimeEntryUpdateManyWithoutClockifyTimeEntryNestedInput>
   task?: InputMaybe<Scalars['JSON']['input']>
   type?: InputMaybe<StringFieldUpdateOperationsInput>
   workspaceId?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -10443,16 +10609,16 @@ export type ClockifyTimeEntryUpsertWithWhereUniqueWithoutClockifyUserInput = {
   where: ClockifyTimeEntryWhereUniqueInput
 }
 
-export type ClockifyTimeEntryUpsertWithWhereUniqueWithoutTagsInput = {
-  create: ClockifyTimeEntryCreateWithoutTagsInput
-  update: ClockifyTimeEntryUpdateWithoutTagsInput
-  where: ClockifyTimeEntryWhereUniqueInput
-}
-
 export type ClockifyTimeEntryUpsertWithWhereUniqueWithoutUserInput = {
   create: ClockifyTimeEntryCreateWithoutUserInput
   update: ClockifyTimeEntryUpdateWithoutUserInput
   where: ClockifyTimeEntryWhereUniqueInput
+}
+
+export type ClockifyTimeEntryUpsertWithoutTagsInput = {
+  create: ClockifyTimeEntryCreateWithoutTagsInput
+  update: ClockifyTimeEntryUpdateWithoutTagsInput
+  where?: InputMaybe<ClockifyTimeEntryWhereInput>
 }
 
 export type ClockifyTimeEntryWhereInput = {
@@ -10479,7 +10645,7 @@ export type ClockifyTimeEntryWhereInput = {
   isLocked?: InputMaybe<BoolFilter>
   kioskId?: InputMaybe<JsonNullableFilter>
   start?: InputMaybe<StringFilter>
-  tags?: InputMaybe<ClockifyTimeEntryTagListRelationFilter>
+  tags?: InputMaybe<ClockifyTagOnTimeEntryListRelationFilter>
   task?: InputMaybe<JsonNullableFilter>
   type?: InputMaybe<StringFilter>
   user?: InputMaybe<UserNullableRelationFilter>
@@ -10511,7 +10677,7 @@ export type ClockifyTimeEntryWhereUniqueInput = {
   isLocked?: InputMaybe<BoolFilter>
   kioskId?: InputMaybe<JsonNullableFilter>
   start?: InputMaybe<StringFilter>
-  tags?: InputMaybe<ClockifyTimeEntryTagListRelationFilter>
+  tags?: InputMaybe<ClockifyTagOnTimeEntryListRelationFilter>
   task?: InputMaybe<JsonNullableFilter>
   type?: InputMaybe<StringFilter>
   user?: InputMaybe<UserNullableRelationFilter>
@@ -13271,7 +13437,7 @@ export type ClockifyTimeEntriesQuery = {
     end?: string | null
     duration?: string | null
     currentlyRunning: boolean
-    tags: Array<{ __typename?: 'ClockifyTimeEntryTag'; name: string }>
+    tags: Array<{ __typename?: 'ClockifyTagOnTimeEntry'; clockifyTagId: string }>
     clockifyProject?: { __typename?: 'ClockifyTimeEntryProject'; name: string; color: string } | null
     clockifyUser: { __typename?: 'ClockifyUser'; name: string }
     user?: { __typename?: 'User'; username: string; email: string } | null
@@ -13348,7 +13514,7 @@ export const ClockifyTimeEntriesDocument = {
                   name: { kind: 'Name', value: 'tags' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'clockifyTagId' } }],
                   },
                 },
                 {

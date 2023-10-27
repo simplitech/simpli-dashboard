@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { FilterItems, FilterOptions, Filters, FilterPreset } from '$lib/utils/format'
+  import type { FilterItems, Filters, FilterPreset } from '$lib/utils/format'
   import { createEventDispatcher } from 'svelte'
   import CustomSelect from './CustomSelect.svelte'
   import AddPreset from './AddPreset.svelte'
