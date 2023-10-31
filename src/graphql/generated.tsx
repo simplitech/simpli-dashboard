@@ -130,6 +130,15 @@ export type AggregateClickupTaskStatus = {
   _min?: Maybe<ClickupTaskStatusMinAggregate>
 }
 
+export type AggregateClickupTaskStatusOnTask = {
+  __typename?: 'AggregateClickupTaskStatusOnTask'
+  _avg?: Maybe<ClickupTaskStatusOnTaskAvgAggregate>
+  _count?: Maybe<ClickupTaskStatusOnTaskCountAggregate>
+  _max?: Maybe<ClickupTaskStatusOnTaskMaxAggregate>
+  _min?: Maybe<ClickupTaskStatusOnTaskMinAggregate>
+  _sum?: Maybe<ClickupTaskStatusOnTaskSumAggregate>
+}
+
 export type AggregateClickupTaskTag = {
   __typename?: 'AggregateClickupTaskTag'
   _avg?: Maybe<ClickupTaskTagAvgAggregate>
@@ -182,6 +191,13 @@ export type AggregateClickupWebhook = {
   _max?: Maybe<ClickupWebhookMaxAggregate>
   _min?: Maybe<ClickupWebhookMinAggregate>
   _sum?: Maybe<ClickupWebhookSumAggregate>
+}
+
+export type AggregateClockifyTagOnTimeEntry = {
+  __typename?: 'AggregateClockifyTagOnTimeEntry'
+  _count?: Maybe<ClockifyTagOnTimeEntryCountAggregate>
+  _max?: Maybe<ClockifyTagOnTimeEntryMaxAggregate>
+  _min?: Maybe<ClockifyTagOnTimeEntryMinAggregate>
 }
 
 export type AggregateClockifyTimeEntry = {
@@ -5421,9 +5437,40 @@ export type ClickupTaskStatusOnTask = {
   __typename?: 'ClickupTaskStatusOnTask'
   createdAt: Scalars['DateTime']['output']
   id: Scalars['Int']['output']
+  status: ClickupTaskStatus
   statusColor: Scalars['String']['output']
   statusName: Scalars['String']['output']
+  task: ClickupTask
   taskId: Scalars['String']['output']
+}
+
+export type ClickupTaskStatusOnTaskAvgAggregate = {
+  __typename?: 'ClickupTaskStatusOnTaskAvgAggregate'
+  id?: Maybe<Scalars['Float']['output']>
+}
+
+export type ClickupTaskStatusOnTaskCountAggregate = {
+  __typename?: 'ClickupTaskStatusOnTaskCountAggregate'
+  _all: Scalars['Int']['output']
+  createdAt: Scalars['Int']['output']
+  id: Scalars['Int']['output']
+  statusColor: Scalars['Int']['output']
+  statusName: Scalars['Int']['output']
+  taskId: Scalars['Int']['output']
+}
+
+export type ClickupTaskStatusOnTaskCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>
+  status: ClickupTaskStatusCreateNestedOneWithoutTasksInput
+  task: ClickupTaskCreateNestedOneWithoutStatusInput
+}
+
+export type ClickupTaskStatusOnTaskCreateManyInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>
+  id?: InputMaybe<Scalars['Int']['input']>
+  statusColor: Scalars['String']['input']
+  statusName: Scalars['String']['input']
+  taskId: Scalars['String']['input']
 }
 
 export type ClickupTaskStatusOnTaskCreateManyStatusInput = {
@@ -5489,6 +5536,24 @@ export type ClickupTaskStatusOnTaskListRelationFilter = {
   some?: InputMaybe<ClickupTaskStatusOnTaskWhereInput>
 }
 
+export type ClickupTaskStatusOnTaskMaxAggregate = {
+  __typename?: 'ClickupTaskStatusOnTaskMaxAggregate'
+  createdAt?: Maybe<Scalars['DateTime']['output']>
+  id?: Maybe<Scalars['Int']['output']>
+  statusColor?: Maybe<Scalars['String']['output']>
+  statusName?: Maybe<Scalars['String']['output']>
+  taskId?: Maybe<Scalars['String']['output']>
+}
+
+export type ClickupTaskStatusOnTaskMinAggregate = {
+  __typename?: 'ClickupTaskStatusOnTaskMinAggregate'
+  createdAt?: Maybe<Scalars['DateTime']['output']>
+  id?: Maybe<Scalars['Int']['output']>
+  statusColor?: Maybe<Scalars['String']['output']>
+  statusName?: Maybe<Scalars['String']['output']>
+  taskId?: Maybe<Scalars['String']['output']>
+}
+
 export type ClickupTaskStatusOnTaskOrderByRelationAggregateInput = {
   _count?: InputMaybe<SortOrder>
 }
@@ -5520,6 +5585,17 @@ export type ClickupTaskStatusOnTaskScalarWhereInput = {
   statusColor?: InputMaybe<StringFilter>
   statusName?: InputMaybe<StringFilter>
   taskId?: InputMaybe<StringFilter>
+}
+
+export type ClickupTaskStatusOnTaskSumAggregate = {
+  __typename?: 'ClickupTaskStatusOnTaskSumAggregate'
+  id?: Maybe<Scalars['Int']['output']>
+}
+
+export type ClickupTaskStatusOnTaskUpdateInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+  status?: InputMaybe<ClickupTaskStatusUpdateOneRequiredWithoutTasksNestedInput>
+  task?: InputMaybe<ClickupTaskUpdateOneRequiredWithoutStatusNestedInput>
 }
 
 export type ClickupTaskStatusOnTaskUpdateManyMutationInput = {
@@ -9106,7 +9182,9 @@ export type ClickupWebhookWhereUniqueInput = {
 
 export type ClockifyTagOnTimeEntry = {
   __typename?: 'ClockifyTagOnTimeEntry'
+  clockifyTag: ClockifyTimeEntryTag
   clockifyTagId: Scalars['String']['output']
+  clockifyTimeEntry: ClockifyTimeEntry
   clockifyTimeEntryId: Scalars['String']['output']
   createdAt: Scalars['DateTime']['output']
 }
@@ -9114,6 +9192,20 @@ export type ClockifyTagOnTimeEntry = {
 export type ClockifyTagOnTimeEntryClockifyTagIdClockifyTimeEntryIdCompoundUniqueInput = {
   clockifyTagId: Scalars['String']['input']
   clockifyTimeEntryId: Scalars['String']['input']
+}
+
+export type ClockifyTagOnTimeEntryCountAggregate = {
+  __typename?: 'ClockifyTagOnTimeEntryCountAggregate'
+  _all: Scalars['Int']['output']
+  clockifyTagId: Scalars['Int']['output']
+  clockifyTimeEntryId: Scalars['Int']['output']
+  createdAt: Scalars['Int']['output']
+}
+
+export type ClockifyTagOnTimeEntryCreateInput = {
+  clockifyTag: ClockifyTimeEntryTagCreateNestedOneWithoutTimeEntriesInput
+  clockifyTimeEntry: ClockifyTimeEntryCreateNestedOneWithoutTagsInput
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>
 }
 
 export type ClockifyTagOnTimeEntryCreateManyClockifyTagInput = {
@@ -9134,6 +9226,12 @@ export type ClockifyTagOnTimeEntryCreateManyClockifyTimeEntryInput = {
 export type ClockifyTagOnTimeEntryCreateManyClockifyTimeEntryInputEnvelope = {
   data: Array<ClockifyTagOnTimeEntryCreateManyClockifyTimeEntryInput>
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type ClockifyTagOnTimeEntryCreateManyInput = {
+  clockifyTagId: Scalars['String']['input']
+  clockifyTimeEntryId: Scalars['String']['input']
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>
 }
 
 export type ClockifyTagOnTimeEntryCreateNestedManyWithoutClockifyTagInput = {
@@ -9176,6 +9274,20 @@ export type ClockifyTagOnTimeEntryListRelationFilter = {
   some?: InputMaybe<ClockifyTagOnTimeEntryWhereInput>
 }
 
+export type ClockifyTagOnTimeEntryMaxAggregate = {
+  __typename?: 'ClockifyTagOnTimeEntryMaxAggregate'
+  clockifyTagId?: Maybe<Scalars['String']['output']>
+  clockifyTimeEntryId?: Maybe<Scalars['String']['output']>
+  createdAt?: Maybe<Scalars['DateTime']['output']>
+}
+
+export type ClockifyTagOnTimeEntryMinAggregate = {
+  __typename?: 'ClockifyTagOnTimeEntryMinAggregate'
+  clockifyTagId?: Maybe<Scalars['String']['output']>
+  clockifyTimeEntryId?: Maybe<Scalars['String']['output']>
+  createdAt?: Maybe<Scalars['DateTime']['output']>
+}
+
 export type ClockifyTagOnTimeEntryOrderByRelationAggregateInput = {
   _count?: InputMaybe<SortOrder>
 }
@@ -9201,6 +9313,12 @@ export type ClockifyTagOnTimeEntryScalarWhereInput = {
   clockifyTagId?: InputMaybe<StringFilter>
   clockifyTimeEntryId?: InputMaybe<StringFilter>
   createdAt?: InputMaybe<DateTimeFilter>
+}
+
+export type ClockifyTagOnTimeEntryUpdateInput = {
+  clockifyTag?: InputMaybe<ClockifyTimeEntryTagUpdateOneRequiredWithoutTimeEntriesNestedInput>
+  clockifyTimeEntry?: InputMaybe<ClockifyTimeEntryUpdateOneRequiredWithoutTagsNestedInput>
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
 }
 
 export type ClockifyTagOnTimeEntryUpdateManyMutationInput = {
@@ -11271,12 +11389,14 @@ export type Mutation = {
   createManyClickupTaskQueue: AffectedRowsOutput
   createManyClickupTaskSpace: AffectedRowsOutput
   createManyClickupTaskStatus: AffectedRowsOutput
+  createManyClickupTaskStatusOnTask: AffectedRowsOutput
   createManyClickupTaskTag: AffectedRowsOutput
   createManyClickupTaskTimeEstimate: AffectedRowsOutput
   createManyClickupUser: AffectedRowsOutput
   createManyClickupUserTaskAssignee: AffectedRowsOutput
   createManyClickupUserTaskWatchers: AffectedRowsOutput
   createManyClickupWebhook: AffectedRowsOutput
+  createManyClockifyTagOnTimeEntry: AffectedRowsOutput
   createManyClockifyTimeEntry: AffectedRowsOutput
   createManyClockifyTimeEntryProject: AffectedRowsOutput
   createManyClockifyTimeEntryTag: AffectedRowsOutput
@@ -11297,12 +11417,14 @@ export type Mutation = {
   createOneClickupTaskQueue: ClickupTaskQueue
   createOneClickupTaskSpace: ClickupTaskSpace
   createOneClickupTaskStatus: ClickupTaskStatus
+  createOneClickupTaskStatusOnTask: ClickupTaskStatusOnTask
   createOneClickupTaskTag: ClickupTaskTag
   createOneClickupTaskTimeEstimate: ClickupTaskTimeEstimate
   createOneClickupUser: ClickupUser
   createOneClickupUserTaskAssignee: ClickupUserTaskAssignee
   createOneClickupUserTaskWatchers: ClickupUserTaskWatchers
   createOneClickupWebhook: ClickupWebhook
+  createOneClockifyTagOnTimeEntry: ClockifyTagOnTimeEntry
   createOneClockifyTimeEntry: ClockifyTimeEntry
   createOneClockifyTimeEntryProject: ClockifyTimeEntryProject
   createOneClockifyTimeEntryTag: ClockifyTimeEntryTag
@@ -11323,12 +11445,14 @@ export type Mutation = {
   deleteManyClickupTaskQueue: AffectedRowsOutput
   deleteManyClickupTaskSpace: AffectedRowsOutput
   deleteManyClickupTaskStatus: AffectedRowsOutput
+  deleteManyClickupTaskStatusOnTask: AffectedRowsOutput
   deleteManyClickupTaskTag: AffectedRowsOutput
   deleteManyClickupTaskTimeEstimate: AffectedRowsOutput
   deleteManyClickupUser: AffectedRowsOutput
   deleteManyClickupUserTaskAssignee: AffectedRowsOutput
   deleteManyClickupUserTaskWatchers: AffectedRowsOutput
   deleteManyClickupWebhook: AffectedRowsOutput
+  deleteManyClockifyTagOnTimeEntry: AffectedRowsOutput
   deleteManyClockifyTimeEntry: AffectedRowsOutput
   deleteManyClockifyTimeEntryProject: AffectedRowsOutput
   deleteManyClockifyTimeEntryTag: AffectedRowsOutput
@@ -11349,12 +11473,14 @@ export type Mutation = {
   deleteOneClickupTaskQueue?: Maybe<ClickupTaskQueue>
   deleteOneClickupTaskSpace?: Maybe<ClickupTaskSpace>
   deleteOneClickupTaskStatus?: Maybe<ClickupTaskStatus>
+  deleteOneClickupTaskStatusOnTask?: Maybe<ClickupTaskStatusOnTask>
   deleteOneClickupTaskTag?: Maybe<ClickupTaskTag>
   deleteOneClickupTaskTimeEstimate?: Maybe<ClickupTaskTimeEstimate>
   deleteOneClickupUser?: Maybe<ClickupUser>
   deleteOneClickupUserTaskAssignee?: Maybe<ClickupUserTaskAssignee>
   deleteOneClickupUserTaskWatchers?: Maybe<ClickupUserTaskWatchers>
   deleteOneClickupWebhook?: Maybe<ClickupWebhook>
+  deleteOneClockifyTagOnTimeEntry?: Maybe<ClockifyTagOnTimeEntry>
   deleteOneClockifyTimeEntry?: Maybe<ClockifyTimeEntry>
   deleteOneClockifyTimeEntryProject?: Maybe<ClockifyTimeEntryProject>
   deleteOneClockifyTimeEntryTag?: Maybe<ClockifyTimeEntryTag>
@@ -11376,12 +11502,14 @@ export type Mutation = {
   updateManyClickupTaskQueue: AffectedRowsOutput
   updateManyClickupTaskSpace: AffectedRowsOutput
   updateManyClickupTaskStatus: AffectedRowsOutput
+  updateManyClickupTaskStatusOnTask: AffectedRowsOutput
   updateManyClickupTaskTag: AffectedRowsOutput
   updateManyClickupTaskTimeEstimate: AffectedRowsOutput
   updateManyClickupUser: AffectedRowsOutput
   updateManyClickupUserTaskAssignee: AffectedRowsOutput
   updateManyClickupUserTaskWatchers: AffectedRowsOutput
   updateManyClickupWebhook: AffectedRowsOutput
+  updateManyClockifyTagOnTimeEntry: AffectedRowsOutput
   updateManyClockifyTimeEntry: AffectedRowsOutput
   updateManyClockifyTimeEntryProject: AffectedRowsOutput
   updateManyClockifyTimeEntryTag: AffectedRowsOutput
@@ -11402,12 +11530,14 @@ export type Mutation = {
   updateOneClickupTaskQueue?: Maybe<ClickupTaskQueue>
   updateOneClickupTaskSpace?: Maybe<ClickupTaskSpace>
   updateOneClickupTaskStatus?: Maybe<ClickupTaskStatus>
+  updateOneClickupTaskStatusOnTask?: Maybe<ClickupTaskStatusOnTask>
   updateOneClickupTaskTag?: Maybe<ClickupTaskTag>
   updateOneClickupTaskTimeEstimate?: Maybe<ClickupTaskTimeEstimate>
   updateOneClickupUser?: Maybe<ClickupUser>
   updateOneClickupUserTaskAssignee?: Maybe<ClickupUserTaskAssignee>
   updateOneClickupUserTaskWatchers?: Maybe<ClickupUserTaskWatchers>
   updateOneClickupWebhook?: Maybe<ClickupWebhook>
+  updateOneClockifyTagOnTimeEntry?: Maybe<ClockifyTagOnTimeEntry>
   updateOneClockifyTimeEntry?: Maybe<ClockifyTimeEntry>
   updateOneClockifyTimeEntryProject?: Maybe<ClockifyTimeEntryProject>
   updateOneClockifyTimeEntryTag?: Maybe<ClockifyTimeEntryTag>
@@ -11482,6 +11612,11 @@ export type MutationCreateManyClickupTaskStatusArgs = {
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
 }
 
+export type MutationCreateManyClickupTaskStatusOnTaskArgs = {
+  data: Array<ClickupTaskStatusOnTaskCreateManyInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
 export type MutationCreateManyClickupTaskTagArgs = {
   data: Array<ClickupTaskTagCreateManyInput>
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
@@ -11509,6 +11644,11 @@ export type MutationCreateManyClickupUserTaskWatchersArgs = {
 
 export type MutationCreateManyClickupWebhookArgs = {
   data: Array<ClickupWebhookCreateManyInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type MutationCreateManyClockifyTagOnTimeEntryArgs = {
+  data: Array<ClockifyTagOnTimeEntryCreateManyInput>
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
 }
 
@@ -11599,6 +11739,10 @@ export type MutationCreateOneClickupTaskStatusArgs = {
   data: ClickupTaskStatusCreateInput
 }
 
+export type MutationCreateOneClickupTaskStatusOnTaskArgs = {
+  data: ClickupTaskStatusOnTaskCreateInput
+}
+
 export type MutationCreateOneClickupTaskTagArgs = {
   data: ClickupTaskTagCreateInput
 }
@@ -11621,6 +11765,10 @@ export type MutationCreateOneClickupUserTaskWatchersArgs = {
 
 export type MutationCreateOneClickupWebhookArgs = {
   data: ClickupWebhookCreateInput
+}
+
+export type MutationCreateOneClockifyTagOnTimeEntryArgs = {
+  data: ClockifyTagOnTimeEntryCreateInput
 }
 
 export type MutationCreateOneClockifyTimeEntryArgs = {
@@ -11703,6 +11851,10 @@ export type MutationDeleteManyClickupTaskStatusArgs = {
   where?: InputMaybe<ClickupTaskStatusWhereInput>
 }
 
+export type MutationDeleteManyClickupTaskStatusOnTaskArgs = {
+  where?: InputMaybe<ClickupTaskStatusOnTaskWhereInput>
+}
+
 export type MutationDeleteManyClickupTaskTagArgs = {
   where?: InputMaybe<ClickupTaskTagWhereInput>
 }
@@ -11725,6 +11877,10 @@ export type MutationDeleteManyClickupUserTaskWatchersArgs = {
 
 export type MutationDeleteManyClickupWebhookArgs = {
   where?: InputMaybe<ClickupWebhookWhereInput>
+}
+
+export type MutationDeleteManyClockifyTagOnTimeEntryArgs = {
+  where?: InputMaybe<ClockifyTagOnTimeEntryWhereInput>
 }
 
 export type MutationDeleteManyClockifyTimeEntryArgs = {
@@ -11807,6 +11963,10 @@ export type MutationDeleteOneClickupTaskStatusArgs = {
   where: ClickupTaskStatusWhereUniqueInput
 }
 
+export type MutationDeleteOneClickupTaskStatusOnTaskArgs = {
+  where: ClickupTaskStatusOnTaskWhereUniqueInput
+}
+
 export type MutationDeleteOneClickupTaskTagArgs = {
   where: ClickupTaskTagWhereUniqueInput
 }
@@ -11829,6 +11989,10 @@ export type MutationDeleteOneClickupUserTaskWatchersArgs = {
 
 export type MutationDeleteOneClickupWebhookArgs = {
   where: ClickupWebhookWhereUniqueInput
+}
+
+export type MutationDeleteOneClockifyTagOnTimeEntryArgs = {
+  where: ClockifyTagOnTimeEntryWhereUniqueInput
 }
 
 export type MutationDeleteOneClockifyTimeEntryArgs = {
@@ -11929,6 +12093,11 @@ export type MutationUpdateManyClickupTaskStatusArgs = {
   where?: InputMaybe<ClickupTaskStatusWhereInput>
 }
 
+export type MutationUpdateManyClickupTaskStatusOnTaskArgs = {
+  data: ClickupTaskStatusOnTaskUpdateManyMutationInput
+  where?: InputMaybe<ClickupTaskStatusOnTaskWhereInput>
+}
+
 export type MutationUpdateManyClickupTaskTagArgs = {
   data: ClickupTaskTagUpdateManyMutationInput
   where?: InputMaybe<ClickupTaskTagWhereInput>
@@ -11957,6 +12126,11 @@ export type MutationUpdateManyClickupUserTaskWatchersArgs = {
 export type MutationUpdateManyClickupWebhookArgs = {
   data: ClickupWebhookUpdateManyMutationInput
   where?: InputMaybe<ClickupWebhookWhereInput>
+}
+
+export type MutationUpdateManyClockifyTagOnTimeEntryArgs = {
+  data: ClockifyTagOnTimeEntryUpdateManyMutationInput
+  where?: InputMaybe<ClockifyTagOnTimeEntryWhereInput>
 }
 
 export type MutationUpdateManyClockifyTimeEntryArgs = {
@@ -12059,6 +12233,11 @@ export type MutationUpdateOneClickupTaskStatusArgs = {
   where: ClickupTaskStatusWhereUniqueInput
 }
 
+export type MutationUpdateOneClickupTaskStatusOnTaskArgs = {
+  data: ClickupTaskStatusOnTaskUpdateInput
+  where: ClickupTaskStatusOnTaskWhereUniqueInput
+}
+
 export type MutationUpdateOneClickupTaskTagArgs = {
   data: ClickupTaskTagUpdateInput
   where: ClickupTaskTagWhereUniqueInput
@@ -12087,6 +12266,11 @@ export type MutationUpdateOneClickupUserTaskWatchersArgs = {
 export type MutationUpdateOneClickupWebhookArgs = {
   data: ClickupWebhookUpdateInput
   where: ClickupWebhookWhereUniqueInput
+}
+
+export type MutationUpdateOneClockifyTagOnTimeEntryArgs = {
+  data: ClockifyTagOnTimeEntryUpdateInput
+  where: ClockifyTagOnTimeEntryWhereUniqueInput
 }
 
 export type MutationUpdateOneClockifyTimeEntryArgs = {
@@ -12261,12 +12445,14 @@ export type Query = {
   aggregateClickupTaskQueue: AggregateClickupTaskQueue
   aggregateClickupTaskSpace: AggregateClickupTaskSpace
   aggregateClickupTaskStatus: AggregateClickupTaskStatus
+  aggregateClickupTaskStatusOnTask: AggregateClickupTaskStatusOnTask
   aggregateClickupTaskTag: AggregateClickupTaskTag
   aggregateClickupTaskTimeEstimate: AggregateClickupTaskTimeEstimate
   aggregateClickupUser: AggregateClickupUser
   aggregateClickupUserTaskAssignee: AggregateClickupUserTaskAssignee
   aggregateClickupUserTaskWatchers: AggregateClickupUserTaskWatchers
   aggregateClickupWebhook: AggregateClickupWebhook
+  aggregateClockifyTagOnTimeEntry: AggregateClockifyTagOnTimeEntry
   aggregateClockifyTimeEntry: AggregateClockifyTimeEntry
   aggregateClockifyTimeEntryProject: AggregateClockifyTimeEntryProject
   aggregateClockifyTimeEntryTag: AggregateClockifyTimeEntryTag
@@ -12298,6 +12484,8 @@ export type Query = {
   clickupTaskSpace?: Maybe<ClickupTaskSpace>
   clickupTaskSpaces: Array<ClickupTaskSpace>
   clickupTaskStatus?: Maybe<ClickupTaskStatus>
+  clickupTaskStatusOnTask?: Maybe<ClickupTaskStatusOnTask>
+  clickupTaskStatusOnTasks: Array<ClickupTaskStatusOnTask>
   clickupTaskStatuses: Array<ClickupTaskStatus>
   clickupTaskTag?: Maybe<ClickupTaskTag>
   clickupTaskTags: Array<ClickupTaskTag>
@@ -12310,6 +12498,8 @@ export type Query = {
   clickupUsers: Array<ClickupUser>
   clickupWebhook?: Maybe<ClickupWebhook>
   clickupWebhooks: Array<ClickupWebhook>
+  clockifyTagOnTimeEntries: Array<ClockifyTagOnTimeEntry>
+  clockifyTagOnTimeEntry?: Maybe<ClockifyTagOnTimeEntry>
   clockifyTimeEntries: Array<ClockifyTimeEntry>
   clockifyTimeEntry?: Maybe<ClockifyTimeEntry>
   clockifyTimeEntryProject?: Maybe<ClockifyTimeEntryProject>
@@ -12432,6 +12622,14 @@ export type QueryAggregateClickupTaskStatusArgs = {
   where?: InputMaybe<ClickupTaskStatusWhereInput>
 }
 
+export type QueryAggregateClickupTaskStatusOnTaskArgs = {
+  cursor?: InputMaybe<ClickupTaskStatusOnTaskWhereUniqueInput>
+  orderBy?: InputMaybe<Array<ClickupTaskStatusOnTaskOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupTaskStatusOnTaskWhereInput>
+}
+
 export type QueryAggregateClickupTaskTagArgs = {
   cursor?: InputMaybe<ClickupTaskTagWhereUniqueInput>
   orderBy?: InputMaybe<Array<ClickupTaskTagOrderByWithRelationInput>>
@@ -12478,6 +12676,14 @@ export type QueryAggregateClickupWebhookArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>
   take?: InputMaybe<Scalars['Int']['input']>
   where?: InputMaybe<ClickupWebhookWhereInput>
+}
+
+export type QueryAggregateClockifyTagOnTimeEntryArgs = {
+  cursor?: InputMaybe<ClockifyTagOnTimeEntryWhereUniqueInput>
+  orderBy?: InputMaybe<Array<ClockifyTagOnTimeEntryOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClockifyTagOnTimeEntryWhereInput>
 }
 
 export type QueryAggregateClockifyTimeEntryArgs = {
@@ -12687,6 +12893,19 @@ export type QueryClickupTaskStatusArgs = {
   where: ClickupTaskStatusWhereUniqueInput
 }
 
+export type QueryClickupTaskStatusOnTaskArgs = {
+  where: ClickupTaskStatusOnTaskWhereUniqueInput
+}
+
+export type QueryClickupTaskStatusOnTasksArgs = {
+  cursor?: InputMaybe<ClickupTaskStatusOnTaskWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupTaskStatusOnTaskScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupTaskStatusOnTaskOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupTaskStatusOnTaskWhereInput>
+}
+
 export type QueryClickupTaskStatusesArgs = {
   cursor?: InputMaybe<ClickupTaskStatusWhereUniqueInput>
   distinct?: InputMaybe<Array<ClickupTaskStatusScalarFieldEnum>>
@@ -12768,6 +12987,19 @@ export type QueryClickupWebhooksArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>
   take?: InputMaybe<Scalars['Int']['input']>
   where?: InputMaybe<ClickupWebhookWhereInput>
+}
+
+export type QueryClockifyTagOnTimeEntriesArgs = {
+  cursor?: InputMaybe<ClockifyTagOnTimeEntryWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClockifyTagOnTimeEntryScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClockifyTagOnTimeEntryOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClockifyTagOnTimeEntryWhereInput>
+}
+
+export type QueryClockifyTagOnTimeEntryArgs = {
+  where: ClockifyTagOnTimeEntryWhereUniqueInput
 }
 
 export type QueryClockifyTimeEntriesArgs = {
@@ -13599,7 +13831,11 @@ export type ClockifyTimeEntriesQuery = {
     end?: string | null
     duration?: string | null
     currentlyRunning: boolean
-    tags: Array<{ __typename?: 'ClockifyTagOnTimeEntry'; clockifyTagId: string }>
+    tags: Array<{
+      __typename?: 'ClockifyTagOnTimeEntry'
+      createdAt: any
+      clockifyTag: { __typename?: 'ClockifyTimeEntryTag'; name: string }
+    }>
     clockifyProject?: { __typename?: 'ClockifyTimeEntryProject'; name: string; color: string } | null
     clockifyUser: { __typename?: 'ClockifyUser'; name: string }
     user?: { __typename?: 'User'; username: string; email: string } | null
@@ -13676,7 +13912,17 @@ export const ClockifyTimeEntriesDocument = {
                   name: { kind: 'Name', value: 'tags' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'clockifyTagId' } }],
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'clockifyTag' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
+                        },
+                      },
+                    ],
                   },
                 },
                 {
