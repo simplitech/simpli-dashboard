@@ -67,8 +67,8 @@
         {#if entry.task && entry.task.status}
           <div
             class="w-2 h-2 rounded-sm mr-3 flex-shrink-0"
-            title={getLastStatus(entry.task.status)?.status}
-            style="background-color: {getLastStatus(entry.task.status)?.status.color || '#c2c2c2'};"
+            title={getLastStatus(entry.task.status)?.statusName}
+            style="background-color: {getLastStatus(entry.task.status)?.statusColor || '#c2c2c2'};"
           />
         {:else}
           <div class="w-2 h-2 rounded-sm bg-transparent mr-3" />

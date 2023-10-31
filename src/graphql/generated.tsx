@@ -125,11 +125,9 @@ export type AggregateClickupTaskSpace = {
 
 export type AggregateClickupTaskStatus = {
   __typename?: 'AggregateClickupTaskStatus'
-  _avg?: Maybe<ClickupTaskStatusAvgAggregate>
   _count?: Maybe<ClickupTaskStatusCountAggregate>
   _max?: Maybe<ClickupTaskStatusMaxAggregate>
   _min?: Maybe<ClickupTaskStatusMinAggregate>
-  _sum?: Maybe<ClickupTaskStatusSumAggregate>
 }
 
 export type AggregateClickupTaskTag = {
@@ -587,7 +585,7 @@ export type ClickupTask = {
   space: ClickupTaskSpace
   spaceId: Scalars['String']['output']
   startDate?: Maybe<Scalars['String']['output']>
-  status: Array<ClickupTaskStatus>
+  status: Array<ClickupTaskStatusOnTask>
   tags: Array<ClickupTaskTag>
   taskDependencies: Array<ClickupTaskDependency>
   teamId: Scalars['String']['output']
@@ -670,12 +668,12 @@ export type ClickupTaskPriorityArgs = {
 }
 
 export type ClickupTaskStatusArgs = {
-  cursor?: InputMaybe<ClickupTaskStatusWhereUniqueInput>
-  distinct?: InputMaybe<Array<ClickupTaskStatusScalarFieldEnum>>
-  orderBy?: InputMaybe<Array<ClickupTaskStatusOrderByWithRelationInput>>
+  cursor?: InputMaybe<ClickupTaskStatusOnTaskWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupTaskStatusOnTaskScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupTaskStatusOnTaskOrderByWithRelationInput>>
   skip?: InputMaybe<Scalars['Int']['input']>
   take?: InputMaybe<Scalars['Int']['input']>
-  where?: InputMaybe<ClickupTaskStatusWhereInput>
+  where?: InputMaybe<ClickupTaskStatusOnTaskWhereInput>
 }
 
 export type ClickupTaskTagsArgs = {
@@ -2247,7 +2245,7 @@ export type ClickupTaskCountDueDatesArgs = {
 }
 
 export type ClickupTaskCountStatusArgs = {
-  where?: InputMaybe<ClickupTaskStatusWhereInput>
+  where?: InputMaybe<ClickupTaskStatusOnTaskWhereInput>
 }
 
 export type ClickupTaskCountTagsArgs = {
@@ -2329,7 +2327,7 @@ export type ClickupTaskCreateInput = {
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
-  status?: InputMaybe<ClickupTaskStatusCreateNestedManyWithoutTaskInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
   teamId: Scalars['String']['input']
@@ -2854,7 +2852,7 @@ export type ClickupTaskCreateWithoutAssigneesInput = {
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
-  status?: InputMaybe<ClickupTaskStatusCreateNestedManyWithoutTaskInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
   teamId: Scalars['String']['input']
@@ -2895,7 +2893,7 @@ export type ClickupTaskCreateWithoutAttachmentsInput = {
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
-  status?: InputMaybe<ClickupTaskStatusCreateNestedManyWithoutTaskInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
   teamId: Scalars['String']['input']
@@ -2936,7 +2934,7 @@ export type ClickupTaskCreateWithoutChecklistsInput = {
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
-  status?: InputMaybe<ClickupTaskStatusCreateNestedManyWithoutTaskInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
   teamId: Scalars['String']['input']
@@ -2977,7 +2975,7 @@ export type ClickupTaskCreateWithoutClickupClockifyProjectInput = {
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
-  status?: InputMaybe<ClickupTaskStatusCreateNestedManyWithoutTaskInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
   teamId: Scalars['String']['input']
@@ -3018,7 +3016,7 @@ export type ClickupTaskCreateWithoutClockifyTimeEntriesInput = {
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
-  status?: InputMaybe<ClickupTaskStatusCreateNestedManyWithoutTaskInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
   teamId: Scalars['String']['input']
@@ -3059,7 +3057,7 @@ export type ClickupTaskCreateWithoutCreatorInput = {
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
-  status?: InputMaybe<ClickupTaskStatusCreateNestedManyWithoutTaskInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
   teamId: Scalars['String']['input']
@@ -3100,7 +3098,7 @@ export type ClickupTaskCreateWithoutCustomFieldsInput = {
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
-  status?: InputMaybe<ClickupTaskStatusCreateNestedManyWithoutTaskInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
   teamId: Scalars['String']['input']
@@ -3141,7 +3139,7 @@ export type ClickupTaskCreateWithoutDependentTasksInput = {
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
-  status?: InputMaybe<ClickupTaskStatusCreateNestedManyWithoutTaskInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
   teamId: Scalars['String']['input']
@@ -3182,7 +3180,7 @@ export type ClickupTaskCreateWithoutDueDatesInput = {
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
-  status?: InputMaybe<ClickupTaskStatusCreateNestedManyWithoutTaskInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
   teamId: Scalars['String']['input']
@@ -3223,7 +3221,7 @@ export type ClickupTaskCreateWithoutFolderLocationInput = {
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
-  status?: InputMaybe<ClickupTaskStatusCreateNestedManyWithoutTaskInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
   teamId: Scalars['String']['input']
@@ -3264,7 +3262,7 @@ export type ClickupTaskCreateWithoutListLocationInput = {
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
-  status?: InputMaybe<ClickupTaskStatusCreateNestedManyWithoutTaskInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
   teamId: Scalars['String']['input']
@@ -3305,7 +3303,7 @@ export type ClickupTaskCreateWithoutPriorityInput = {
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
-  status?: InputMaybe<ClickupTaskStatusCreateNestedManyWithoutTaskInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
   teamId: Scalars['String']['input']
@@ -3346,7 +3344,7 @@ export type ClickupTaskCreateWithoutProjectLocationInput = {
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
-  status?: InputMaybe<ClickupTaskStatusCreateNestedManyWithoutTaskInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
   teamId: Scalars['String']['input']
@@ -3387,7 +3385,7 @@ export type ClickupTaskCreateWithoutSpaceInput = {
   projectLocation: ClickupTaskLocationCreateNestedOneWithoutProjectsInput
   sharing: Scalars['JSON']['input']
   startDate?: InputMaybe<Scalars['String']['input']>
-  status?: InputMaybe<ClickupTaskStatusCreateNestedManyWithoutTaskInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
   teamId: Scalars['String']['input']
@@ -3470,7 +3468,7 @@ export type ClickupTaskCreateWithoutTagsInput = {
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
-  status?: InputMaybe<ClickupTaskStatusCreateNestedManyWithoutTaskInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
   teamId: Scalars['String']['input']
   textContent?: InputMaybe<Scalars['String']['input']>
@@ -3511,7 +3509,7 @@ export type ClickupTaskCreateWithoutTaskDependenciesInput = {
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
-  status?: InputMaybe<ClickupTaskStatusCreateNestedManyWithoutTaskInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   teamId: Scalars['String']['input']
   textContent?: InputMaybe<Scalars['String']['input']>
@@ -3552,7 +3550,7 @@ export type ClickupTaskCreateWithoutTimeEstimatesInput = {
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
-  status?: InputMaybe<ClickupTaskStatusCreateNestedManyWithoutTaskInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
   teamId: Scalars['String']['input']
@@ -3593,7 +3591,7 @@ export type ClickupTaskCreateWithoutWatchersInput = {
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
-  status?: InputMaybe<ClickupTaskStatusCreateNestedManyWithoutTaskInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
   teamId: Scalars['String']['input']
@@ -4880,7 +4878,7 @@ export type ClickupTaskOrderByWithRelationInput = {
   space?: InputMaybe<ClickupTaskSpaceOrderByWithRelationInput>
   spaceId?: InputMaybe<SortOrder>
   startDate?: InputMaybe<SortOrderInput>
-  status?: InputMaybe<ClickupTaskStatusOrderByRelationAggregateInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskOrderByRelationAggregateInput>
   tags?: InputMaybe<ClickupTaskTagOrderByRelationAggregateInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyOrderByRelationAggregateInput>
   teamId?: InputMaybe<SortOrder>
@@ -5337,204 +5335,368 @@ export type ClickupTaskSpaceWhereUniqueInput = {
 
 export type ClickupTaskStatus = {
   __typename?: 'ClickupTaskStatus'
+  _count?: Maybe<ClickupTaskStatusCount>
+  color: Scalars['String']['output']
   createdAt: Scalars['DateTime']['output']
-  id: Scalars['Int']['output']
-  status: Scalars['JSON']['output']
-  task: ClickupTask
-  taskId: Scalars['String']['output']
-  updatedAt: Scalars['DateTime']['output']
+  name: Scalars['String']['output']
+  tasks: Array<ClickupTaskStatusOnTask>
 }
 
-export type ClickupTaskStatusAvgAggregate = {
-  __typename?: 'ClickupTaskStatusAvgAggregate'
-  id?: Maybe<Scalars['Float']['output']>
+export type ClickupTaskStatusTasksArgs = {
+  cursor?: InputMaybe<ClickupTaskStatusOnTaskWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupTaskStatusOnTaskScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupTaskStatusOnTaskOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupTaskStatusOnTaskWhereInput>
+}
+
+export type ClickupTaskStatusColorNameCompoundUniqueInput = {
+  color: Scalars['String']['input']
+  name: Scalars['String']['input']
+}
+
+export type ClickupTaskStatusCount = {
+  __typename?: 'ClickupTaskStatusCount'
+  tasks: Scalars['Int']['output']
+}
+
+export type ClickupTaskStatusCountTasksArgs = {
+  where?: InputMaybe<ClickupTaskStatusOnTaskWhereInput>
 }
 
 export type ClickupTaskStatusCountAggregate = {
   __typename?: 'ClickupTaskStatusCountAggregate'
   _all: Scalars['Int']['output']
+  color: Scalars['Int']['output']
   createdAt: Scalars['Int']['output']
-  id: Scalars['Int']['output']
-  status: Scalars['Int']['output']
-  taskId: Scalars['Int']['output']
-  updatedAt: Scalars['Int']['output']
+  name: Scalars['Int']['output']
 }
 
 export type ClickupTaskStatusCreateInput = {
+  color: Scalars['String']['input']
   createdAt?: InputMaybe<Scalars['DateTime']['input']>
-  status: Scalars['JSON']['input']
-  task: ClickupTaskCreateNestedOneWithoutStatusInput
-  updatedAt?: InputMaybe<Scalars['DateTime']['input']>
+  name: Scalars['String']['input']
+  tasks?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutStatusInput>
 }
 
 export type ClickupTaskStatusCreateManyInput = {
+  color: Scalars['String']['input']
   createdAt?: InputMaybe<Scalars['DateTime']['input']>
-  id?: InputMaybe<Scalars['Int']['input']>
-  status: Scalars['JSON']['input']
-  taskId: Scalars['String']['input']
-  updatedAt?: InputMaybe<Scalars['DateTime']['input']>
+  name: Scalars['String']['input']
 }
 
-export type ClickupTaskStatusCreateManyTaskInput = {
-  createdAt?: InputMaybe<Scalars['DateTime']['input']>
-  id?: InputMaybe<Scalars['Int']['input']>
-  status: Scalars['JSON']['input']
-  updatedAt?: InputMaybe<Scalars['DateTime']['input']>
+export type ClickupTaskStatusCreateNestedOneWithoutTasksInput = {
+  connect?: InputMaybe<ClickupTaskStatusWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupTaskStatusCreateOrConnectWithoutTasksInput>
+  create?: InputMaybe<ClickupTaskStatusCreateWithoutTasksInput>
 }
 
-export type ClickupTaskStatusCreateManyTaskInputEnvelope = {
-  data: Array<ClickupTaskStatusCreateManyTaskInput>
-  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
-}
-
-export type ClickupTaskStatusCreateNestedManyWithoutTaskInput = {
-  connect?: InputMaybe<Array<ClickupTaskStatusWhereUniqueInput>>
-  connectOrCreate?: InputMaybe<Array<ClickupTaskStatusCreateOrConnectWithoutTaskInput>>
-  create?: InputMaybe<Array<ClickupTaskStatusCreateWithoutTaskInput>>
-  createMany?: InputMaybe<ClickupTaskStatusCreateManyTaskInputEnvelope>
-}
-
-export type ClickupTaskStatusCreateOrConnectWithoutTaskInput = {
-  create: ClickupTaskStatusCreateWithoutTaskInput
+export type ClickupTaskStatusCreateOrConnectWithoutTasksInput = {
+  create: ClickupTaskStatusCreateWithoutTasksInput
   where: ClickupTaskStatusWhereUniqueInput
 }
 
-export type ClickupTaskStatusCreateWithoutTaskInput = {
+export type ClickupTaskStatusCreateWithoutTasksInput = {
+  color: Scalars['String']['input']
   createdAt?: InputMaybe<Scalars['DateTime']['input']>
-  status: Scalars['JSON']['input']
-  updatedAt?: InputMaybe<Scalars['DateTime']['input']>
-}
-
-export type ClickupTaskStatusListRelationFilter = {
-  every?: InputMaybe<ClickupTaskStatusWhereInput>
-  none?: InputMaybe<ClickupTaskStatusWhereInput>
-  some?: InputMaybe<ClickupTaskStatusWhereInput>
+  name: Scalars['String']['input']
 }
 
 export type ClickupTaskStatusMaxAggregate = {
   __typename?: 'ClickupTaskStatusMaxAggregate'
+  color?: Maybe<Scalars['String']['output']>
   createdAt?: Maybe<Scalars['DateTime']['output']>
-  id?: Maybe<Scalars['Int']['output']>
-  taskId?: Maybe<Scalars['String']['output']>
-  updatedAt?: Maybe<Scalars['DateTime']['output']>
+  name?: Maybe<Scalars['String']['output']>
 }
 
 export type ClickupTaskStatusMinAggregate = {
   __typename?: 'ClickupTaskStatusMinAggregate'
+  color?: Maybe<Scalars['String']['output']>
   createdAt?: Maybe<Scalars['DateTime']['output']>
-  id?: Maybe<Scalars['Int']['output']>
-  taskId?: Maybe<Scalars['String']['output']>
-  updatedAt?: Maybe<Scalars['DateTime']['output']>
+  name?: Maybe<Scalars['String']['output']>
 }
 
-export type ClickupTaskStatusOrderByRelationAggregateInput = {
+export type ClickupTaskStatusOnTask = {
+  __typename?: 'ClickupTaskStatusOnTask'
+  createdAt: Scalars['DateTime']['output']
+  id: Scalars['Int']['output']
+  statusColor: Scalars['String']['output']
+  statusName: Scalars['String']['output']
+  taskId: Scalars['String']['output']
+}
+
+export type ClickupTaskStatusOnTaskCreateManyStatusInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>
+  id?: InputMaybe<Scalars['Int']['input']>
+  taskId: Scalars['String']['input']
+}
+
+export type ClickupTaskStatusOnTaskCreateManyStatusInputEnvelope = {
+  data: Array<ClickupTaskStatusOnTaskCreateManyStatusInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type ClickupTaskStatusOnTaskCreateManyTaskInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>
+  id?: InputMaybe<Scalars['Int']['input']>
+  statusColor: Scalars['String']['input']
+  statusName: Scalars['String']['input']
+}
+
+export type ClickupTaskStatusOnTaskCreateManyTaskInputEnvelope = {
+  data: Array<ClickupTaskStatusOnTaskCreateManyTaskInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type ClickupTaskStatusOnTaskCreateNestedManyWithoutStatusInput = {
+  connect?: InputMaybe<Array<ClickupTaskStatusOnTaskWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskStatusOnTaskCreateOrConnectWithoutStatusInput>>
+  create?: InputMaybe<Array<ClickupTaskStatusOnTaskCreateWithoutStatusInput>>
+  createMany?: InputMaybe<ClickupTaskStatusOnTaskCreateManyStatusInputEnvelope>
+}
+
+export type ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput = {
+  connect?: InputMaybe<Array<ClickupTaskStatusOnTaskWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskStatusOnTaskCreateOrConnectWithoutTaskInput>>
+  create?: InputMaybe<Array<ClickupTaskStatusOnTaskCreateWithoutTaskInput>>
+  createMany?: InputMaybe<ClickupTaskStatusOnTaskCreateManyTaskInputEnvelope>
+}
+
+export type ClickupTaskStatusOnTaskCreateOrConnectWithoutStatusInput = {
+  create: ClickupTaskStatusOnTaskCreateWithoutStatusInput
+  where: ClickupTaskStatusOnTaskWhereUniqueInput
+}
+
+export type ClickupTaskStatusOnTaskCreateOrConnectWithoutTaskInput = {
+  create: ClickupTaskStatusOnTaskCreateWithoutTaskInput
+  where: ClickupTaskStatusOnTaskWhereUniqueInput
+}
+
+export type ClickupTaskStatusOnTaskCreateWithoutStatusInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>
+  task: ClickupTaskCreateNestedOneWithoutStatusInput
+}
+
+export type ClickupTaskStatusOnTaskCreateWithoutTaskInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>
+  status: ClickupTaskStatusCreateNestedOneWithoutTasksInput
+}
+
+export type ClickupTaskStatusOnTaskListRelationFilter = {
+  every?: InputMaybe<ClickupTaskStatusOnTaskWhereInput>
+  none?: InputMaybe<ClickupTaskStatusOnTaskWhereInput>
+  some?: InputMaybe<ClickupTaskStatusOnTaskWhereInput>
+}
+
+export type ClickupTaskStatusOnTaskOrderByRelationAggregateInput = {
   _count?: InputMaybe<SortOrder>
 }
 
-export type ClickupTaskStatusOrderByWithRelationInput = {
+export type ClickupTaskStatusOnTaskOrderByWithRelationInput = {
   createdAt?: InputMaybe<SortOrder>
   id?: InputMaybe<SortOrder>
-  status?: InputMaybe<SortOrder>
+  status?: InputMaybe<ClickupTaskStatusOrderByWithRelationInput>
+  statusColor?: InputMaybe<SortOrder>
+  statusName?: InputMaybe<SortOrder>
   task?: InputMaybe<ClickupTaskOrderByWithRelationInput>
   taskId?: InputMaybe<SortOrder>
-  updatedAt?: InputMaybe<SortOrder>
+}
+
+export enum ClickupTaskStatusOnTaskScalarFieldEnum {
+  CreatedAt = 'createdAt',
+  Id = 'id',
+  StatusColor = 'statusColor',
+  StatusName = 'statusName',
+  TaskId = 'taskId',
+}
+
+export type ClickupTaskStatusOnTaskScalarWhereInput = {
+  AND?: InputMaybe<Array<ClickupTaskStatusOnTaskScalarWhereInput>>
+  NOT?: InputMaybe<Array<ClickupTaskStatusOnTaskScalarWhereInput>>
+  OR?: InputMaybe<Array<ClickupTaskStatusOnTaskScalarWhereInput>>
+  createdAt?: InputMaybe<DateTimeFilter>
+  id?: InputMaybe<IntFilter>
+  statusColor?: InputMaybe<StringFilter>
+  statusName?: InputMaybe<StringFilter>
+  taskId?: InputMaybe<StringFilter>
+}
+
+export type ClickupTaskStatusOnTaskUpdateManyMutationInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+}
+
+export type ClickupTaskStatusOnTaskUpdateManyWithWhereWithoutStatusInput = {
+  data: ClickupTaskStatusOnTaskUpdateManyMutationInput
+  where: ClickupTaskStatusOnTaskScalarWhereInput
+}
+
+export type ClickupTaskStatusOnTaskUpdateManyWithWhereWithoutTaskInput = {
+  data: ClickupTaskStatusOnTaskUpdateManyMutationInput
+  where: ClickupTaskStatusOnTaskScalarWhereInput
+}
+
+export type ClickupTaskStatusOnTaskUpdateManyWithoutStatusNestedInput = {
+  connect?: InputMaybe<Array<ClickupTaskStatusOnTaskWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskStatusOnTaskCreateOrConnectWithoutStatusInput>>
+  create?: InputMaybe<Array<ClickupTaskStatusOnTaskCreateWithoutStatusInput>>
+  createMany?: InputMaybe<ClickupTaskStatusOnTaskCreateManyStatusInputEnvelope>
+  delete?: InputMaybe<Array<ClickupTaskStatusOnTaskWhereUniqueInput>>
+  deleteMany?: InputMaybe<Array<ClickupTaskStatusOnTaskScalarWhereInput>>
+  disconnect?: InputMaybe<Array<ClickupTaskStatusOnTaskWhereUniqueInput>>
+  set?: InputMaybe<Array<ClickupTaskStatusOnTaskWhereUniqueInput>>
+  update?: InputMaybe<Array<ClickupTaskStatusOnTaskUpdateWithWhereUniqueWithoutStatusInput>>
+  updateMany?: InputMaybe<Array<ClickupTaskStatusOnTaskUpdateManyWithWhereWithoutStatusInput>>
+  upsert?: InputMaybe<Array<ClickupTaskStatusOnTaskUpsertWithWhereUniqueWithoutStatusInput>>
+}
+
+export type ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput = {
+  connect?: InputMaybe<Array<ClickupTaskStatusOnTaskWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskStatusOnTaskCreateOrConnectWithoutTaskInput>>
+  create?: InputMaybe<Array<ClickupTaskStatusOnTaskCreateWithoutTaskInput>>
+  createMany?: InputMaybe<ClickupTaskStatusOnTaskCreateManyTaskInputEnvelope>
+  delete?: InputMaybe<Array<ClickupTaskStatusOnTaskWhereUniqueInput>>
+  deleteMany?: InputMaybe<Array<ClickupTaskStatusOnTaskScalarWhereInput>>
+  disconnect?: InputMaybe<Array<ClickupTaskStatusOnTaskWhereUniqueInput>>
+  set?: InputMaybe<Array<ClickupTaskStatusOnTaskWhereUniqueInput>>
+  update?: InputMaybe<Array<ClickupTaskStatusOnTaskUpdateWithWhereUniqueWithoutTaskInput>>
+  updateMany?: InputMaybe<Array<ClickupTaskStatusOnTaskUpdateManyWithWhereWithoutTaskInput>>
+  upsert?: InputMaybe<Array<ClickupTaskStatusOnTaskUpsertWithWhereUniqueWithoutTaskInput>>
+}
+
+export type ClickupTaskStatusOnTaskUpdateWithWhereUniqueWithoutStatusInput = {
+  data: ClickupTaskStatusOnTaskUpdateWithoutStatusInput
+  where: ClickupTaskStatusOnTaskWhereUniqueInput
+}
+
+export type ClickupTaskStatusOnTaskUpdateWithWhereUniqueWithoutTaskInput = {
+  data: ClickupTaskStatusOnTaskUpdateWithoutTaskInput
+  where: ClickupTaskStatusOnTaskWhereUniqueInput
+}
+
+export type ClickupTaskStatusOnTaskUpdateWithoutStatusInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+  task?: InputMaybe<ClickupTaskUpdateOneRequiredWithoutStatusNestedInput>
+}
+
+export type ClickupTaskStatusOnTaskUpdateWithoutTaskInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+  status?: InputMaybe<ClickupTaskStatusUpdateOneRequiredWithoutTasksNestedInput>
+}
+
+export type ClickupTaskStatusOnTaskUpsertWithWhereUniqueWithoutStatusInput = {
+  create: ClickupTaskStatusOnTaskCreateWithoutStatusInput
+  update: ClickupTaskStatusOnTaskUpdateWithoutStatusInput
+  where: ClickupTaskStatusOnTaskWhereUniqueInput
+}
+
+export type ClickupTaskStatusOnTaskUpsertWithWhereUniqueWithoutTaskInput = {
+  create: ClickupTaskStatusOnTaskCreateWithoutTaskInput
+  update: ClickupTaskStatusOnTaskUpdateWithoutTaskInput
+  where: ClickupTaskStatusOnTaskWhereUniqueInput
+}
+
+export type ClickupTaskStatusOnTaskWhereInput = {
+  AND?: InputMaybe<Array<ClickupTaskStatusOnTaskWhereInput>>
+  NOT?: InputMaybe<Array<ClickupTaskStatusOnTaskWhereInput>>
+  OR?: InputMaybe<Array<ClickupTaskStatusOnTaskWhereInput>>
+  createdAt?: InputMaybe<DateTimeFilter>
+  id?: InputMaybe<IntFilter>
+  status?: InputMaybe<ClickupTaskStatusRelationFilter>
+  statusColor?: InputMaybe<StringFilter>
+  statusName?: InputMaybe<StringFilter>
+  task?: InputMaybe<ClickupTaskRelationFilter>
+  taskId?: InputMaybe<StringFilter>
+}
+
+export type ClickupTaskStatusOnTaskWhereUniqueInput = {
+  AND?: InputMaybe<Array<ClickupTaskStatusOnTaskWhereInput>>
+  NOT?: InputMaybe<Array<ClickupTaskStatusOnTaskWhereInput>>
+  OR?: InputMaybe<Array<ClickupTaskStatusOnTaskWhereInput>>
+  createdAt?: InputMaybe<DateTimeFilter>
+  id?: InputMaybe<Scalars['Int']['input']>
+  status?: InputMaybe<ClickupTaskStatusRelationFilter>
+  statusColor?: InputMaybe<StringFilter>
+  statusName?: InputMaybe<StringFilter>
+  task?: InputMaybe<ClickupTaskRelationFilter>
+  taskId?: InputMaybe<StringFilter>
+}
+
+export type ClickupTaskStatusOrderByWithRelationInput = {
+  color?: InputMaybe<SortOrder>
+  createdAt?: InputMaybe<SortOrder>
+  name?: InputMaybe<SortOrder>
+  tasks?: InputMaybe<ClickupTaskStatusOnTaskOrderByRelationAggregateInput>
+}
+
+export type ClickupTaskStatusRelationFilter = {
+  is?: InputMaybe<ClickupTaskStatusWhereInput>
+  isNot?: InputMaybe<ClickupTaskStatusWhereInput>
 }
 
 export enum ClickupTaskStatusScalarFieldEnum {
+  Color = 'color',
   CreatedAt = 'createdAt',
-  Id = 'id',
-  Status = 'status',
-  TaskId = 'taskId',
-  UpdatedAt = 'updatedAt',
-}
-
-export type ClickupTaskStatusScalarWhereInput = {
-  AND?: InputMaybe<Array<ClickupTaskStatusScalarWhereInput>>
-  NOT?: InputMaybe<Array<ClickupTaskStatusScalarWhereInput>>
-  OR?: InputMaybe<Array<ClickupTaskStatusScalarWhereInput>>
-  createdAt?: InputMaybe<DateTimeFilter>
-  id?: InputMaybe<IntFilter>
-  status?: InputMaybe<JsonFilter>
-  taskId?: InputMaybe<StringFilter>
-  updatedAt?: InputMaybe<DateTimeFilter>
-}
-
-export type ClickupTaskStatusSumAggregate = {
-  __typename?: 'ClickupTaskStatusSumAggregate'
-  id?: Maybe<Scalars['Int']['output']>
+  Name = 'name',
 }
 
 export type ClickupTaskStatusUpdateInput = {
+  color?: InputMaybe<StringFieldUpdateOperationsInput>
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
-  status?: InputMaybe<Scalars['JSON']['input']>
-  task?: InputMaybe<ClickupTaskUpdateOneRequiredWithoutStatusNestedInput>
-  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+  name?: InputMaybe<StringFieldUpdateOperationsInput>
+  tasks?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutStatusNestedInput>
 }
 
 export type ClickupTaskStatusUpdateManyMutationInput = {
+  color?: InputMaybe<StringFieldUpdateOperationsInput>
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
-  status?: InputMaybe<Scalars['JSON']['input']>
-  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+  name?: InputMaybe<StringFieldUpdateOperationsInput>
 }
 
-export type ClickupTaskStatusUpdateManyWithWhereWithoutTaskInput = {
-  data: ClickupTaskStatusUpdateManyMutationInput
-  where: ClickupTaskStatusScalarWhereInput
+export type ClickupTaskStatusUpdateOneRequiredWithoutTasksNestedInput = {
+  connect?: InputMaybe<ClickupTaskStatusWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupTaskStatusCreateOrConnectWithoutTasksInput>
+  create?: InputMaybe<ClickupTaskStatusCreateWithoutTasksInput>
+  update?: InputMaybe<ClickupTaskStatusUpdateToOneWithWhereWithoutTasksInput>
+  upsert?: InputMaybe<ClickupTaskStatusUpsertWithoutTasksInput>
 }
 
-export type ClickupTaskStatusUpdateManyWithoutTaskNestedInput = {
-  connect?: InputMaybe<Array<ClickupTaskStatusWhereUniqueInput>>
-  connectOrCreate?: InputMaybe<Array<ClickupTaskStatusCreateOrConnectWithoutTaskInput>>
-  create?: InputMaybe<Array<ClickupTaskStatusCreateWithoutTaskInput>>
-  createMany?: InputMaybe<ClickupTaskStatusCreateManyTaskInputEnvelope>
-  delete?: InputMaybe<Array<ClickupTaskStatusWhereUniqueInput>>
-  deleteMany?: InputMaybe<Array<ClickupTaskStatusScalarWhereInput>>
-  disconnect?: InputMaybe<Array<ClickupTaskStatusWhereUniqueInput>>
-  set?: InputMaybe<Array<ClickupTaskStatusWhereUniqueInput>>
-  update?: InputMaybe<Array<ClickupTaskStatusUpdateWithWhereUniqueWithoutTaskInput>>
-  updateMany?: InputMaybe<Array<ClickupTaskStatusUpdateManyWithWhereWithoutTaskInput>>
-  upsert?: InputMaybe<Array<ClickupTaskStatusUpsertWithWhereUniqueWithoutTaskInput>>
+export type ClickupTaskStatusUpdateToOneWithWhereWithoutTasksInput = {
+  data: ClickupTaskStatusUpdateWithoutTasksInput
+  where?: InputMaybe<ClickupTaskStatusWhereInput>
 }
 
-export type ClickupTaskStatusUpdateWithWhereUniqueWithoutTaskInput = {
-  data: ClickupTaskStatusUpdateWithoutTaskInput
-  where: ClickupTaskStatusWhereUniqueInput
-}
-
-export type ClickupTaskStatusUpdateWithoutTaskInput = {
+export type ClickupTaskStatusUpdateWithoutTasksInput = {
+  color?: InputMaybe<StringFieldUpdateOperationsInput>
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
-  status?: InputMaybe<Scalars['JSON']['input']>
-  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+  name?: InputMaybe<StringFieldUpdateOperationsInput>
 }
 
-export type ClickupTaskStatusUpsertWithWhereUniqueWithoutTaskInput = {
-  create: ClickupTaskStatusCreateWithoutTaskInput
-  update: ClickupTaskStatusUpdateWithoutTaskInput
-  where: ClickupTaskStatusWhereUniqueInput
+export type ClickupTaskStatusUpsertWithoutTasksInput = {
+  create: ClickupTaskStatusCreateWithoutTasksInput
+  update: ClickupTaskStatusUpdateWithoutTasksInput
+  where?: InputMaybe<ClickupTaskStatusWhereInput>
 }
 
 export type ClickupTaskStatusWhereInput = {
   AND?: InputMaybe<Array<ClickupTaskStatusWhereInput>>
   NOT?: InputMaybe<Array<ClickupTaskStatusWhereInput>>
   OR?: InputMaybe<Array<ClickupTaskStatusWhereInput>>
+  color?: InputMaybe<StringFilter>
   createdAt?: InputMaybe<DateTimeFilter>
-  id?: InputMaybe<IntFilter>
-  status?: InputMaybe<JsonFilter>
-  task?: InputMaybe<ClickupTaskRelationFilter>
-  taskId?: InputMaybe<StringFilter>
-  updatedAt?: InputMaybe<DateTimeFilter>
+  name?: InputMaybe<StringFilter>
+  tasks?: InputMaybe<ClickupTaskStatusOnTaskListRelationFilter>
 }
 
 export type ClickupTaskStatusWhereUniqueInput = {
   AND?: InputMaybe<Array<ClickupTaskStatusWhereInput>>
   NOT?: InputMaybe<Array<ClickupTaskStatusWhereInput>>
   OR?: InputMaybe<Array<ClickupTaskStatusWhereInput>>
+  color?: InputMaybe<StringFilter>
+  color_name?: InputMaybe<ClickupTaskStatusColorNameCompoundUniqueInput>
   createdAt?: InputMaybe<DateTimeFilter>
-  id?: InputMaybe<Scalars['Int']['input']>
-  status?: InputMaybe<JsonFilter>
-  task?: InputMaybe<ClickupTaskRelationFilter>
-  taskId?: InputMaybe<StringFilter>
-  updatedAt?: InputMaybe<DateTimeFilter>
+  name?: InputMaybe<StringFilter>
+  tasks?: InputMaybe<ClickupTaskStatusOnTaskListRelationFilter>
 }
 
 export type ClickupTaskSumAggregate = {
@@ -6069,7 +6231,7 @@ export type ClickupTaskUpdateInput = {
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
-  status?: InputMaybe<ClickupTaskStatusUpdateManyWithoutTaskNestedInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -6471,7 +6633,7 @@ export type ClickupTaskUpdateWithoutAssigneesInput = {
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
-  status?: InputMaybe<ClickupTaskStatusUpdateManyWithoutTaskNestedInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -6512,7 +6674,7 @@ export type ClickupTaskUpdateWithoutAttachmentsInput = {
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
-  status?: InputMaybe<ClickupTaskStatusUpdateManyWithoutTaskNestedInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -6553,7 +6715,7 @@ export type ClickupTaskUpdateWithoutChecklistsInput = {
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
-  status?: InputMaybe<ClickupTaskStatusUpdateManyWithoutTaskNestedInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -6594,7 +6756,7 @@ export type ClickupTaskUpdateWithoutClickupClockifyProjectInput = {
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
-  status?: InputMaybe<ClickupTaskStatusUpdateManyWithoutTaskNestedInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -6635,7 +6797,7 @@ export type ClickupTaskUpdateWithoutClockifyTimeEntriesInput = {
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
-  status?: InputMaybe<ClickupTaskStatusUpdateManyWithoutTaskNestedInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -6676,7 +6838,7 @@ export type ClickupTaskUpdateWithoutCreatorInput = {
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
-  status?: InputMaybe<ClickupTaskStatusUpdateManyWithoutTaskNestedInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -6717,7 +6879,7 @@ export type ClickupTaskUpdateWithoutCustomFieldsInput = {
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
-  status?: InputMaybe<ClickupTaskStatusUpdateManyWithoutTaskNestedInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -6758,7 +6920,7 @@ export type ClickupTaskUpdateWithoutDependentTasksInput = {
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
-  status?: InputMaybe<ClickupTaskStatusUpdateManyWithoutTaskNestedInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -6799,7 +6961,7 @@ export type ClickupTaskUpdateWithoutDueDatesInput = {
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
-  status?: InputMaybe<ClickupTaskStatusUpdateManyWithoutTaskNestedInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -6840,7 +7002,7 @@ export type ClickupTaskUpdateWithoutFolderLocationInput = {
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
-  status?: InputMaybe<ClickupTaskStatusUpdateManyWithoutTaskNestedInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -6881,7 +7043,7 @@ export type ClickupTaskUpdateWithoutListLocationInput = {
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
-  status?: InputMaybe<ClickupTaskStatusUpdateManyWithoutTaskNestedInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -6922,7 +7084,7 @@ export type ClickupTaskUpdateWithoutPriorityInput = {
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
-  status?: InputMaybe<ClickupTaskStatusUpdateManyWithoutTaskNestedInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -6963,7 +7125,7 @@ export type ClickupTaskUpdateWithoutProjectLocationInput = {
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
-  status?: InputMaybe<ClickupTaskStatusUpdateManyWithoutTaskNestedInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -7004,7 +7166,7 @@ export type ClickupTaskUpdateWithoutSpaceInput = {
   projectLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutProjectsNestedInput>
   sharing?: InputMaybe<Scalars['JSON']['input']>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
-  status?: InputMaybe<ClickupTaskStatusUpdateManyWithoutTaskNestedInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -7087,7 +7249,7 @@ export type ClickupTaskUpdateWithoutTagsInput = {
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
-  status?: InputMaybe<ClickupTaskStatusUpdateManyWithoutTaskNestedInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
   textContent?: InputMaybe<NullableStringFieldUpdateOperationsInput>
@@ -7128,7 +7290,7 @@ export type ClickupTaskUpdateWithoutTaskDependenciesInput = {
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
-  status?: InputMaybe<ClickupTaskStatusUpdateManyWithoutTaskNestedInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
   textContent?: InputMaybe<NullableStringFieldUpdateOperationsInput>
@@ -7169,7 +7331,7 @@ export type ClickupTaskUpdateWithoutTimeEstimatesInput = {
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
-  status?: InputMaybe<ClickupTaskStatusUpdateManyWithoutTaskNestedInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -7210,7 +7372,7 @@ export type ClickupTaskUpdateWithoutWatchersInput = {
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
-  status?: InputMaybe<ClickupTaskStatusUpdateManyWithoutTaskNestedInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -7375,7 +7537,7 @@ export type ClickupTaskWhereInput = {
   space?: InputMaybe<ClickupTaskSpaceRelationFilter>
   spaceId?: InputMaybe<StringFilter>
   startDate?: InputMaybe<StringNullableFilter>
-  status?: InputMaybe<ClickupTaskStatusListRelationFilter>
+  status?: InputMaybe<ClickupTaskStatusOnTaskListRelationFilter>
   tags?: InputMaybe<ClickupTaskTagListRelationFilter>
   taskDependencies?: InputMaybe<ClickupTaskDependencyListRelationFilter>
   teamId?: InputMaybe<StringFilter>
@@ -7427,7 +7589,7 @@ export type ClickupTaskWhereUniqueInput = {
   space?: InputMaybe<ClickupTaskSpaceRelationFilter>
   spaceId?: InputMaybe<StringFilter>
   startDate?: InputMaybe<StringNullableFilter>
-  status?: InputMaybe<ClickupTaskStatusListRelationFilter>
+  status?: InputMaybe<ClickupTaskStatusOnTaskListRelationFilter>
   tags?: InputMaybe<ClickupTaskTagListRelationFilter>
   taskDependencies?: InputMaybe<ClickupTaskDependencyListRelationFilter>
   teamId?: InputMaybe<StringFilter>
@@ -13455,7 +13617,7 @@ export type ClockifyTimeEntriesQuery = {
       tags: Array<{ __typename?: 'ClickupTaskTag'; name: string; tagBg: string; tagFg: string }>
       timeEstimates: Array<{ __typename?: 'ClickupTaskTimeEstimate'; createdAt: any; updatedAt: any; estimate: number }>
       dueDates: Array<{ __typename?: 'ClickupTaskDueDate'; createdAt: any; updatedAt: any; dueDate: any }>
-      status: Array<{ __typename?: 'ClickupTaskStatus'; createdAt: any; updatedAt: any; status: any }>
+      status: Array<{ __typename?: 'ClickupTaskStatusOnTask'; createdAt: any; statusColor: string; statusName: string }>
     } | null
   }>
 }
@@ -13629,8 +13791,8 @@ export const ClockifyTimeEntriesDocument = {
                           kind: 'SelectionSet',
                           selections: [
                             { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'status' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'statusColor' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'statusName' } },
                           ],
                         },
                       },

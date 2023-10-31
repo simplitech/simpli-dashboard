@@ -55,8 +55,8 @@ export const queries = gql`
         }
         status {
           createdAt
-          updatedAt
-          status
+          statusColor
+          statusName
         }
       }
     }
