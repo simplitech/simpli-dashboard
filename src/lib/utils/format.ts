@@ -86,7 +86,7 @@ export const formatReport: Record<
   Delay: (_id, entry) => (entry.task ? formatDays(calculateDelay(entry.task)) : ''),
   'First Log': (_id, entry) => (entry.timeEntry?.length ? entry.timeEntry[entry.timeEntry.length - 1]?.start : ''),
   'Last Log': (_id, entry) => (entry.timeEntry?.length ? entry.timeEntry[0]?.end : ''),
-  Status: (_id, entry) => (entry.task ? getLastStatus(entry.task?.status)?.status.status : ''),
+  Status: (_id, entry) => (entry.task ? getLastStatus(entry.task?.status)?.statusName : ''),
   Tags: (_id, entry) => {
     if (entry.task) {
       let value = ''

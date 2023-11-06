@@ -3,7 +3,7 @@ import { type Entry, type Report, formatDurationOnlyDays, formatDurationToDays }
 import type {
   ClickupTask,
   ClickupTaskDueDate,
-  ClickupTaskStatus,
+  ClickupTaskStatusOnTask,
   ClickupTaskTimeEstimate,
 } from '../../graphql/generated'
 
@@ -46,8 +46,8 @@ export function clickupIdFromText(text: string): string | undefined {
   return undefined
 }
 
-export function getTaskTimeStatus(taskStatus: ClickupTaskStatus[] | null, statusName: string): number {
-  const status = taskStatus?.filter((item: ClickupTaskStatus) => item.status.trim() === statusName.trim())
+export function getTaskTimeStatus(taskStatus: ClickupTaskStatusOnTask[] | null, statusName: string): number {
+  const status = taskStatus?.filter((item: ClickupTaskStatusOnTask) => item.statusName.trim() === statusName.trim())
 
   if (taskStatus && status.length) {
     return Math.abs(Date.now() - new Date(getLastStatus(status).createdAt).getTime())
@@ -73,7 +73,9 @@ export const avgEstimativeError = (report: Report): number => {
 
 export const avgDaysStatus = (report: Report, statusName: string): string => {
   const tasksWithStatus = Object.values(report).filter((item) =>
-    item.task?.status.some((clickupStatus: ClickupTaskStatus) => clickupStatus.status.trim() === statusName.trim()),
+    item.task?.status.some(
+      (clickupStatus: ClickupTaskStatusOnTask) => clickupStatus.statusName.trim() === statusName.trim(),
+    ),
   )
 
   return formatDurationOnlyDays(
@@ -82,7 +84,7 @@ export const avgDaysStatus = (report: Report, statusName: string): string => {
   )
 }
 
-export const getLastStatus = (clickupTasksStatus: ClickupTaskStatus[]): ClickupTaskStatus => {
+export const getLastStatus = (clickupTasksStatus: ClickupTaskStatusOnTask[]): ClickupTaskStatusOnTask => {
   if (!clickupTasksStatus) return null
   return clickupTasksStatus.reduce((current, next) => {
     return new Date(next.createdAt) > new Date(current.createdAt) ? next : current
@@ -113,7 +115,7 @@ export const calculateDelay = (task: ClickupTask): number => {
 
   if (!currentStatus || !dueDate) return 0
 
-  if (currentStatus.status.trim() === 'to do' || currentStatus.status.trim() === 'in progress') {
+  if (currentStatus.statusName.trim() === 'to do' || currentStatus.statusName.trim() === 'in progress') {
     const now = Date.now()
     const delay = now - dueDate
 
@@ -124,7 +126,7 @@ export const calculateDelay = (task: ClickupTask): number => {
   const allStatus = task.status.sort((a, b) => new Date(a.createdAt).valueOf() - new Date(b.createdAt).valueOf())
 
   // pega a primeira vez que o status foi pra to do
-  const todoStatus = allStatus.findIndex((item) => item.status.trim() === 'to do')
+  const todoStatus = allStatus.findIndex((item) => item.statusName.trim() === 'to do')
 
   if (todoStatus > 0 && todoStatus < allStatus.length - 2) {
     // o próximo valor da lista é o status para que a task foi

@@ -10,7 +10,10 @@ export const queries = gql`
       duration
       currentlyRunning
       tags {
-        clockifyTagId
+        createdAt
+        clockifyTag {
+          name
+        }
       }
       clockifyProject {
         name
@@ -55,8 +58,8 @@ export const queries = gql`
         }
         status {
           createdAt
-          updatedAt
-          status
+          statusColor
+          statusName
         }
       }
     }
