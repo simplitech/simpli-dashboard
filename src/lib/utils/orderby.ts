@@ -1,6 +1,7 @@
 import { avgEstimativeError, getLastDueDate, getLastEstimative, sumTimeEstimate } from './clickupServices'
-import { calculateEstimationError, sumDurations, sumTimeTracked } from './clockifyServices'
+import { calculateEstimationError, getLastTimeEntry, sumDurations, sumTimeTracked } from './clockifyServices'
 import type { Group, Report } from './format'
+import { dateStringToDate } from './helper'
 
 export type OrderBy = {
   asc: boolean
@@ -19,6 +20,7 @@ export const orderBySummary: Record<string, (group: Group, asc: boolean) => Grou
   'TIME ESTIMATE': (group, asc) => orderByTimeEstimateSum(group, asc),
   'TIME TRACKED': (group, asc) => orderByTimeTrackedSum(group, asc),
   'ESTIMATIVE ERROR': (group, asc) => orderByEstimateErrorSum(group, asc),
+  'LAST LOG': (group, asc) => orderByLastLogSum(group, asc),
 }
 
 const calculateDiff = (a: number, b: number, asc: boolean) => {
@@ -53,9 +55,11 @@ const orderByDueDate = (reportFiltered: Report, asc: boolean) => {
 
 const orderByLastLog = (reportFiltered: Report, asc: boolean) => {
   const entries = Object.entries(reportFiltered)
-  entries.sort((a, b) =>
-    calculateDiff(new Date(a[1].timeEntry[0]?.end).valueOf(), new Date(b[1].timeEntry[0]?.end).valueOf(), asc),
-  )
+  entries.sort((a, b) => {
+    const lastLogA = getLastTimeEntry(a[1]).end ? new Date(getLastTimeEntry(a[1]).end).valueOf() : new Date().valueOf()
+    const lastLogB = getLastTimeEntry(b[1]).end ? new Date(getLastTimeEntry(b[1]).end).valueOf() : new Date().valueOf()
+    return calculateDiff(lastLogA, lastLogB, asc)
+  })
   return Object.fromEntries(entries)
 }
 
@@ -86,5 +90,13 @@ const orderByTimeEstimateSum = (group: Group, asc: boolean) => {
 const orderByEstimateErrorSum = (group: Group, asc: boolean) => {
   const entries = Object.entries(group)
   entries.sort((a, b) => calculateDiff(avgEstimativeError(b[1] as Report), avgEstimativeError(a[1] as Report), asc))
+  return Object.fromEntries(entries)
+}
+
+const orderByLastLogSum = (group: Group, asc: boolean) => {
+  const entries = Object.entries(group)
+  entries.sort((a, b) => {
+    return calculateDiff(dateStringToDate(b[0]).valueOf(), dateStringToDate(a[0]).valueOf(), asc)
+  })
   return Object.fromEntries(entries)
 }

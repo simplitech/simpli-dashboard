@@ -19,7 +19,11 @@ function sortUserDurations(entries: ClockifyTimeEntry[]): { user: string; durati
 }
 
 export function sumDurations(entries: ClockifyTimeEntry[]) {
-  return entries.map((item) => toSeconds(parse(item.duration))).reduce((a, b) => a + b, 0)
+  return entries
+    .map((item) => {
+      return item.duration ? toSeconds(parse(item.duration)) : 0
+    })
+    .reduce((a, b) => a + b, 0)
 }
 
 /**
@@ -90,12 +94,35 @@ export async function getClockifyEntriesAPI(startDate: string, endDate: string):
   const result = await getGraphqlClient()
     .query(ClockifyTimeEntriesDocument, {
       where: {
-        start: { gte: startDate },
-        end: { lte: endDate },
-        currentlyRunning: { equals: false },
+        OR: [
+          {
+            start: { gte: startDate },
+            end: { lte: endDate },
+          },
+          {
+            start: { gte: startDate },
+            end: null,
+          },
+        ],
       },
     })
     .toPromise()
 
   return result.data.clockifyTimeEntries as ClockifyTimeEntry[]
+}
+
+export const getLastTimeEntry = (entry: Entry) => {
+  const endDate = (timeEntry: ClockifyTimeEntry) => (timeEntry.end ? new Date(timeEntry.end) : new Date())
+
+  return entry.timeEntry.reduce((current, next) => {
+    return endDate(next) > endDate(current) ? next : current
+  }, entry.timeEntry[0])
+}
+
+/**
+ * If the time entry is running, it doesn't have a end date yet
+ * So it shows the current date
+ */
+export const getLastLogDate = (timeEntry: ClockifyTimeEntry) => {
+  return timeEntry.end || new Date().toDateString()
 }

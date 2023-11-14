@@ -10,6 +10,8 @@
   import {
     calculateEstimationError,
     clockifyUrl,
+    getLastLogDate,
+    getLastTimeEntry,
     getUserParticipation,
     sortUserNameAndEmailByParticipation,
     sumDurations,
@@ -29,6 +31,7 @@
   import MD5 from 'crypto-js/md5'
   import HeaderOrderBy from './HeaderOrderBy.svelte'
   import type { OrderBy } from '$lib/utils/orderby'
+  import ClockifyTag from './ClockifyTag.svelte'
 
   export let report: Report
   export let dateRangeStart: Date
@@ -91,6 +94,17 @@
               {/each}
             {/if}
           </div>
+          {#if getLastTimeEntry(entry).currentlyRunning}
+            <div class="mt-2">
+              {#if getLastTimeEntry(entry).tags.length}
+                {#each getLastTimeEntry(entry).tags as tag}
+                  <ClockifyTag tagText={tag.clockifyTag.name} />
+                {/each}
+              {:else}
+                <ClockifyTag />
+              {/if}
+            </div>
+          {/if}
         </div>
       </div>
       <div class="table-grid__cell">
@@ -159,7 +173,8 @@
       </div>
       <div class="table-grid__cell">
         {#if entry.timeEntry?.length}
-          <span title={new Date(entry.timeEntry[0]?.end).toString()}>{formatDateDayMonth(entry.timeEntry[0]?.end)}</span
+          <span title={new Date(getLastLogDate(getLastTimeEntry(entry))).toString()}
+            >{formatDateDayMonth(getLastLogDate(getLastTimeEntry(entry)))}</span
           >
         {/if}
       </div>
