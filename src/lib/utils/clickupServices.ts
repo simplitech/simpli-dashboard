@@ -128,10 +128,10 @@ export const calculateDelay = (task: ClickupTask): number => {
   // pega a primeira vez que o status foi pra to do
   const todoStatus = allStatus.findIndex((item) => item.statusName.trim() === 'to do')
 
-  if (todoStatus > 0 && todoStatus < allStatus.length - 2) {
+  if (todoStatus >= 0 && todoStatus < allStatus.length - 2) {
     // o próximo valor da lista é o status para que a task foi
     const nextStatusCreationDate = allStatus[todoStatus + 1].createdAt
-    return formatDurationToDays(dueDate - new Date(nextStatusCreationDate).valueOf())
+    return formatDurationToDays(new Date(nextStatusCreationDate).valueOf() - dueDate)
   }
 
   return 0
