@@ -359,11 +359,18 @@
               key === 'allDates'
                 ? formatUserNamesSortedByParticipation(taskValue.timeEntry).split(', ').flat()
                 : formatUserNamesDailyParticipation(taskValue.timeEntry, key)
+
             assignees.forEach((assignee) => {
               if (!projectGroup[assignee]) {
                 projectGroup[assignee] = {}
               }
-              projectGroup[assignee][taskKey] = taskValue as Entry
+
+              const assigneeEntries = taskValue.timeEntry.filter(
+                (timeEntry) => timeEntry.clockifyUser.name === assignee,
+              )
+              if (assigneeEntries) {
+                projectGroup[assignee][taskKey] = { task: taskValue.task, timeEntry: assigneeEntries }
+              }
             })
           }
 
