@@ -125,8 +125,8 @@ export const calculateDelay = (task: ClickupTask): number => {
   // ordenar o histórico pelo status mais antigo -> mais atual
   const allStatus = task.status.sort((a, b) => new Date(a.createdAt).valueOf() - new Date(b.createdAt).valueOf())
 
-  // pega a primeira vez que o status foi pra to do
-  const todoStatus = allStatus.findIndex((item) => item.statusName.trim() === 'to do')
+  // pega a ultima vez que o status foi pra to do
+  const todoStatus = allStatus.findLastIndex((item) => item.statusName.trim() === 'to do')
 
   if (todoStatus >= 0 && todoStatus < allStatus.length - 2) {
     // o próximo valor da lista é o status para que a task foi
