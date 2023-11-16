@@ -296,13 +296,20 @@
 
     if (selectedGroupBy.some((item: FilterOptions) => item.label === 'Date')) {
       for (const [idIssue, entry] of Object.entries(reportFiltered)) {
-        const dates = new Set(entry.timeEntry.map((item) => formatDayMonthYear(item.start)))
+        const dates = new Set(entry.timeEntry.map((item) => formatDayMonthYear(item.end || new Date().toDateString())))
 
         dates.forEach((date: string) => {
           if (!reportGroup[date]) {
             reportGroup[date] = {}
           }
-          reportGroup[date][idIssue] = entry
+
+          const dateEntries = entry.timeEntry.filter(
+            (entry) => formatDayMonthYear(entry.end || new Date().toDateString()) === date,
+          )
+          if (dateEntries.length) {
+            const filteredEntry: Entry = { task: entry.task, timeEntry: dateEntries }
+            reportGroup[date][idIssue] = filteredEntry
+          }
         })
       }
 

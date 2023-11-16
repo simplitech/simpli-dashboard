@@ -4,6 +4,8 @@ import {
   getMainGroupOfDurations,
   clockifyUrl,
   calculateEstimationError,
+  getLastLogDate,
+  getLastTimeEntry,
 } from '$lib/utils/clockifyServices'
 import { durationRoundUpByHalfHour } from '$lib/utils/helper'
 import {
@@ -85,7 +87,7 @@ export const formatReport: Record<
       : '--',
   Delay: (_id, entry) => (entry.task ? formatDays(calculateDelay(entry.task)) : ''),
   'First Log': (_id, entry) => (entry.timeEntry?.length ? entry.timeEntry[entry.timeEntry.length - 1]?.start : ''),
-  'Last Log': (_id, entry) => (entry.timeEntry?.length ? entry.timeEntry[0]?.end : ''),
+  'Last Log': (_id, entry) => (entry.timeEntry?.length ? getLastLogDate(getLastTimeEntry(entry)) : ''),
   Status: (_id, entry) => (entry.task ? getLastStatus(entry.task?.status)?.statusName : ''),
   Tags: (_id, entry) => {
     if (entry.task) {

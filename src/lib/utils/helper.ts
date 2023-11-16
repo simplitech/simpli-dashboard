@@ -67,3 +67,12 @@ export function clickOutside(node: HTMLElement, ignore?: string) {
     },
   }
 }
+
+/**
+ * @param date 'dd/mm/yyyy'
+ */
+export const dateStringToDate = (date: string) => {
+  const dateParts = date.split('/')
+
+  return new Date(+dateParts[2], parseInt(dateParts[1]) - 1, +dateParts[0])
+}
