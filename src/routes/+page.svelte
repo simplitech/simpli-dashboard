@@ -283,6 +283,16 @@
       )
     }
 
+    if (dateRangeEnd) {
+      Object.entries(reportFiltered).forEach(([, value]) => {
+        if (value.task && value.task.timeEstimates.length) {
+          value.task.timeEstimates = value.task.timeEstimates.filter(
+            (estimate) => new Date(estimate.createdAt).valueOf() < dateRangeEnd.valueOf(),
+          )
+        }
+      })
+    }
+
     if (orderBy) {
       reportFiltered = orderByColumns[orderBy.by](reportFiltered, orderBy.asc)
     }
