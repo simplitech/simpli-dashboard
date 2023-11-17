@@ -58,7 +58,7 @@ export function getTaskTimeStatus(taskStatus: ClickupTaskStatusOnTask[] | null, 
 export const sumTimeEstimate = (report: Report): number => {
   return (
     Object.values(report)
-      .map((item: Entry) => item.task?.timeEstimates[0]?.estimate || 0)
+      .map((item: Entry) => getLastEstimative(item.task?.timeEstimates)?.estimate || 0)
       .reduce((a, b) => a + b, 0) / 1000
   )
 }
