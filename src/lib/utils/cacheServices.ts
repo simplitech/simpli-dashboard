@@ -14,21 +14,35 @@ export function setCacheItem(key: string, value: unknown, ttl = 2 * 24 * 60 * 60
 
 export function getToken(): string {
   if (browser) {
-    const itemStr = localStorage.getItem('token')
+    const userData = localStorage.getItem('loggedUser')
 
-    if (!itemStr) {
+    if (!userData) {
       return ''
     }
 
-    const token = JSON.parse(itemStr)
+    const data = JSON.parse(userData)
 
-    if (new Date().getTime() > token.expiry) {
-      localStorage.removeItem('token')
+    if (new Date().getTime() > data.expiry) {
+      localStorage.removeItem('loggedUser')
       return ''
     }
 
-    return token ? `Bearer ${token.value}` : ''
+    return data ? `Bearer ${data.value.token}` : ''
   }
 
   return ''
+}
+
+export function getLoggedUserEmail(): string {
+  if (browser) {
+    const userData = localStorage.getItem('loggedUser')
+
+    if (!userData) {
+      return ''
+    }
+
+    const data = JSON.parse(userData)
+
+    return data ? data.value.email : ''
+  }
 }

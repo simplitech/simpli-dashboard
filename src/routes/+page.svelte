@@ -7,6 +7,7 @@
     formatUserNamesSortedByParticipation,
     formatUserNamesDailyParticipation,
     getClockifyEntriesAPI,
+    getUniqueUsersAndEmails,
   } from '$lib/utils/clockifyServices'
   import { calculateDelay, clickupIdFromText, getLastStatus, getTaskTimeStatus } from '$lib/utils/clickupServices'
   import Modal from '$lib/components/Modal.svelte'
@@ -28,9 +29,10 @@
   import _ from 'lodash'
   import { showToast } from '$lib/utils/toast'
   import { validateAndSignIn, type Login } from '$lib/utils/loginServices'
-  import { graphqlClient } from '$lib/utils/store'
+  import { graphqlClient, usersOverview } from '$lib/utils/store'
   import type { ClickupTaskStatusOnTask, ClockifyTimeEntry, ClickupTask } from '../graphql/generated'
   import { orderByColumns, type OrderBy, orderBySummary } from '$lib/utils/orderby'
+  import type { UserOverview } from '$lib/types/UserOverview'
 
   let report: Report = null
   let reportFiltered: Report = null
@@ -147,6 +149,9 @@
     }
 
     handleFilters()
+
+    buildUserOverview()
+
     loading = false
   }
 
@@ -432,6 +437,30 @@
     }
 
     return false
+  }
+
+  const buildUserOverview = () => {
+    const assignees = getUniqueUsersAndEmails(report)
+    const usersOverviewData: Record<string, UserOverview> = {}
+
+    Object.values(assignees).forEach((assignee) => {
+      // todo CU-8678cnfk1
+      const userOverview: UserOverview = {
+        name: assignee.name,
+        email: assignee.email,
+        isOnline: false,
+        issuesTodo: Math.random(),
+        issuesInProgress: Math.random(),
+        issuesOverdue: Math.random(),
+        issuesTodoWithPriority: Math.random(),
+        issuesToReview: Math.random(),
+        issuesToTest: Math.random(),
+      }
+
+      usersOverviewData[assignee.email] = userOverview
+    })
+
+    usersOverview.set(usersOverviewData)
   }
 
   const client = new Client({
