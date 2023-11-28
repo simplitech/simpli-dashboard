@@ -4,6 +4,9 @@
   import { version } from '$app/environment'
   import type { Report } from '$lib/utils/format'
   import ExportPopover from './ExportPopover.svelte'
+  import UserIcon from './UserIcon.svelte'
+  import { getLoggedUserEmail } from '$lib/utils/cacheServices'
+  import { usersOverview } from '$lib/utils/store'
 
   export let dateRangeEnd: Date
   export let dateRangeStart: Date
@@ -28,6 +31,12 @@
     dispatch('search', {
       searchValue: searchValue,
     })
+  }
+
+  const getUserOverview = () => {
+    const email = getLoggedUserEmail()
+
+    return $usersOverview[email]
   }
 </script>
 
@@ -87,8 +96,10 @@
     <div class="text-gray-400 font-normal text-xs pr-3">
       <span>v.{version}</span>
     </div>
-    <button on:click={openLoginModal} class="flex-shrink-0">
-      <img src="./images/settings.svg" alt="settings icon" />
-    </button>
+    {#if !disabled}
+      <button on:click={openLoginModal} class="flex-shrink-0">
+        <UserIcon isFocused userOverview={getUserOverview()} />
+      </button>
+    {/if}
   </div>
 </div>

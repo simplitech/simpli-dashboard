@@ -28,10 +28,11 @@
   } from '$lib/utils/format'
   import { daysToMilis, getContrastColorHex } from '$lib/utils/helper'
   import TableSummary from '$lib/components/TableSummary.svelte'
-  import MD5 from 'crypto-js/md5'
   import HeaderOrderBy from './HeaderOrderBy.svelte'
   import type { OrderBy } from '$lib/utils/orderby'
   import ClockifyTag from './ClockifyTag.svelte'
+  import UserIcon from './UserIcon.svelte'
+  import { usersOverview } from '$lib/utils/store'
 
   export let report: Report
   export let dateRangeStart: Date
@@ -41,8 +42,31 @@
   export let showWarnings = true
   export let orderBy: OrderBy
 
+  $: highlightedIndex = {
+    userIndex: -1,
+    entryIndex: -1,
+  }
+
+  function handleMouseOver(userIndex: number, entryIndex: number) {
+    highlightedIndex = {
+      userIndex,
+      entryIndex,
+    }
+  }
+
+  function handleMouseOut() {
+    highlightedIndex = {
+      userIndex: -1,
+      entryIndex: -1,
+    }
+  }
+
   function getProjectName(entry: Entry): string {
     return entry.task?.listLocation.name ?? entry.timeEntry?.[0]?.clockifyProject?.name ?? 'No project'
+  }
+
+  function getUserOverview(email: string) {
+    return $usersOverview[email]
   }
 </script>
 
@@ -65,7 +89,7 @@
   {/if}
 
   {#if showDetails || showWarnings}
-    {#each Object.entries(report) as [id, entry]}
+    {#each Object.entries(report) as [id, entry], entryIndex}
       <div class="table-grid__first-cell min-w-[400px] max-w-[600px] rounded-l-lg">
         {#if entry.task && entry.task.status}
           <div
@@ -112,16 +136,25 @@
           class="flex flex-row-reverse relative justify-center items-center"
           class:ml-5={sortUserNameAndEmailByParticipation(entry.timeEntry).length > 1}
         >
-          {#each sortUserNameAndEmailByParticipation(entry.timeEntry).reverse() as user}
+          {#each sortUserNameAndEmailByParticipation(entry.timeEntry).reverse() as user, userIndex}
             <div
-              class="flex items-center justify-center cursor-default font-semibold relative -ml-5 shrink-0"
-              class:-ml-5={sortUserNameAndEmailByParticipation(entry.timeEntry).length > 1}
+              class="flex items-center justify-center cursor-default font-semibold relative -ml-7 shrink-0"
+              class:-ml-7={sortUserNameAndEmailByParticipation(entry.timeEntry).length > 1}
               title={`${user.name} - ${getUserParticipation(entry.timeEntry, user.name)}`}
+              on:mouseover={() => handleMouseOver(userIndex, entryIndex)}
+              on:mouseout={handleMouseOut}
+              on:focus={() => handleMouseOver(userIndex, entryIndex)}
+              on:blur={handleMouseOut}
+              role="tooltip"
             >
-              <img
-                src="https://www.gravatar.com/avatar/{MD5(user.email)}"
-                class="w-10 h-10 bg-lilac rounded-full border-purple-gray-500 border-2"
-                alt="user profile img"
+              <UserIcon
+                userOverview={getUserOverview(user.email)}
+                isMultiple={sortUserNameAndEmailByParticipation(entry.timeEntry).length > 1}
+                isFocused={highlightedIndex.userIndex === userIndex ||
+                  highlightedIndex.userIndex === -1 ||
+                  sortUserNameAndEmailByParticipation(entry.timeEntry).length === 1}
+                isSameEntry={highlightedIndex.entryIndex === entryIndex}
+                showChart={highlightedIndex.userIndex === userIndex && highlightedIndex.entryIndex === entryIndex}
               />
             </div>
           {/each}

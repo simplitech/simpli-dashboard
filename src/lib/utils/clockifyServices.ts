@@ -126,3 +126,14 @@ export const getLastTimeEntry = (entry: Entry) => {
 export const getLastLogDate = (timeEntry: ClockifyTimeEntry) => {
   return timeEntry.end || new Date().toDateString()
 }
+
+export const getUniqueUsersAndEmails = (report: Report) => {
+  if (!report) return
+  const usersAndEmail = Object.values(report).flatMap((entry) =>
+    entry.timeEntry.map((timeEntry) => ({ name: timeEntry.clockifyUser.name, email: timeEntry.user.email })),
+  )
+  const uniqueUsersAndEmail = Object.values(
+    usersAndEmail.reduce((acc, userAndEmail) => ({ ...acc, [userAndEmail.email]: userAndEmail }), {}),
+  )
+  return uniqueUsersAndEmail
+}

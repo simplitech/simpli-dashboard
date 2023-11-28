@@ -22,7 +22,7 @@ export async function validateAndSignIn(loginData: Login) {
     .toPromise()
 
   if (result.data) {
-    setCacheItem('token', result.data.signin.token)
+    setCacheItem('loggedUser', { token: result.data.signin.token, email: loginData.email })
   } else if (result.error) {
     throw Error(result.error.message)
   }
