@@ -443,7 +443,7 @@
     const assignees = getUniqueUsersAndEmails(report)
     const usersOverviewData: Record<string, UserOverview> = {}
 
-    Object.values(assignees).forEach((assignee) => {
+    Object.values(assignees).forEach((assignee: UserOverview) => {
       // todo CU-8678cnfk1
       const userOverview: UserOverview = {
         name: assignee.name,

@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { UserOverview } from '$lib/types/UserOverview'
-  import { MD5 } from 'crypto-js'
+  import MD5 from 'crypto-js/md5'
   import { Chart, type EChartsOptions } from 'svelte-echarts'
 
   export let isMultiple = false
