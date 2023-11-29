@@ -68,6 +68,20 @@
   function getUserOverview(email: string) {
     return $usersOverview[email]
   }
+
+  $: shouldShowChart = (userIndex: number, entryIndex: number, length: number) => {
+    const isCurrentEntryBeingFocused = highlightedIndex.entryIndex === entryIndex
+
+    if (!isCurrentEntryBeingFocused) return length - 1 === userIndex
+
+    const nothingFocused = highlightedIndex.userIndex === -1
+
+    if (nothingFocused) {
+      return nothingFocused && length - 1 === userIndex
+    }
+
+    return highlightedIndex.userIndex === userIndex || (length - 1 === userIndex && nothingFocused)
+  }
 </script>
 
 <div class="table-grid text-sm {$$props.class}">
@@ -151,10 +165,13 @@
                 userOverview={getUserOverview(user.email)}
                 isMultiple={sortUserNameAndEmailByParticipation(entry.timeEntry).length > 1}
                 isFocused={highlightedIndex.userIndex === userIndex ||
-                  highlightedIndex.userIndex === -1 ||
                   sortUserNameAndEmailByParticipation(entry.timeEntry).length === 1}
                 isSameEntry={highlightedIndex.entryIndex === entryIndex}
-                showChart={highlightedIndex.userIndex === userIndex && highlightedIndex.entryIndex === entryIndex}
+                showChart={shouldShowChart(
+                  userIndex,
+                  entryIndex,
+                  sortUserNameAndEmailByParticipation(entry.timeEntry).length,
+                )}
               />
             </div>
           {/each}
