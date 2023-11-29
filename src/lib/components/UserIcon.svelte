@@ -11,6 +11,7 @@
   export let userOverview: UserOverview
 
   const options: EChartsOptions = {
+    animation: false,
     series: [
       {
         name: 'User Data',
@@ -40,21 +41,23 @@
 </script>
 
 <div
-  class="w-[50px] h-[50px] relative rounded-full"
-  class:bg-purple-gray-300={showChart}
+  class="w-[55px] h-[55px] relative rounded-full z-[2]"
+  class:bg-purple-gray-300={showChart && isSameEntry}
   class:opacity-25={isMultiple && isSameEntry && !isFocused}
 >
   <img
     src={`https://www.gravatar.com/avatar/${MD5(userOverview?.email)}`}
     alt="user icon"
-    class="rounded-full w-[90%] absolute top-[5%] left-[5%] z-10 border-4 border-purple-gray-300"
+    class="rounded-full w-[90%] absolute top-[5%] left-[5%] border-purple-gray-300 border-2 z-[1]"
   />
   {#if !isMultiple || showChart}
     <div
-      class="rounded-full h-[10px] w-[10px] absolute top-0.5 right-1 z-[15]"
+      class="rounded-full h-[12px] w-[12px] absolute top-0.8 right-1.5 z-[10] border border-black"
       class:bg-green-500={isOnline}
       class:bg-gray-300={!isOnline}
     />
-    <Chart {options} />
+    <div class="w-[55px] h-[55px] relative" class:z-2={showChart}>
+      <Chart {options} />
+    </div>
   {/if}
 </div>
