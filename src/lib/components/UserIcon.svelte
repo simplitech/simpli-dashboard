@@ -40,15 +40,12 @@
   }
 </script>
 
-<div
-  class="w-[55px] h-[55px] relative rounded-full z-[2]"
-  class:bg-purple-gray-300={showChart && isSameEntry}
-  class:opacity-25={isMultiple && isSameEntry && !isFocused}
->
+<div class="w-[55px] h-[55px] relative rounded-full" class:z-[99]={showChart}>
   <img
     src={`https://www.gravatar.com/avatar/${MD5(userOverview?.email)}`}
     alt="user icon"
-    class="rounded-full w-[90%] absolute top-[5%] left-[5%] border-purple-gray-300 border-2 z-[1]"
+    class="rounded-full w-[46px] absolute top-[5%] left-[5%] z-[1] m-[2px]"
+    class:brightness-50={isMultiple && isSameEntry && !isFocused}
   />
   {#if !isMultiple || showChart}
     <div
@@ -56,7 +53,7 @@
       class:bg-green-500={isOnline}
       class:bg-gray-300={!isOnline}
     />
-    <div class="w-[55px] h-[55px] relative" class:z-2={showChart}>
+    <div class="w-[55px] h-[55px]">
       <Chart {options} />
     </div>
   {/if}
