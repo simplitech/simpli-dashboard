@@ -196,6 +196,11 @@
     handleFilters()
   }
 
+  const formatSearchValue = (text: string | undefined) => {
+    if (text) return text.toLowerCase().replace(/\s+/g, '')
+    return ''
+  }
+
   const setFilterValue = (event: CustomEvent<Filters>) => {
     selectedAssignee = event.detail.selectedAssignee
     selectedProject = event.detail.selectedProject
@@ -265,13 +270,13 @@
     }
 
     if (searchValue) {
-      const searchFormatted = searchValue.toLowerCase()
+      const searchFormatted = formatSearchValue(searchValue)
       reportFiltered = Object.fromEntries(
         Object.entries(reportFiltered).filter(
           ([key, value]) =>
-            key.toLowerCase().includes(searchFormatted) ||
-            value.task?.id.toLowerCase().includes(searchFormatted) ||
-            value.task?.name.toLowerCase().includes(searchFormatted),
+            formatSearchValue(key).includes(searchFormatted) ||
+            formatSearchValue(value.task?.id).includes(searchFormatted) ||
+            formatSearchValue(value.task?.name).includes(searchFormatted),
         ),
       )
     }

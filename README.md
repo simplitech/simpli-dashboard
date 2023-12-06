@@ -9,7 +9,7 @@
 Create a .env file on the root folder with a content like the following.
 
 ```
-GRAPHQL_ENDPOINT="http://localhost:4000/graphql"
+VITE_GRAPHQL_ENDPOINT="http://localhost:4000/graphql"
 ```
 
 - _This .env file is **not commited**, and should only be used for local, development variables._
