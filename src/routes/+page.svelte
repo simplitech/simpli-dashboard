@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { Client, cacheExchange, fetchExchange } from '@urql/svelte'
   import { getToken } from '$lib/utils/cacheServices'
   import {
     calculateEstimationError,
@@ -29,7 +28,7 @@
   import _ from 'lodash'
   import { showToast } from '$lib/utils/toast'
   import { validateAndSignIn, type Login } from '$lib/utils/loginServices'
-  import { graphqlClient, usersOverview } from '$lib/utils/store'
+  import { createClient, graphqlClient, usersOverview } from '$lib/utils/store'
   import type { ClickupTaskStatusOnTask, ClockifyTimeEntry, ClickupTask } from '../graphql/generated'
   import { orderByColumns, type OrderBy, orderBySummary } from '$lib/utils/orderby'
   import type { UserOverview } from '$lib/types/UserOverview'
@@ -76,6 +75,7 @@
 
   onMount(async () => {
     const token = await getToken()
+    createClient()
     if (!token) {
       loginOpen = true
     } else {
@@ -83,7 +83,7 @@
     }
   })
 
-  const setDateAndGenerate = async (event: CustomEvent<{ dateRangeStart: Date; dateRangeEnd: Date }>) => {
+  const refreshData = async (event: CustomEvent<{ dateRangeStart: Date; dateRangeEnd: Date }>) => {
     dateRangeStart = event.detail.dateRangeStart
     dateRangeEnd = event.detail.dateRangeEnd
 
@@ -468,22 +468,6 @@
     usersOverview.set(usersOverviewData)
   }
 
-  const client = new Client({
-    url: import.meta.env.VITE_GRAPHQL_ENDPOINT ?? '',
-    exchanges: [cacheExchange, fetchExchange],
-    fetchOptions: () => {
-      const token = getToken()
-      return {
-        headers: {
-          'content-type': 'application/json',
-          Authorization: token,
-        },
-      }
-    },
-  })
-
-  graphqlClient.set(client)
-
   const handleLogin = async () => {
     try {
       await validateAndSignIn(loginData)
@@ -503,7 +487,7 @@
     {dateRangeEnd}
     disabled={loading}
     report={reportFiltered}
-    on:generate={setDateAndGenerate}
+    on:generate={refreshData}
     on:openLoginModal={() => (loginOpen = true)}
     on:search={setSearch}
   />
