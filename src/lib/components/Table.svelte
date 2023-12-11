@@ -147,7 +147,7 @@
       </div>
       <div class="table-grid__cell">
         <div
-          class="flex flex-row-reverse relative justify-center items-center"
+          class="flex flex-row-reverse relative justify-center items-center isolate"
           class:ml-5={sortUserNameAndEmailByParticipation(entry.timeEntry).length > 1}
         >
           {#each sortUserNameAndEmailByParticipation(entry.timeEntry).reverse() as user, userIndex}
