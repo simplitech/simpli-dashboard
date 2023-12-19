@@ -1,7 +1,7 @@
 <script lang="ts">
   import { avgDaysStatus, avgEstimativeError, sumTimeEstimate } from '$lib/utils/clickupServices'
   import { countUserNames, sumTimeTracked } from '$lib/utils/clockifyServices'
-  import { formatDuration, formatDurationClock, type Report } from '$lib/utils/format'
+  import { formatDuration, formatDurationClock, formatDurationOnlyDays, type Report } from '$lib/utils/format'
 
   export let report: Report
 </script>
@@ -15,8 +15,8 @@
 <div class="table-summary" />
 <div class="table-summary" />
 <div class="table-summary" />
-<div class="table-summary">Avg: {avgDaysStatus(report, 'to review')}</div>
-<div class="table-summary rounded-r-lg">Avg: {avgDaysStatus(report, 'to test')}</div>
+<div class="table-summary">Avg: {formatDurationOnlyDays(avgDaysStatus(report, 'to review'))}</div>
+<div class="table-summary rounded-r-lg">Avg: {formatDurationOnlyDays(avgDaysStatus(report, 'to test'))}</div>
 
 <style>
   .table-summary {
