@@ -92,10 +92,10 @@
   <HeaderOrderBy on:orderBy {orderBy} headerText="TIME ESTIMATE" class="table-grid__header" />
   <HeaderOrderBy on:orderBy {orderBy} headerText="ESTIMATIVE ERROR" class="table-grid__header" />
   <HeaderOrderBy on:orderBy {orderBy} headerText="DUE DATE" class="table-grid__header" />
-  <div class="table-grid__header">DELAY</div>
+  <HeaderOrderBy on:orderBy {orderBy} headerText="DELAY" class="table-grid__header" />
   <HeaderOrderBy on:orderBy {orderBy} headerText="LAST LOG" class="table-grid__header" />
-  <div class="table-grid__header">TO REVIEW</div>
-  <div class="table-grid__header">TO TEST</div>
+  <HeaderOrderBy on:orderBy {orderBy} headerText="TO REVIEW" class="table-grid__header" />
+  <HeaderOrderBy on:orderBy {orderBy} headerText="TO TEST" class="table-grid__header" />
 
   <!-- Summary -->
   {#if showSummary}

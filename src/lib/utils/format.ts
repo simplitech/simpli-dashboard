@@ -195,7 +195,7 @@ export const formatDurationToDays = (duration: number): number => {
 }
 
 export const formatDays = (days: number) => {
-  return days ? `${days}d` : '-'
+  return days ? `${days}d` : ''
 }
 
 export const getUserInitials = (name: string): string => {

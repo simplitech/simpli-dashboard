@@ -1,4 +1,12 @@
-import { avgEstimativeError, getLastDueDate, getLastEstimative, sumTimeEstimate } from './clickupServices'
+import {
+  avgDaysStatus,
+  avgEstimativeError,
+  calculateDelay,
+  getLastDueDate,
+  getLastEstimative,
+  getTaskTimeStatus,
+  sumTimeEstimate,
+} from './clickupServices'
 import { calculateEstimationError, getLastTimeEntry, sumDurations, sumTimeTracked } from './clockifyServices'
 import type { Group, Report } from './format'
 import { dateStringToDate } from './helper'
@@ -14,6 +22,9 @@ export const orderByColumns: Record<string, (reportFiltered: Report, asc: boolea
   'DUE DATE': (reportFiltered, asc) => orderByDueDate(reportFiltered, asc),
   'LAST LOG': (reportFiltered, asc) => orderByLastLog(reportFiltered, asc),
   'ESTIMATIVE ERROR': (reportFiltered, asc) => orderByEstimateError(reportFiltered, asc),
+  DELAY: (reportFiltered, asc) => orderByDelay(reportFiltered, asc),
+  'TO REVIEW': (reportFiltered, asc) => orderByStatusName(reportFiltered, asc, 'to review'),
+  'TO TEST': (reportFiltered, asc) => orderByStatusName(reportFiltered, asc, 'to test'),
 }
 
 export const orderBySummary: Record<string, (group: Group, asc: boolean) => Group> = {
@@ -21,10 +32,36 @@ export const orderBySummary: Record<string, (group: Group, asc: boolean) => Grou
   'TIME TRACKED': (group, asc) => orderByTimeTrackedSum(group, asc),
   'ESTIMATIVE ERROR': (group, asc) => orderByEstimateErrorSum(group, asc),
   'LAST LOG': (group, asc) => orderByLastLogSum(group, asc),
+  'TO REVIEW': (group, asc) => orderByStatusNameAvg(group, asc, 'to review'),
+  'TO TEST': (group, asc) => orderByStatusNameAvg(group, asc, 'to test'),
 }
 
 const calculateDiff = (a: number, b: number, asc: boolean) => {
   return asc ? a - b : b - a
+}
+
+const orderByDelay = (reportFiltered: Report, asc: boolean) => {
+  const entries = Object.entries(reportFiltered)
+
+  entries.sort((a, b) =>
+    calculateDiff(calculateDelay(a[1].task) || Infinity, calculateDelay(b[1].task) || Infinity, asc),
+  )
+
+  return Object.fromEntries(entries)
+}
+
+const orderByStatusName = (reportFiltered: Report, asc: boolean, statusName: string) => {
+  const entries = Object.entries(reportFiltered)
+
+  entries.sort((a, b) =>
+    calculateDiff(
+      getTaskTimeStatus(a[1].task?.status, statusName),
+      getTaskTimeStatus(b[1].task?.status, statusName),
+      asc,
+    ),
+  )
+
+  return Object.fromEntries(entries)
 }
 
 const orderByTimeEstimate = (reportFiltered: Report, asc: boolean) => {
@@ -98,5 +135,13 @@ const orderByLastLogSum = (group: Group, asc: boolean) => {
   entries.sort((a, b) => {
     return calculateDiff(dateStringToDate(b[0]).valueOf(), dateStringToDate(a[0]).valueOf(), asc)
   })
+  return Object.fromEntries(entries)
+}
+
+const orderByStatusNameAvg = (group: Group, asc: boolean, statusName: string) => {
+  const entries = Object.entries(group)
+  entries.sort((a, b) =>
+    calculateDiff(avgDaysStatus(b[1] as Report, statusName), avgDaysStatus(a[1] as Report, statusName), asc),
+  )
   return Object.fromEntries(entries)
 }

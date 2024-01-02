@@ -71,16 +71,16 @@ export const avgEstimativeError = (report: Report): number => {
   )
 }
 
-export const avgDaysStatus = (report: Report, statusName: string): string => {
+export const avgDaysStatus = (report: Report, statusName: string): number => {
   const tasksWithStatus = Object.values(report).filter((item) =>
     item.task?.status.some(
       (clickupStatus: ClickupTaskStatusOnTask) => clickupStatus.statusName.trim() === statusName.trim(),
     ),
   )
 
-  return formatDurationOnlyDays(
+  return (
     tasksWithStatus.map((item) => getTaskTimeStatus(item.task?.status, statusName)).reduce((a, b) => a + b, 0) /
-      tasksWithStatus.length,
+    tasksWithStatus.length
   )
 }
 
