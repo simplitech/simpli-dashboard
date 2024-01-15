@@ -182,6 +182,12 @@ export const formatDateDayMonth = (date: string | Date): string => {
   return `${new Date(date).getDate()} ${new Date(date).toLocaleString('en', { month: 'short' })}`
 }
 
+export const formatDateHourMinuteSec = (date: string | Date): string => {
+  return `${('0' + new Date(date).getHours()).slice(-2)}:${('0' + new Date(date).getMinutes()).slice(-2)}:${(
+    '0' + new Date(date).getSeconds()
+  ).slice(-2)}`
+}
+
 export const formatUnixDate = (unixDate: string | number): string => {
   return formatDateDayMonth(new Date(Number(unixDate)))
 }
