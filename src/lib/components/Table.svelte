@@ -25,6 +25,7 @@
     formatDurationClock,
     type Entry,
     formatDays,
+    formatDateHourMinuteSec,
   } from '$lib/utils/format'
   import { daysToMilis, getContrastColorHex } from '$lib/utils/helper'
   import TableSummary from '$lib/components/TableSummary.svelte'
@@ -221,11 +222,14 @@
           </div>
         {/if}
       </div>
-      <div class="table-grid__cell">
+      <div class="table-grid__cell-vertical-content">
         {#if entry.timeEntry?.length}
           <span title={new Date(getLastLogDate(getLastTimeEntry(entry))).toString()}
-            >{formatDateDayMonth(getLastLogDate(getLastTimeEntry(entry)))}</span
-          >
+            >{formatDateDayMonth(getLastLogDate(getLastTimeEntry(entry)))}
+          </span>
+          <span title={new Date(getLastLogDate(getLastTimeEntry(entry))).toString()}
+            >{formatDateHourMinuteSec(getLastLogDate(getLastTimeEntry(entry)))}
+          </span>
         {/if}
       </div>
       <div
@@ -264,6 +268,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .table-grid__cell-vertical-content {
+    @apply bg-purple-gray-400 px-5 min-h-[85px];
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .table-grid__first-cell {
