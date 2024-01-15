@@ -119,6 +119,25 @@ export const getLastTimeEntry = (entry: Entry) => {
   }, entry.timeEntry[0])
 }
 
+export function getLastTimeEntryPerUser(entries: ClockifyTimeEntry[] | null): ClockifyTimeEntry[] {
+  if (!entries) return []
+
+  const endDateOrCurrentDate = (timeEntry: ClockifyTimeEntry) => (timeEntry.end ? new Date(timeEntry.end) : new Date())
+
+  const userEntries = entries.reduce((current: ClockifyTimeEntry[], next: ClockifyTimeEntry) => {
+    const index = current.findIndex((el) => el.clockifyUser.name === next.clockifyUser.name)
+    if (index === -1) {
+      current.push(next)
+    } else {
+      if (endDateOrCurrentDate(next) > endDateOrCurrentDate(current[index])) {
+        current[index] = next
+      }
+    }
+    return current
+  }, [])
+  return userEntries
+}
+
 /**
  * If the time entry is running, it doesn't have a end date yet
  * So it shows the current date
