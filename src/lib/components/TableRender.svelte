@@ -25,6 +25,8 @@
       case 1:
         return selectedGroupBy?.some((item: FilterOptions) => item.label === 'Project')
       case 2:
+        return selectedGroupBy?.some((item: FilterOptions) => item.label === 'Status')
+      case 3:
         return selectedGroupBy?.some((item: FilterOptions) => item.label === 'Assignee')
       default:
         return false
@@ -38,7 +40,7 @@
       {#if getGroupTitle()}
         <GroupTitle title={key} />
       {/if}
-      {#if level < 2}
+      {#if level < 3}
         <svelte:self
           reportGroup={value}
           {selectedGroupBy}

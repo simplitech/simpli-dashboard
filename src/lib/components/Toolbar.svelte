@@ -10,7 +10,7 @@
   export let filters: FilterItems
   export let disabled = false
 
-  let groupByItems = ['Project', 'Assignee', 'Date'].map((item) => ({ label: item }))
+  let groupByItems = ['Project', 'Assignee', 'Status', 'Date'].map((item) => ({ label: item }))
 
   let selectedFilters: Filters = {
     selectedAssignee: [],
