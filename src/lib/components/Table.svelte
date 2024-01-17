@@ -12,6 +12,7 @@
     clockifyUrl,
     getLastLogDate,
     getLastTimeEntry,
+    getLastTimeEntryPerUser,
     getUserParticipation,
     sortUserNameAndEmailByParticipation,
     sumDurations,
@@ -133,17 +134,19 @@
               {/each}
             {/if}
           </div>
-          {#if getLastTimeEntry(entry).currentlyRunning}
-            <div class="mt-2">
-              {#if getLastTimeEntry(entry).tags.length}
-                {#each getLastTimeEntry(entry).tags as tag}
-                  <ClockifyTag tagText={tag.clockifyTag.name} />
-                {/each}
-              {:else}
-                <ClockifyTag />
+          <div class="flex flex-wrap mt-2">
+            {#each getLastTimeEntryPerUser(entry.timeEntry) as lastEntryPerUser}
+              {#if lastEntryPerUser.currentlyRunning}
+                {#if lastEntryPerUser.tags.length}
+                  {#each lastEntryPerUser.tags as tag}
+                    <ClockifyTag tagText={tag.clockifyTag.name} userName={lastEntryPerUser.clockifyUser.name} />
+                  {/each}
+                {:else}
+                  <ClockifyTag userName={lastEntryPerUser.clockifyUser.name} />
+                {/if}
               {/if}
-            </div>
-          {/if}
+            {/each}
+          </div>
         </div>
       </div>
       <div class="table-grid__cell">
