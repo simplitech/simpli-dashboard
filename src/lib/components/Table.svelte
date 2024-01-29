@@ -64,7 +64,7 @@
   }
 
   function getProjectName(entry: Entry): string {
-    return entry.task?.listLocation.name ?? entry.timeEntry?.[0]?.clockifyProject?.name ?? 'No project'
+    return entry.task?.list?.[0]?.clickupList?.name ?? entry.timeEntry?.[0]?.clockifyProject?.name ?? 'No project'
   }
 
   function getUserOverview(email: string) {
