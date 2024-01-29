@@ -43,9 +43,7 @@ const calculateDiff = (a: number, b: number, asc: boolean) => {
 const orderByDelay = (reportFiltered: Report, asc: boolean) => {
   const entries = Object.entries(reportFiltered)
 
-  entries.sort((a, b) =>
-    calculateDiff(calculateDelay(a[1].task) || Infinity, calculateDelay(b[1].task) || Infinity, asc),
-  )
+  entries.sort((a, b) => calculateDiff(calculateDelay(a[1].task) || 0, calculateDelay(b[1].task) || 0, asc))
 
   return Object.fromEntries(entries)
 }
