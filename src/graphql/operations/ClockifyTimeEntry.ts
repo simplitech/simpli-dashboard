@@ -38,8 +38,10 @@ export const queries = gql`
             username
           }
         }
-        listLocation {
-          name
+        list {
+          clickupList {
+            name
+          }
         }
         tags {
           name

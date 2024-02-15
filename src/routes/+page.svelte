@@ -101,7 +101,8 @@
     projectFilter = [
       ...new Set(
         Object.values(report).map(
-          (item: Entry) => item.task?.listLocation.name ?? item.timeEntry?.[0]?.clockifyProject?.name ?? 'No Project',
+          (item: Entry) =>
+            item.task?.list?.[0]?.clickupList?.name ?? item.timeEntry?.[0]?.clockifyProject?.name ?? 'No Project',
         ),
       ),
     ]
@@ -232,8 +233,9 @@
         Object.entries(reportFiltered).filter(([, value]) =>
           Object.values(selectedProject).some(
             (project: FilterOptions) =>
-              (value.task?.listLocation.name ?? value.timeEntry[0]?.clockifyProject?.name ?? 'No Project') ===
-              project.label,
+              (value.task?.list?.[0]?.clickupList?.name ??
+                value.timeEntry[0]?.clockifyProject?.name ??
+                'No Project') === project.label,
           ),
         ),
       )
@@ -347,7 +349,8 @@
       if (selectedGroupBy.some((item: FilterOptions) => item.label === 'Project')) {
         for (const [taskKey, taskValue] of Object.entries(value)) {
           const entry = taskValue as Entry
-          const projectKey = entry.task?.listLocation.name ?? entry.timeEntry[0]?.clockifyProject?.name ?? 'No project'
+          const projectKey =
+            entry.task?.list?.[0]?.clickupList?.name ?? entry.timeEntry[0]?.clockifyProject?.name ?? 'No project'
           if (!group[projectKey]) {
             group[projectKey] = {}
           }

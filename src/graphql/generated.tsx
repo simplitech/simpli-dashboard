@@ -32,6 +32,36 @@ export type AggregateClickupClockifyProject = {
   _sum?: Maybe<ClickupClockifyProjectSumAggregate>
 }
 
+export type AggregateClickupCustomField = {
+  __typename?: 'AggregateClickupCustomField'
+  _count?: Maybe<ClickupCustomFieldCountAggregate>
+  _max?: Maybe<ClickupCustomFieldMaxAggregate>
+  _min?: Maybe<ClickupCustomFieldMinAggregate>
+}
+
+export type AggregateClickupFolder = {
+  __typename?: 'AggregateClickupFolder'
+  _count?: Maybe<ClickupFolderCountAggregate>
+  _max?: Maybe<ClickupFolderMaxAggregate>
+  _min?: Maybe<ClickupFolderMinAggregate>
+}
+
+export type AggregateClickupList = {
+  __typename?: 'AggregateClickupList'
+  _avg?: Maybe<ClickupListAvgAggregate>
+  _count?: Maybe<ClickupListCountAggregate>
+  _max?: Maybe<ClickupListMaxAggregate>
+  _min?: Maybe<ClickupListMinAggregate>
+  _sum?: Maybe<ClickupListSumAggregate>
+}
+
+export type AggregateClickupProject = {
+  __typename?: 'AggregateClickupProject'
+  _count?: Maybe<ClickupProjectCountAggregate>
+  _max?: Maybe<ClickupProjectMaxAggregate>
+  _min?: Maybe<ClickupProjectMinAggregate>
+}
+
 export type AggregateClickupTask = {
   __typename?: 'AggregateClickupTask'
   _avg?: Maybe<ClickupTaskAvgAggregate>
@@ -93,11 +123,27 @@ export type AggregateClickupTaskDueDate = {
   _sum?: Maybe<ClickupTaskDueDateSumAggregate>
 }
 
-export type AggregateClickupTaskLocation = {
-  __typename?: 'AggregateClickupTaskLocation'
-  _count?: Maybe<ClickupTaskLocationCountAggregate>
-  _max?: Maybe<ClickupTaskLocationMaxAggregate>
-  _min?: Maybe<ClickupTaskLocationMinAggregate>
+export type AggregateClickupTaskFolder = {
+  __typename?: 'AggregateClickupTaskFolder'
+  _count?: Maybe<ClickupTaskFolderCountAggregate>
+  _max?: Maybe<ClickupTaskFolderMaxAggregate>
+  _min?: Maybe<ClickupTaskFolderMinAggregate>
+}
+
+export type AggregateClickupTaskList = {
+  __typename?: 'AggregateClickupTaskList'
+  _count?: Maybe<ClickupTaskListCountAggregate>
+  _max?: Maybe<ClickupTaskListMaxAggregate>
+  _min?: Maybe<ClickupTaskListMinAggregate>
+}
+
+export type AggregateClickupTaskLocationHistory = {
+  __typename?: 'AggregateClickupTaskLocationHistory'
+  _avg?: Maybe<ClickupTaskLocationHistoryAvgAggregate>
+  _count?: Maybe<ClickupTaskLocationHistoryCountAggregate>
+  _max?: Maybe<ClickupTaskLocationHistoryMaxAggregate>
+  _min?: Maybe<ClickupTaskLocationHistoryMinAggregate>
+  _sum?: Maybe<ClickupTaskLocationHistorySumAggregate>
 }
 
 export type AggregateClickupTaskPriority = {
@@ -107,13 +153,18 @@ export type AggregateClickupTaskPriority = {
   _min?: Maybe<ClickupTaskPriorityMinAggregate>
 }
 
+export type AggregateClickupTaskProject = {
+  __typename?: 'AggregateClickupTaskProject'
+  _count?: Maybe<ClickupTaskProjectCountAggregate>
+  _max?: Maybe<ClickupTaskProjectMaxAggregate>
+  _min?: Maybe<ClickupTaskProjectMinAggregate>
+}
+
 export type AggregateClickupTaskQueue = {
   __typename?: 'AggregateClickupTaskQueue'
-  _avg?: Maybe<ClickupTaskQueueAvgAggregate>
   _count?: Maybe<ClickupTaskQueueCountAggregate>
   _max?: Maybe<ClickupTaskQueueMaxAggregate>
   _min?: Maybe<ClickupTaskQueueMinAggregate>
-  _sum?: Maybe<ClickupTaskQueueSumAggregate>
 }
 
 export type AggregateClickupTaskSpace = {
@@ -246,6 +297,15 @@ export type AggregateRole = {
   _max?: Maybe<RoleMaxAggregate>
   _min?: Maybe<RoleMinAggregate>
   _sum?: Maybe<RoleSumAggregate>
+}
+
+export type AggregateTaskPeriodData = {
+  __typename?: 'AggregateTaskPeriodData'
+  _avg?: Maybe<TaskPeriodDataAvgAggregate>
+  _count?: Maybe<TaskPeriodDataCountAggregate>
+  _max?: Maybe<TaskPeriodDataMaxAggregate>
+  _min?: Maybe<TaskPeriodDataMinAggregate>
+  _sum?: Maybe<TaskPeriodDataSumAggregate>
 }
 
 export type AggregateUser = {
@@ -561,6 +621,900 @@ export type ClickupClockifyProjectWhereUniqueInput = {
   updatedAt?: InputMaybe<DateTimeFilter>
 }
 
+export type ClickupCustomField = {
+  __typename?: 'ClickupCustomField'
+  _count?: Maybe<ClickupCustomFieldCount>
+  clickupTaskCustomField: Array<ClickupTaskCustomField>
+  dateCreated: Scalars['String']['output']
+  hideFromGuests: Scalars['Boolean']['output']
+  id: Scalars['String']['output']
+  name: Scalars['String']['output']
+  required?: Maybe<Scalars['Boolean']['output']>
+  type: Scalars['String']['output']
+  typeConfig: Scalars['JSON']['output']
+  value?: Maybe<Scalars['JSON']['output']>
+}
+
+export type ClickupCustomFieldClickupTaskCustomFieldArgs = {
+  cursor?: InputMaybe<ClickupTaskCustomFieldWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupTaskCustomFieldScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupTaskCustomFieldOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupTaskCustomFieldWhereInput>
+}
+
+export type ClickupCustomFieldCount = {
+  __typename?: 'ClickupCustomFieldCount'
+  clickupTaskCustomField: Scalars['Int']['output']
+}
+
+export type ClickupCustomFieldCountClickupTaskCustomFieldArgs = {
+  where?: InputMaybe<ClickupTaskCustomFieldWhereInput>
+}
+
+export type ClickupCustomFieldCountAggregate = {
+  __typename?: 'ClickupCustomFieldCountAggregate'
+  _all: Scalars['Int']['output']
+  dateCreated: Scalars['Int']['output']
+  hideFromGuests: Scalars['Int']['output']
+  id: Scalars['Int']['output']
+  name: Scalars['Int']['output']
+  required: Scalars['Int']['output']
+  type: Scalars['Int']['output']
+  typeConfig: Scalars['Int']['output']
+  value: Scalars['Int']['output']
+}
+
+export type ClickupCustomFieldCreateInput = {
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutClickupCustomFieldInput>
+  dateCreated: Scalars['String']['input']
+  hideFromGuests: Scalars['Boolean']['input']
+  id: Scalars['String']['input']
+  name: Scalars['String']['input']
+  required?: InputMaybe<Scalars['Boolean']['input']>
+  type: Scalars['String']['input']
+  typeConfig: Scalars['JSON']['input']
+  value?: InputMaybe<Scalars['JSON']['input']>
+}
+
+export type ClickupCustomFieldCreateManyInput = {
+  dateCreated: Scalars['String']['input']
+  hideFromGuests: Scalars['Boolean']['input']
+  id: Scalars['String']['input']
+  name: Scalars['String']['input']
+  required?: InputMaybe<Scalars['Boolean']['input']>
+  type: Scalars['String']['input']
+  typeConfig: Scalars['JSON']['input']
+  value?: InputMaybe<Scalars['JSON']['input']>
+}
+
+export type ClickupCustomFieldCreateNestedOneWithoutClickupTaskCustomFieldInput = {
+  connect?: InputMaybe<ClickupCustomFieldWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupCustomFieldCreateOrConnectWithoutClickupTaskCustomFieldInput>
+  create?: InputMaybe<ClickupCustomFieldCreateWithoutClickupTaskCustomFieldInput>
+}
+
+export type ClickupCustomFieldCreateOrConnectWithoutClickupTaskCustomFieldInput = {
+  create: ClickupCustomFieldCreateWithoutClickupTaskCustomFieldInput
+  where: ClickupCustomFieldWhereUniqueInput
+}
+
+export type ClickupCustomFieldCreateWithoutClickupTaskCustomFieldInput = {
+  dateCreated: Scalars['String']['input']
+  hideFromGuests: Scalars['Boolean']['input']
+  id: Scalars['String']['input']
+  name: Scalars['String']['input']
+  required?: InputMaybe<Scalars['Boolean']['input']>
+  type: Scalars['String']['input']
+  typeConfig: Scalars['JSON']['input']
+  value?: InputMaybe<Scalars['JSON']['input']>
+}
+
+export type ClickupCustomFieldMaxAggregate = {
+  __typename?: 'ClickupCustomFieldMaxAggregate'
+  dateCreated?: Maybe<Scalars['String']['output']>
+  hideFromGuests?: Maybe<Scalars['Boolean']['output']>
+  id?: Maybe<Scalars['String']['output']>
+  name?: Maybe<Scalars['String']['output']>
+  required?: Maybe<Scalars['Boolean']['output']>
+  type?: Maybe<Scalars['String']['output']>
+}
+
+export type ClickupCustomFieldMinAggregate = {
+  __typename?: 'ClickupCustomFieldMinAggregate'
+  dateCreated?: Maybe<Scalars['String']['output']>
+  hideFromGuests?: Maybe<Scalars['Boolean']['output']>
+  id?: Maybe<Scalars['String']['output']>
+  name?: Maybe<Scalars['String']['output']>
+  required?: Maybe<Scalars['Boolean']['output']>
+  type?: Maybe<Scalars['String']['output']>
+}
+
+export type ClickupCustomFieldOrderByWithRelationInput = {
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldOrderByRelationAggregateInput>
+  dateCreated?: InputMaybe<SortOrder>
+  hideFromGuests?: InputMaybe<SortOrder>
+  id?: InputMaybe<SortOrder>
+  name?: InputMaybe<SortOrder>
+  required?: InputMaybe<SortOrderInput>
+  type?: InputMaybe<SortOrder>
+  typeConfig?: InputMaybe<SortOrder>
+  value?: InputMaybe<SortOrderInput>
+}
+
+export type ClickupCustomFieldRelationFilter = {
+  is?: InputMaybe<ClickupCustomFieldWhereInput>
+  isNot?: InputMaybe<ClickupCustomFieldWhereInput>
+}
+
+export enum ClickupCustomFieldScalarFieldEnum {
+  DateCreated = 'dateCreated',
+  HideFromGuests = 'hideFromGuests',
+  Id = 'id',
+  Name = 'name',
+  Required = 'required',
+  Type = 'type',
+  TypeConfig = 'typeConfig',
+  Value = 'value',
+}
+
+export type ClickupCustomFieldUpdateInput = {
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutClickupCustomFieldNestedInput>
+  dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
+  hideFromGuests?: InputMaybe<BoolFieldUpdateOperationsInput>
+  id?: InputMaybe<StringFieldUpdateOperationsInput>
+  name?: InputMaybe<StringFieldUpdateOperationsInput>
+  required?: InputMaybe<NullableBoolFieldUpdateOperationsInput>
+  type?: InputMaybe<StringFieldUpdateOperationsInput>
+  typeConfig?: InputMaybe<Scalars['JSON']['input']>
+  value?: InputMaybe<Scalars['JSON']['input']>
+}
+
+export type ClickupCustomFieldUpdateManyMutationInput = {
+  dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
+  hideFromGuests?: InputMaybe<BoolFieldUpdateOperationsInput>
+  id?: InputMaybe<StringFieldUpdateOperationsInput>
+  name?: InputMaybe<StringFieldUpdateOperationsInput>
+  required?: InputMaybe<NullableBoolFieldUpdateOperationsInput>
+  type?: InputMaybe<StringFieldUpdateOperationsInput>
+  typeConfig?: InputMaybe<Scalars['JSON']['input']>
+  value?: InputMaybe<Scalars['JSON']['input']>
+}
+
+export type ClickupCustomFieldUpdateOneRequiredWithoutClickupTaskCustomFieldNestedInput = {
+  connect?: InputMaybe<ClickupCustomFieldWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupCustomFieldCreateOrConnectWithoutClickupTaskCustomFieldInput>
+  create?: InputMaybe<ClickupCustomFieldCreateWithoutClickupTaskCustomFieldInput>
+  update?: InputMaybe<ClickupCustomFieldUpdateToOneWithWhereWithoutClickupTaskCustomFieldInput>
+  upsert?: InputMaybe<ClickupCustomFieldUpsertWithoutClickupTaskCustomFieldInput>
+}
+
+export type ClickupCustomFieldUpdateToOneWithWhereWithoutClickupTaskCustomFieldInput = {
+  data: ClickupCustomFieldUpdateWithoutClickupTaskCustomFieldInput
+  where?: InputMaybe<ClickupCustomFieldWhereInput>
+}
+
+export type ClickupCustomFieldUpdateWithoutClickupTaskCustomFieldInput = {
+  dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
+  hideFromGuests?: InputMaybe<BoolFieldUpdateOperationsInput>
+  id?: InputMaybe<StringFieldUpdateOperationsInput>
+  name?: InputMaybe<StringFieldUpdateOperationsInput>
+  required?: InputMaybe<NullableBoolFieldUpdateOperationsInput>
+  type?: InputMaybe<StringFieldUpdateOperationsInput>
+  typeConfig?: InputMaybe<Scalars['JSON']['input']>
+  value?: InputMaybe<Scalars['JSON']['input']>
+}
+
+export type ClickupCustomFieldUpsertWithoutClickupTaskCustomFieldInput = {
+  create: ClickupCustomFieldCreateWithoutClickupTaskCustomFieldInput
+  update: ClickupCustomFieldUpdateWithoutClickupTaskCustomFieldInput
+  where?: InputMaybe<ClickupCustomFieldWhereInput>
+}
+
+export type ClickupCustomFieldWhereInput = {
+  AND?: InputMaybe<Array<ClickupCustomFieldWhereInput>>
+  NOT?: InputMaybe<Array<ClickupCustomFieldWhereInput>>
+  OR?: InputMaybe<Array<ClickupCustomFieldWhereInput>>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldListRelationFilter>
+  dateCreated?: InputMaybe<StringFilter>
+  hideFromGuests?: InputMaybe<BoolFilter>
+  id?: InputMaybe<StringFilter>
+  name?: InputMaybe<StringFilter>
+  required?: InputMaybe<BoolNullableFilter>
+  type?: InputMaybe<StringFilter>
+  typeConfig?: InputMaybe<JsonFilter>
+  value?: InputMaybe<JsonNullableFilter>
+}
+
+export type ClickupCustomFieldWhereUniqueInput = {
+  AND?: InputMaybe<Array<ClickupCustomFieldWhereInput>>
+  NOT?: InputMaybe<Array<ClickupCustomFieldWhereInput>>
+  OR?: InputMaybe<Array<ClickupCustomFieldWhereInput>>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldListRelationFilter>
+  dateCreated?: InputMaybe<StringFilter>
+  hideFromGuests?: InputMaybe<BoolFilter>
+  id?: InputMaybe<Scalars['String']['input']>
+  name?: InputMaybe<StringFilter>
+  required?: InputMaybe<BoolNullableFilter>
+  type?: InputMaybe<StringFilter>
+  typeConfig?: InputMaybe<JsonFilter>
+  value?: InputMaybe<JsonNullableFilter>
+}
+
+export type ClickupFolder = {
+  __typename?: 'ClickupFolder'
+  ClickupTaskFolder: Array<ClickupTaskFolder>
+  _count?: Maybe<ClickupFolderCount>
+  hidden: Scalars['Boolean']['output']
+  id: Scalars['String']['output']
+  name: Scalars['String']['output']
+}
+
+export type ClickupFolderClickupTaskFolderArgs = {
+  cursor?: InputMaybe<ClickupTaskFolderWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupTaskFolderScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupTaskFolderOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupTaskFolderWhereInput>
+}
+
+export type ClickupFolderCount = {
+  __typename?: 'ClickupFolderCount'
+  ClickupTaskFolder: Scalars['Int']['output']
+}
+
+export type ClickupFolderCountClickupTaskFolderArgs = {
+  where?: InputMaybe<ClickupTaskFolderWhereInput>
+}
+
+export type ClickupFolderCountAggregate = {
+  __typename?: 'ClickupFolderCountAggregate'
+  _all: Scalars['Int']['output']
+  hidden: Scalars['Int']['output']
+  id: Scalars['Int']['output']
+  name: Scalars['Int']['output']
+}
+
+export type ClickupFolderCreateInput = {
+  ClickupTaskFolder?: InputMaybe<ClickupTaskFolderCreateNestedManyWithoutClickupFolderInput>
+  hidden: Scalars['Boolean']['input']
+  id: Scalars['String']['input']
+  name: Scalars['String']['input']
+}
+
+export type ClickupFolderCreateManyInput = {
+  hidden: Scalars['Boolean']['input']
+  id: Scalars['String']['input']
+  name: Scalars['String']['input']
+}
+
+export type ClickupFolderCreateNestedOneWithoutClickupTaskFolderInput = {
+  connect?: InputMaybe<ClickupFolderWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupFolderCreateOrConnectWithoutClickupTaskFolderInput>
+  create?: InputMaybe<ClickupFolderCreateWithoutClickupTaskFolderInput>
+}
+
+export type ClickupFolderCreateOrConnectWithoutClickupTaskFolderInput = {
+  create: ClickupFolderCreateWithoutClickupTaskFolderInput
+  where: ClickupFolderWhereUniqueInput
+}
+
+export type ClickupFolderCreateWithoutClickupTaskFolderInput = {
+  hidden: Scalars['Boolean']['input']
+  id: Scalars['String']['input']
+  name: Scalars['String']['input']
+}
+
+export type ClickupFolderMaxAggregate = {
+  __typename?: 'ClickupFolderMaxAggregate'
+  hidden?: Maybe<Scalars['Boolean']['output']>
+  id?: Maybe<Scalars['String']['output']>
+  name?: Maybe<Scalars['String']['output']>
+}
+
+export type ClickupFolderMinAggregate = {
+  __typename?: 'ClickupFolderMinAggregate'
+  hidden?: Maybe<Scalars['Boolean']['output']>
+  id?: Maybe<Scalars['String']['output']>
+  name?: Maybe<Scalars['String']['output']>
+}
+
+export type ClickupFolderOrderByWithRelationInput = {
+  ClickupTaskFolder?: InputMaybe<ClickupTaskFolderOrderByRelationAggregateInput>
+  hidden?: InputMaybe<SortOrder>
+  id?: InputMaybe<SortOrder>
+  name?: InputMaybe<SortOrder>
+}
+
+export type ClickupFolderRelationFilter = {
+  is?: InputMaybe<ClickupFolderWhereInput>
+  isNot?: InputMaybe<ClickupFolderWhereInput>
+}
+
+export enum ClickupFolderScalarFieldEnum {
+  Hidden = 'hidden',
+  Id = 'id',
+  Name = 'name',
+}
+
+export type ClickupFolderUpdateInput = {
+  ClickupTaskFolder?: InputMaybe<ClickupTaskFolderUpdateManyWithoutClickupFolderNestedInput>
+  hidden?: InputMaybe<BoolFieldUpdateOperationsInput>
+  id?: InputMaybe<StringFieldUpdateOperationsInput>
+  name?: InputMaybe<StringFieldUpdateOperationsInput>
+}
+
+export type ClickupFolderUpdateManyMutationInput = {
+  hidden?: InputMaybe<BoolFieldUpdateOperationsInput>
+  id?: InputMaybe<StringFieldUpdateOperationsInput>
+  name?: InputMaybe<StringFieldUpdateOperationsInput>
+}
+
+export type ClickupFolderUpdateOneRequiredWithoutClickupTaskFolderNestedInput = {
+  connect?: InputMaybe<ClickupFolderWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupFolderCreateOrConnectWithoutClickupTaskFolderInput>
+  create?: InputMaybe<ClickupFolderCreateWithoutClickupTaskFolderInput>
+  update?: InputMaybe<ClickupFolderUpdateToOneWithWhereWithoutClickupTaskFolderInput>
+  upsert?: InputMaybe<ClickupFolderUpsertWithoutClickupTaskFolderInput>
+}
+
+export type ClickupFolderUpdateToOneWithWhereWithoutClickupTaskFolderInput = {
+  data: ClickupFolderUpdateWithoutClickupTaskFolderInput
+  where?: InputMaybe<ClickupFolderWhereInput>
+}
+
+export type ClickupFolderUpdateWithoutClickupTaskFolderInput = {
+  hidden?: InputMaybe<BoolFieldUpdateOperationsInput>
+  id?: InputMaybe<StringFieldUpdateOperationsInput>
+  name?: InputMaybe<StringFieldUpdateOperationsInput>
+}
+
+export type ClickupFolderUpsertWithoutClickupTaskFolderInput = {
+  create: ClickupFolderCreateWithoutClickupTaskFolderInput
+  update: ClickupFolderUpdateWithoutClickupTaskFolderInput
+  where?: InputMaybe<ClickupFolderWhereInput>
+}
+
+export type ClickupFolderWhereInput = {
+  AND?: InputMaybe<Array<ClickupFolderWhereInput>>
+  ClickupTaskFolder?: InputMaybe<ClickupTaskFolderListRelationFilter>
+  NOT?: InputMaybe<Array<ClickupFolderWhereInput>>
+  OR?: InputMaybe<Array<ClickupFolderWhereInput>>
+  hidden?: InputMaybe<BoolFilter>
+  id?: InputMaybe<StringFilter>
+  name?: InputMaybe<StringFilter>
+}
+
+export type ClickupFolderWhereUniqueInput = {
+  AND?: InputMaybe<Array<ClickupFolderWhereInput>>
+  ClickupTaskFolder?: InputMaybe<ClickupTaskFolderListRelationFilter>
+  NOT?: InputMaybe<Array<ClickupFolderWhereInput>>
+  OR?: InputMaybe<Array<ClickupFolderWhereInput>>
+  hidden?: InputMaybe<BoolFilter>
+  id?: InputMaybe<Scalars['String']['input']>
+  name?: InputMaybe<StringFilter>
+}
+
+export type ClickupList = {
+  __typename?: 'ClickupList'
+  ClickupTaskList: Array<ClickupTaskList>
+  _count?: Maybe<ClickupListCount>
+  archived: Scalars['Boolean']['output']
+  clickupTaskLocationHistory: Array<ClickupTaskLocationHistory>
+  content: Scalars['String']['output']
+  deleted: Scalars['Boolean']['output']
+  dueDate?: Maybe<Scalars['BigInt']['output']>
+  id: Scalars['String']['output']
+  inboundAddress: Scalars['String']['output']
+  name: Scalars['String']['output']
+  orderIndex: Scalars['Int']['output']
+  overrideStatuses: Scalars['Boolean']['output']
+  permissionLevel: Scalars['String']['output']
+  startDate?: Maybe<Scalars['BigInt']['output']>
+}
+
+export type ClickupListClickupTaskListArgs = {
+  cursor?: InputMaybe<ClickupTaskListWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupTaskListScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupTaskListOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupTaskListWhereInput>
+}
+
+export type ClickupListClickupTaskLocationHistoryArgs = {
+  cursor?: InputMaybe<ClickupTaskLocationHistoryWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupTaskLocationHistoryScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupTaskLocationHistoryOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupTaskLocationHistoryWhereInput>
+}
+
+export type ClickupListAvgAggregate = {
+  __typename?: 'ClickupListAvgAggregate'
+  dueDate?: Maybe<Scalars['Float']['output']>
+  orderIndex?: Maybe<Scalars['Float']['output']>
+  startDate?: Maybe<Scalars['Float']['output']>
+}
+
+export type ClickupListCount = {
+  __typename?: 'ClickupListCount'
+  ClickupTaskList: Scalars['Int']['output']
+  clickupTaskLocationHistory: Scalars['Int']['output']
+}
+
+export type ClickupListCountClickupTaskListArgs = {
+  where?: InputMaybe<ClickupTaskListWhereInput>
+}
+
+export type ClickupListCountClickupTaskLocationHistoryArgs = {
+  where?: InputMaybe<ClickupTaskLocationHistoryWhereInput>
+}
+
+export type ClickupListCountAggregate = {
+  __typename?: 'ClickupListCountAggregate'
+  _all: Scalars['Int']['output']
+  archived: Scalars['Int']['output']
+  content: Scalars['Int']['output']
+  deleted: Scalars['Int']['output']
+  dueDate: Scalars['Int']['output']
+  id: Scalars['Int']['output']
+  inboundAddress: Scalars['Int']['output']
+  name: Scalars['Int']['output']
+  orderIndex: Scalars['Int']['output']
+  overrideStatuses: Scalars['Int']['output']
+  permissionLevel: Scalars['Int']['output']
+  startDate: Scalars['Int']['output']
+}
+
+export type ClickupListCreateInput = {
+  ClickupTaskList?: InputMaybe<ClickupTaskListCreateNestedManyWithoutClickupListInput>
+  archived: Scalars['Boolean']['input']
+  clickupTaskLocationHistory?: InputMaybe<ClickupTaskLocationHistoryCreateNestedManyWithoutClickupListInput>
+  content: Scalars['String']['input']
+  deleted: Scalars['Boolean']['input']
+  dueDate?: InputMaybe<Scalars['BigInt']['input']>
+  id: Scalars['String']['input']
+  inboundAddress: Scalars['String']['input']
+  name: Scalars['String']['input']
+  orderIndex: Scalars['Int']['input']
+  overrideStatuses: Scalars['Boolean']['input']
+  permissionLevel: Scalars['String']['input']
+  startDate?: InputMaybe<Scalars['BigInt']['input']>
+}
+
+export type ClickupListCreateManyInput = {
+  archived: Scalars['Boolean']['input']
+  content: Scalars['String']['input']
+  deleted: Scalars['Boolean']['input']
+  dueDate?: InputMaybe<Scalars['BigInt']['input']>
+  id: Scalars['String']['input']
+  inboundAddress: Scalars['String']['input']
+  name: Scalars['String']['input']
+  orderIndex: Scalars['Int']['input']
+  overrideStatuses: Scalars['Boolean']['input']
+  permissionLevel: Scalars['String']['input']
+  startDate?: InputMaybe<Scalars['BigInt']['input']>
+}
+
+export type ClickupListCreateNestedOneWithoutClickupTaskListInput = {
+  connect?: InputMaybe<ClickupListWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupListCreateOrConnectWithoutClickupTaskListInput>
+  create?: InputMaybe<ClickupListCreateWithoutClickupTaskListInput>
+}
+
+export type ClickupListCreateNestedOneWithoutClickupTaskLocationHistoryInput = {
+  connect?: InputMaybe<ClickupListWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupListCreateOrConnectWithoutClickupTaskLocationHistoryInput>
+  create?: InputMaybe<ClickupListCreateWithoutClickupTaskLocationHistoryInput>
+}
+
+export type ClickupListCreateOrConnectWithoutClickupTaskListInput = {
+  create: ClickupListCreateWithoutClickupTaskListInput
+  where: ClickupListWhereUniqueInput
+}
+
+export type ClickupListCreateOrConnectWithoutClickupTaskLocationHistoryInput = {
+  create: ClickupListCreateWithoutClickupTaskLocationHistoryInput
+  where: ClickupListWhereUniqueInput
+}
+
+export type ClickupListCreateWithoutClickupTaskListInput = {
+  archived: Scalars['Boolean']['input']
+  clickupTaskLocationHistory?: InputMaybe<ClickupTaskLocationHistoryCreateNestedManyWithoutClickupListInput>
+  content: Scalars['String']['input']
+  deleted: Scalars['Boolean']['input']
+  dueDate?: InputMaybe<Scalars['BigInt']['input']>
+  id: Scalars['String']['input']
+  inboundAddress: Scalars['String']['input']
+  name: Scalars['String']['input']
+  orderIndex: Scalars['Int']['input']
+  overrideStatuses: Scalars['Boolean']['input']
+  permissionLevel: Scalars['String']['input']
+  startDate?: InputMaybe<Scalars['BigInt']['input']>
+}
+
+export type ClickupListCreateWithoutClickupTaskLocationHistoryInput = {
+  ClickupTaskList?: InputMaybe<ClickupTaskListCreateNestedManyWithoutClickupListInput>
+  archived: Scalars['Boolean']['input']
+  content: Scalars['String']['input']
+  deleted: Scalars['Boolean']['input']
+  dueDate?: InputMaybe<Scalars['BigInt']['input']>
+  id: Scalars['String']['input']
+  inboundAddress: Scalars['String']['input']
+  name: Scalars['String']['input']
+  orderIndex: Scalars['Int']['input']
+  overrideStatuses: Scalars['Boolean']['input']
+  permissionLevel: Scalars['String']['input']
+  startDate?: InputMaybe<Scalars['BigInt']['input']>
+}
+
+export type ClickupListMaxAggregate = {
+  __typename?: 'ClickupListMaxAggregate'
+  archived?: Maybe<Scalars['Boolean']['output']>
+  content?: Maybe<Scalars['String']['output']>
+  deleted?: Maybe<Scalars['Boolean']['output']>
+  dueDate?: Maybe<Scalars['BigInt']['output']>
+  id?: Maybe<Scalars['String']['output']>
+  inboundAddress?: Maybe<Scalars['String']['output']>
+  name?: Maybe<Scalars['String']['output']>
+  orderIndex?: Maybe<Scalars['Int']['output']>
+  overrideStatuses?: Maybe<Scalars['Boolean']['output']>
+  permissionLevel?: Maybe<Scalars['String']['output']>
+  startDate?: Maybe<Scalars['BigInt']['output']>
+}
+
+export type ClickupListMinAggregate = {
+  __typename?: 'ClickupListMinAggregate'
+  archived?: Maybe<Scalars['Boolean']['output']>
+  content?: Maybe<Scalars['String']['output']>
+  deleted?: Maybe<Scalars['Boolean']['output']>
+  dueDate?: Maybe<Scalars['BigInt']['output']>
+  id?: Maybe<Scalars['String']['output']>
+  inboundAddress?: Maybe<Scalars['String']['output']>
+  name?: Maybe<Scalars['String']['output']>
+  orderIndex?: Maybe<Scalars['Int']['output']>
+  overrideStatuses?: Maybe<Scalars['Boolean']['output']>
+  permissionLevel?: Maybe<Scalars['String']['output']>
+  startDate?: Maybe<Scalars['BigInt']['output']>
+}
+
+export type ClickupListOrderByWithRelationInput = {
+  ClickupTaskList?: InputMaybe<ClickupTaskListOrderByRelationAggregateInput>
+  archived?: InputMaybe<SortOrder>
+  clickupTaskLocationHistory?: InputMaybe<ClickupTaskLocationHistoryOrderByRelationAggregateInput>
+  content?: InputMaybe<SortOrder>
+  deleted?: InputMaybe<SortOrder>
+  dueDate?: InputMaybe<SortOrderInput>
+  id?: InputMaybe<SortOrder>
+  inboundAddress?: InputMaybe<SortOrder>
+  name?: InputMaybe<SortOrder>
+  orderIndex?: InputMaybe<SortOrder>
+  overrideStatuses?: InputMaybe<SortOrder>
+  permissionLevel?: InputMaybe<SortOrder>
+  startDate?: InputMaybe<SortOrderInput>
+}
+
+export type ClickupListRelationFilter = {
+  is?: InputMaybe<ClickupListWhereInput>
+  isNot?: InputMaybe<ClickupListWhereInput>
+}
+
+export enum ClickupListScalarFieldEnum {
+  Archived = 'archived',
+  Content = 'content',
+  Deleted = 'deleted',
+  DueDate = 'dueDate',
+  Id = 'id',
+  InboundAddress = 'inboundAddress',
+  Name = 'name',
+  OrderIndex = 'orderIndex',
+  OverrideStatuses = 'overrideStatuses',
+  PermissionLevel = 'permissionLevel',
+  StartDate = 'startDate',
+}
+
+export type ClickupListSumAggregate = {
+  __typename?: 'ClickupListSumAggregate'
+  dueDate?: Maybe<Scalars['BigInt']['output']>
+  orderIndex?: Maybe<Scalars['Int']['output']>
+  startDate?: Maybe<Scalars['BigInt']['output']>
+}
+
+export type ClickupListUpdateInput = {
+  ClickupTaskList?: InputMaybe<ClickupTaskListUpdateManyWithoutClickupListNestedInput>
+  archived?: InputMaybe<BoolFieldUpdateOperationsInput>
+  clickupTaskLocationHistory?: InputMaybe<ClickupTaskLocationHistoryUpdateManyWithoutClickupListNestedInput>
+  content?: InputMaybe<StringFieldUpdateOperationsInput>
+  deleted?: InputMaybe<BoolFieldUpdateOperationsInput>
+  dueDate?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
+  id?: InputMaybe<StringFieldUpdateOperationsInput>
+  inboundAddress?: InputMaybe<StringFieldUpdateOperationsInput>
+  name?: InputMaybe<StringFieldUpdateOperationsInput>
+  orderIndex?: InputMaybe<IntFieldUpdateOperationsInput>
+  overrideStatuses?: InputMaybe<BoolFieldUpdateOperationsInput>
+  permissionLevel?: InputMaybe<StringFieldUpdateOperationsInput>
+  startDate?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
+}
+
+export type ClickupListUpdateManyMutationInput = {
+  archived?: InputMaybe<BoolFieldUpdateOperationsInput>
+  content?: InputMaybe<StringFieldUpdateOperationsInput>
+  deleted?: InputMaybe<BoolFieldUpdateOperationsInput>
+  dueDate?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
+  id?: InputMaybe<StringFieldUpdateOperationsInput>
+  inboundAddress?: InputMaybe<StringFieldUpdateOperationsInput>
+  name?: InputMaybe<StringFieldUpdateOperationsInput>
+  orderIndex?: InputMaybe<IntFieldUpdateOperationsInput>
+  overrideStatuses?: InputMaybe<BoolFieldUpdateOperationsInput>
+  permissionLevel?: InputMaybe<StringFieldUpdateOperationsInput>
+  startDate?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
+}
+
+export type ClickupListUpdateOneRequiredWithoutClickupTaskListNestedInput = {
+  connect?: InputMaybe<ClickupListWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupListCreateOrConnectWithoutClickupTaskListInput>
+  create?: InputMaybe<ClickupListCreateWithoutClickupTaskListInput>
+  update?: InputMaybe<ClickupListUpdateToOneWithWhereWithoutClickupTaskListInput>
+  upsert?: InputMaybe<ClickupListUpsertWithoutClickupTaskListInput>
+}
+
+export type ClickupListUpdateOneRequiredWithoutClickupTaskLocationHistoryNestedInput = {
+  connect?: InputMaybe<ClickupListWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupListCreateOrConnectWithoutClickupTaskLocationHistoryInput>
+  create?: InputMaybe<ClickupListCreateWithoutClickupTaskLocationHistoryInput>
+  update?: InputMaybe<ClickupListUpdateToOneWithWhereWithoutClickupTaskLocationHistoryInput>
+  upsert?: InputMaybe<ClickupListUpsertWithoutClickupTaskLocationHistoryInput>
+}
+
+export type ClickupListUpdateToOneWithWhereWithoutClickupTaskListInput = {
+  data: ClickupListUpdateWithoutClickupTaskListInput
+  where?: InputMaybe<ClickupListWhereInput>
+}
+
+export type ClickupListUpdateToOneWithWhereWithoutClickupTaskLocationHistoryInput = {
+  data: ClickupListUpdateWithoutClickupTaskLocationHistoryInput
+  where?: InputMaybe<ClickupListWhereInput>
+}
+
+export type ClickupListUpdateWithoutClickupTaskListInput = {
+  archived?: InputMaybe<BoolFieldUpdateOperationsInput>
+  clickupTaskLocationHistory?: InputMaybe<ClickupTaskLocationHistoryUpdateManyWithoutClickupListNestedInput>
+  content?: InputMaybe<StringFieldUpdateOperationsInput>
+  deleted?: InputMaybe<BoolFieldUpdateOperationsInput>
+  dueDate?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
+  id?: InputMaybe<StringFieldUpdateOperationsInput>
+  inboundAddress?: InputMaybe<StringFieldUpdateOperationsInput>
+  name?: InputMaybe<StringFieldUpdateOperationsInput>
+  orderIndex?: InputMaybe<IntFieldUpdateOperationsInput>
+  overrideStatuses?: InputMaybe<BoolFieldUpdateOperationsInput>
+  permissionLevel?: InputMaybe<StringFieldUpdateOperationsInput>
+  startDate?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
+}
+
+export type ClickupListUpdateWithoutClickupTaskLocationHistoryInput = {
+  ClickupTaskList?: InputMaybe<ClickupTaskListUpdateManyWithoutClickupListNestedInput>
+  archived?: InputMaybe<BoolFieldUpdateOperationsInput>
+  content?: InputMaybe<StringFieldUpdateOperationsInput>
+  deleted?: InputMaybe<BoolFieldUpdateOperationsInput>
+  dueDate?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
+  id?: InputMaybe<StringFieldUpdateOperationsInput>
+  inboundAddress?: InputMaybe<StringFieldUpdateOperationsInput>
+  name?: InputMaybe<StringFieldUpdateOperationsInput>
+  orderIndex?: InputMaybe<IntFieldUpdateOperationsInput>
+  overrideStatuses?: InputMaybe<BoolFieldUpdateOperationsInput>
+  permissionLevel?: InputMaybe<StringFieldUpdateOperationsInput>
+  startDate?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
+}
+
+export type ClickupListUpsertWithoutClickupTaskListInput = {
+  create: ClickupListCreateWithoutClickupTaskListInput
+  update: ClickupListUpdateWithoutClickupTaskListInput
+  where?: InputMaybe<ClickupListWhereInput>
+}
+
+export type ClickupListUpsertWithoutClickupTaskLocationHistoryInput = {
+  create: ClickupListCreateWithoutClickupTaskLocationHistoryInput
+  update: ClickupListUpdateWithoutClickupTaskLocationHistoryInput
+  where?: InputMaybe<ClickupListWhereInput>
+}
+
+export type ClickupListWhereInput = {
+  AND?: InputMaybe<Array<ClickupListWhereInput>>
+  ClickupTaskList?: InputMaybe<ClickupTaskListListRelationFilter>
+  NOT?: InputMaybe<Array<ClickupListWhereInput>>
+  OR?: InputMaybe<Array<ClickupListWhereInput>>
+  archived?: InputMaybe<BoolFilter>
+  clickupTaskLocationHistory?: InputMaybe<ClickupTaskLocationHistoryListRelationFilter>
+  content?: InputMaybe<StringFilter>
+  deleted?: InputMaybe<BoolFilter>
+  dueDate?: InputMaybe<BigIntNullableFilter>
+  id?: InputMaybe<StringFilter>
+  inboundAddress?: InputMaybe<StringFilter>
+  name?: InputMaybe<StringFilter>
+  orderIndex?: InputMaybe<IntFilter>
+  overrideStatuses?: InputMaybe<BoolFilter>
+  permissionLevel?: InputMaybe<StringFilter>
+  startDate?: InputMaybe<BigIntNullableFilter>
+}
+
+export type ClickupListWhereUniqueInput = {
+  AND?: InputMaybe<Array<ClickupListWhereInput>>
+  ClickupTaskList?: InputMaybe<ClickupTaskListListRelationFilter>
+  NOT?: InputMaybe<Array<ClickupListWhereInput>>
+  OR?: InputMaybe<Array<ClickupListWhereInput>>
+  archived?: InputMaybe<BoolFilter>
+  clickupTaskLocationHistory?: InputMaybe<ClickupTaskLocationHistoryListRelationFilter>
+  content?: InputMaybe<StringFilter>
+  deleted?: InputMaybe<BoolFilter>
+  dueDate?: InputMaybe<BigIntNullableFilter>
+  id?: InputMaybe<Scalars['String']['input']>
+  inboundAddress?: InputMaybe<StringFilter>
+  name?: InputMaybe<StringFilter>
+  orderIndex?: InputMaybe<IntFilter>
+  overrideStatuses?: InputMaybe<BoolFilter>
+  permissionLevel?: InputMaybe<StringFilter>
+  startDate?: InputMaybe<BigIntNullableFilter>
+}
+
+export type ClickupProject = {
+  __typename?: 'ClickupProject'
+  ClickupTaskProject: Array<ClickupTaskProject>
+  _count?: Maybe<ClickupProjectCount>
+  hidden: Scalars['Boolean']['output']
+  id: Scalars['String']['output']
+  name: Scalars['String']['output']
+}
+
+export type ClickupProjectClickupTaskProjectArgs = {
+  cursor?: InputMaybe<ClickupTaskProjectWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupTaskProjectScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupTaskProjectOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupTaskProjectWhereInput>
+}
+
+export type ClickupProjectCount = {
+  __typename?: 'ClickupProjectCount'
+  ClickupTaskProject: Scalars['Int']['output']
+}
+
+export type ClickupProjectCountClickupTaskProjectArgs = {
+  where?: InputMaybe<ClickupTaskProjectWhereInput>
+}
+
+export type ClickupProjectCountAggregate = {
+  __typename?: 'ClickupProjectCountAggregate'
+  _all: Scalars['Int']['output']
+  hidden: Scalars['Int']['output']
+  id: Scalars['Int']['output']
+  name: Scalars['Int']['output']
+}
+
+export type ClickupProjectCreateInput = {
+  ClickupTaskProject?: InputMaybe<ClickupTaskProjectCreateNestedManyWithoutClickupProjectInput>
+  hidden: Scalars['Boolean']['input']
+  id: Scalars['String']['input']
+  name: Scalars['String']['input']
+}
+
+export type ClickupProjectCreateManyInput = {
+  hidden: Scalars['Boolean']['input']
+  id: Scalars['String']['input']
+  name: Scalars['String']['input']
+}
+
+export type ClickupProjectCreateNestedOneWithoutClickupTaskProjectInput = {
+  connect?: InputMaybe<ClickupProjectWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupProjectCreateOrConnectWithoutClickupTaskProjectInput>
+  create?: InputMaybe<ClickupProjectCreateWithoutClickupTaskProjectInput>
+}
+
+export type ClickupProjectCreateOrConnectWithoutClickupTaskProjectInput = {
+  create: ClickupProjectCreateWithoutClickupTaskProjectInput
+  where: ClickupProjectWhereUniqueInput
+}
+
+export type ClickupProjectCreateWithoutClickupTaskProjectInput = {
+  hidden: Scalars['Boolean']['input']
+  id: Scalars['String']['input']
+  name: Scalars['String']['input']
+}
+
+export type ClickupProjectMaxAggregate = {
+  __typename?: 'ClickupProjectMaxAggregate'
+  hidden?: Maybe<Scalars['Boolean']['output']>
+  id?: Maybe<Scalars['String']['output']>
+  name?: Maybe<Scalars['String']['output']>
+}
+
+export type ClickupProjectMinAggregate = {
+  __typename?: 'ClickupProjectMinAggregate'
+  hidden?: Maybe<Scalars['Boolean']['output']>
+  id?: Maybe<Scalars['String']['output']>
+  name?: Maybe<Scalars['String']['output']>
+}
+
+export type ClickupProjectOrderByWithRelationInput = {
+  ClickupTaskProject?: InputMaybe<ClickupTaskProjectOrderByRelationAggregateInput>
+  hidden?: InputMaybe<SortOrder>
+  id?: InputMaybe<SortOrder>
+  name?: InputMaybe<SortOrder>
+}
+
+export type ClickupProjectRelationFilter = {
+  is?: InputMaybe<ClickupProjectWhereInput>
+  isNot?: InputMaybe<ClickupProjectWhereInput>
+}
+
+export enum ClickupProjectScalarFieldEnum {
+  Hidden = 'hidden',
+  Id = 'id',
+  Name = 'name',
+}
+
+export type ClickupProjectUpdateInput = {
+  ClickupTaskProject?: InputMaybe<ClickupTaskProjectUpdateManyWithoutClickupProjectNestedInput>
+  hidden?: InputMaybe<BoolFieldUpdateOperationsInput>
+  id?: InputMaybe<StringFieldUpdateOperationsInput>
+  name?: InputMaybe<StringFieldUpdateOperationsInput>
+}
+
+export type ClickupProjectUpdateManyMutationInput = {
+  hidden?: InputMaybe<BoolFieldUpdateOperationsInput>
+  id?: InputMaybe<StringFieldUpdateOperationsInput>
+  name?: InputMaybe<StringFieldUpdateOperationsInput>
+}
+
+export type ClickupProjectUpdateOneRequiredWithoutClickupTaskProjectNestedInput = {
+  connect?: InputMaybe<ClickupProjectWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupProjectCreateOrConnectWithoutClickupTaskProjectInput>
+  create?: InputMaybe<ClickupProjectCreateWithoutClickupTaskProjectInput>
+  update?: InputMaybe<ClickupProjectUpdateToOneWithWhereWithoutClickupTaskProjectInput>
+  upsert?: InputMaybe<ClickupProjectUpsertWithoutClickupTaskProjectInput>
+}
+
+export type ClickupProjectUpdateToOneWithWhereWithoutClickupTaskProjectInput = {
+  data: ClickupProjectUpdateWithoutClickupTaskProjectInput
+  where?: InputMaybe<ClickupProjectWhereInput>
+}
+
+export type ClickupProjectUpdateWithoutClickupTaskProjectInput = {
+  hidden?: InputMaybe<BoolFieldUpdateOperationsInput>
+  id?: InputMaybe<StringFieldUpdateOperationsInput>
+  name?: InputMaybe<StringFieldUpdateOperationsInput>
+}
+
+export type ClickupProjectUpsertWithoutClickupTaskProjectInput = {
+  create: ClickupProjectCreateWithoutClickupTaskProjectInput
+  update: ClickupProjectUpdateWithoutClickupTaskProjectInput
+  where?: InputMaybe<ClickupProjectWhereInput>
+}
+
+export type ClickupProjectWhereInput = {
+  AND?: InputMaybe<Array<ClickupProjectWhereInput>>
+  ClickupTaskProject?: InputMaybe<ClickupTaskProjectListRelationFilter>
+  NOT?: InputMaybe<Array<ClickupProjectWhereInput>>
+  OR?: InputMaybe<Array<ClickupProjectWhereInput>>
+  hidden?: InputMaybe<BoolFilter>
+  id?: InputMaybe<StringFilter>
+  name?: InputMaybe<StringFilter>
+}
+
+export type ClickupProjectWhereUniqueInput = {
+  AND?: InputMaybe<Array<ClickupProjectWhereInput>>
+  ClickupTaskProject?: InputMaybe<ClickupTaskProjectListRelationFilter>
+  NOT?: InputMaybe<Array<ClickupProjectWhereInput>>
+  OR?: InputMaybe<Array<ClickupProjectWhereInput>>
+  hidden?: InputMaybe<BoolFilter>
+  id?: InputMaybe<Scalars['String']['input']>
+  name?: InputMaybe<StringFilter>
+}
+
 export type ClickupTask = {
   __typename?: 'ClickupTask'
   _count?: Maybe<ClickupTaskCount>
@@ -570,10 +1524,10 @@ export type ClickupTask = {
   checklists: Array<ClickupTaskChecklist>
   clickupClockifyProject?: Maybe<ClickupClockifyProject>
   clickupClockifyProjectId?: Maybe<Scalars['Int']['output']>
+  clickupTaskCustomField: Array<ClickupTaskCustomField>
   clockifyTimeEntries: Array<ClockifyTimeEntry>
   creator: ClickupUser
   creatorId: Scalars['Int']['output']
-  customFields: Array<ClickupTaskCustomField>
   customId?: Maybe<Scalars['String']['output']>
   dateClosed?: Maybe<Scalars['String']['output']>
   dateCreated: Scalars['String']['output']
@@ -582,12 +1536,11 @@ export type ClickupTask = {
   dependentTasks: Array<ClickupTaskDependency>
   description?: Maybe<Scalars['String']['output']>
   dueDates: Array<ClickupTaskDueDate>
-  folderLocation: ClickupTaskLocation
-  folderLocationId: Scalars['String']['output']
+  folder: Array<ClickupTaskFolder>
   id: Scalars['String']['output']
   linkedTasks: Scalars['JSON']['output']
-  listLocation: ClickupTaskLocation
-  listLocationId: Scalars['String']['output']
+  list: Array<ClickupTaskList>
+  locationHistory: Array<ClickupTaskLocationHistory>
   name: Scalars['String']['output']
   orderIndex: Scalars['String']['output']
   parent?: Maybe<Scalars['JSON']['output']>
@@ -595,8 +1548,7 @@ export type ClickupTask = {
   points?: Maybe<Scalars['BigInt']['output']>
   priority?: Maybe<ClickupTaskPriority>
   priorityId?: Maybe<Scalars['String']['output']>
-  projectLocation: ClickupTaskLocation
-  projectLocationId: Scalars['String']['output']
+  project: Array<ClickupTaskProject>
   sharing: Scalars['JSON']['output']
   space: ClickupTaskSpace
   spaceId: Scalars['String']['output']
@@ -604,6 +1556,7 @@ export type ClickupTask = {
   status: Array<ClickupTaskStatusOnTask>
   tags: Array<ClickupTaskTag>
   taskDependencies: Array<ClickupTaskDependency>
+  taskPeriodData: Array<TaskPeriodData>
   teamId: Scalars['String']['output']
   textContent?: Maybe<Scalars['String']['output']>
   timeEstimates: Array<ClickupTaskTimeEstimate>
@@ -643,6 +1596,15 @@ export type ClickupTaskClickupClockifyProjectArgs = {
   where?: InputMaybe<ClickupClockifyProjectWhereInput>
 }
 
+export type ClickupTaskClickupTaskCustomFieldArgs = {
+  cursor?: InputMaybe<ClickupTaskCustomFieldWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupTaskCustomFieldScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupTaskCustomFieldOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupTaskCustomFieldWhereInput>
+}
+
 export type ClickupTaskClockifyTimeEntriesArgs = {
   cursor?: InputMaybe<ClockifyTimeEntryWhereUniqueInput>
   distinct?: InputMaybe<Array<ClockifyTimeEntryScalarFieldEnum>>
@@ -650,15 +1612,6 @@ export type ClickupTaskClockifyTimeEntriesArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>
   take?: InputMaybe<Scalars['Int']['input']>
   where?: InputMaybe<ClockifyTimeEntryWhereInput>
-}
-
-export type ClickupTaskCustomFieldsArgs = {
-  cursor?: InputMaybe<ClickupTaskCustomFieldWhereUniqueInput>
-  distinct?: InputMaybe<Array<ClickupTaskCustomFieldScalarFieldEnum>>
-  orderBy?: InputMaybe<Array<ClickupTaskCustomFieldOrderByWithRelationInput>>
-  skip?: InputMaybe<Scalars['Int']['input']>
-  take?: InputMaybe<Scalars['Int']['input']>
-  where?: InputMaybe<ClickupTaskCustomFieldWhereInput>
 }
 
 export type ClickupTaskDependentTasksArgs = {
@@ -679,8 +1632,44 @@ export type ClickupTaskDueDatesArgs = {
   where?: InputMaybe<ClickupTaskDueDateWhereInput>
 }
 
+export type ClickupTaskFolderArgs = {
+  cursor?: InputMaybe<ClickupTaskFolderWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupTaskFolderScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupTaskFolderOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupTaskFolderWhereInput>
+}
+
+export type ClickupTaskListArgs = {
+  cursor?: InputMaybe<ClickupTaskListWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupTaskListScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupTaskListOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupTaskListWhereInput>
+}
+
+export type ClickupTaskLocationHistoryArgs = {
+  cursor?: InputMaybe<ClickupTaskLocationHistoryWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupTaskLocationHistoryScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupTaskLocationHistoryOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupTaskLocationHistoryWhereInput>
+}
+
 export type ClickupTaskPriorityArgs = {
   where?: InputMaybe<ClickupTaskPriorityWhereInput>
+}
+
+export type ClickupTaskProjectArgs = {
+  cursor?: InputMaybe<ClickupTaskProjectWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupTaskProjectScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupTaskProjectOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupTaskProjectWhereInput>
 }
 
 export type ClickupTaskStatusArgs = {
@@ -708,6 +1697,15 @@ export type ClickupTaskTaskDependenciesArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>
   take?: InputMaybe<Scalars['Int']['input']>
   where?: InputMaybe<ClickupTaskDependencyWhereInput>
+}
+
+export type ClickupTaskTaskPeriodDataArgs = {
+  cursor?: InputMaybe<TaskPeriodDataWhereUniqueInput>
+  distinct?: InputMaybe<Array<TaskPeriodDataScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<TaskPeriodDataOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<TaskPeriodDataWhereInput>
 }
 
 export type ClickupTaskTimeEstimatesArgs = {
@@ -2221,13 +3219,18 @@ export type ClickupTaskCount = {
   assignees: Scalars['Int']['output']
   attachments: Scalars['Int']['output']
   checklists: Scalars['Int']['output']
+  clickupTaskCustomField: Scalars['Int']['output']
   clockifyTimeEntries: Scalars['Int']['output']
-  customFields: Scalars['Int']['output']
   dependentTasks: Scalars['Int']['output']
   dueDates: Scalars['Int']['output']
+  folder: Scalars['Int']['output']
+  list: Scalars['Int']['output']
+  locationHistory: Scalars['Int']['output']
+  project: Scalars['Int']['output']
   status: Scalars['Int']['output']
   tags: Scalars['Int']['output']
   taskDependencies: Scalars['Int']['output']
+  taskPeriodData: Scalars['Int']['output']
   timeEstimates: Scalars['Int']['output']
   watchers: Scalars['Int']['output']
 }
@@ -2244,12 +3247,12 @@ export type ClickupTaskCountChecklistsArgs = {
   where?: InputMaybe<ClickupTaskChecklistWhereInput>
 }
 
-export type ClickupTaskCountClockifyTimeEntriesArgs = {
-  where?: InputMaybe<ClockifyTimeEntryWhereInput>
+export type ClickupTaskCountClickupTaskCustomFieldArgs = {
+  where?: InputMaybe<ClickupTaskCustomFieldWhereInput>
 }
 
-export type ClickupTaskCountCustomFieldsArgs = {
-  where?: InputMaybe<ClickupTaskCustomFieldWhereInput>
+export type ClickupTaskCountClockifyTimeEntriesArgs = {
+  where?: InputMaybe<ClockifyTimeEntryWhereInput>
 }
 
 export type ClickupTaskCountDependentTasksArgs = {
@@ -2258,6 +3261,22 @@ export type ClickupTaskCountDependentTasksArgs = {
 
 export type ClickupTaskCountDueDatesArgs = {
   where?: InputMaybe<ClickupTaskDueDateWhereInput>
+}
+
+export type ClickupTaskCountFolderArgs = {
+  where?: InputMaybe<ClickupTaskFolderWhereInput>
+}
+
+export type ClickupTaskCountListArgs = {
+  where?: InputMaybe<ClickupTaskListWhereInput>
+}
+
+export type ClickupTaskCountLocationHistoryArgs = {
+  where?: InputMaybe<ClickupTaskLocationHistoryWhereInput>
+}
+
+export type ClickupTaskCountProjectArgs = {
+  where?: InputMaybe<ClickupTaskProjectWhereInput>
 }
 
 export type ClickupTaskCountStatusArgs = {
@@ -2270,6 +3289,10 @@ export type ClickupTaskCountTagsArgs = {
 
 export type ClickupTaskCountTaskDependenciesArgs = {
   where?: InputMaybe<ClickupTaskDependencyWhereInput>
+}
+
+export type ClickupTaskCountTaskPeriodDataArgs = {
+  where?: InputMaybe<TaskPeriodDataWhereInput>
 }
 
 export type ClickupTaskCountTimeEstimatesArgs = {
@@ -2292,17 +3315,14 @@ export type ClickupTaskCountAggregate = {
   dateDone: Scalars['Int']['output']
   dateUpdated: Scalars['Int']['output']
   description: Scalars['Int']['output']
-  folderLocationId: Scalars['Int']['output']
   id: Scalars['Int']['output']
   linkedTasks: Scalars['Int']['output']
-  listLocationId: Scalars['Int']['output']
   name: Scalars['Int']['output']
   orderIndex: Scalars['Int']['output']
   parent: Scalars['Int']['output']
   permissionLevel: Scalars['Int']['output']
   points: Scalars['Int']['output']
   priorityId: Scalars['Int']['output']
-  projectLocationId: Scalars['Int']['output']
   sharing: Scalars['Int']['output']
   spaceId: Scalars['Int']['output']
   startDate: Scalars['Int']['output']
@@ -2318,9 +3338,9 @@ export type ClickupTaskCreateInput = {
   attachments?: InputMaybe<ClickupTaskAttachmentCreateNestedManyWithoutTaskInput>
   checklists?: InputMaybe<ClickupTaskChecklistCreateNestedManyWithoutTaskInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClickupTasksInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutClickupTaskInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupTaskInput>
   creator: ClickupUserCreateNestedOneWithoutCreatedTasksInput
-  customFields?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutTaskInput>
   customId?: InputMaybe<Scalars['String']['input']>
   dateClosed?: InputMaybe<Scalars['String']['input']>
   dateCreated: Scalars['String']['input']
@@ -2329,23 +3349,25 @@ export type ClickupTaskCreateInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutDependsOnTaskInput>
   description?: InputMaybe<Scalars['String']['input']>
   dueDates?: InputMaybe<ClickupTaskDueDateCreateNestedManyWithoutTaskInput>
-  folderLocation: ClickupTaskLocationCreateNestedOneWithoutFoldersInput
+  folder?: InputMaybe<ClickupTaskFolderCreateNestedManyWithoutClickupTaskInput>
   id: Scalars['String']['input']
   linkedTasks: Scalars['JSON']['input']
-  listLocation: ClickupTaskLocationCreateNestedOneWithoutListsInput
+  list?: InputMaybe<ClickupTaskListCreateNestedManyWithoutClickupTaskInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryCreateNestedManyWithoutClickupTaskInput>
   name: Scalars['String']['input']
   orderIndex: Scalars['String']['input']
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel: Scalars['String']['input']
   points?: InputMaybe<Scalars['BigInt']['input']>
   priority?: InputMaybe<ClickupTaskPriorityCreateNestedOneWithoutTasksInput>
-  projectLocation: ClickupTaskLocationCreateNestedOneWithoutProjectsInput
+  project?: InputMaybe<ClickupTaskProjectCreateNestedManyWithoutClickupTaskInput>
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
   status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataCreateNestedManyWithoutClickupTaskInput>
   teamId: Scalars['String']['input']
   textContent?: InputMaybe<Scalars['String']['input']>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateCreateNestedManyWithoutTaskInput>
@@ -2363,17 +3385,14 @@ export type ClickupTaskCreateManyClickupClockifyProjectInput = {
   dateDone?: InputMaybe<Scalars['String']['input']>
   dateUpdated: Scalars['String']['input']
   description?: InputMaybe<Scalars['String']['input']>
-  folderLocationId: Scalars['String']['input']
   id: Scalars['String']['input']
   linkedTasks: Scalars['JSON']['input']
-  listLocationId: Scalars['String']['input']
   name: Scalars['String']['input']
   orderIndex: Scalars['String']['input']
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel: Scalars['String']['input']
   points?: InputMaybe<Scalars['BigInt']['input']>
   priorityId?: InputMaybe<Scalars['String']['input']>
-  projectLocationId: Scalars['String']['input']
   sharing: Scalars['JSON']['input']
   spaceId: Scalars['String']['input']
   startDate?: InputMaybe<Scalars['String']['input']>
@@ -2397,17 +3416,14 @@ export type ClickupTaskCreateManyCreatorInput = {
   dateDone?: InputMaybe<Scalars['String']['input']>
   dateUpdated: Scalars['String']['input']
   description?: InputMaybe<Scalars['String']['input']>
-  folderLocationId: Scalars['String']['input']
   id: Scalars['String']['input']
   linkedTasks: Scalars['JSON']['input']
-  listLocationId: Scalars['String']['input']
   name: Scalars['String']['input']
   orderIndex: Scalars['String']['input']
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel: Scalars['String']['input']
   points?: InputMaybe<Scalars['BigInt']['input']>
   priorityId?: InputMaybe<Scalars['String']['input']>
-  projectLocationId: Scalars['String']['input']
   sharing: Scalars['JSON']['input']
   spaceId: Scalars['String']['input']
   startDate?: InputMaybe<Scalars['String']['input']>
@@ -2422,40 +3438,6 @@ export type ClickupTaskCreateManyCreatorInputEnvelope = {
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
 }
 
-export type ClickupTaskCreateManyFolderLocationInput = {
-  archived: Scalars['Boolean']['input']
-  clickupClockifyProjectId?: InputMaybe<Scalars['Int']['input']>
-  creatorId: Scalars['Int']['input']
-  customId?: InputMaybe<Scalars['String']['input']>
-  dateClosed?: InputMaybe<Scalars['String']['input']>
-  dateCreated: Scalars['String']['input']
-  dateDone?: InputMaybe<Scalars['String']['input']>
-  dateUpdated: Scalars['String']['input']
-  description?: InputMaybe<Scalars['String']['input']>
-  id: Scalars['String']['input']
-  linkedTasks: Scalars['JSON']['input']
-  listLocationId: Scalars['String']['input']
-  name: Scalars['String']['input']
-  orderIndex: Scalars['String']['input']
-  parent?: InputMaybe<Scalars['JSON']['input']>
-  permissionLevel: Scalars['String']['input']
-  points?: InputMaybe<Scalars['BigInt']['input']>
-  priorityId?: InputMaybe<Scalars['String']['input']>
-  projectLocationId: Scalars['String']['input']
-  sharing: Scalars['JSON']['input']
-  spaceId: Scalars['String']['input']
-  startDate?: InputMaybe<Scalars['String']['input']>
-  teamId: Scalars['String']['input']
-  textContent?: InputMaybe<Scalars['String']['input']>
-  timeSpent?: InputMaybe<Scalars['BigInt']['input']>
-  url: Scalars['String']['input']
-}
-
-export type ClickupTaskCreateManyFolderLocationInputEnvelope = {
-  data: Array<ClickupTaskCreateManyFolderLocationInput>
-  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
-}
-
 export type ClickupTaskCreateManyInput = {
   archived: Scalars['Boolean']['input']
   clickupClockifyProjectId?: InputMaybe<Scalars['Int']['input']>
@@ -2466,37 +3448,6 @@ export type ClickupTaskCreateManyInput = {
   dateDone?: InputMaybe<Scalars['String']['input']>
   dateUpdated: Scalars['String']['input']
   description?: InputMaybe<Scalars['String']['input']>
-  folderLocationId: Scalars['String']['input']
-  id: Scalars['String']['input']
-  linkedTasks: Scalars['JSON']['input']
-  listLocationId: Scalars['String']['input']
-  name: Scalars['String']['input']
-  orderIndex: Scalars['String']['input']
-  parent?: InputMaybe<Scalars['JSON']['input']>
-  permissionLevel: Scalars['String']['input']
-  points?: InputMaybe<Scalars['BigInt']['input']>
-  priorityId?: InputMaybe<Scalars['String']['input']>
-  projectLocationId: Scalars['String']['input']
-  sharing: Scalars['JSON']['input']
-  spaceId: Scalars['String']['input']
-  startDate?: InputMaybe<Scalars['String']['input']>
-  teamId: Scalars['String']['input']
-  textContent?: InputMaybe<Scalars['String']['input']>
-  timeSpent?: InputMaybe<Scalars['BigInt']['input']>
-  url: Scalars['String']['input']
-}
-
-export type ClickupTaskCreateManyListLocationInput = {
-  archived: Scalars['Boolean']['input']
-  clickupClockifyProjectId?: InputMaybe<Scalars['Int']['input']>
-  creatorId: Scalars['Int']['input']
-  customId?: InputMaybe<Scalars['String']['input']>
-  dateClosed?: InputMaybe<Scalars['String']['input']>
-  dateCreated: Scalars['String']['input']
-  dateDone?: InputMaybe<Scalars['String']['input']>
-  dateUpdated: Scalars['String']['input']
-  description?: InputMaybe<Scalars['String']['input']>
-  folderLocationId: Scalars['String']['input']
   id: Scalars['String']['input']
   linkedTasks: Scalars['JSON']['input']
   name: Scalars['String']['input']
@@ -2505,7 +3456,6 @@ export type ClickupTaskCreateManyListLocationInput = {
   permissionLevel: Scalars['String']['input']
   points?: InputMaybe<Scalars['BigInt']['input']>
   priorityId?: InputMaybe<Scalars['String']['input']>
-  projectLocationId: Scalars['String']['input']
   sharing: Scalars['JSON']['input']
   spaceId: Scalars['String']['input']
   startDate?: InputMaybe<Scalars['String']['input']>
@@ -2513,11 +3463,6 @@ export type ClickupTaskCreateManyListLocationInput = {
   textContent?: InputMaybe<Scalars['String']['input']>
   timeSpent?: InputMaybe<Scalars['BigInt']['input']>
   url: Scalars['String']['input']
-}
-
-export type ClickupTaskCreateManyListLocationInputEnvelope = {
-  data: Array<ClickupTaskCreateManyListLocationInput>
-  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
 }
 
 export type ClickupTaskCreateManyPriorityInput = {
@@ -2530,16 +3475,13 @@ export type ClickupTaskCreateManyPriorityInput = {
   dateDone?: InputMaybe<Scalars['String']['input']>
   dateUpdated: Scalars['String']['input']
   description?: InputMaybe<Scalars['String']['input']>
-  folderLocationId: Scalars['String']['input']
   id: Scalars['String']['input']
   linkedTasks: Scalars['JSON']['input']
-  listLocationId: Scalars['String']['input']
   name: Scalars['String']['input']
   orderIndex: Scalars['String']['input']
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel: Scalars['String']['input']
   points?: InputMaybe<Scalars['BigInt']['input']>
-  projectLocationId: Scalars['String']['input']
   sharing: Scalars['JSON']['input']
   spaceId: Scalars['String']['input']
   startDate?: InputMaybe<Scalars['String']['input']>
@@ -2554,40 +3496,6 @@ export type ClickupTaskCreateManyPriorityInputEnvelope = {
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
 }
 
-export type ClickupTaskCreateManyProjectLocationInput = {
-  archived: Scalars['Boolean']['input']
-  clickupClockifyProjectId?: InputMaybe<Scalars['Int']['input']>
-  creatorId: Scalars['Int']['input']
-  customId?: InputMaybe<Scalars['String']['input']>
-  dateClosed?: InputMaybe<Scalars['String']['input']>
-  dateCreated: Scalars['String']['input']
-  dateDone?: InputMaybe<Scalars['String']['input']>
-  dateUpdated: Scalars['String']['input']
-  description?: InputMaybe<Scalars['String']['input']>
-  folderLocationId: Scalars['String']['input']
-  id: Scalars['String']['input']
-  linkedTasks: Scalars['JSON']['input']
-  listLocationId: Scalars['String']['input']
-  name: Scalars['String']['input']
-  orderIndex: Scalars['String']['input']
-  parent?: InputMaybe<Scalars['JSON']['input']>
-  permissionLevel: Scalars['String']['input']
-  points?: InputMaybe<Scalars['BigInt']['input']>
-  priorityId?: InputMaybe<Scalars['String']['input']>
-  sharing: Scalars['JSON']['input']
-  spaceId: Scalars['String']['input']
-  startDate?: InputMaybe<Scalars['String']['input']>
-  teamId: Scalars['String']['input']
-  textContent?: InputMaybe<Scalars['String']['input']>
-  timeSpent?: InputMaybe<Scalars['BigInt']['input']>
-  url: Scalars['String']['input']
-}
-
-export type ClickupTaskCreateManyProjectLocationInputEnvelope = {
-  data: Array<ClickupTaskCreateManyProjectLocationInput>
-  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
-}
-
 export type ClickupTaskCreateManySpaceInput = {
   archived: Scalars['Boolean']['input']
   clickupClockifyProjectId?: InputMaybe<Scalars['Int']['input']>
@@ -2598,17 +3506,14 @@ export type ClickupTaskCreateManySpaceInput = {
   dateDone?: InputMaybe<Scalars['String']['input']>
   dateUpdated: Scalars['String']['input']
   description?: InputMaybe<Scalars['String']['input']>
-  folderLocationId: Scalars['String']['input']
   id: Scalars['String']['input']
   linkedTasks: Scalars['JSON']['input']
-  listLocationId: Scalars['String']['input']
   name: Scalars['String']['input']
   orderIndex: Scalars['String']['input']
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel: Scalars['String']['input']
   points?: InputMaybe<Scalars['BigInt']['input']>
   priorityId?: InputMaybe<Scalars['String']['input']>
-  projectLocationId: Scalars['String']['input']
   sharing: Scalars['JSON']['input']
   startDate?: InputMaybe<Scalars['String']['input']>
   teamId: Scalars['String']['input']
@@ -2636,32 +3541,11 @@ export type ClickupTaskCreateNestedManyWithoutCreatorInput = {
   createMany?: InputMaybe<ClickupTaskCreateManyCreatorInputEnvelope>
 }
 
-export type ClickupTaskCreateNestedManyWithoutFolderLocationInput = {
-  connect?: InputMaybe<Array<ClickupTaskWhereUniqueInput>>
-  connectOrCreate?: InputMaybe<Array<ClickupTaskCreateOrConnectWithoutFolderLocationInput>>
-  create?: InputMaybe<Array<ClickupTaskCreateWithoutFolderLocationInput>>
-  createMany?: InputMaybe<ClickupTaskCreateManyFolderLocationInputEnvelope>
-}
-
-export type ClickupTaskCreateNestedManyWithoutListLocationInput = {
-  connect?: InputMaybe<Array<ClickupTaskWhereUniqueInput>>
-  connectOrCreate?: InputMaybe<Array<ClickupTaskCreateOrConnectWithoutListLocationInput>>
-  create?: InputMaybe<Array<ClickupTaskCreateWithoutListLocationInput>>
-  createMany?: InputMaybe<ClickupTaskCreateManyListLocationInputEnvelope>
-}
-
 export type ClickupTaskCreateNestedManyWithoutPriorityInput = {
   connect?: InputMaybe<Array<ClickupTaskWhereUniqueInput>>
   connectOrCreate?: InputMaybe<Array<ClickupTaskCreateOrConnectWithoutPriorityInput>>
   create?: InputMaybe<Array<ClickupTaskCreateWithoutPriorityInput>>
   createMany?: InputMaybe<ClickupTaskCreateManyPriorityInputEnvelope>
-}
-
-export type ClickupTaskCreateNestedManyWithoutProjectLocationInput = {
-  connect?: InputMaybe<Array<ClickupTaskWhereUniqueInput>>
-  connectOrCreate?: InputMaybe<Array<ClickupTaskCreateOrConnectWithoutProjectLocationInput>>
-  create?: InputMaybe<Array<ClickupTaskCreateWithoutProjectLocationInput>>
-  createMany?: InputMaybe<ClickupTaskCreateManyProjectLocationInputEnvelope>
 }
 
 export type ClickupTaskCreateNestedManyWithoutSpaceInput = {
@@ -2695,16 +3579,16 @@ export type ClickupTaskCreateNestedOneWithoutChecklistsInput = {
   create?: InputMaybe<ClickupTaskCreateWithoutChecklistsInput>
 }
 
+export type ClickupTaskCreateNestedOneWithoutClickupTaskCustomFieldInput = {
+  connect?: InputMaybe<ClickupTaskWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupTaskCreateOrConnectWithoutClickupTaskCustomFieldInput>
+  create?: InputMaybe<ClickupTaskCreateWithoutClickupTaskCustomFieldInput>
+}
+
 export type ClickupTaskCreateNestedOneWithoutClockifyTimeEntriesInput = {
   connect?: InputMaybe<ClickupTaskWhereUniqueInput>
   connectOrCreate?: InputMaybe<ClickupTaskCreateOrConnectWithoutClockifyTimeEntriesInput>
   create?: InputMaybe<ClickupTaskCreateWithoutClockifyTimeEntriesInput>
-}
-
-export type ClickupTaskCreateNestedOneWithoutCustomFieldsInput = {
-  connect?: InputMaybe<ClickupTaskWhereUniqueInput>
-  connectOrCreate?: InputMaybe<ClickupTaskCreateOrConnectWithoutCustomFieldsInput>
-  create?: InputMaybe<ClickupTaskCreateWithoutCustomFieldsInput>
 }
 
 export type ClickupTaskCreateNestedOneWithoutDependentTasksInput = {
@@ -2719,6 +3603,30 @@ export type ClickupTaskCreateNestedOneWithoutDueDatesInput = {
   create?: InputMaybe<ClickupTaskCreateWithoutDueDatesInput>
 }
 
+export type ClickupTaskCreateNestedOneWithoutFolderInput = {
+  connect?: InputMaybe<ClickupTaskWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupTaskCreateOrConnectWithoutFolderInput>
+  create?: InputMaybe<ClickupTaskCreateWithoutFolderInput>
+}
+
+export type ClickupTaskCreateNestedOneWithoutListInput = {
+  connect?: InputMaybe<ClickupTaskWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupTaskCreateOrConnectWithoutListInput>
+  create?: InputMaybe<ClickupTaskCreateWithoutListInput>
+}
+
+export type ClickupTaskCreateNestedOneWithoutLocationHistoryInput = {
+  connect?: InputMaybe<ClickupTaskWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupTaskCreateOrConnectWithoutLocationHistoryInput>
+  create?: InputMaybe<ClickupTaskCreateWithoutLocationHistoryInput>
+}
+
+export type ClickupTaskCreateNestedOneWithoutProjectInput = {
+  connect?: InputMaybe<ClickupTaskWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupTaskCreateOrConnectWithoutProjectInput>
+  create?: InputMaybe<ClickupTaskCreateWithoutProjectInput>
+}
+
 export type ClickupTaskCreateNestedOneWithoutStatusInput = {
   connect?: InputMaybe<ClickupTaskWhereUniqueInput>
   connectOrCreate?: InputMaybe<ClickupTaskCreateOrConnectWithoutStatusInput>
@@ -2729,6 +3637,12 @@ export type ClickupTaskCreateNestedOneWithoutTaskDependenciesInput = {
   connect?: InputMaybe<ClickupTaskWhereUniqueInput>
   connectOrCreate?: InputMaybe<ClickupTaskCreateOrConnectWithoutTaskDependenciesInput>
   create?: InputMaybe<ClickupTaskCreateWithoutTaskDependenciesInput>
+}
+
+export type ClickupTaskCreateNestedOneWithoutTaskPeriodDataInput = {
+  connect?: InputMaybe<ClickupTaskWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupTaskCreateOrConnectWithoutTaskPeriodDataInput>
+  create?: InputMaybe<ClickupTaskCreateWithoutTaskPeriodDataInput>
 }
 
 export type ClickupTaskCreateNestedOneWithoutTimeEstimatesInput = {
@@ -2763,6 +3677,11 @@ export type ClickupTaskCreateOrConnectWithoutClickupClockifyProjectInput = {
   where: ClickupTaskWhereUniqueInput
 }
 
+export type ClickupTaskCreateOrConnectWithoutClickupTaskCustomFieldInput = {
+  create: ClickupTaskCreateWithoutClickupTaskCustomFieldInput
+  where: ClickupTaskWhereUniqueInput
+}
+
 export type ClickupTaskCreateOrConnectWithoutClockifyTimeEntriesInput = {
   create: ClickupTaskCreateWithoutClockifyTimeEntriesInput
   where: ClickupTaskWhereUniqueInput
@@ -2770,11 +3689,6 @@ export type ClickupTaskCreateOrConnectWithoutClockifyTimeEntriesInput = {
 
 export type ClickupTaskCreateOrConnectWithoutCreatorInput = {
   create: ClickupTaskCreateWithoutCreatorInput
-  where: ClickupTaskWhereUniqueInput
-}
-
-export type ClickupTaskCreateOrConnectWithoutCustomFieldsInput = {
-  create: ClickupTaskCreateWithoutCustomFieldsInput
   where: ClickupTaskWhereUniqueInput
 }
 
@@ -2788,13 +3702,18 @@ export type ClickupTaskCreateOrConnectWithoutDueDatesInput = {
   where: ClickupTaskWhereUniqueInput
 }
 
-export type ClickupTaskCreateOrConnectWithoutFolderLocationInput = {
-  create: ClickupTaskCreateWithoutFolderLocationInput
+export type ClickupTaskCreateOrConnectWithoutFolderInput = {
+  create: ClickupTaskCreateWithoutFolderInput
   where: ClickupTaskWhereUniqueInput
 }
 
-export type ClickupTaskCreateOrConnectWithoutListLocationInput = {
-  create: ClickupTaskCreateWithoutListLocationInput
+export type ClickupTaskCreateOrConnectWithoutListInput = {
+  create: ClickupTaskCreateWithoutListInput
+  where: ClickupTaskWhereUniqueInput
+}
+
+export type ClickupTaskCreateOrConnectWithoutLocationHistoryInput = {
+  create: ClickupTaskCreateWithoutLocationHistoryInput
   where: ClickupTaskWhereUniqueInput
 }
 
@@ -2803,8 +3722,8 @@ export type ClickupTaskCreateOrConnectWithoutPriorityInput = {
   where: ClickupTaskWhereUniqueInput
 }
 
-export type ClickupTaskCreateOrConnectWithoutProjectLocationInput = {
-  create: ClickupTaskCreateWithoutProjectLocationInput
+export type ClickupTaskCreateOrConnectWithoutProjectInput = {
+  create: ClickupTaskCreateWithoutProjectInput
   where: ClickupTaskWhereUniqueInput
 }
 
@@ -2828,6 +3747,11 @@ export type ClickupTaskCreateOrConnectWithoutTaskDependenciesInput = {
   where: ClickupTaskWhereUniqueInput
 }
 
+export type ClickupTaskCreateOrConnectWithoutTaskPeriodDataInput = {
+  create: ClickupTaskCreateWithoutTaskPeriodDataInput
+  where: ClickupTaskWhereUniqueInput
+}
+
 export type ClickupTaskCreateOrConnectWithoutTimeEstimatesInput = {
   create: ClickupTaskCreateWithoutTimeEstimatesInput
   where: ClickupTaskWhereUniqueInput
@@ -2843,9 +3767,9 @@ export type ClickupTaskCreateWithoutAssigneesInput = {
   attachments?: InputMaybe<ClickupTaskAttachmentCreateNestedManyWithoutTaskInput>
   checklists?: InputMaybe<ClickupTaskChecklistCreateNestedManyWithoutTaskInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClickupTasksInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutClickupTaskInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupTaskInput>
   creator: ClickupUserCreateNestedOneWithoutCreatedTasksInput
-  customFields?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutTaskInput>
   customId?: InputMaybe<Scalars['String']['input']>
   dateClosed?: InputMaybe<Scalars['String']['input']>
   dateCreated: Scalars['String']['input']
@@ -2854,23 +3778,25 @@ export type ClickupTaskCreateWithoutAssigneesInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutDependsOnTaskInput>
   description?: InputMaybe<Scalars['String']['input']>
   dueDates?: InputMaybe<ClickupTaskDueDateCreateNestedManyWithoutTaskInput>
-  folderLocation: ClickupTaskLocationCreateNestedOneWithoutFoldersInput
+  folder?: InputMaybe<ClickupTaskFolderCreateNestedManyWithoutClickupTaskInput>
   id: Scalars['String']['input']
   linkedTasks: Scalars['JSON']['input']
-  listLocation: ClickupTaskLocationCreateNestedOneWithoutListsInput
+  list?: InputMaybe<ClickupTaskListCreateNestedManyWithoutClickupTaskInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryCreateNestedManyWithoutClickupTaskInput>
   name: Scalars['String']['input']
   orderIndex: Scalars['String']['input']
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel: Scalars['String']['input']
   points?: InputMaybe<Scalars['BigInt']['input']>
   priority?: InputMaybe<ClickupTaskPriorityCreateNestedOneWithoutTasksInput>
-  projectLocation: ClickupTaskLocationCreateNestedOneWithoutProjectsInput
+  project?: InputMaybe<ClickupTaskProjectCreateNestedManyWithoutClickupTaskInput>
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
   status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataCreateNestedManyWithoutClickupTaskInput>
   teamId: Scalars['String']['input']
   textContent?: InputMaybe<Scalars['String']['input']>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateCreateNestedManyWithoutTaskInput>
@@ -2884,9 +3810,9 @@ export type ClickupTaskCreateWithoutAttachmentsInput = {
   assignees?: InputMaybe<ClickupUserTaskAssigneeCreateNestedManyWithoutClickupTaskInput>
   checklists?: InputMaybe<ClickupTaskChecklistCreateNestedManyWithoutTaskInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClickupTasksInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutClickupTaskInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupTaskInput>
   creator: ClickupUserCreateNestedOneWithoutCreatedTasksInput
-  customFields?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutTaskInput>
   customId?: InputMaybe<Scalars['String']['input']>
   dateClosed?: InputMaybe<Scalars['String']['input']>
   dateCreated: Scalars['String']['input']
@@ -2895,23 +3821,25 @@ export type ClickupTaskCreateWithoutAttachmentsInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutDependsOnTaskInput>
   description?: InputMaybe<Scalars['String']['input']>
   dueDates?: InputMaybe<ClickupTaskDueDateCreateNestedManyWithoutTaskInput>
-  folderLocation: ClickupTaskLocationCreateNestedOneWithoutFoldersInput
+  folder?: InputMaybe<ClickupTaskFolderCreateNestedManyWithoutClickupTaskInput>
   id: Scalars['String']['input']
   linkedTasks: Scalars['JSON']['input']
-  listLocation: ClickupTaskLocationCreateNestedOneWithoutListsInput
+  list?: InputMaybe<ClickupTaskListCreateNestedManyWithoutClickupTaskInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryCreateNestedManyWithoutClickupTaskInput>
   name: Scalars['String']['input']
   orderIndex: Scalars['String']['input']
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel: Scalars['String']['input']
   points?: InputMaybe<Scalars['BigInt']['input']>
   priority?: InputMaybe<ClickupTaskPriorityCreateNestedOneWithoutTasksInput>
-  projectLocation: ClickupTaskLocationCreateNestedOneWithoutProjectsInput
+  project?: InputMaybe<ClickupTaskProjectCreateNestedManyWithoutClickupTaskInput>
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
   status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataCreateNestedManyWithoutClickupTaskInput>
   teamId: Scalars['String']['input']
   textContent?: InputMaybe<Scalars['String']['input']>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateCreateNestedManyWithoutTaskInput>
@@ -2925,9 +3853,9 @@ export type ClickupTaskCreateWithoutChecklistsInput = {
   assignees?: InputMaybe<ClickupUserTaskAssigneeCreateNestedManyWithoutClickupTaskInput>
   attachments?: InputMaybe<ClickupTaskAttachmentCreateNestedManyWithoutTaskInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClickupTasksInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutClickupTaskInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupTaskInput>
   creator: ClickupUserCreateNestedOneWithoutCreatedTasksInput
-  customFields?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutTaskInput>
   customId?: InputMaybe<Scalars['String']['input']>
   dateClosed?: InputMaybe<Scalars['String']['input']>
   dateCreated: Scalars['String']['input']
@@ -2936,23 +3864,25 @@ export type ClickupTaskCreateWithoutChecklistsInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutDependsOnTaskInput>
   description?: InputMaybe<Scalars['String']['input']>
   dueDates?: InputMaybe<ClickupTaskDueDateCreateNestedManyWithoutTaskInput>
-  folderLocation: ClickupTaskLocationCreateNestedOneWithoutFoldersInput
+  folder?: InputMaybe<ClickupTaskFolderCreateNestedManyWithoutClickupTaskInput>
   id: Scalars['String']['input']
   linkedTasks: Scalars['JSON']['input']
-  listLocation: ClickupTaskLocationCreateNestedOneWithoutListsInput
+  list?: InputMaybe<ClickupTaskListCreateNestedManyWithoutClickupTaskInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryCreateNestedManyWithoutClickupTaskInput>
   name: Scalars['String']['input']
   orderIndex: Scalars['String']['input']
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel: Scalars['String']['input']
   points?: InputMaybe<Scalars['BigInt']['input']>
   priority?: InputMaybe<ClickupTaskPriorityCreateNestedOneWithoutTasksInput>
-  projectLocation: ClickupTaskLocationCreateNestedOneWithoutProjectsInput
+  project?: InputMaybe<ClickupTaskProjectCreateNestedManyWithoutClickupTaskInput>
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
   status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataCreateNestedManyWithoutClickupTaskInput>
   teamId: Scalars['String']['input']
   textContent?: InputMaybe<Scalars['String']['input']>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateCreateNestedManyWithoutTaskInput>
@@ -2966,9 +3896,9 @@ export type ClickupTaskCreateWithoutClickupClockifyProjectInput = {
   assignees?: InputMaybe<ClickupUserTaskAssigneeCreateNestedManyWithoutClickupTaskInput>
   attachments?: InputMaybe<ClickupTaskAttachmentCreateNestedManyWithoutTaskInput>
   checklists?: InputMaybe<ClickupTaskChecklistCreateNestedManyWithoutTaskInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutClickupTaskInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupTaskInput>
   creator: ClickupUserCreateNestedOneWithoutCreatedTasksInput
-  customFields?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutTaskInput>
   customId?: InputMaybe<Scalars['String']['input']>
   dateClosed?: InputMaybe<Scalars['String']['input']>
   dateCreated: Scalars['String']['input']
@@ -2977,23 +3907,68 @@ export type ClickupTaskCreateWithoutClickupClockifyProjectInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutDependsOnTaskInput>
   description?: InputMaybe<Scalars['String']['input']>
   dueDates?: InputMaybe<ClickupTaskDueDateCreateNestedManyWithoutTaskInput>
-  folderLocation: ClickupTaskLocationCreateNestedOneWithoutFoldersInput
+  folder?: InputMaybe<ClickupTaskFolderCreateNestedManyWithoutClickupTaskInput>
   id: Scalars['String']['input']
   linkedTasks: Scalars['JSON']['input']
-  listLocation: ClickupTaskLocationCreateNestedOneWithoutListsInput
+  list?: InputMaybe<ClickupTaskListCreateNestedManyWithoutClickupTaskInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryCreateNestedManyWithoutClickupTaskInput>
   name: Scalars['String']['input']
   orderIndex: Scalars['String']['input']
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel: Scalars['String']['input']
   points?: InputMaybe<Scalars['BigInt']['input']>
   priority?: InputMaybe<ClickupTaskPriorityCreateNestedOneWithoutTasksInput>
-  projectLocation: ClickupTaskLocationCreateNestedOneWithoutProjectsInput
+  project?: InputMaybe<ClickupTaskProjectCreateNestedManyWithoutClickupTaskInput>
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
   status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataCreateNestedManyWithoutClickupTaskInput>
+  teamId: Scalars['String']['input']
+  textContent?: InputMaybe<Scalars['String']['input']>
+  timeEstimates?: InputMaybe<ClickupTaskTimeEstimateCreateNestedManyWithoutTaskInput>
+  timeSpent?: InputMaybe<Scalars['BigInt']['input']>
+  url: Scalars['String']['input']
+  watchers?: InputMaybe<ClickupUserTaskWatchersCreateNestedManyWithoutClickupTaskInput>
+}
+
+export type ClickupTaskCreateWithoutClickupTaskCustomFieldInput = {
+  archived: Scalars['Boolean']['input']
+  assignees?: InputMaybe<ClickupUserTaskAssigneeCreateNestedManyWithoutClickupTaskInput>
+  attachments?: InputMaybe<ClickupTaskAttachmentCreateNestedManyWithoutTaskInput>
+  checklists?: InputMaybe<ClickupTaskChecklistCreateNestedManyWithoutTaskInput>
+  clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClickupTasksInput>
+  clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupTaskInput>
+  creator: ClickupUserCreateNestedOneWithoutCreatedTasksInput
+  customId?: InputMaybe<Scalars['String']['input']>
+  dateClosed?: InputMaybe<Scalars['String']['input']>
+  dateCreated: Scalars['String']['input']
+  dateDone?: InputMaybe<Scalars['String']['input']>
+  dateUpdated: Scalars['String']['input']
+  dependentTasks?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutDependsOnTaskInput>
+  description?: InputMaybe<Scalars['String']['input']>
+  dueDates?: InputMaybe<ClickupTaskDueDateCreateNestedManyWithoutTaskInput>
+  folder?: InputMaybe<ClickupTaskFolderCreateNestedManyWithoutClickupTaskInput>
+  id: Scalars['String']['input']
+  linkedTasks: Scalars['JSON']['input']
+  list?: InputMaybe<ClickupTaskListCreateNestedManyWithoutClickupTaskInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryCreateNestedManyWithoutClickupTaskInput>
+  name: Scalars['String']['input']
+  orderIndex: Scalars['String']['input']
+  parent?: InputMaybe<Scalars['JSON']['input']>
+  permissionLevel: Scalars['String']['input']
+  points?: InputMaybe<Scalars['BigInt']['input']>
+  priority?: InputMaybe<ClickupTaskPriorityCreateNestedOneWithoutTasksInput>
+  project?: InputMaybe<ClickupTaskProjectCreateNestedManyWithoutClickupTaskInput>
+  sharing: Scalars['JSON']['input']
+  space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
+  startDate?: InputMaybe<Scalars['String']['input']>
+  status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
+  tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
+  taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataCreateNestedManyWithoutClickupTaskInput>
   teamId: Scalars['String']['input']
   textContent?: InputMaybe<Scalars['String']['input']>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateCreateNestedManyWithoutTaskInput>
@@ -3008,8 +3983,8 @@ export type ClickupTaskCreateWithoutClockifyTimeEntriesInput = {
   attachments?: InputMaybe<ClickupTaskAttachmentCreateNestedManyWithoutTaskInput>
   checklists?: InputMaybe<ClickupTaskChecklistCreateNestedManyWithoutTaskInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClickupTasksInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutClickupTaskInput>
   creator: ClickupUserCreateNestedOneWithoutCreatedTasksInput
-  customFields?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutTaskInput>
   customId?: InputMaybe<Scalars['String']['input']>
   dateClosed?: InputMaybe<Scalars['String']['input']>
   dateCreated: Scalars['String']['input']
@@ -3018,23 +3993,25 @@ export type ClickupTaskCreateWithoutClockifyTimeEntriesInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutDependsOnTaskInput>
   description?: InputMaybe<Scalars['String']['input']>
   dueDates?: InputMaybe<ClickupTaskDueDateCreateNestedManyWithoutTaskInput>
-  folderLocation: ClickupTaskLocationCreateNestedOneWithoutFoldersInput
+  folder?: InputMaybe<ClickupTaskFolderCreateNestedManyWithoutClickupTaskInput>
   id: Scalars['String']['input']
   linkedTasks: Scalars['JSON']['input']
-  listLocation: ClickupTaskLocationCreateNestedOneWithoutListsInput
+  list?: InputMaybe<ClickupTaskListCreateNestedManyWithoutClickupTaskInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryCreateNestedManyWithoutClickupTaskInput>
   name: Scalars['String']['input']
   orderIndex: Scalars['String']['input']
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel: Scalars['String']['input']
   points?: InputMaybe<Scalars['BigInt']['input']>
   priority?: InputMaybe<ClickupTaskPriorityCreateNestedOneWithoutTasksInput>
-  projectLocation: ClickupTaskLocationCreateNestedOneWithoutProjectsInput
+  project?: InputMaybe<ClickupTaskProjectCreateNestedManyWithoutClickupTaskInput>
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
   status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataCreateNestedManyWithoutClickupTaskInput>
   teamId: Scalars['String']['input']
   textContent?: InputMaybe<Scalars['String']['input']>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateCreateNestedManyWithoutTaskInput>
@@ -3049,8 +4026,8 @@ export type ClickupTaskCreateWithoutCreatorInput = {
   attachments?: InputMaybe<ClickupTaskAttachmentCreateNestedManyWithoutTaskInput>
   checklists?: InputMaybe<ClickupTaskChecklistCreateNestedManyWithoutTaskInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClickupTasksInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutClickupTaskInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupTaskInput>
-  customFields?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutTaskInput>
   customId?: InputMaybe<Scalars['String']['input']>
   dateClosed?: InputMaybe<Scalars['String']['input']>
   dateCreated: Scalars['String']['input']
@@ -3059,64 +4036,25 @@ export type ClickupTaskCreateWithoutCreatorInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutDependsOnTaskInput>
   description?: InputMaybe<Scalars['String']['input']>
   dueDates?: InputMaybe<ClickupTaskDueDateCreateNestedManyWithoutTaskInput>
-  folderLocation: ClickupTaskLocationCreateNestedOneWithoutFoldersInput
+  folder?: InputMaybe<ClickupTaskFolderCreateNestedManyWithoutClickupTaskInput>
   id: Scalars['String']['input']
   linkedTasks: Scalars['JSON']['input']
-  listLocation: ClickupTaskLocationCreateNestedOneWithoutListsInput
+  list?: InputMaybe<ClickupTaskListCreateNestedManyWithoutClickupTaskInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryCreateNestedManyWithoutClickupTaskInput>
   name: Scalars['String']['input']
   orderIndex: Scalars['String']['input']
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel: Scalars['String']['input']
   points?: InputMaybe<Scalars['BigInt']['input']>
   priority?: InputMaybe<ClickupTaskPriorityCreateNestedOneWithoutTasksInput>
-  projectLocation: ClickupTaskLocationCreateNestedOneWithoutProjectsInput
+  project?: InputMaybe<ClickupTaskProjectCreateNestedManyWithoutClickupTaskInput>
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
   status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
-  teamId: Scalars['String']['input']
-  textContent?: InputMaybe<Scalars['String']['input']>
-  timeEstimates?: InputMaybe<ClickupTaskTimeEstimateCreateNestedManyWithoutTaskInput>
-  timeSpent?: InputMaybe<Scalars['BigInt']['input']>
-  url: Scalars['String']['input']
-  watchers?: InputMaybe<ClickupUserTaskWatchersCreateNestedManyWithoutClickupTaskInput>
-}
-
-export type ClickupTaskCreateWithoutCustomFieldsInput = {
-  archived: Scalars['Boolean']['input']
-  assignees?: InputMaybe<ClickupUserTaskAssigneeCreateNestedManyWithoutClickupTaskInput>
-  attachments?: InputMaybe<ClickupTaskAttachmentCreateNestedManyWithoutTaskInput>
-  checklists?: InputMaybe<ClickupTaskChecklistCreateNestedManyWithoutTaskInput>
-  clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClickupTasksInput>
-  clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupTaskInput>
-  creator: ClickupUserCreateNestedOneWithoutCreatedTasksInput
-  customId?: InputMaybe<Scalars['String']['input']>
-  dateClosed?: InputMaybe<Scalars['String']['input']>
-  dateCreated: Scalars['String']['input']
-  dateDone?: InputMaybe<Scalars['String']['input']>
-  dateUpdated: Scalars['String']['input']
-  dependentTasks?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutDependsOnTaskInput>
-  description?: InputMaybe<Scalars['String']['input']>
-  dueDates?: InputMaybe<ClickupTaskDueDateCreateNestedManyWithoutTaskInput>
-  folderLocation: ClickupTaskLocationCreateNestedOneWithoutFoldersInput
-  id: Scalars['String']['input']
-  linkedTasks: Scalars['JSON']['input']
-  listLocation: ClickupTaskLocationCreateNestedOneWithoutListsInput
-  name: Scalars['String']['input']
-  orderIndex: Scalars['String']['input']
-  parent?: InputMaybe<Scalars['JSON']['input']>
-  permissionLevel: Scalars['String']['input']
-  points?: InputMaybe<Scalars['BigInt']['input']>
-  priority?: InputMaybe<ClickupTaskPriorityCreateNestedOneWithoutTasksInput>
-  projectLocation: ClickupTaskLocationCreateNestedOneWithoutProjectsInput
-  sharing: Scalars['JSON']['input']
-  space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
-  startDate?: InputMaybe<Scalars['String']['input']>
-  status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
-  tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
-  taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataCreateNestedManyWithoutClickupTaskInput>
   teamId: Scalars['String']['input']
   textContent?: InputMaybe<Scalars['String']['input']>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateCreateNestedManyWithoutTaskInput>
@@ -3131,9 +4069,9 @@ export type ClickupTaskCreateWithoutDependentTasksInput = {
   attachments?: InputMaybe<ClickupTaskAttachmentCreateNestedManyWithoutTaskInput>
   checklists?: InputMaybe<ClickupTaskChecklistCreateNestedManyWithoutTaskInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClickupTasksInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutClickupTaskInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupTaskInput>
   creator: ClickupUserCreateNestedOneWithoutCreatedTasksInput
-  customFields?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutTaskInput>
   customId?: InputMaybe<Scalars['String']['input']>
   dateClosed?: InputMaybe<Scalars['String']['input']>
   dateCreated: Scalars['String']['input']
@@ -3141,23 +4079,25 @@ export type ClickupTaskCreateWithoutDependentTasksInput = {
   dateUpdated: Scalars['String']['input']
   description?: InputMaybe<Scalars['String']['input']>
   dueDates?: InputMaybe<ClickupTaskDueDateCreateNestedManyWithoutTaskInput>
-  folderLocation: ClickupTaskLocationCreateNestedOneWithoutFoldersInput
+  folder?: InputMaybe<ClickupTaskFolderCreateNestedManyWithoutClickupTaskInput>
   id: Scalars['String']['input']
   linkedTasks: Scalars['JSON']['input']
-  listLocation: ClickupTaskLocationCreateNestedOneWithoutListsInput
+  list?: InputMaybe<ClickupTaskListCreateNestedManyWithoutClickupTaskInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryCreateNestedManyWithoutClickupTaskInput>
   name: Scalars['String']['input']
   orderIndex: Scalars['String']['input']
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel: Scalars['String']['input']
   points?: InputMaybe<Scalars['BigInt']['input']>
   priority?: InputMaybe<ClickupTaskPriorityCreateNestedOneWithoutTasksInput>
-  projectLocation: ClickupTaskLocationCreateNestedOneWithoutProjectsInput
+  project?: InputMaybe<ClickupTaskProjectCreateNestedManyWithoutClickupTaskInput>
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
   status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataCreateNestedManyWithoutClickupTaskInput>
   teamId: Scalars['String']['input']
   textContent?: InputMaybe<Scalars['String']['input']>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateCreateNestedManyWithoutTaskInput>
@@ -3172,9 +4112,9 @@ export type ClickupTaskCreateWithoutDueDatesInput = {
   attachments?: InputMaybe<ClickupTaskAttachmentCreateNestedManyWithoutTaskInput>
   checklists?: InputMaybe<ClickupTaskChecklistCreateNestedManyWithoutTaskInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClickupTasksInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutClickupTaskInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupTaskInput>
   creator: ClickupUserCreateNestedOneWithoutCreatedTasksInput
-  customFields?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutTaskInput>
   customId?: InputMaybe<Scalars['String']['input']>
   dateClosed?: InputMaybe<Scalars['String']['input']>
   dateCreated: Scalars['String']['input']
@@ -3182,23 +4122,25 @@ export type ClickupTaskCreateWithoutDueDatesInput = {
   dateUpdated: Scalars['String']['input']
   dependentTasks?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutDependsOnTaskInput>
   description?: InputMaybe<Scalars['String']['input']>
-  folderLocation: ClickupTaskLocationCreateNestedOneWithoutFoldersInput
+  folder?: InputMaybe<ClickupTaskFolderCreateNestedManyWithoutClickupTaskInput>
   id: Scalars['String']['input']
   linkedTasks: Scalars['JSON']['input']
-  listLocation: ClickupTaskLocationCreateNestedOneWithoutListsInput
+  list?: InputMaybe<ClickupTaskListCreateNestedManyWithoutClickupTaskInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryCreateNestedManyWithoutClickupTaskInput>
   name: Scalars['String']['input']
   orderIndex: Scalars['String']['input']
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel: Scalars['String']['input']
   points?: InputMaybe<Scalars['BigInt']['input']>
   priority?: InputMaybe<ClickupTaskPriorityCreateNestedOneWithoutTasksInput>
-  projectLocation: ClickupTaskLocationCreateNestedOneWithoutProjectsInput
+  project?: InputMaybe<ClickupTaskProjectCreateNestedManyWithoutClickupTaskInput>
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
   status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataCreateNestedManyWithoutClickupTaskInput>
   teamId: Scalars['String']['input']
   textContent?: InputMaybe<Scalars['String']['input']>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateCreateNestedManyWithoutTaskInput>
@@ -3207,15 +4149,15 @@ export type ClickupTaskCreateWithoutDueDatesInput = {
   watchers?: InputMaybe<ClickupUserTaskWatchersCreateNestedManyWithoutClickupTaskInput>
 }
 
-export type ClickupTaskCreateWithoutFolderLocationInput = {
+export type ClickupTaskCreateWithoutFolderInput = {
   archived: Scalars['Boolean']['input']
   assignees?: InputMaybe<ClickupUserTaskAssigneeCreateNestedManyWithoutClickupTaskInput>
   attachments?: InputMaybe<ClickupTaskAttachmentCreateNestedManyWithoutTaskInput>
   checklists?: InputMaybe<ClickupTaskChecklistCreateNestedManyWithoutTaskInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClickupTasksInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutClickupTaskInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupTaskInput>
   creator: ClickupUserCreateNestedOneWithoutCreatedTasksInput
-  customFields?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutTaskInput>
   customId?: InputMaybe<Scalars['String']['input']>
   dateClosed?: InputMaybe<Scalars['String']['input']>
   dateCreated: Scalars['String']['input']
@@ -3226,20 +4168,22 @@ export type ClickupTaskCreateWithoutFolderLocationInput = {
   dueDates?: InputMaybe<ClickupTaskDueDateCreateNestedManyWithoutTaskInput>
   id: Scalars['String']['input']
   linkedTasks: Scalars['JSON']['input']
-  listLocation: ClickupTaskLocationCreateNestedOneWithoutListsInput
+  list?: InputMaybe<ClickupTaskListCreateNestedManyWithoutClickupTaskInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryCreateNestedManyWithoutClickupTaskInput>
   name: Scalars['String']['input']
   orderIndex: Scalars['String']['input']
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel: Scalars['String']['input']
   points?: InputMaybe<Scalars['BigInt']['input']>
   priority?: InputMaybe<ClickupTaskPriorityCreateNestedOneWithoutTasksInput>
-  projectLocation: ClickupTaskLocationCreateNestedOneWithoutProjectsInput
+  project?: InputMaybe<ClickupTaskProjectCreateNestedManyWithoutClickupTaskInput>
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
   status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataCreateNestedManyWithoutClickupTaskInput>
   teamId: Scalars['String']['input']
   textContent?: InputMaybe<Scalars['String']['input']>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateCreateNestedManyWithoutTaskInput>
@@ -3248,15 +4192,15 @@ export type ClickupTaskCreateWithoutFolderLocationInput = {
   watchers?: InputMaybe<ClickupUserTaskWatchersCreateNestedManyWithoutClickupTaskInput>
 }
 
-export type ClickupTaskCreateWithoutListLocationInput = {
+export type ClickupTaskCreateWithoutListInput = {
   archived: Scalars['Boolean']['input']
   assignees?: InputMaybe<ClickupUserTaskAssigneeCreateNestedManyWithoutClickupTaskInput>
   attachments?: InputMaybe<ClickupTaskAttachmentCreateNestedManyWithoutTaskInput>
   checklists?: InputMaybe<ClickupTaskChecklistCreateNestedManyWithoutTaskInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClickupTasksInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutClickupTaskInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupTaskInput>
   creator: ClickupUserCreateNestedOneWithoutCreatedTasksInput
-  customFields?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutTaskInput>
   customId?: InputMaybe<Scalars['String']['input']>
   dateClosed?: InputMaybe<Scalars['String']['input']>
   dateCreated: Scalars['String']['input']
@@ -3265,22 +4209,67 @@ export type ClickupTaskCreateWithoutListLocationInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutDependsOnTaskInput>
   description?: InputMaybe<Scalars['String']['input']>
   dueDates?: InputMaybe<ClickupTaskDueDateCreateNestedManyWithoutTaskInput>
-  folderLocation: ClickupTaskLocationCreateNestedOneWithoutFoldersInput
+  folder?: InputMaybe<ClickupTaskFolderCreateNestedManyWithoutClickupTaskInput>
   id: Scalars['String']['input']
   linkedTasks: Scalars['JSON']['input']
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryCreateNestedManyWithoutClickupTaskInput>
   name: Scalars['String']['input']
   orderIndex: Scalars['String']['input']
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel: Scalars['String']['input']
   points?: InputMaybe<Scalars['BigInt']['input']>
   priority?: InputMaybe<ClickupTaskPriorityCreateNestedOneWithoutTasksInput>
-  projectLocation: ClickupTaskLocationCreateNestedOneWithoutProjectsInput
+  project?: InputMaybe<ClickupTaskProjectCreateNestedManyWithoutClickupTaskInput>
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
   status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataCreateNestedManyWithoutClickupTaskInput>
+  teamId: Scalars['String']['input']
+  textContent?: InputMaybe<Scalars['String']['input']>
+  timeEstimates?: InputMaybe<ClickupTaskTimeEstimateCreateNestedManyWithoutTaskInput>
+  timeSpent?: InputMaybe<Scalars['BigInt']['input']>
+  url: Scalars['String']['input']
+  watchers?: InputMaybe<ClickupUserTaskWatchersCreateNestedManyWithoutClickupTaskInput>
+}
+
+export type ClickupTaskCreateWithoutLocationHistoryInput = {
+  archived: Scalars['Boolean']['input']
+  assignees?: InputMaybe<ClickupUserTaskAssigneeCreateNestedManyWithoutClickupTaskInput>
+  attachments?: InputMaybe<ClickupTaskAttachmentCreateNestedManyWithoutTaskInput>
+  checklists?: InputMaybe<ClickupTaskChecklistCreateNestedManyWithoutTaskInput>
+  clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClickupTasksInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutClickupTaskInput>
+  clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupTaskInput>
+  creator: ClickupUserCreateNestedOneWithoutCreatedTasksInput
+  customId?: InputMaybe<Scalars['String']['input']>
+  dateClosed?: InputMaybe<Scalars['String']['input']>
+  dateCreated: Scalars['String']['input']
+  dateDone?: InputMaybe<Scalars['String']['input']>
+  dateUpdated: Scalars['String']['input']
+  dependentTasks?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutDependsOnTaskInput>
+  description?: InputMaybe<Scalars['String']['input']>
+  dueDates?: InputMaybe<ClickupTaskDueDateCreateNestedManyWithoutTaskInput>
+  folder?: InputMaybe<ClickupTaskFolderCreateNestedManyWithoutClickupTaskInput>
+  id: Scalars['String']['input']
+  linkedTasks: Scalars['JSON']['input']
+  list?: InputMaybe<ClickupTaskListCreateNestedManyWithoutClickupTaskInput>
+  name: Scalars['String']['input']
+  orderIndex: Scalars['String']['input']
+  parent?: InputMaybe<Scalars['JSON']['input']>
+  permissionLevel: Scalars['String']['input']
+  points?: InputMaybe<Scalars['BigInt']['input']>
+  priority?: InputMaybe<ClickupTaskPriorityCreateNestedOneWithoutTasksInput>
+  project?: InputMaybe<ClickupTaskProjectCreateNestedManyWithoutClickupTaskInput>
+  sharing: Scalars['JSON']['input']
+  space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
+  startDate?: InputMaybe<Scalars['String']['input']>
+  status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
+  tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
+  taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataCreateNestedManyWithoutClickupTaskInput>
   teamId: Scalars['String']['input']
   textContent?: InputMaybe<Scalars['String']['input']>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateCreateNestedManyWithoutTaskInput>
@@ -3295,9 +4284,9 @@ export type ClickupTaskCreateWithoutPriorityInput = {
   attachments?: InputMaybe<ClickupTaskAttachmentCreateNestedManyWithoutTaskInput>
   checklists?: InputMaybe<ClickupTaskChecklistCreateNestedManyWithoutTaskInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClickupTasksInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutClickupTaskInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupTaskInput>
   creator: ClickupUserCreateNestedOneWithoutCreatedTasksInput
-  customFields?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutTaskInput>
   customId?: InputMaybe<Scalars['String']['input']>
   dateClosed?: InputMaybe<Scalars['String']['input']>
   dateCreated: Scalars['String']['input']
@@ -3306,22 +4295,24 @@ export type ClickupTaskCreateWithoutPriorityInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutDependsOnTaskInput>
   description?: InputMaybe<Scalars['String']['input']>
   dueDates?: InputMaybe<ClickupTaskDueDateCreateNestedManyWithoutTaskInput>
-  folderLocation: ClickupTaskLocationCreateNestedOneWithoutFoldersInput
+  folder?: InputMaybe<ClickupTaskFolderCreateNestedManyWithoutClickupTaskInput>
   id: Scalars['String']['input']
   linkedTasks: Scalars['JSON']['input']
-  listLocation: ClickupTaskLocationCreateNestedOneWithoutListsInput
+  list?: InputMaybe<ClickupTaskListCreateNestedManyWithoutClickupTaskInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryCreateNestedManyWithoutClickupTaskInput>
   name: Scalars['String']['input']
   orderIndex: Scalars['String']['input']
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel: Scalars['String']['input']
   points?: InputMaybe<Scalars['BigInt']['input']>
-  projectLocation: ClickupTaskLocationCreateNestedOneWithoutProjectsInput
+  project?: InputMaybe<ClickupTaskProjectCreateNestedManyWithoutClickupTaskInput>
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
   status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataCreateNestedManyWithoutClickupTaskInput>
   teamId: Scalars['String']['input']
   textContent?: InputMaybe<Scalars['String']['input']>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateCreateNestedManyWithoutTaskInput>
@@ -3330,15 +4321,15 @@ export type ClickupTaskCreateWithoutPriorityInput = {
   watchers?: InputMaybe<ClickupUserTaskWatchersCreateNestedManyWithoutClickupTaskInput>
 }
 
-export type ClickupTaskCreateWithoutProjectLocationInput = {
+export type ClickupTaskCreateWithoutProjectInput = {
   archived: Scalars['Boolean']['input']
   assignees?: InputMaybe<ClickupUserTaskAssigneeCreateNestedManyWithoutClickupTaskInput>
   attachments?: InputMaybe<ClickupTaskAttachmentCreateNestedManyWithoutTaskInput>
   checklists?: InputMaybe<ClickupTaskChecklistCreateNestedManyWithoutTaskInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClickupTasksInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutClickupTaskInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupTaskInput>
   creator: ClickupUserCreateNestedOneWithoutCreatedTasksInput
-  customFields?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutTaskInput>
   customId?: InputMaybe<Scalars['String']['input']>
   dateClosed?: InputMaybe<Scalars['String']['input']>
   dateCreated: Scalars['String']['input']
@@ -3347,10 +4338,11 @@ export type ClickupTaskCreateWithoutProjectLocationInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutDependsOnTaskInput>
   description?: InputMaybe<Scalars['String']['input']>
   dueDates?: InputMaybe<ClickupTaskDueDateCreateNestedManyWithoutTaskInput>
-  folderLocation: ClickupTaskLocationCreateNestedOneWithoutFoldersInput
+  folder?: InputMaybe<ClickupTaskFolderCreateNestedManyWithoutClickupTaskInput>
   id: Scalars['String']['input']
   linkedTasks: Scalars['JSON']['input']
-  listLocation: ClickupTaskLocationCreateNestedOneWithoutListsInput
+  list?: InputMaybe<ClickupTaskListCreateNestedManyWithoutClickupTaskInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryCreateNestedManyWithoutClickupTaskInput>
   name: Scalars['String']['input']
   orderIndex: Scalars['String']['input']
   parent?: InputMaybe<Scalars['JSON']['input']>
@@ -3363,6 +4355,7 @@ export type ClickupTaskCreateWithoutProjectLocationInput = {
   status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataCreateNestedManyWithoutClickupTaskInput>
   teamId: Scalars['String']['input']
   textContent?: InputMaybe<Scalars['String']['input']>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateCreateNestedManyWithoutTaskInput>
@@ -3377,9 +4370,9 @@ export type ClickupTaskCreateWithoutSpaceInput = {
   attachments?: InputMaybe<ClickupTaskAttachmentCreateNestedManyWithoutTaskInput>
   checklists?: InputMaybe<ClickupTaskChecklistCreateNestedManyWithoutTaskInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClickupTasksInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutClickupTaskInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupTaskInput>
   creator: ClickupUserCreateNestedOneWithoutCreatedTasksInput
-  customFields?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutTaskInput>
   customId?: InputMaybe<Scalars['String']['input']>
   dateClosed?: InputMaybe<Scalars['String']['input']>
   dateCreated: Scalars['String']['input']
@@ -3388,22 +4381,24 @@ export type ClickupTaskCreateWithoutSpaceInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutDependsOnTaskInput>
   description?: InputMaybe<Scalars['String']['input']>
   dueDates?: InputMaybe<ClickupTaskDueDateCreateNestedManyWithoutTaskInput>
-  folderLocation: ClickupTaskLocationCreateNestedOneWithoutFoldersInput
+  folder?: InputMaybe<ClickupTaskFolderCreateNestedManyWithoutClickupTaskInput>
   id: Scalars['String']['input']
   linkedTasks: Scalars['JSON']['input']
-  listLocation: ClickupTaskLocationCreateNestedOneWithoutListsInput
+  list?: InputMaybe<ClickupTaskListCreateNestedManyWithoutClickupTaskInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryCreateNestedManyWithoutClickupTaskInput>
   name: Scalars['String']['input']
   orderIndex: Scalars['String']['input']
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel: Scalars['String']['input']
   points?: InputMaybe<Scalars['BigInt']['input']>
   priority?: InputMaybe<ClickupTaskPriorityCreateNestedOneWithoutTasksInput>
-  projectLocation: ClickupTaskLocationCreateNestedOneWithoutProjectsInput
+  project?: InputMaybe<ClickupTaskProjectCreateNestedManyWithoutClickupTaskInput>
   sharing: Scalars['JSON']['input']
   startDate?: InputMaybe<Scalars['String']['input']>
   status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataCreateNestedManyWithoutClickupTaskInput>
   teamId: Scalars['String']['input']
   textContent?: InputMaybe<Scalars['String']['input']>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateCreateNestedManyWithoutTaskInput>
@@ -3418,9 +4413,9 @@ export type ClickupTaskCreateWithoutStatusInput = {
   attachments?: InputMaybe<ClickupTaskAttachmentCreateNestedManyWithoutTaskInput>
   checklists?: InputMaybe<ClickupTaskChecklistCreateNestedManyWithoutTaskInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClickupTasksInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutClickupTaskInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupTaskInput>
   creator: ClickupUserCreateNestedOneWithoutCreatedTasksInput
-  customFields?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutTaskInput>
   customId?: InputMaybe<Scalars['String']['input']>
   dateClosed?: InputMaybe<Scalars['String']['input']>
   dateCreated: Scalars['String']['input']
@@ -3429,22 +4424,24 @@ export type ClickupTaskCreateWithoutStatusInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutDependsOnTaskInput>
   description?: InputMaybe<Scalars['String']['input']>
   dueDates?: InputMaybe<ClickupTaskDueDateCreateNestedManyWithoutTaskInput>
-  folderLocation: ClickupTaskLocationCreateNestedOneWithoutFoldersInput
+  folder?: InputMaybe<ClickupTaskFolderCreateNestedManyWithoutClickupTaskInput>
   id: Scalars['String']['input']
   linkedTasks: Scalars['JSON']['input']
-  listLocation: ClickupTaskLocationCreateNestedOneWithoutListsInput
+  list?: InputMaybe<ClickupTaskListCreateNestedManyWithoutClickupTaskInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryCreateNestedManyWithoutClickupTaskInput>
   name: Scalars['String']['input']
   orderIndex: Scalars['String']['input']
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel: Scalars['String']['input']
   points?: InputMaybe<Scalars['BigInt']['input']>
   priority?: InputMaybe<ClickupTaskPriorityCreateNestedOneWithoutTasksInput>
-  projectLocation: ClickupTaskLocationCreateNestedOneWithoutProjectsInput
+  project?: InputMaybe<ClickupTaskProjectCreateNestedManyWithoutClickupTaskInput>
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataCreateNestedManyWithoutClickupTaskInput>
   teamId: Scalars['String']['input']
   textContent?: InputMaybe<Scalars['String']['input']>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateCreateNestedManyWithoutTaskInput>
@@ -3459,9 +4456,9 @@ export type ClickupTaskCreateWithoutTagsInput = {
   attachments?: InputMaybe<ClickupTaskAttachmentCreateNestedManyWithoutTaskInput>
   checklists?: InputMaybe<ClickupTaskChecklistCreateNestedManyWithoutTaskInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClickupTasksInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutClickupTaskInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupTaskInput>
   creator: ClickupUserCreateNestedOneWithoutCreatedTasksInput
-  customFields?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutTaskInput>
   customId?: InputMaybe<Scalars['String']['input']>
   dateClosed?: InputMaybe<Scalars['String']['input']>
   dateCreated: Scalars['String']['input']
@@ -3470,22 +4467,24 @@ export type ClickupTaskCreateWithoutTagsInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutDependsOnTaskInput>
   description?: InputMaybe<Scalars['String']['input']>
   dueDates?: InputMaybe<ClickupTaskDueDateCreateNestedManyWithoutTaskInput>
-  folderLocation: ClickupTaskLocationCreateNestedOneWithoutFoldersInput
+  folder?: InputMaybe<ClickupTaskFolderCreateNestedManyWithoutClickupTaskInput>
   id: Scalars['String']['input']
   linkedTasks: Scalars['JSON']['input']
-  listLocation: ClickupTaskLocationCreateNestedOneWithoutListsInput
+  list?: InputMaybe<ClickupTaskListCreateNestedManyWithoutClickupTaskInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryCreateNestedManyWithoutClickupTaskInput>
   name: Scalars['String']['input']
   orderIndex: Scalars['String']['input']
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel: Scalars['String']['input']
   points?: InputMaybe<Scalars['BigInt']['input']>
   priority?: InputMaybe<ClickupTaskPriorityCreateNestedOneWithoutTasksInput>
-  projectLocation: ClickupTaskLocationCreateNestedOneWithoutProjectsInput
+  project?: InputMaybe<ClickupTaskProjectCreateNestedManyWithoutClickupTaskInput>
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
   status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataCreateNestedManyWithoutClickupTaskInput>
   teamId: Scalars['String']['input']
   textContent?: InputMaybe<Scalars['String']['input']>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateCreateNestedManyWithoutTaskInput>
@@ -3500,9 +4499,9 @@ export type ClickupTaskCreateWithoutTaskDependenciesInput = {
   attachments?: InputMaybe<ClickupTaskAttachmentCreateNestedManyWithoutTaskInput>
   checklists?: InputMaybe<ClickupTaskChecklistCreateNestedManyWithoutTaskInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClickupTasksInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutClickupTaskInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupTaskInput>
   creator: ClickupUserCreateNestedOneWithoutCreatedTasksInput
-  customFields?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutTaskInput>
   customId?: InputMaybe<Scalars['String']['input']>
   dateClosed?: InputMaybe<Scalars['String']['input']>
   dateCreated: Scalars['String']['input']
@@ -3511,22 +4510,67 @@ export type ClickupTaskCreateWithoutTaskDependenciesInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutDependsOnTaskInput>
   description?: InputMaybe<Scalars['String']['input']>
   dueDates?: InputMaybe<ClickupTaskDueDateCreateNestedManyWithoutTaskInput>
-  folderLocation: ClickupTaskLocationCreateNestedOneWithoutFoldersInput
+  folder?: InputMaybe<ClickupTaskFolderCreateNestedManyWithoutClickupTaskInput>
   id: Scalars['String']['input']
   linkedTasks: Scalars['JSON']['input']
-  listLocation: ClickupTaskLocationCreateNestedOneWithoutListsInput
+  list?: InputMaybe<ClickupTaskListCreateNestedManyWithoutClickupTaskInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryCreateNestedManyWithoutClickupTaskInput>
   name: Scalars['String']['input']
   orderIndex: Scalars['String']['input']
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel: Scalars['String']['input']
   points?: InputMaybe<Scalars['BigInt']['input']>
   priority?: InputMaybe<ClickupTaskPriorityCreateNestedOneWithoutTasksInput>
-  projectLocation: ClickupTaskLocationCreateNestedOneWithoutProjectsInput
+  project?: InputMaybe<ClickupTaskProjectCreateNestedManyWithoutClickupTaskInput>
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
   status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataCreateNestedManyWithoutClickupTaskInput>
+  teamId: Scalars['String']['input']
+  textContent?: InputMaybe<Scalars['String']['input']>
+  timeEstimates?: InputMaybe<ClickupTaskTimeEstimateCreateNestedManyWithoutTaskInput>
+  timeSpent?: InputMaybe<Scalars['BigInt']['input']>
+  url: Scalars['String']['input']
+  watchers?: InputMaybe<ClickupUserTaskWatchersCreateNestedManyWithoutClickupTaskInput>
+}
+
+export type ClickupTaskCreateWithoutTaskPeriodDataInput = {
+  archived: Scalars['Boolean']['input']
+  assignees?: InputMaybe<ClickupUserTaskAssigneeCreateNestedManyWithoutClickupTaskInput>
+  attachments?: InputMaybe<ClickupTaskAttachmentCreateNestedManyWithoutTaskInput>
+  checklists?: InputMaybe<ClickupTaskChecklistCreateNestedManyWithoutTaskInput>
+  clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClickupTasksInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutClickupTaskInput>
+  clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupTaskInput>
+  creator: ClickupUserCreateNestedOneWithoutCreatedTasksInput
+  customId?: InputMaybe<Scalars['String']['input']>
+  dateClosed?: InputMaybe<Scalars['String']['input']>
+  dateCreated: Scalars['String']['input']
+  dateDone?: InputMaybe<Scalars['String']['input']>
+  dateUpdated: Scalars['String']['input']
+  dependentTasks?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutDependsOnTaskInput>
+  description?: InputMaybe<Scalars['String']['input']>
+  dueDates?: InputMaybe<ClickupTaskDueDateCreateNestedManyWithoutTaskInput>
+  folder?: InputMaybe<ClickupTaskFolderCreateNestedManyWithoutClickupTaskInput>
+  id: Scalars['String']['input']
+  linkedTasks: Scalars['JSON']['input']
+  list?: InputMaybe<ClickupTaskListCreateNestedManyWithoutClickupTaskInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryCreateNestedManyWithoutClickupTaskInput>
+  name: Scalars['String']['input']
+  orderIndex: Scalars['String']['input']
+  parent?: InputMaybe<Scalars['JSON']['input']>
+  permissionLevel: Scalars['String']['input']
+  points?: InputMaybe<Scalars['BigInt']['input']>
+  priority?: InputMaybe<ClickupTaskPriorityCreateNestedOneWithoutTasksInput>
+  project?: InputMaybe<ClickupTaskProjectCreateNestedManyWithoutClickupTaskInput>
+  sharing: Scalars['JSON']['input']
+  space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
+  startDate?: InputMaybe<Scalars['String']['input']>
+  status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
+  tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
+  taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
   teamId: Scalars['String']['input']
   textContent?: InputMaybe<Scalars['String']['input']>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateCreateNestedManyWithoutTaskInput>
@@ -3541,9 +4585,9 @@ export type ClickupTaskCreateWithoutTimeEstimatesInput = {
   attachments?: InputMaybe<ClickupTaskAttachmentCreateNestedManyWithoutTaskInput>
   checklists?: InputMaybe<ClickupTaskChecklistCreateNestedManyWithoutTaskInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClickupTasksInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutClickupTaskInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupTaskInput>
   creator: ClickupUserCreateNestedOneWithoutCreatedTasksInput
-  customFields?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutTaskInput>
   customId?: InputMaybe<Scalars['String']['input']>
   dateClosed?: InputMaybe<Scalars['String']['input']>
   dateCreated: Scalars['String']['input']
@@ -3552,23 +4596,25 @@ export type ClickupTaskCreateWithoutTimeEstimatesInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutDependsOnTaskInput>
   description?: InputMaybe<Scalars['String']['input']>
   dueDates?: InputMaybe<ClickupTaskDueDateCreateNestedManyWithoutTaskInput>
-  folderLocation: ClickupTaskLocationCreateNestedOneWithoutFoldersInput
+  folder?: InputMaybe<ClickupTaskFolderCreateNestedManyWithoutClickupTaskInput>
   id: Scalars['String']['input']
   linkedTasks: Scalars['JSON']['input']
-  listLocation: ClickupTaskLocationCreateNestedOneWithoutListsInput
+  list?: InputMaybe<ClickupTaskListCreateNestedManyWithoutClickupTaskInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryCreateNestedManyWithoutClickupTaskInput>
   name: Scalars['String']['input']
   orderIndex: Scalars['String']['input']
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel: Scalars['String']['input']
   points?: InputMaybe<Scalars['BigInt']['input']>
   priority?: InputMaybe<ClickupTaskPriorityCreateNestedOneWithoutTasksInput>
-  projectLocation: ClickupTaskLocationCreateNestedOneWithoutProjectsInput
+  project?: InputMaybe<ClickupTaskProjectCreateNestedManyWithoutClickupTaskInput>
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
   status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataCreateNestedManyWithoutClickupTaskInput>
   teamId: Scalars['String']['input']
   textContent?: InputMaybe<Scalars['String']['input']>
   timeSpent?: InputMaybe<Scalars['BigInt']['input']>
@@ -3582,9 +4628,9 @@ export type ClickupTaskCreateWithoutWatchersInput = {
   attachments?: InputMaybe<ClickupTaskAttachmentCreateNestedManyWithoutTaskInput>
   checklists?: InputMaybe<ClickupTaskChecklistCreateNestedManyWithoutTaskInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClickupTasksInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutClickupTaskInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupTaskInput>
   creator: ClickupUserCreateNestedOneWithoutCreatedTasksInput
-  customFields?: InputMaybe<ClickupTaskCustomFieldCreateNestedManyWithoutTaskInput>
   customId?: InputMaybe<Scalars['String']['input']>
   dateClosed?: InputMaybe<Scalars['String']['input']>
   dateCreated: Scalars['String']['input']
@@ -3593,23 +4639,25 @@ export type ClickupTaskCreateWithoutWatchersInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutDependsOnTaskInput>
   description?: InputMaybe<Scalars['String']['input']>
   dueDates?: InputMaybe<ClickupTaskDueDateCreateNestedManyWithoutTaskInput>
-  folderLocation: ClickupTaskLocationCreateNestedOneWithoutFoldersInput
+  folder?: InputMaybe<ClickupTaskFolderCreateNestedManyWithoutClickupTaskInput>
   id: Scalars['String']['input']
   linkedTasks: Scalars['JSON']['input']
-  listLocation: ClickupTaskLocationCreateNestedOneWithoutListsInput
+  list?: InputMaybe<ClickupTaskListCreateNestedManyWithoutClickupTaskInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryCreateNestedManyWithoutClickupTaskInput>
   name: Scalars['String']['input']
   orderIndex: Scalars['String']['input']
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel: Scalars['String']['input']
   points?: InputMaybe<Scalars['BigInt']['input']>
   priority?: InputMaybe<ClickupTaskPriorityCreateNestedOneWithoutTasksInput>
-  projectLocation: ClickupTaskLocationCreateNestedOneWithoutProjectsInput
+  project?: InputMaybe<ClickupTaskProjectCreateNestedManyWithoutClickupTaskInput>
   sharing: Scalars['JSON']['input']
   space: ClickupTaskSpaceCreateNestedOneWithoutTasksInput
   startDate?: InputMaybe<Scalars['String']['input']>
   status?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutTaskInput>
   tags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutTasksInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutTaskInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataCreateNestedManyWithoutClickupTaskInput>
   teamId: Scalars['String']['input']
   textContent?: InputMaybe<Scalars['String']['input']>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateCreateNestedManyWithoutTaskInput>
@@ -3619,97 +4667,90 @@ export type ClickupTaskCreateWithoutWatchersInput = {
 
 export type ClickupTaskCustomField = {
   __typename?: 'ClickupTaskCustomField'
-  dateCreated: Scalars['String']['output']
-  hideFromGuests: Scalars['Boolean']['output']
-  id: Scalars['String']['output']
-  name: Scalars['String']['output']
-  required?: Maybe<Scalars['Boolean']['output']>
-  task?: Maybe<ClickupTask>
-  taskId?: Maybe<Scalars['String']['output']>
-  type: Scalars['String']['output']
-  typeConfig: Scalars['JSON']['output']
-  value?: Maybe<Scalars['JSON']['output']>
+  clickupCustomField: ClickupCustomField
+  clickupCustomFieldId: Scalars['String']['output']
+  clickupTask: ClickupTask
+  clickupTaskId: Scalars['String']['output']
+  createdAt: Scalars['DateTime']['output']
 }
 
-export type ClickupTaskCustomFieldTaskArgs = {
-  where?: InputMaybe<ClickupTaskWhereInput>
+export type ClickupTaskCustomFieldClickupTaskIdClickupCustomFieldIdCompoundUniqueInput = {
+  clickupCustomFieldId: Scalars['String']['input']
+  clickupTaskId: Scalars['String']['input']
 }
 
 export type ClickupTaskCustomFieldCountAggregate = {
   __typename?: 'ClickupTaskCustomFieldCountAggregate'
   _all: Scalars['Int']['output']
-  dateCreated: Scalars['Int']['output']
-  hideFromGuests: Scalars['Int']['output']
-  id: Scalars['Int']['output']
-  name: Scalars['Int']['output']
-  required: Scalars['Int']['output']
-  taskId: Scalars['Int']['output']
-  type: Scalars['Int']['output']
-  typeConfig: Scalars['Int']['output']
-  value: Scalars['Int']['output']
+  clickupCustomFieldId: Scalars['Int']['output']
+  clickupTaskId: Scalars['Int']['output']
+  createdAt: Scalars['Int']['output']
 }
 
 export type ClickupTaskCustomFieldCreateInput = {
-  dateCreated: Scalars['String']['input']
-  hideFromGuests: Scalars['Boolean']['input']
-  id: Scalars['String']['input']
-  name: Scalars['String']['input']
-  required?: InputMaybe<Scalars['Boolean']['input']>
-  task?: InputMaybe<ClickupTaskCreateNestedOneWithoutCustomFieldsInput>
-  type: Scalars['String']['input']
-  typeConfig: Scalars['JSON']['input']
-  value?: InputMaybe<Scalars['JSON']['input']>
+  clickupCustomField: ClickupCustomFieldCreateNestedOneWithoutClickupTaskCustomFieldInput
+  clickupTask: ClickupTaskCreateNestedOneWithoutClickupTaskCustomFieldInput
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>
 }
 
-export type ClickupTaskCustomFieldCreateManyInput = {
-  dateCreated: Scalars['String']['input']
-  hideFromGuests: Scalars['Boolean']['input']
-  id: Scalars['String']['input']
-  name: Scalars['String']['input']
-  required?: InputMaybe<Scalars['Boolean']['input']>
-  taskId?: InputMaybe<Scalars['String']['input']>
-  type: Scalars['String']['input']
-  typeConfig: Scalars['JSON']['input']
-  value?: InputMaybe<Scalars['JSON']['input']>
+export type ClickupTaskCustomFieldCreateManyClickupCustomFieldInput = {
+  clickupTaskId: Scalars['String']['input']
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>
 }
 
-export type ClickupTaskCustomFieldCreateManyTaskInput = {
-  dateCreated: Scalars['String']['input']
-  hideFromGuests: Scalars['Boolean']['input']
-  id: Scalars['String']['input']
-  name: Scalars['String']['input']
-  required?: InputMaybe<Scalars['Boolean']['input']>
-  type: Scalars['String']['input']
-  typeConfig: Scalars['JSON']['input']
-  value?: InputMaybe<Scalars['JSON']['input']>
-}
-
-export type ClickupTaskCustomFieldCreateManyTaskInputEnvelope = {
-  data: Array<ClickupTaskCustomFieldCreateManyTaskInput>
+export type ClickupTaskCustomFieldCreateManyClickupCustomFieldInputEnvelope = {
+  data: Array<ClickupTaskCustomFieldCreateManyClickupCustomFieldInput>
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
 }
 
-export type ClickupTaskCustomFieldCreateNestedManyWithoutTaskInput = {
-  connect?: InputMaybe<Array<ClickupTaskCustomFieldWhereUniqueInput>>
-  connectOrCreate?: InputMaybe<Array<ClickupTaskCustomFieldCreateOrConnectWithoutTaskInput>>
-  create?: InputMaybe<Array<ClickupTaskCustomFieldCreateWithoutTaskInput>>
-  createMany?: InputMaybe<ClickupTaskCustomFieldCreateManyTaskInputEnvelope>
+export type ClickupTaskCustomFieldCreateManyClickupTaskInput = {
+  clickupCustomFieldId: Scalars['String']['input']
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>
 }
 
-export type ClickupTaskCustomFieldCreateOrConnectWithoutTaskInput = {
-  create: ClickupTaskCustomFieldCreateWithoutTaskInput
+export type ClickupTaskCustomFieldCreateManyClickupTaskInputEnvelope = {
+  data: Array<ClickupTaskCustomFieldCreateManyClickupTaskInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type ClickupTaskCustomFieldCreateManyInput = {
+  clickupCustomFieldId: Scalars['String']['input']
+  clickupTaskId: Scalars['String']['input']
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>
+}
+
+export type ClickupTaskCustomFieldCreateNestedManyWithoutClickupCustomFieldInput = {
+  connect?: InputMaybe<Array<ClickupTaskCustomFieldWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskCustomFieldCreateOrConnectWithoutClickupCustomFieldInput>>
+  create?: InputMaybe<Array<ClickupTaskCustomFieldCreateWithoutClickupCustomFieldInput>>
+  createMany?: InputMaybe<ClickupTaskCustomFieldCreateManyClickupCustomFieldInputEnvelope>
+}
+
+export type ClickupTaskCustomFieldCreateNestedManyWithoutClickupTaskInput = {
+  connect?: InputMaybe<Array<ClickupTaskCustomFieldWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskCustomFieldCreateOrConnectWithoutClickupTaskInput>>
+  create?: InputMaybe<Array<ClickupTaskCustomFieldCreateWithoutClickupTaskInput>>
+  createMany?: InputMaybe<ClickupTaskCustomFieldCreateManyClickupTaskInputEnvelope>
+}
+
+export type ClickupTaskCustomFieldCreateOrConnectWithoutClickupCustomFieldInput = {
+  create: ClickupTaskCustomFieldCreateWithoutClickupCustomFieldInput
   where: ClickupTaskCustomFieldWhereUniqueInput
 }
 
-export type ClickupTaskCustomFieldCreateWithoutTaskInput = {
-  dateCreated: Scalars['String']['input']
-  hideFromGuests: Scalars['Boolean']['input']
-  id: Scalars['String']['input']
-  name: Scalars['String']['input']
-  required?: InputMaybe<Scalars['Boolean']['input']>
-  type: Scalars['String']['input']
-  typeConfig: Scalars['JSON']['input']
-  value?: InputMaybe<Scalars['JSON']['input']>
+export type ClickupTaskCustomFieldCreateOrConnectWithoutClickupTaskInput = {
+  create: ClickupTaskCustomFieldCreateWithoutClickupTaskInput
+  where: ClickupTaskCustomFieldWhereUniqueInput
+}
+
+export type ClickupTaskCustomFieldCreateWithoutClickupCustomFieldInput = {
+  clickupTask: ClickupTaskCreateNestedOneWithoutClickupTaskCustomFieldInput
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>
+}
+
+export type ClickupTaskCustomFieldCreateWithoutClickupTaskInput = {
+  clickupCustomField: ClickupCustomFieldCreateNestedOneWithoutClickupTaskCustomFieldInput
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>
 }
 
 export type ClickupTaskCustomFieldListRelationFilter = {
@@ -3720,24 +4761,16 @@ export type ClickupTaskCustomFieldListRelationFilter = {
 
 export type ClickupTaskCustomFieldMaxAggregate = {
   __typename?: 'ClickupTaskCustomFieldMaxAggregate'
-  dateCreated?: Maybe<Scalars['String']['output']>
-  hideFromGuests?: Maybe<Scalars['Boolean']['output']>
-  id?: Maybe<Scalars['String']['output']>
-  name?: Maybe<Scalars['String']['output']>
-  required?: Maybe<Scalars['Boolean']['output']>
-  taskId?: Maybe<Scalars['String']['output']>
-  type?: Maybe<Scalars['String']['output']>
+  clickupCustomFieldId?: Maybe<Scalars['String']['output']>
+  clickupTaskId?: Maybe<Scalars['String']['output']>
+  createdAt?: Maybe<Scalars['DateTime']['output']>
 }
 
 export type ClickupTaskCustomFieldMinAggregate = {
   __typename?: 'ClickupTaskCustomFieldMinAggregate'
-  dateCreated?: Maybe<Scalars['String']['output']>
-  hideFromGuests?: Maybe<Scalars['Boolean']['output']>
-  id?: Maybe<Scalars['String']['output']>
-  name?: Maybe<Scalars['String']['output']>
-  required?: Maybe<Scalars['Boolean']['output']>
-  taskId?: Maybe<Scalars['String']['output']>
-  type?: Maybe<Scalars['String']['output']>
+  clickupCustomFieldId?: Maybe<Scalars['String']['output']>
+  clickupTaskId?: Maybe<Scalars['String']['output']>
+  createdAt?: Maybe<Scalars['DateTime']['output']>
 }
 
 export type ClickupTaskCustomFieldOrderByRelationAggregateInput = {
@@ -3745,106 +4778,105 @@ export type ClickupTaskCustomFieldOrderByRelationAggregateInput = {
 }
 
 export type ClickupTaskCustomFieldOrderByWithRelationInput = {
-  dateCreated?: InputMaybe<SortOrder>
-  hideFromGuests?: InputMaybe<SortOrder>
-  id?: InputMaybe<SortOrder>
-  name?: InputMaybe<SortOrder>
-  required?: InputMaybe<SortOrderInput>
-  task?: InputMaybe<ClickupTaskOrderByWithRelationInput>
-  taskId?: InputMaybe<SortOrderInput>
-  type?: InputMaybe<SortOrder>
-  typeConfig?: InputMaybe<SortOrder>
-  value?: InputMaybe<SortOrderInput>
+  clickupCustomField?: InputMaybe<ClickupCustomFieldOrderByWithRelationInput>
+  clickupCustomFieldId?: InputMaybe<SortOrder>
+  clickupTask?: InputMaybe<ClickupTaskOrderByWithRelationInput>
+  clickupTaskId?: InputMaybe<SortOrder>
+  createdAt?: InputMaybe<SortOrder>
 }
 
 export enum ClickupTaskCustomFieldScalarFieldEnum {
-  DateCreated = 'dateCreated',
-  HideFromGuests = 'hideFromGuests',
-  Id = 'id',
-  Name = 'name',
-  Required = 'required',
-  TaskId = 'taskId',
-  Type = 'type',
-  TypeConfig = 'typeConfig',
-  Value = 'value',
+  ClickupCustomFieldId = 'clickupCustomFieldId',
+  ClickupTaskId = 'clickupTaskId',
+  CreatedAt = 'createdAt',
 }
 
 export type ClickupTaskCustomFieldScalarWhereInput = {
   AND?: InputMaybe<Array<ClickupTaskCustomFieldScalarWhereInput>>
   NOT?: InputMaybe<Array<ClickupTaskCustomFieldScalarWhereInput>>
   OR?: InputMaybe<Array<ClickupTaskCustomFieldScalarWhereInput>>
-  dateCreated?: InputMaybe<StringFilter>
-  hideFromGuests?: InputMaybe<BoolFilter>
-  id?: InputMaybe<StringFilter>
-  name?: InputMaybe<StringFilter>
-  required?: InputMaybe<BoolNullableFilter>
-  taskId?: InputMaybe<StringNullableFilter>
-  type?: InputMaybe<StringFilter>
-  typeConfig?: InputMaybe<JsonFilter>
-  value?: InputMaybe<JsonNullableFilter>
+  clickupCustomFieldId?: InputMaybe<StringFilter>
+  clickupTaskId?: InputMaybe<StringFilter>
+  createdAt?: InputMaybe<DateTimeFilter>
 }
 
 export type ClickupTaskCustomFieldUpdateInput = {
-  dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
-  hideFromGuests?: InputMaybe<BoolFieldUpdateOperationsInput>
-  id?: InputMaybe<StringFieldUpdateOperationsInput>
-  name?: InputMaybe<StringFieldUpdateOperationsInput>
-  required?: InputMaybe<NullableBoolFieldUpdateOperationsInput>
-  task?: InputMaybe<ClickupTaskUpdateOneWithoutCustomFieldsNestedInput>
-  type?: InputMaybe<StringFieldUpdateOperationsInput>
-  typeConfig?: InputMaybe<Scalars['JSON']['input']>
-  value?: InputMaybe<Scalars['JSON']['input']>
+  clickupCustomField?: InputMaybe<ClickupCustomFieldUpdateOneRequiredWithoutClickupTaskCustomFieldNestedInput>
+  clickupTask?: InputMaybe<ClickupTaskUpdateOneRequiredWithoutClickupTaskCustomFieldNestedInput>
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
 }
 
 export type ClickupTaskCustomFieldUpdateManyMutationInput = {
-  dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
-  hideFromGuests?: InputMaybe<BoolFieldUpdateOperationsInput>
-  id?: InputMaybe<StringFieldUpdateOperationsInput>
-  name?: InputMaybe<StringFieldUpdateOperationsInput>
-  required?: InputMaybe<NullableBoolFieldUpdateOperationsInput>
-  type?: InputMaybe<StringFieldUpdateOperationsInput>
-  typeConfig?: InputMaybe<Scalars['JSON']['input']>
-  value?: InputMaybe<Scalars['JSON']['input']>
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
 }
 
-export type ClickupTaskCustomFieldUpdateManyWithWhereWithoutTaskInput = {
+export type ClickupTaskCustomFieldUpdateManyWithWhereWithoutClickupCustomFieldInput = {
   data: ClickupTaskCustomFieldUpdateManyMutationInput
   where: ClickupTaskCustomFieldScalarWhereInput
 }
 
-export type ClickupTaskCustomFieldUpdateManyWithoutTaskNestedInput = {
+export type ClickupTaskCustomFieldUpdateManyWithWhereWithoutClickupTaskInput = {
+  data: ClickupTaskCustomFieldUpdateManyMutationInput
+  where: ClickupTaskCustomFieldScalarWhereInput
+}
+
+export type ClickupTaskCustomFieldUpdateManyWithoutClickupCustomFieldNestedInput = {
   connect?: InputMaybe<Array<ClickupTaskCustomFieldWhereUniqueInput>>
-  connectOrCreate?: InputMaybe<Array<ClickupTaskCustomFieldCreateOrConnectWithoutTaskInput>>
-  create?: InputMaybe<Array<ClickupTaskCustomFieldCreateWithoutTaskInput>>
-  createMany?: InputMaybe<ClickupTaskCustomFieldCreateManyTaskInputEnvelope>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskCustomFieldCreateOrConnectWithoutClickupCustomFieldInput>>
+  create?: InputMaybe<Array<ClickupTaskCustomFieldCreateWithoutClickupCustomFieldInput>>
+  createMany?: InputMaybe<ClickupTaskCustomFieldCreateManyClickupCustomFieldInputEnvelope>
   delete?: InputMaybe<Array<ClickupTaskCustomFieldWhereUniqueInput>>
   deleteMany?: InputMaybe<Array<ClickupTaskCustomFieldScalarWhereInput>>
   disconnect?: InputMaybe<Array<ClickupTaskCustomFieldWhereUniqueInput>>
   set?: InputMaybe<Array<ClickupTaskCustomFieldWhereUniqueInput>>
-  update?: InputMaybe<Array<ClickupTaskCustomFieldUpdateWithWhereUniqueWithoutTaskInput>>
-  updateMany?: InputMaybe<Array<ClickupTaskCustomFieldUpdateManyWithWhereWithoutTaskInput>>
-  upsert?: InputMaybe<Array<ClickupTaskCustomFieldUpsertWithWhereUniqueWithoutTaskInput>>
+  update?: InputMaybe<Array<ClickupTaskCustomFieldUpdateWithWhereUniqueWithoutClickupCustomFieldInput>>
+  updateMany?: InputMaybe<Array<ClickupTaskCustomFieldUpdateManyWithWhereWithoutClickupCustomFieldInput>>
+  upsert?: InputMaybe<Array<ClickupTaskCustomFieldUpsertWithWhereUniqueWithoutClickupCustomFieldInput>>
 }
 
-export type ClickupTaskCustomFieldUpdateWithWhereUniqueWithoutTaskInput = {
-  data: ClickupTaskCustomFieldUpdateWithoutTaskInput
+export type ClickupTaskCustomFieldUpdateManyWithoutClickupTaskNestedInput = {
+  connect?: InputMaybe<Array<ClickupTaskCustomFieldWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskCustomFieldCreateOrConnectWithoutClickupTaskInput>>
+  create?: InputMaybe<Array<ClickupTaskCustomFieldCreateWithoutClickupTaskInput>>
+  createMany?: InputMaybe<ClickupTaskCustomFieldCreateManyClickupTaskInputEnvelope>
+  delete?: InputMaybe<Array<ClickupTaskCustomFieldWhereUniqueInput>>
+  deleteMany?: InputMaybe<Array<ClickupTaskCustomFieldScalarWhereInput>>
+  disconnect?: InputMaybe<Array<ClickupTaskCustomFieldWhereUniqueInput>>
+  set?: InputMaybe<Array<ClickupTaskCustomFieldWhereUniqueInput>>
+  update?: InputMaybe<Array<ClickupTaskCustomFieldUpdateWithWhereUniqueWithoutClickupTaskInput>>
+  updateMany?: InputMaybe<Array<ClickupTaskCustomFieldUpdateManyWithWhereWithoutClickupTaskInput>>
+  upsert?: InputMaybe<Array<ClickupTaskCustomFieldUpsertWithWhereUniqueWithoutClickupTaskInput>>
+}
+
+export type ClickupTaskCustomFieldUpdateWithWhereUniqueWithoutClickupCustomFieldInput = {
+  data: ClickupTaskCustomFieldUpdateWithoutClickupCustomFieldInput
   where: ClickupTaskCustomFieldWhereUniqueInput
 }
 
-export type ClickupTaskCustomFieldUpdateWithoutTaskInput = {
-  dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
-  hideFromGuests?: InputMaybe<BoolFieldUpdateOperationsInput>
-  id?: InputMaybe<StringFieldUpdateOperationsInput>
-  name?: InputMaybe<StringFieldUpdateOperationsInput>
-  required?: InputMaybe<NullableBoolFieldUpdateOperationsInput>
-  type?: InputMaybe<StringFieldUpdateOperationsInput>
-  typeConfig?: InputMaybe<Scalars['JSON']['input']>
-  value?: InputMaybe<Scalars['JSON']['input']>
+export type ClickupTaskCustomFieldUpdateWithWhereUniqueWithoutClickupTaskInput = {
+  data: ClickupTaskCustomFieldUpdateWithoutClickupTaskInput
+  where: ClickupTaskCustomFieldWhereUniqueInput
 }
 
-export type ClickupTaskCustomFieldUpsertWithWhereUniqueWithoutTaskInput = {
-  create: ClickupTaskCustomFieldCreateWithoutTaskInput
-  update: ClickupTaskCustomFieldUpdateWithoutTaskInput
+export type ClickupTaskCustomFieldUpdateWithoutClickupCustomFieldInput = {
+  clickupTask?: InputMaybe<ClickupTaskUpdateOneRequiredWithoutClickupTaskCustomFieldNestedInput>
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+}
+
+export type ClickupTaskCustomFieldUpdateWithoutClickupTaskInput = {
+  clickupCustomField?: InputMaybe<ClickupCustomFieldUpdateOneRequiredWithoutClickupTaskCustomFieldNestedInput>
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+}
+
+export type ClickupTaskCustomFieldUpsertWithWhereUniqueWithoutClickupCustomFieldInput = {
+  create: ClickupTaskCustomFieldCreateWithoutClickupCustomFieldInput
+  update: ClickupTaskCustomFieldUpdateWithoutClickupCustomFieldInput
+  where: ClickupTaskCustomFieldWhereUniqueInput
+}
+
+export type ClickupTaskCustomFieldUpsertWithWhereUniqueWithoutClickupTaskInput = {
+  create: ClickupTaskCustomFieldCreateWithoutClickupTaskInput
+  update: ClickupTaskCustomFieldUpdateWithoutClickupTaskInput
   where: ClickupTaskCustomFieldWhereUniqueInput
 }
 
@@ -3852,32 +4884,23 @@ export type ClickupTaskCustomFieldWhereInput = {
   AND?: InputMaybe<Array<ClickupTaskCustomFieldWhereInput>>
   NOT?: InputMaybe<Array<ClickupTaskCustomFieldWhereInput>>
   OR?: InputMaybe<Array<ClickupTaskCustomFieldWhereInput>>
-  dateCreated?: InputMaybe<StringFilter>
-  hideFromGuests?: InputMaybe<BoolFilter>
-  id?: InputMaybe<StringFilter>
-  name?: InputMaybe<StringFilter>
-  required?: InputMaybe<BoolNullableFilter>
-  task?: InputMaybe<ClickupTaskNullableRelationFilter>
-  taskId?: InputMaybe<StringNullableFilter>
-  type?: InputMaybe<StringFilter>
-  typeConfig?: InputMaybe<JsonFilter>
-  value?: InputMaybe<JsonNullableFilter>
+  clickupCustomField?: InputMaybe<ClickupCustomFieldRelationFilter>
+  clickupCustomFieldId?: InputMaybe<StringFilter>
+  clickupTask?: InputMaybe<ClickupTaskRelationFilter>
+  clickupTaskId?: InputMaybe<StringFilter>
+  createdAt?: InputMaybe<DateTimeFilter>
 }
 
 export type ClickupTaskCustomFieldWhereUniqueInput = {
   AND?: InputMaybe<Array<ClickupTaskCustomFieldWhereInput>>
   NOT?: InputMaybe<Array<ClickupTaskCustomFieldWhereInput>>
   OR?: InputMaybe<Array<ClickupTaskCustomFieldWhereInput>>
-  dateCreated?: InputMaybe<StringFilter>
-  hideFromGuests?: InputMaybe<BoolFilter>
-  id?: InputMaybe<Scalars['String']['input']>
-  name?: InputMaybe<StringFilter>
-  required?: InputMaybe<BoolNullableFilter>
-  task?: InputMaybe<ClickupTaskNullableRelationFilter>
-  taskId?: InputMaybe<StringNullableFilter>
-  type?: InputMaybe<StringFilter>
-  typeConfig?: InputMaybe<JsonFilter>
-  value?: InputMaybe<JsonNullableFilter>
+  clickupCustomField?: InputMaybe<ClickupCustomFieldRelationFilter>
+  clickupCustomFieldId?: InputMaybe<StringFilter>
+  clickupTask?: InputMaybe<ClickupTaskRelationFilter>
+  clickupTaskId?: InputMaybe<StringFilter>
+  clickupTaskId_clickupCustomFieldId?: InputMaybe<ClickupTaskCustomFieldClickupTaskIdClickupCustomFieldIdCompoundUniqueInput>
+  createdAt?: InputMaybe<DateTimeFilter>
 }
 
 export type ClickupTaskDependency = {
@@ -4476,319 +5499,759 @@ export type ClickupTaskDueDateWhereUniqueInput = {
   updatedAt?: InputMaybe<DateTimeFilter>
 }
 
+export type ClickupTaskFolder = {
+  __typename?: 'ClickupTaskFolder'
+  access: Scalars['Boolean']['output']
+  clickupFolder: ClickupFolder
+  clickupFolderId: Scalars['String']['output']
+  clickupTask: ClickupTask
+  clickupTaskId: Scalars['String']['output']
+}
+
+export type ClickupTaskFolderClickupTaskIdClickupFolderIdCompoundUniqueInput = {
+  clickupFolderId: Scalars['String']['input']
+  clickupTaskId: Scalars['String']['input']
+}
+
+export type ClickupTaskFolderCountAggregate = {
+  __typename?: 'ClickupTaskFolderCountAggregate'
+  _all: Scalars['Int']['output']
+  access: Scalars['Int']['output']
+  clickupFolderId: Scalars['Int']['output']
+  clickupTaskId: Scalars['Int']['output']
+}
+
+export type ClickupTaskFolderCreateInput = {
+  access: Scalars['Boolean']['input']
+  clickupFolder: ClickupFolderCreateNestedOneWithoutClickupTaskFolderInput
+  clickupTask: ClickupTaskCreateNestedOneWithoutFolderInput
+}
+
+export type ClickupTaskFolderCreateManyClickupFolderInput = {
+  access: Scalars['Boolean']['input']
+  clickupTaskId: Scalars['String']['input']
+}
+
+export type ClickupTaskFolderCreateManyClickupFolderInputEnvelope = {
+  data: Array<ClickupTaskFolderCreateManyClickupFolderInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type ClickupTaskFolderCreateManyClickupTaskInput = {
+  access: Scalars['Boolean']['input']
+  clickupFolderId: Scalars['String']['input']
+}
+
+export type ClickupTaskFolderCreateManyClickupTaskInputEnvelope = {
+  data: Array<ClickupTaskFolderCreateManyClickupTaskInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type ClickupTaskFolderCreateManyInput = {
+  access: Scalars['Boolean']['input']
+  clickupFolderId: Scalars['String']['input']
+  clickupTaskId: Scalars['String']['input']
+}
+
+export type ClickupTaskFolderCreateNestedManyWithoutClickupFolderInput = {
+  connect?: InputMaybe<Array<ClickupTaskFolderWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskFolderCreateOrConnectWithoutClickupFolderInput>>
+  create?: InputMaybe<Array<ClickupTaskFolderCreateWithoutClickupFolderInput>>
+  createMany?: InputMaybe<ClickupTaskFolderCreateManyClickupFolderInputEnvelope>
+}
+
+export type ClickupTaskFolderCreateNestedManyWithoutClickupTaskInput = {
+  connect?: InputMaybe<Array<ClickupTaskFolderWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskFolderCreateOrConnectWithoutClickupTaskInput>>
+  create?: InputMaybe<Array<ClickupTaskFolderCreateWithoutClickupTaskInput>>
+  createMany?: InputMaybe<ClickupTaskFolderCreateManyClickupTaskInputEnvelope>
+}
+
+export type ClickupTaskFolderCreateOrConnectWithoutClickupFolderInput = {
+  create: ClickupTaskFolderCreateWithoutClickupFolderInput
+  where: ClickupTaskFolderWhereUniqueInput
+}
+
+export type ClickupTaskFolderCreateOrConnectWithoutClickupTaskInput = {
+  create: ClickupTaskFolderCreateWithoutClickupTaskInput
+  where: ClickupTaskFolderWhereUniqueInput
+}
+
+export type ClickupTaskFolderCreateWithoutClickupFolderInput = {
+  access: Scalars['Boolean']['input']
+  clickupTask: ClickupTaskCreateNestedOneWithoutFolderInput
+}
+
+export type ClickupTaskFolderCreateWithoutClickupTaskInput = {
+  access: Scalars['Boolean']['input']
+  clickupFolder: ClickupFolderCreateNestedOneWithoutClickupTaskFolderInput
+}
+
+export type ClickupTaskFolderListRelationFilter = {
+  every?: InputMaybe<ClickupTaskFolderWhereInput>
+  none?: InputMaybe<ClickupTaskFolderWhereInput>
+  some?: InputMaybe<ClickupTaskFolderWhereInput>
+}
+
+export type ClickupTaskFolderMaxAggregate = {
+  __typename?: 'ClickupTaskFolderMaxAggregate'
+  access?: Maybe<Scalars['Boolean']['output']>
+  clickupFolderId?: Maybe<Scalars['String']['output']>
+  clickupTaskId?: Maybe<Scalars['String']['output']>
+}
+
+export type ClickupTaskFolderMinAggregate = {
+  __typename?: 'ClickupTaskFolderMinAggregate'
+  access?: Maybe<Scalars['Boolean']['output']>
+  clickupFolderId?: Maybe<Scalars['String']['output']>
+  clickupTaskId?: Maybe<Scalars['String']['output']>
+}
+
+export type ClickupTaskFolderOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>
+}
+
+export type ClickupTaskFolderOrderByWithRelationInput = {
+  access?: InputMaybe<SortOrder>
+  clickupFolder?: InputMaybe<ClickupFolderOrderByWithRelationInput>
+  clickupFolderId?: InputMaybe<SortOrder>
+  clickupTask?: InputMaybe<ClickupTaskOrderByWithRelationInput>
+  clickupTaskId?: InputMaybe<SortOrder>
+}
+
+export enum ClickupTaskFolderScalarFieldEnum {
+  Access = 'access',
+  ClickupFolderId = 'clickupFolderId',
+  ClickupTaskId = 'clickupTaskId',
+}
+
+export type ClickupTaskFolderScalarWhereInput = {
+  AND?: InputMaybe<Array<ClickupTaskFolderScalarWhereInput>>
+  NOT?: InputMaybe<Array<ClickupTaskFolderScalarWhereInput>>
+  OR?: InputMaybe<Array<ClickupTaskFolderScalarWhereInput>>
+  access?: InputMaybe<BoolFilter>
+  clickupFolderId?: InputMaybe<StringFilter>
+  clickupTaskId?: InputMaybe<StringFilter>
+}
+
+export type ClickupTaskFolderUpdateInput = {
+  access?: InputMaybe<BoolFieldUpdateOperationsInput>
+  clickupFolder?: InputMaybe<ClickupFolderUpdateOneRequiredWithoutClickupTaskFolderNestedInput>
+  clickupTask?: InputMaybe<ClickupTaskUpdateOneRequiredWithoutFolderNestedInput>
+}
+
+export type ClickupTaskFolderUpdateManyMutationInput = {
+  access?: InputMaybe<BoolFieldUpdateOperationsInput>
+}
+
+export type ClickupTaskFolderUpdateManyWithWhereWithoutClickupFolderInput = {
+  data: ClickupTaskFolderUpdateManyMutationInput
+  where: ClickupTaskFolderScalarWhereInput
+}
+
+export type ClickupTaskFolderUpdateManyWithWhereWithoutClickupTaskInput = {
+  data: ClickupTaskFolderUpdateManyMutationInput
+  where: ClickupTaskFolderScalarWhereInput
+}
+
+export type ClickupTaskFolderUpdateManyWithoutClickupFolderNestedInput = {
+  connect?: InputMaybe<Array<ClickupTaskFolderWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskFolderCreateOrConnectWithoutClickupFolderInput>>
+  create?: InputMaybe<Array<ClickupTaskFolderCreateWithoutClickupFolderInput>>
+  createMany?: InputMaybe<ClickupTaskFolderCreateManyClickupFolderInputEnvelope>
+  delete?: InputMaybe<Array<ClickupTaskFolderWhereUniqueInput>>
+  deleteMany?: InputMaybe<Array<ClickupTaskFolderScalarWhereInput>>
+  disconnect?: InputMaybe<Array<ClickupTaskFolderWhereUniqueInput>>
+  set?: InputMaybe<Array<ClickupTaskFolderWhereUniqueInput>>
+  update?: InputMaybe<Array<ClickupTaskFolderUpdateWithWhereUniqueWithoutClickupFolderInput>>
+  updateMany?: InputMaybe<Array<ClickupTaskFolderUpdateManyWithWhereWithoutClickupFolderInput>>
+  upsert?: InputMaybe<Array<ClickupTaskFolderUpsertWithWhereUniqueWithoutClickupFolderInput>>
+}
+
+export type ClickupTaskFolderUpdateManyWithoutClickupTaskNestedInput = {
+  connect?: InputMaybe<Array<ClickupTaskFolderWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskFolderCreateOrConnectWithoutClickupTaskInput>>
+  create?: InputMaybe<Array<ClickupTaskFolderCreateWithoutClickupTaskInput>>
+  createMany?: InputMaybe<ClickupTaskFolderCreateManyClickupTaskInputEnvelope>
+  delete?: InputMaybe<Array<ClickupTaskFolderWhereUniqueInput>>
+  deleteMany?: InputMaybe<Array<ClickupTaskFolderScalarWhereInput>>
+  disconnect?: InputMaybe<Array<ClickupTaskFolderWhereUniqueInput>>
+  set?: InputMaybe<Array<ClickupTaskFolderWhereUniqueInput>>
+  update?: InputMaybe<Array<ClickupTaskFolderUpdateWithWhereUniqueWithoutClickupTaskInput>>
+  updateMany?: InputMaybe<Array<ClickupTaskFolderUpdateManyWithWhereWithoutClickupTaskInput>>
+  upsert?: InputMaybe<Array<ClickupTaskFolderUpsertWithWhereUniqueWithoutClickupTaskInput>>
+}
+
+export type ClickupTaskFolderUpdateWithWhereUniqueWithoutClickupFolderInput = {
+  data: ClickupTaskFolderUpdateWithoutClickupFolderInput
+  where: ClickupTaskFolderWhereUniqueInput
+}
+
+export type ClickupTaskFolderUpdateWithWhereUniqueWithoutClickupTaskInput = {
+  data: ClickupTaskFolderUpdateWithoutClickupTaskInput
+  where: ClickupTaskFolderWhereUniqueInput
+}
+
+export type ClickupTaskFolderUpdateWithoutClickupFolderInput = {
+  access?: InputMaybe<BoolFieldUpdateOperationsInput>
+  clickupTask?: InputMaybe<ClickupTaskUpdateOneRequiredWithoutFolderNestedInput>
+}
+
+export type ClickupTaskFolderUpdateWithoutClickupTaskInput = {
+  access?: InputMaybe<BoolFieldUpdateOperationsInput>
+  clickupFolder?: InputMaybe<ClickupFolderUpdateOneRequiredWithoutClickupTaskFolderNestedInput>
+}
+
+export type ClickupTaskFolderUpsertWithWhereUniqueWithoutClickupFolderInput = {
+  create: ClickupTaskFolderCreateWithoutClickupFolderInput
+  update: ClickupTaskFolderUpdateWithoutClickupFolderInput
+  where: ClickupTaskFolderWhereUniqueInput
+}
+
+export type ClickupTaskFolderUpsertWithWhereUniqueWithoutClickupTaskInput = {
+  create: ClickupTaskFolderCreateWithoutClickupTaskInput
+  update: ClickupTaskFolderUpdateWithoutClickupTaskInput
+  where: ClickupTaskFolderWhereUniqueInput
+}
+
+export type ClickupTaskFolderWhereInput = {
+  AND?: InputMaybe<Array<ClickupTaskFolderWhereInput>>
+  NOT?: InputMaybe<Array<ClickupTaskFolderWhereInput>>
+  OR?: InputMaybe<Array<ClickupTaskFolderWhereInput>>
+  access?: InputMaybe<BoolFilter>
+  clickupFolder?: InputMaybe<ClickupFolderRelationFilter>
+  clickupFolderId?: InputMaybe<StringFilter>
+  clickupTask?: InputMaybe<ClickupTaskRelationFilter>
+  clickupTaskId?: InputMaybe<StringFilter>
+}
+
+export type ClickupTaskFolderWhereUniqueInput = {
+  AND?: InputMaybe<Array<ClickupTaskFolderWhereInput>>
+  NOT?: InputMaybe<Array<ClickupTaskFolderWhereInput>>
+  OR?: InputMaybe<Array<ClickupTaskFolderWhereInput>>
+  access?: InputMaybe<BoolFilter>
+  clickupFolder?: InputMaybe<ClickupFolderRelationFilter>
+  clickupFolderId?: InputMaybe<StringFilter>
+  clickupTask?: InputMaybe<ClickupTaskRelationFilter>
+  clickupTaskId?: InputMaybe<StringFilter>
+  clickupTaskId_clickupFolderId?: InputMaybe<ClickupTaskFolderClickupTaskIdClickupFolderIdCompoundUniqueInput>
+}
+
+export type ClickupTaskList = {
+  __typename?: 'ClickupTaskList'
+  access: Scalars['Boolean']['output']
+  clickupList: ClickupList
+  clickupListId: Scalars['String']['output']
+  clickupTask: ClickupTask
+  clickupTaskId: Scalars['String']['output']
+}
+
+export type ClickupTaskListClickupTaskIdClickupListIdCompoundUniqueInput = {
+  clickupListId: Scalars['String']['input']
+  clickupTaskId: Scalars['String']['input']
+}
+
+export type ClickupTaskListCountAggregate = {
+  __typename?: 'ClickupTaskListCountAggregate'
+  _all: Scalars['Int']['output']
+  access: Scalars['Int']['output']
+  clickupListId: Scalars['Int']['output']
+  clickupTaskId: Scalars['Int']['output']
+}
+
+export type ClickupTaskListCreateInput = {
+  access: Scalars['Boolean']['input']
+  clickupList: ClickupListCreateNestedOneWithoutClickupTaskListInput
+  clickupTask: ClickupTaskCreateNestedOneWithoutListInput
+}
+
+export type ClickupTaskListCreateManyClickupListInput = {
+  access: Scalars['Boolean']['input']
+  clickupTaskId: Scalars['String']['input']
+}
+
+export type ClickupTaskListCreateManyClickupListInputEnvelope = {
+  data: Array<ClickupTaskListCreateManyClickupListInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type ClickupTaskListCreateManyClickupTaskInput = {
+  access: Scalars['Boolean']['input']
+  clickupListId: Scalars['String']['input']
+}
+
+export type ClickupTaskListCreateManyClickupTaskInputEnvelope = {
+  data: Array<ClickupTaskListCreateManyClickupTaskInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type ClickupTaskListCreateManyInput = {
+  access: Scalars['Boolean']['input']
+  clickupListId: Scalars['String']['input']
+  clickupTaskId: Scalars['String']['input']
+}
+
+export type ClickupTaskListCreateNestedManyWithoutClickupListInput = {
+  connect?: InputMaybe<Array<ClickupTaskListWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskListCreateOrConnectWithoutClickupListInput>>
+  create?: InputMaybe<Array<ClickupTaskListCreateWithoutClickupListInput>>
+  createMany?: InputMaybe<ClickupTaskListCreateManyClickupListInputEnvelope>
+}
+
+export type ClickupTaskListCreateNestedManyWithoutClickupTaskInput = {
+  connect?: InputMaybe<Array<ClickupTaskListWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskListCreateOrConnectWithoutClickupTaskInput>>
+  create?: InputMaybe<Array<ClickupTaskListCreateWithoutClickupTaskInput>>
+  createMany?: InputMaybe<ClickupTaskListCreateManyClickupTaskInputEnvelope>
+}
+
+export type ClickupTaskListCreateOrConnectWithoutClickupListInput = {
+  create: ClickupTaskListCreateWithoutClickupListInput
+  where: ClickupTaskListWhereUniqueInput
+}
+
+export type ClickupTaskListCreateOrConnectWithoutClickupTaskInput = {
+  create: ClickupTaskListCreateWithoutClickupTaskInput
+  where: ClickupTaskListWhereUniqueInput
+}
+
+export type ClickupTaskListCreateWithoutClickupListInput = {
+  access: Scalars['Boolean']['input']
+  clickupTask: ClickupTaskCreateNestedOneWithoutListInput
+}
+
+export type ClickupTaskListCreateWithoutClickupTaskInput = {
+  access: Scalars['Boolean']['input']
+  clickupList: ClickupListCreateNestedOneWithoutClickupTaskListInput
+}
+
+export type ClickupTaskListListRelationFilter = {
+  every?: InputMaybe<ClickupTaskListWhereInput>
+  none?: InputMaybe<ClickupTaskListWhereInput>
+  some?: InputMaybe<ClickupTaskListWhereInput>
+}
+
+export type ClickupTaskListMaxAggregate = {
+  __typename?: 'ClickupTaskListMaxAggregate'
+  access?: Maybe<Scalars['Boolean']['output']>
+  clickupListId?: Maybe<Scalars['String']['output']>
+  clickupTaskId?: Maybe<Scalars['String']['output']>
+}
+
+export type ClickupTaskListMinAggregate = {
+  __typename?: 'ClickupTaskListMinAggregate'
+  access?: Maybe<Scalars['Boolean']['output']>
+  clickupListId?: Maybe<Scalars['String']['output']>
+  clickupTaskId?: Maybe<Scalars['String']['output']>
+}
+
+export type ClickupTaskListOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>
+}
+
+export type ClickupTaskListOrderByWithRelationInput = {
+  access?: InputMaybe<SortOrder>
+  clickupList?: InputMaybe<ClickupListOrderByWithRelationInput>
+  clickupListId?: InputMaybe<SortOrder>
+  clickupTask?: InputMaybe<ClickupTaskOrderByWithRelationInput>
+  clickupTaskId?: InputMaybe<SortOrder>
+}
+
 export type ClickupTaskListRelationFilter = {
   every?: InputMaybe<ClickupTaskWhereInput>
   none?: InputMaybe<ClickupTaskWhereInput>
   some?: InputMaybe<ClickupTaskWhereInput>
 }
 
-export type ClickupTaskLocation = {
-  __typename?: 'ClickupTaskLocation'
-  _count?: Maybe<ClickupTaskLocationCount>
-  access: Scalars['Boolean']['output']
-  folders: Array<ClickupTask>
-  hidden?: Maybe<Scalars['Boolean']['output']>
-  id: Scalars['String']['output']
-  lists: Array<ClickupTask>
-  name: Scalars['String']['output']
-  projects: Array<ClickupTask>
-}
-
-export type ClickupTaskLocationFoldersArgs = {
-  cursor?: InputMaybe<ClickupTaskWhereUniqueInput>
-  distinct?: InputMaybe<Array<ClickupTaskScalarFieldEnum>>
-  orderBy?: InputMaybe<Array<ClickupTaskOrderByWithRelationInput>>
-  skip?: InputMaybe<Scalars['Int']['input']>
-  take?: InputMaybe<Scalars['Int']['input']>
-  where?: InputMaybe<ClickupTaskWhereInput>
-}
-
-export type ClickupTaskLocationListsArgs = {
-  cursor?: InputMaybe<ClickupTaskWhereUniqueInput>
-  distinct?: InputMaybe<Array<ClickupTaskScalarFieldEnum>>
-  orderBy?: InputMaybe<Array<ClickupTaskOrderByWithRelationInput>>
-  skip?: InputMaybe<Scalars['Int']['input']>
-  take?: InputMaybe<Scalars['Int']['input']>
-  where?: InputMaybe<ClickupTaskWhereInput>
-}
-
-export type ClickupTaskLocationProjectsArgs = {
-  cursor?: InputMaybe<ClickupTaskWhereUniqueInput>
-  distinct?: InputMaybe<Array<ClickupTaskScalarFieldEnum>>
-  orderBy?: InputMaybe<Array<ClickupTaskOrderByWithRelationInput>>
-  skip?: InputMaybe<Scalars['Int']['input']>
-  take?: InputMaybe<Scalars['Int']['input']>
-  where?: InputMaybe<ClickupTaskWhereInput>
-}
-
-export type ClickupTaskLocationCount = {
-  __typename?: 'ClickupTaskLocationCount'
-  folders: Scalars['Int']['output']
-  lists: Scalars['Int']['output']
-  projects: Scalars['Int']['output']
-}
-
-export type ClickupTaskLocationCountFoldersArgs = {
-  where?: InputMaybe<ClickupTaskWhereInput>
-}
-
-export type ClickupTaskLocationCountListsArgs = {
-  where?: InputMaybe<ClickupTaskWhereInput>
-}
-
-export type ClickupTaskLocationCountProjectsArgs = {
-  where?: InputMaybe<ClickupTaskWhereInput>
-}
-
-export type ClickupTaskLocationCountAggregate = {
-  __typename?: 'ClickupTaskLocationCountAggregate'
-  _all: Scalars['Int']['output']
-  access: Scalars['Int']['output']
-  hidden: Scalars['Int']['output']
-  id: Scalars['Int']['output']
-  name: Scalars['Int']['output']
-}
-
-export type ClickupTaskLocationCreateInput = {
-  access: Scalars['Boolean']['input']
-  folders?: InputMaybe<ClickupTaskCreateNestedManyWithoutFolderLocationInput>
-  hidden?: InputMaybe<Scalars['Boolean']['input']>
-  id: Scalars['String']['input']
-  lists?: InputMaybe<ClickupTaskCreateNestedManyWithoutListLocationInput>
-  name: Scalars['String']['input']
-  projects?: InputMaybe<ClickupTaskCreateNestedManyWithoutProjectLocationInput>
-}
-
-export type ClickupTaskLocationCreateManyInput = {
-  access: Scalars['Boolean']['input']
-  hidden?: InputMaybe<Scalars['Boolean']['input']>
-  id: Scalars['String']['input']
-  name: Scalars['String']['input']
-}
-
-export type ClickupTaskLocationCreateNestedOneWithoutFoldersInput = {
-  connect?: InputMaybe<ClickupTaskLocationWhereUniqueInput>
-  connectOrCreate?: InputMaybe<ClickupTaskLocationCreateOrConnectWithoutFoldersInput>
-  create?: InputMaybe<ClickupTaskLocationCreateWithoutFoldersInput>
-}
-
-export type ClickupTaskLocationCreateNestedOneWithoutListsInput = {
-  connect?: InputMaybe<ClickupTaskLocationWhereUniqueInput>
-  connectOrCreate?: InputMaybe<ClickupTaskLocationCreateOrConnectWithoutListsInput>
-  create?: InputMaybe<ClickupTaskLocationCreateWithoutListsInput>
-}
-
-export type ClickupTaskLocationCreateNestedOneWithoutProjectsInput = {
-  connect?: InputMaybe<ClickupTaskLocationWhereUniqueInput>
-  connectOrCreate?: InputMaybe<ClickupTaskLocationCreateOrConnectWithoutProjectsInput>
-  create?: InputMaybe<ClickupTaskLocationCreateWithoutProjectsInput>
-}
-
-export type ClickupTaskLocationCreateOrConnectWithoutFoldersInput = {
-  create: ClickupTaskLocationCreateWithoutFoldersInput
-  where: ClickupTaskLocationWhereUniqueInput
-}
-
-export type ClickupTaskLocationCreateOrConnectWithoutListsInput = {
-  create: ClickupTaskLocationCreateWithoutListsInput
-  where: ClickupTaskLocationWhereUniqueInput
-}
-
-export type ClickupTaskLocationCreateOrConnectWithoutProjectsInput = {
-  create: ClickupTaskLocationCreateWithoutProjectsInput
-  where: ClickupTaskLocationWhereUniqueInput
-}
-
-export type ClickupTaskLocationCreateWithoutFoldersInput = {
-  access: Scalars['Boolean']['input']
-  hidden?: InputMaybe<Scalars['Boolean']['input']>
-  id: Scalars['String']['input']
-  lists?: InputMaybe<ClickupTaskCreateNestedManyWithoutListLocationInput>
-  name: Scalars['String']['input']
-  projects?: InputMaybe<ClickupTaskCreateNestedManyWithoutProjectLocationInput>
-}
-
-export type ClickupTaskLocationCreateWithoutListsInput = {
-  access: Scalars['Boolean']['input']
-  folders?: InputMaybe<ClickupTaskCreateNestedManyWithoutFolderLocationInput>
-  hidden?: InputMaybe<Scalars['Boolean']['input']>
-  id: Scalars['String']['input']
-  name: Scalars['String']['input']
-  projects?: InputMaybe<ClickupTaskCreateNestedManyWithoutProjectLocationInput>
-}
-
-export type ClickupTaskLocationCreateWithoutProjectsInput = {
-  access: Scalars['Boolean']['input']
-  folders?: InputMaybe<ClickupTaskCreateNestedManyWithoutFolderLocationInput>
-  hidden?: InputMaybe<Scalars['Boolean']['input']>
-  id: Scalars['String']['input']
-  lists?: InputMaybe<ClickupTaskCreateNestedManyWithoutListLocationInput>
-  name: Scalars['String']['input']
-}
-
-export type ClickupTaskLocationMaxAggregate = {
-  __typename?: 'ClickupTaskLocationMaxAggregate'
-  access?: Maybe<Scalars['Boolean']['output']>
-  hidden?: Maybe<Scalars['Boolean']['output']>
-  id?: Maybe<Scalars['String']['output']>
-  name?: Maybe<Scalars['String']['output']>
-}
-
-export type ClickupTaskLocationMinAggregate = {
-  __typename?: 'ClickupTaskLocationMinAggregate'
-  access?: Maybe<Scalars['Boolean']['output']>
-  hidden?: Maybe<Scalars['Boolean']['output']>
-  id?: Maybe<Scalars['String']['output']>
-  name?: Maybe<Scalars['String']['output']>
-}
-
-export type ClickupTaskLocationOrderByWithRelationInput = {
-  access?: InputMaybe<SortOrder>
-  folders?: InputMaybe<ClickupTaskOrderByRelationAggregateInput>
-  hidden?: InputMaybe<SortOrderInput>
-  id?: InputMaybe<SortOrder>
-  lists?: InputMaybe<ClickupTaskOrderByRelationAggregateInput>
-  name?: InputMaybe<SortOrder>
-  projects?: InputMaybe<ClickupTaskOrderByRelationAggregateInput>
-}
-
-export type ClickupTaskLocationRelationFilter = {
-  is?: InputMaybe<ClickupTaskLocationWhereInput>
-  isNot?: InputMaybe<ClickupTaskLocationWhereInput>
-}
-
-export enum ClickupTaskLocationScalarFieldEnum {
+export enum ClickupTaskListScalarFieldEnum {
   Access = 'access',
-  Hidden = 'hidden',
+  ClickupListId = 'clickupListId',
+  ClickupTaskId = 'clickupTaskId',
+}
+
+export type ClickupTaskListScalarWhereInput = {
+  AND?: InputMaybe<Array<ClickupTaskListScalarWhereInput>>
+  NOT?: InputMaybe<Array<ClickupTaskListScalarWhereInput>>
+  OR?: InputMaybe<Array<ClickupTaskListScalarWhereInput>>
+  access?: InputMaybe<BoolFilter>
+  clickupListId?: InputMaybe<StringFilter>
+  clickupTaskId?: InputMaybe<StringFilter>
+}
+
+export type ClickupTaskListUpdateInput = {
+  access?: InputMaybe<BoolFieldUpdateOperationsInput>
+  clickupList?: InputMaybe<ClickupListUpdateOneRequiredWithoutClickupTaskListNestedInput>
+  clickupTask?: InputMaybe<ClickupTaskUpdateOneRequiredWithoutListNestedInput>
+}
+
+export type ClickupTaskListUpdateManyMutationInput = {
+  access?: InputMaybe<BoolFieldUpdateOperationsInput>
+}
+
+export type ClickupTaskListUpdateManyWithWhereWithoutClickupListInput = {
+  data: ClickupTaskListUpdateManyMutationInput
+  where: ClickupTaskListScalarWhereInput
+}
+
+export type ClickupTaskListUpdateManyWithWhereWithoutClickupTaskInput = {
+  data: ClickupTaskListUpdateManyMutationInput
+  where: ClickupTaskListScalarWhereInput
+}
+
+export type ClickupTaskListUpdateManyWithoutClickupListNestedInput = {
+  connect?: InputMaybe<Array<ClickupTaskListWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskListCreateOrConnectWithoutClickupListInput>>
+  create?: InputMaybe<Array<ClickupTaskListCreateWithoutClickupListInput>>
+  createMany?: InputMaybe<ClickupTaskListCreateManyClickupListInputEnvelope>
+  delete?: InputMaybe<Array<ClickupTaskListWhereUniqueInput>>
+  deleteMany?: InputMaybe<Array<ClickupTaskListScalarWhereInput>>
+  disconnect?: InputMaybe<Array<ClickupTaskListWhereUniqueInput>>
+  set?: InputMaybe<Array<ClickupTaskListWhereUniqueInput>>
+  update?: InputMaybe<Array<ClickupTaskListUpdateWithWhereUniqueWithoutClickupListInput>>
+  updateMany?: InputMaybe<Array<ClickupTaskListUpdateManyWithWhereWithoutClickupListInput>>
+  upsert?: InputMaybe<Array<ClickupTaskListUpsertWithWhereUniqueWithoutClickupListInput>>
+}
+
+export type ClickupTaskListUpdateManyWithoutClickupTaskNestedInput = {
+  connect?: InputMaybe<Array<ClickupTaskListWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskListCreateOrConnectWithoutClickupTaskInput>>
+  create?: InputMaybe<Array<ClickupTaskListCreateWithoutClickupTaskInput>>
+  createMany?: InputMaybe<ClickupTaskListCreateManyClickupTaskInputEnvelope>
+  delete?: InputMaybe<Array<ClickupTaskListWhereUniqueInput>>
+  deleteMany?: InputMaybe<Array<ClickupTaskListScalarWhereInput>>
+  disconnect?: InputMaybe<Array<ClickupTaskListWhereUniqueInput>>
+  set?: InputMaybe<Array<ClickupTaskListWhereUniqueInput>>
+  update?: InputMaybe<Array<ClickupTaskListUpdateWithWhereUniqueWithoutClickupTaskInput>>
+  updateMany?: InputMaybe<Array<ClickupTaskListUpdateManyWithWhereWithoutClickupTaskInput>>
+  upsert?: InputMaybe<Array<ClickupTaskListUpsertWithWhereUniqueWithoutClickupTaskInput>>
+}
+
+export type ClickupTaskListUpdateWithWhereUniqueWithoutClickupListInput = {
+  data: ClickupTaskListUpdateWithoutClickupListInput
+  where: ClickupTaskListWhereUniqueInput
+}
+
+export type ClickupTaskListUpdateWithWhereUniqueWithoutClickupTaskInput = {
+  data: ClickupTaskListUpdateWithoutClickupTaskInput
+  where: ClickupTaskListWhereUniqueInput
+}
+
+export type ClickupTaskListUpdateWithoutClickupListInput = {
+  access?: InputMaybe<BoolFieldUpdateOperationsInput>
+  clickupTask?: InputMaybe<ClickupTaskUpdateOneRequiredWithoutListNestedInput>
+}
+
+export type ClickupTaskListUpdateWithoutClickupTaskInput = {
+  access?: InputMaybe<BoolFieldUpdateOperationsInput>
+  clickupList?: InputMaybe<ClickupListUpdateOneRequiredWithoutClickupTaskListNestedInput>
+}
+
+export type ClickupTaskListUpsertWithWhereUniqueWithoutClickupListInput = {
+  create: ClickupTaskListCreateWithoutClickupListInput
+  update: ClickupTaskListUpdateWithoutClickupListInput
+  where: ClickupTaskListWhereUniqueInput
+}
+
+export type ClickupTaskListUpsertWithWhereUniqueWithoutClickupTaskInput = {
+  create: ClickupTaskListCreateWithoutClickupTaskInput
+  update: ClickupTaskListUpdateWithoutClickupTaskInput
+  where: ClickupTaskListWhereUniqueInput
+}
+
+export type ClickupTaskListWhereInput = {
+  AND?: InputMaybe<Array<ClickupTaskListWhereInput>>
+  NOT?: InputMaybe<Array<ClickupTaskListWhereInput>>
+  OR?: InputMaybe<Array<ClickupTaskListWhereInput>>
+  access?: InputMaybe<BoolFilter>
+  clickupList?: InputMaybe<ClickupListRelationFilter>
+  clickupListId?: InputMaybe<StringFilter>
+  clickupTask?: InputMaybe<ClickupTaskRelationFilter>
+  clickupTaskId?: InputMaybe<StringFilter>
+}
+
+export type ClickupTaskListWhereUniqueInput = {
+  AND?: InputMaybe<Array<ClickupTaskListWhereInput>>
+  NOT?: InputMaybe<Array<ClickupTaskListWhereInput>>
+  OR?: InputMaybe<Array<ClickupTaskListWhereInput>>
+  access?: InputMaybe<BoolFilter>
+  clickupList?: InputMaybe<ClickupListRelationFilter>
+  clickupListId?: InputMaybe<StringFilter>
+  clickupTask?: InputMaybe<ClickupTaskRelationFilter>
+  clickupTaskId?: InputMaybe<StringFilter>
+  clickupTaskId_clickupListId?: InputMaybe<ClickupTaskListClickupTaskIdClickupListIdCompoundUniqueInput>
+}
+
+export type ClickupTaskLocationHistory = {
+  __typename?: 'ClickupTaskLocationHistory'
+  added: Scalars['Boolean']['output']
+  clickupList: ClickupList
+  clickupListId: Scalars['String']['output']
+  clickupTask: ClickupTask
+  clickupTaskId: Scalars['String']['output']
+  id: Scalars['Int']['output']
+  updatedAt: Scalars['DateTime']['output']
+}
+
+export type ClickupTaskLocationHistoryAvgAggregate = {
+  __typename?: 'ClickupTaskLocationHistoryAvgAggregate'
+  id?: Maybe<Scalars['Float']['output']>
+}
+
+export type ClickupTaskLocationHistoryCountAggregate = {
+  __typename?: 'ClickupTaskLocationHistoryCountAggregate'
+  _all: Scalars['Int']['output']
+  added: Scalars['Int']['output']
+  clickupListId: Scalars['Int']['output']
+  clickupTaskId: Scalars['Int']['output']
+  id: Scalars['Int']['output']
+  updatedAt: Scalars['Int']['output']
+}
+
+export type ClickupTaskLocationHistoryCreateInput = {
+  added: Scalars['Boolean']['input']
+  clickupList: ClickupListCreateNestedOneWithoutClickupTaskLocationHistoryInput
+  clickupTask: ClickupTaskCreateNestedOneWithoutLocationHistoryInput
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>
+}
+
+export type ClickupTaskLocationHistoryCreateManyClickupListInput = {
+  added: Scalars['Boolean']['input']
+  clickupTaskId: Scalars['String']['input']
+  id?: InputMaybe<Scalars['Int']['input']>
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>
+}
+
+export type ClickupTaskLocationHistoryCreateManyClickupListInputEnvelope = {
+  data: Array<ClickupTaskLocationHistoryCreateManyClickupListInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type ClickupTaskLocationHistoryCreateManyClickupTaskInput = {
+  added: Scalars['Boolean']['input']
+  clickupListId: Scalars['String']['input']
+  id?: InputMaybe<Scalars['Int']['input']>
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>
+}
+
+export type ClickupTaskLocationHistoryCreateManyClickupTaskInputEnvelope = {
+  data: Array<ClickupTaskLocationHistoryCreateManyClickupTaskInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type ClickupTaskLocationHistoryCreateManyInput = {
+  added: Scalars['Boolean']['input']
+  clickupListId: Scalars['String']['input']
+  clickupTaskId: Scalars['String']['input']
+  id?: InputMaybe<Scalars['Int']['input']>
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>
+}
+
+export type ClickupTaskLocationHistoryCreateNestedManyWithoutClickupListInput = {
+  connect?: InputMaybe<Array<ClickupTaskLocationHistoryWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskLocationHistoryCreateOrConnectWithoutClickupListInput>>
+  create?: InputMaybe<Array<ClickupTaskLocationHistoryCreateWithoutClickupListInput>>
+  createMany?: InputMaybe<ClickupTaskLocationHistoryCreateManyClickupListInputEnvelope>
+}
+
+export type ClickupTaskLocationHistoryCreateNestedManyWithoutClickupTaskInput = {
+  connect?: InputMaybe<Array<ClickupTaskLocationHistoryWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskLocationHistoryCreateOrConnectWithoutClickupTaskInput>>
+  create?: InputMaybe<Array<ClickupTaskLocationHistoryCreateWithoutClickupTaskInput>>
+  createMany?: InputMaybe<ClickupTaskLocationHistoryCreateManyClickupTaskInputEnvelope>
+}
+
+export type ClickupTaskLocationHistoryCreateOrConnectWithoutClickupListInput = {
+  create: ClickupTaskLocationHistoryCreateWithoutClickupListInput
+  where: ClickupTaskLocationHistoryWhereUniqueInput
+}
+
+export type ClickupTaskLocationHistoryCreateOrConnectWithoutClickupTaskInput = {
+  create: ClickupTaskLocationHistoryCreateWithoutClickupTaskInput
+  where: ClickupTaskLocationHistoryWhereUniqueInput
+}
+
+export type ClickupTaskLocationHistoryCreateWithoutClickupListInput = {
+  added: Scalars['Boolean']['input']
+  clickupTask: ClickupTaskCreateNestedOneWithoutLocationHistoryInput
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>
+}
+
+export type ClickupTaskLocationHistoryCreateWithoutClickupTaskInput = {
+  added: Scalars['Boolean']['input']
+  clickupList: ClickupListCreateNestedOneWithoutClickupTaskLocationHistoryInput
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>
+}
+
+export type ClickupTaskLocationHistoryListRelationFilter = {
+  every?: InputMaybe<ClickupTaskLocationHistoryWhereInput>
+  none?: InputMaybe<ClickupTaskLocationHistoryWhereInput>
+  some?: InputMaybe<ClickupTaskLocationHistoryWhereInput>
+}
+
+export type ClickupTaskLocationHistoryMaxAggregate = {
+  __typename?: 'ClickupTaskLocationHistoryMaxAggregate'
+  added?: Maybe<Scalars['Boolean']['output']>
+  clickupListId?: Maybe<Scalars['String']['output']>
+  clickupTaskId?: Maybe<Scalars['String']['output']>
+  id?: Maybe<Scalars['Int']['output']>
+  updatedAt?: Maybe<Scalars['DateTime']['output']>
+}
+
+export type ClickupTaskLocationHistoryMinAggregate = {
+  __typename?: 'ClickupTaskLocationHistoryMinAggregate'
+  added?: Maybe<Scalars['Boolean']['output']>
+  clickupListId?: Maybe<Scalars['String']['output']>
+  clickupTaskId?: Maybe<Scalars['String']['output']>
+  id?: Maybe<Scalars['Int']['output']>
+  updatedAt?: Maybe<Scalars['DateTime']['output']>
+}
+
+export type ClickupTaskLocationHistoryOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>
+}
+
+export type ClickupTaskLocationHistoryOrderByWithRelationInput = {
+  added?: InputMaybe<SortOrder>
+  clickupList?: InputMaybe<ClickupListOrderByWithRelationInput>
+  clickupListId?: InputMaybe<SortOrder>
+  clickupTask?: InputMaybe<ClickupTaskOrderByWithRelationInput>
+  clickupTaskId?: InputMaybe<SortOrder>
+  id?: InputMaybe<SortOrder>
+  updatedAt?: InputMaybe<SortOrder>
+}
+
+export enum ClickupTaskLocationHistoryScalarFieldEnum {
+  Added = 'added',
+  ClickupListId = 'clickupListId',
+  ClickupTaskId = 'clickupTaskId',
   Id = 'id',
-  Name = 'name',
+  UpdatedAt = 'updatedAt',
 }
 
-export type ClickupTaskLocationUpdateInput = {
-  access?: InputMaybe<BoolFieldUpdateOperationsInput>
-  folders?: InputMaybe<ClickupTaskUpdateManyWithoutFolderLocationNestedInput>
-  hidden?: InputMaybe<NullableBoolFieldUpdateOperationsInput>
-  id?: InputMaybe<StringFieldUpdateOperationsInput>
-  lists?: InputMaybe<ClickupTaskUpdateManyWithoutListLocationNestedInput>
-  name?: InputMaybe<StringFieldUpdateOperationsInput>
-  projects?: InputMaybe<ClickupTaskUpdateManyWithoutProjectLocationNestedInput>
+export type ClickupTaskLocationHistoryScalarWhereInput = {
+  AND?: InputMaybe<Array<ClickupTaskLocationHistoryScalarWhereInput>>
+  NOT?: InputMaybe<Array<ClickupTaskLocationHistoryScalarWhereInput>>
+  OR?: InputMaybe<Array<ClickupTaskLocationHistoryScalarWhereInput>>
+  added?: InputMaybe<BoolFilter>
+  clickupListId?: InputMaybe<StringFilter>
+  clickupTaskId?: InputMaybe<StringFilter>
+  id?: InputMaybe<IntFilter>
+  updatedAt?: InputMaybe<DateTimeFilter>
 }
 
-export type ClickupTaskLocationUpdateManyMutationInput = {
-  access?: InputMaybe<BoolFieldUpdateOperationsInput>
-  hidden?: InputMaybe<NullableBoolFieldUpdateOperationsInput>
-  id?: InputMaybe<StringFieldUpdateOperationsInput>
-  name?: InputMaybe<StringFieldUpdateOperationsInput>
+export type ClickupTaskLocationHistorySumAggregate = {
+  __typename?: 'ClickupTaskLocationHistorySumAggregate'
+  id?: Maybe<Scalars['Int']['output']>
 }
 
-export type ClickupTaskLocationUpdateOneRequiredWithoutFoldersNestedInput = {
-  connect?: InputMaybe<ClickupTaskLocationWhereUniqueInput>
-  connectOrCreate?: InputMaybe<ClickupTaskLocationCreateOrConnectWithoutFoldersInput>
-  create?: InputMaybe<ClickupTaskLocationCreateWithoutFoldersInput>
-  update?: InputMaybe<ClickupTaskLocationUpdateToOneWithWhereWithoutFoldersInput>
-  upsert?: InputMaybe<ClickupTaskLocationUpsertWithoutFoldersInput>
+export type ClickupTaskLocationHistoryUpdateInput = {
+  added?: InputMaybe<BoolFieldUpdateOperationsInput>
+  clickupList?: InputMaybe<ClickupListUpdateOneRequiredWithoutClickupTaskLocationHistoryNestedInput>
+  clickupTask?: InputMaybe<ClickupTaskUpdateOneRequiredWithoutLocationHistoryNestedInput>
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
 }
 
-export type ClickupTaskLocationUpdateOneRequiredWithoutListsNestedInput = {
-  connect?: InputMaybe<ClickupTaskLocationWhereUniqueInput>
-  connectOrCreate?: InputMaybe<ClickupTaskLocationCreateOrConnectWithoutListsInput>
-  create?: InputMaybe<ClickupTaskLocationCreateWithoutListsInput>
-  update?: InputMaybe<ClickupTaskLocationUpdateToOneWithWhereWithoutListsInput>
-  upsert?: InputMaybe<ClickupTaskLocationUpsertWithoutListsInput>
+export type ClickupTaskLocationHistoryUpdateManyMutationInput = {
+  added?: InputMaybe<BoolFieldUpdateOperationsInput>
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
 }
 
-export type ClickupTaskLocationUpdateOneRequiredWithoutProjectsNestedInput = {
-  connect?: InputMaybe<ClickupTaskLocationWhereUniqueInput>
-  connectOrCreate?: InputMaybe<ClickupTaskLocationCreateOrConnectWithoutProjectsInput>
-  create?: InputMaybe<ClickupTaskLocationCreateWithoutProjectsInput>
-  update?: InputMaybe<ClickupTaskLocationUpdateToOneWithWhereWithoutProjectsInput>
-  upsert?: InputMaybe<ClickupTaskLocationUpsertWithoutProjectsInput>
+export type ClickupTaskLocationHistoryUpdateManyWithWhereWithoutClickupListInput = {
+  data: ClickupTaskLocationHistoryUpdateManyMutationInput
+  where: ClickupTaskLocationHistoryScalarWhereInput
 }
 
-export type ClickupTaskLocationUpdateToOneWithWhereWithoutFoldersInput = {
-  data: ClickupTaskLocationUpdateWithoutFoldersInput
-  where?: InputMaybe<ClickupTaskLocationWhereInput>
+export type ClickupTaskLocationHistoryUpdateManyWithWhereWithoutClickupTaskInput = {
+  data: ClickupTaskLocationHistoryUpdateManyMutationInput
+  where: ClickupTaskLocationHistoryScalarWhereInput
 }
 
-export type ClickupTaskLocationUpdateToOneWithWhereWithoutListsInput = {
-  data: ClickupTaskLocationUpdateWithoutListsInput
-  where?: InputMaybe<ClickupTaskLocationWhereInput>
+export type ClickupTaskLocationHistoryUpdateManyWithoutClickupListNestedInput = {
+  connect?: InputMaybe<Array<ClickupTaskLocationHistoryWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskLocationHistoryCreateOrConnectWithoutClickupListInput>>
+  create?: InputMaybe<Array<ClickupTaskLocationHistoryCreateWithoutClickupListInput>>
+  createMany?: InputMaybe<ClickupTaskLocationHistoryCreateManyClickupListInputEnvelope>
+  delete?: InputMaybe<Array<ClickupTaskLocationHistoryWhereUniqueInput>>
+  deleteMany?: InputMaybe<Array<ClickupTaskLocationHistoryScalarWhereInput>>
+  disconnect?: InputMaybe<Array<ClickupTaskLocationHistoryWhereUniqueInput>>
+  set?: InputMaybe<Array<ClickupTaskLocationHistoryWhereUniqueInput>>
+  update?: InputMaybe<Array<ClickupTaskLocationHistoryUpdateWithWhereUniqueWithoutClickupListInput>>
+  updateMany?: InputMaybe<Array<ClickupTaskLocationHistoryUpdateManyWithWhereWithoutClickupListInput>>
+  upsert?: InputMaybe<Array<ClickupTaskLocationHistoryUpsertWithWhereUniqueWithoutClickupListInput>>
 }
 
-export type ClickupTaskLocationUpdateToOneWithWhereWithoutProjectsInput = {
-  data: ClickupTaskLocationUpdateWithoutProjectsInput
-  where?: InputMaybe<ClickupTaskLocationWhereInput>
+export type ClickupTaskLocationHistoryUpdateManyWithoutClickupTaskNestedInput = {
+  connect?: InputMaybe<Array<ClickupTaskLocationHistoryWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskLocationHistoryCreateOrConnectWithoutClickupTaskInput>>
+  create?: InputMaybe<Array<ClickupTaskLocationHistoryCreateWithoutClickupTaskInput>>
+  createMany?: InputMaybe<ClickupTaskLocationHistoryCreateManyClickupTaskInputEnvelope>
+  delete?: InputMaybe<Array<ClickupTaskLocationHistoryWhereUniqueInput>>
+  deleteMany?: InputMaybe<Array<ClickupTaskLocationHistoryScalarWhereInput>>
+  disconnect?: InputMaybe<Array<ClickupTaskLocationHistoryWhereUniqueInput>>
+  set?: InputMaybe<Array<ClickupTaskLocationHistoryWhereUniqueInput>>
+  update?: InputMaybe<Array<ClickupTaskLocationHistoryUpdateWithWhereUniqueWithoutClickupTaskInput>>
+  updateMany?: InputMaybe<Array<ClickupTaskLocationHistoryUpdateManyWithWhereWithoutClickupTaskInput>>
+  upsert?: InputMaybe<Array<ClickupTaskLocationHistoryUpsertWithWhereUniqueWithoutClickupTaskInput>>
 }
 
-export type ClickupTaskLocationUpdateWithoutFoldersInput = {
-  access?: InputMaybe<BoolFieldUpdateOperationsInput>
-  hidden?: InputMaybe<NullableBoolFieldUpdateOperationsInput>
-  id?: InputMaybe<StringFieldUpdateOperationsInput>
-  lists?: InputMaybe<ClickupTaskUpdateManyWithoutListLocationNestedInput>
-  name?: InputMaybe<StringFieldUpdateOperationsInput>
-  projects?: InputMaybe<ClickupTaskUpdateManyWithoutProjectLocationNestedInput>
+export type ClickupTaskLocationHistoryUpdateWithWhereUniqueWithoutClickupListInput = {
+  data: ClickupTaskLocationHistoryUpdateWithoutClickupListInput
+  where: ClickupTaskLocationHistoryWhereUniqueInput
 }
 
-export type ClickupTaskLocationUpdateWithoutListsInput = {
-  access?: InputMaybe<BoolFieldUpdateOperationsInput>
-  folders?: InputMaybe<ClickupTaskUpdateManyWithoutFolderLocationNestedInput>
-  hidden?: InputMaybe<NullableBoolFieldUpdateOperationsInput>
-  id?: InputMaybe<StringFieldUpdateOperationsInput>
-  name?: InputMaybe<StringFieldUpdateOperationsInput>
-  projects?: InputMaybe<ClickupTaskUpdateManyWithoutProjectLocationNestedInput>
+export type ClickupTaskLocationHistoryUpdateWithWhereUniqueWithoutClickupTaskInput = {
+  data: ClickupTaskLocationHistoryUpdateWithoutClickupTaskInput
+  where: ClickupTaskLocationHistoryWhereUniqueInput
 }
 
-export type ClickupTaskLocationUpdateWithoutProjectsInput = {
-  access?: InputMaybe<BoolFieldUpdateOperationsInput>
-  folders?: InputMaybe<ClickupTaskUpdateManyWithoutFolderLocationNestedInput>
-  hidden?: InputMaybe<NullableBoolFieldUpdateOperationsInput>
-  id?: InputMaybe<StringFieldUpdateOperationsInput>
-  lists?: InputMaybe<ClickupTaskUpdateManyWithoutListLocationNestedInput>
-  name?: InputMaybe<StringFieldUpdateOperationsInput>
+export type ClickupTaskLocationHistoryUpdateWithoutClickupListInput = {
+  added?: InputMaybe<BoolFieldUpdateOperationsInput>
+  clickupTask?: InputMaybe<ClickupTaskUpdateOneRequiredWithoutLocationHistoryNestedInput>
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
 }
 
-export type ClickupTaskLocationUpsertWithoutFoldersInput = {
-  create: ClickupTaskLocationCreateWithoutFoldersInput
-  update: ClickupTaskLocationUpdateWithoutFoldersInput
-  where?: InputMaybe<ClickupTaskLocationWhereInput>
+export type ClickupTaskLocationHistoryUpdateWithoutClickupTaskInput = {
+  added?: InputMaybe<BoolFieldUpdateOperationsInput>
+  clickupList?: InputMaybe<ClickupListUpdateOneRequiredWithoutClickupTaskLocationHistoryNestedInput>
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
 }
 
-export type ClickupTaskLocationUpsertWithoutListsInput = {
-  create: ClickupTaskLocationCreateWithoutListsInput
-  update: ClickupTaskLocationUpdateWithoutListsInput
-  where?: InputMaybe<ClickupTaskLocationWhereInput>
+export type ClickupTaskLocationHistoryUpsertWithWhereUniqueWithoutClickupListInput = {
+  create: ClickupTaskLocationHistoryCreateWithoutClickupListInput
+  update: ClickupTaskLocationHistoryUpdateWithoutClickupListInput
+  where: ClickupTaskLocationHistoryWhereUniqueInput
 }
 
-export type ClickupTaskLocationUpsertWithoutProjectsInput = {
-  create: ClickupTaskLocationCreateWithoutProjectsInput
-  update: ClickupTaskLocationUpdateWithoutProjectsInput
-  where?: InputMaybe<ClickupTaskLocationWhereInput>
+export type ClickupTaskLocationHistoryUpsertWithWhereUniqueWithoutClickupTaskInput = {
+  create: ClickupTaskLocationHistoryCreateWithoutClickupTaskInput
+  update: ClickupTaskLocationHistoryUpdateWithoutClickupTaskInput
+  where: ClickupTaskLocationHistoryWhereUniqueInput
 }
 
-export type ClickupTaskLocationWhereInput = {
-  AND?: InputMaybe<Array<ClickupTaskLocationWhereInput>>
-  NOT?: InputMaybe<Array<ClickupTaskLocationWhereInput>>
-  OR?: InputMaybe<Array<ClickupTaskLocationWhereInput>>
-  access?: InputMaybe<BoolFilter>
-  folders?: InputMaybe<ClickupTaskListRelationFilter>
-  hidden?: InputMaybe<BoolNullableFilter>
-  id?: InputMaybe<StringFilter>
-  lists?: InputMaybe<ClickupTaskListRelationFilter>
-  name?: InputMaybe<StringFilter>
-  projects?: InputMaybe<ClickupTaskListRelationFilter>
+export type ClickupTaskLocationHistoryWhereInput = {
+  AND?: InputMaybe<Array<ClickupTaskLocationHistoryWhereInput>>
+  NOT?: InputMaybe<Array<ClickupTaskLocationHistoryWhereInput>>
+  OR?: InputMaybe<Array<ClickupTaskLocationHistoryWhereInput>>
+  added?: InputMaybe<BoolFilter>
+  clickupList?: InputMaybe<ClickupListRelationFilter>
+  clickupListId?: InputMaybe<StringFilter>
+  clickupTask?: InputMaybe<ClickupTaskRelationFilter>
+  clickupTaskId?: InputMaybe<StringFilter>
+  id?: InputMaybe<IntFilter>
+  updatedAt?: InputMaybe<DateTimeFilter>
 }
 
-export type ClickupTaskLocationWhereUniqueInput = {
-  AND?: InputMaybe<Array<ClickupTaskLocationWhereInput>>
-  NOT?: InputMaybe<Array<ClickupTaskLocationWhereInput>>
-  OR?: InputMaybe<Array<ClickupTaskLocationWhereInput>>
-  access?: InputMaybe<BoolFilter>
-  folders?: InputMaybe<ClickupTaskListRelationFilter>
-  hidden?: InputMaybe<BoolNullableFilter>
-  id?: InputMaybe<Scalars['String']['input']>
-  lists?: InputMaybe<ClickupTaskListRelationFilter>
-  name?: InputMaybe<StringFilter>
-  projects?: InputMaybe<ClickupTaskListRelationFilter>
+export type ClickupTaskLocationHistoryWhereUniqueInput = {
+  AND?: InputMaybe<Array<ClickupTaskLocationHistoryWhereInput>>
+  NOT?: InputMaybe<Array<ClickupTaskLocationHistoryWhereInput>>
+  OR?: InputMaybe<Array<ClickupTaskLocationHistoryWhereInput>>
+  added?: InputMaybe<BoolFilter>
+  clickupList?: InputMaybe<ClickupListRelationFilter>
+  clickupListId?: InputMaybe<StringFilter>
+  clickupTask?: InputMaybe<ClickupTaskRelationFilter>
+  clickupTaskId?: InputMaybe<StringFilter>
+  id?: InputMaybe<Scalars['Int']['input']>
+  updatedAt?: InputMaybe<DateTimeFilter>
 }
 
 export type ClickupTaskMaxAggregate = {
@@ -4802,15 +6265,12 @@ export type ClickupTaskMaxAggregate = {
   dateDone?: Maybe<Scalars['String']['output']>
   dateUpdated?: Maybe<Scalars['String']['output']>
   description?: Maybe<Scalars['String']['output']>
-  folderLocationId?: Maybe<Scalars['String']['output']>
   id?: Maybe<Scalars['String']['output']>
-  listLocationId?: Maybe<Scalars['String']['output']>
   name?: Maybe<Scalars['String']['output']>
   orderIndex?: Maybe<Scalars['String']['output']>
   permissionLevel?: Maybe<Scalars['String']['output']>
   points?: Maybe<Scalars['BigInt']['output']>
   priorityId?: Maybe<Scalars['String']['output']>
-  projectLocationId?: Maybe<Scalars['String']['output']>
   spaceId?: Maybe<Scalars['String']['output']>
   startDate?: Maybe<Scalars['String']['output']>
   teamId?: Maybe<Scalars['String']['output']>
@@ -4830,15 +6290,12 @@ export type ClickupTaskMinAggregate = {
   dateDone?: Maybe<Scalars['String']['output']>
   dateUpdated?: Maybe<Scalars['String']['output']>
   description?: Maybe<Scalars['String']['output']>
-  folderLocationId?: Maybe<Scalars['String']['output']>
   id?: Maybe<Scalars['String']['output']>
-  listLocationId?: Maybe<Scalars['String']['output']>
   name?: Maybe<Scalars['String']['output']>
   orderIndex?: Maybe<Scalars['String']['output']>
   permissionLevel?: Maybe<Scalars['String']['output']>
   points?: Maybe<Scalars['BigInt']['output']>
   priorityId?: Maybe<Scalars['String']['output']>
-  projectLocationId?: Maybe<Scalars['String']['output']>
   spaceId?: Maybe<Scalars['String']['output']>
   startDate?: Maybe<Scalars['String']['output']>
   teamId?: Maybe<Scalars['String']['output']>
@@ -4863,10 +6320,10 @@ export type ClickupTaskOrderByWithRelationInput = {
   checklists?: InputMaybe<ClickupTaskChecklistOrderByRelationAggregateInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectOrderByWithRelationInput>
   clickupClockifyProjectId?: InputMaybe<SortOrderInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldOrderByRelationAggregateInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryOrderByRelationAggregateInput>
   creator?: InputMaybe<ClickupUserOrderByWithRelationInput>
   creatorId?: InputMaybe<SortOrder>
-  customFields?: InputMaybe<ClickupTaskCustomFieldOrderByRelationAggregateInput>
   customId?: InputMaybe<SortOrderInput>
   dateClosed?: InputMaybe<SortOrderInput>
   dateCreated?: InputMaybe<SortOrder>
@@ -4875,12 +6332,11 @@ export type ClickupTaskOrderByWithRelationInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyOrderByRelationAggregateInput>
   description?: InputMaybe<SortOrderInput>
   dueDates?: InputMaybe<ClickupTaskDueDateOrderByRelationAggregateInput>
-  folderLocation?: InputMaybe<ClickupTaskLocationOrderByWithRelationInput>
-  folderLocationId?: InputMaybe<SortOrder>
+  folder?: InputMaybe<ClickupTaskFolderOrderByRelationAggregateInput>
   id?: InputMaybe<SortOrder>
   linkedTasks?: InputMaybe<SortOrder>
-  listLocation?: InputMaybe<ClickupTaskLocationOrderByWithRelationInput>
-  listLocationId?: InputMaybe<SortOrder>
+  list?: InputMaybe<ClickupTaskListOrderByRelationAggregateInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryOrderByRelationAggregateInput>
   name?: InputMaybe<SortOrder>
   orderIndex?: InputMaybe<SortOrder>
   parent?: InputMaybe<SortOrderInput>
@@ -4888,8 +6344,7 @@ export type ClickupTaskOrderByWithRelationInput = {
   points?: InputMaybe<SortOrderInput>
   priority?: InputMaybe<ClickupTaskPriorityOrderByWithRelationInput>
   priorityId?: InputMaybe<SortOrderInput>
-  projectLocation?: InputMaybe<ClickupTaskLocationOrderByWithRelationInput>
-  projectLocationId?: InputMaybe<SortOrder>
+  project?: InputMaybe<ClickupTaskProjectOrderByRelationAggregateInput>
   sharing?: InputMaybe<SortOrder>
   space?: InputMaybe<ClickupTaskSpaceOrderByWithRelationInput>
   spaceId?: InputMaybe<SortOrder>
@@ -4897,6 +6352,7 @@ export type ClickupTaskOrderByWithRelationInput = {
   status?: InputMaybe<ClickupTaskStatusOnTaskOrderByRelationAggregateInput>
   tags?: InputMaybe<ClickupTaskTagOrderByRelationAggregateInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyOrderByRelationAggregateInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataOrderByRelationAggregateInput>
   teamId?: InputMaybe<SortOrder>
   textContent?: InputMaybe<SortOrderInput>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateOrderByRelationAggregateInput>
@@ -5076,21 +6532,252 @@ export type ClickupTaskPriorityWhereUniqueInput = {
   tasks?: InputMaybe<ClickupTaskListRelationFilter>
 }
 
-export type ClickupTaskQueue = {
-  __typename?: 'ClickupTaskQueue'
-  id: Scalars['Int']['output']
-  taskId: Scalars['String']['output']
+export type ClickupTaskProject = {
+  __typename?: 'ClickupTaskProject'
+  access: Scalars['Boolean']['output']
+  clickupProject: ClickupProject
+  clickupProjectId: Scalars['String']['output']
+  clickupTask: ClickupTask
+  clickupTaskId: Scalars['String']['output']
 }
 
-export type ClickupTaskQueueAvgAggregate = {
-  __typename?: 'ClickupTaskQueueAvgAggregate'
-  id?: Maybe<Scalars['Float']['output']>
+export type ClickupTaskProjectClickupTaskIdClickupProjectIdCompoundUniqueInput = {
+  clickupProjectId: Scalars['String']['input']
+  clickupTaskId: Scalars['String']['input']
+}
+
+export type ClickupTaskProjectCountAggregate = {
+  __typename?: 'ClickupTaskProjectCountAggregate'
+  _all: Scalars['Int']['output']
+  access: Scalars['Int']['output']
+  clickupProjectId: Scalars['Int']['output']
+  clickupTaskId: Scalars['Int']['output']
+}
+
+export type ClickupTaskProjectCreateInput = {
+  access: Scalars['Boolean']['input']
+  clickupProject: ClickupProjectCreateNestedOneWithoutClickupTaskProjectInput
+  clickupTask: ClickupTaskCreateNestedOneWithoutProjectInput
+}
+
+export type ClickupTaskProjectCreateManyClickupProjectInput = {
+  access: Scalars['Boolean']['input']
+  clickupTaskId: Scalars['String']['input']
+}
+
+export type ClickupTaskProjectCreateManyClickupProjectInputEnvelope = {
+  data: Array<ClickupTaskProjectCreateManyClickupProjectInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type ClickupTaskProjectCreateManyClickupTaskInput = {
+  access: Scalars['Boolean']['input']
+  clickupProjectId: Scalars['String']['input']
+}
+
+export type ClickupTaskProjectCreateManyClickupTaskInputEnvelope = {
+  data: Array<ClickupTaskProjectCreateManyClickupTaskInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type ClickupTaskProjectCreateManyInput = {
+  access: Scalars['Boolean']['input']
+  clickupProjectId: Scalars['String']['input']
+  clickupTaskId: Scalars['String']['input']
+}
+
+export type ClickupTaskProjectCreateNestedManyWithoutClickupProjectInput = {
+  connect?: InputMaybe<Array<ClickupTaskProjectWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskProjectCreateOrConnectWithoutClickupProjectInput>>
+  create?: InputMaybe<Array<ClickupTaskProjectCreateWithoutClickupProjectInput>>
+  createMany?: InputMaybe<ClickupTaskProjectCreateManyClickupProjectInputEnvelope>
+}
+
+export type ClickupTaskProjectCreateNestedManyWithoutClickupTaskInput = {
+  connect?: InputMaybe<Array<ClickupTaskProjectWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskProjectCreateOrConnectWithoutClickupTaskInput>>
+  create?: InputMaybe<Array<ClickupTaskProjectCreateWithoutClickupTaskInput>>
+  createMany?: InputMaybe<ClickupTaskProjectCreateManyClickupTaskInputEnvelope>
+}
+
+export type ClickupTaskProjectCreateOrConnectWithoutClickupProjectInput = {
+  create: ClickupTaskProjectCreateWithoutClickupProjectInput
+  where: ClickupTaskProjectWhereUniqueInput
+}
+
+export type ClickupTaskProjectCreateOrConnectWithoutClickupTaskInput = {
+  create: ClickupTaskProjectCreateWithoutClickupTaskInput
+  where: ClickupTaskProjectWhereUniqueInput
+}
+
+export type ClickupTaskProjectCreateWithoutClickupProjectInput = {
+  access: Scalars['Boolean']['input']
+  clickupTask: ClickupTaskCreateNestedOneWithoutProjectInput
+}
+
+export type ClickupTaskProjectCreateWithoutClickupTaskInput = {
+  access: Scalars['Boolean']['input']
+  clickupProject: ClickupProjectCreateNestedOneWithoutClickupTaskProjectInput
+}
+
+export type ClickupTaskProjectListRelationFilter = {
+  every?: InputMaybe<ClickupTaskProjectWhereInput>
+  none?: InputMaybe<ClickupTaskProjectWhereInput>
+  some?: InputMaybe<ClickupTaskProjectWhereInput>
+}
+
+export type ClickupTaskProjectMaxAggregate = {
+  __typename?: 'ClickupTaskProjectMaxAggregate'
+  access?: Maybe<Scalars['Boolean']['output']>
+  clickupProjectId?: Maybe<Scalars['String']['output']>
+  clickupTaskId?: Maybe<Scalars['String']['output']>
+}
+
+export type ClickupTaskProjectMinAggregate = {
+  __typename?: 'ClickupTaskProjectMinAggregate'
+  access?: Maybe<Scalars['Boolean']['output']>
+  clickupProjectId?: Maybe<Scalars['String']['output']>
+  clickupTaskId?: Maybe<Scalars['String']['output']>
+}
+
+export type ClickupTaskProjectOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>
+}
+
+export type ClickupTaskProjectOrderByWithRelationInput = {
+  access?: InputMaybe<SortOrder>
+  clickupProject?: InputMaybe<ClickupProjectOrderByWithRelationInput>
+  clickupProjectId?: InputMaybe<SortOrder>
+  clickupTask?: InputMaybe<ClickupTaskOrderByWithRelationInput>
+  clickupTaskId?: InputMaybe<SortOrder>
+}
+
+export enum ClickupTaskProjectScalarFieldEnum {
+  Access = 'access',
+  ClickupProjectId = 'clickupProjectId',
+  ClickupTaskId = 'clickupTaskId',
+}
+
+export type ClickupTaskProjectScalarWhereInput = {
+  AND?: InputMaybe<Array<ClickupTaskProjectScalarWhereInput>>
+  NOT?: InputMaybe<Array<ClickupTaskProjectScalarWhereInput>>
+  OR?: InputMaybe<Array<ClickupTaskProjectScalarWhereInput>>
+  access?: InputMaybe<BoolFilter>
+  clickupProjectId?: InputMaybe<StringFilter>
+  clickupTaskId?: InputMaybe<StringFilter>
+}
+
+export type ClickupTaskProjectUpdateInput = {
+  access?: InputMaybe<BoolFieldUpdateOperationsInput>
+  clickupProject?: InputMaybe<ClickupProjectUpdateOneRequiredWithoutClickupTaskProjectNestedInput>
+  clickupTask?: InputMaybe<ClickupTaskUpdateOneRequiredWithoutProjectNestedInput>
+}
+
+export type ClickupTaskProjectUpdateManyMutationInput = {
+  access?: InputMaybe<BoolFieldUpdateOperationsInput>
+}
+
+export type ClickupTaskProjectUpdateManyWithWhereWithoutClickupProjectInput = {
+  data: ClickupTaskProjectUpdateManyMutationInput
+  where: ClickupTaskProjectScalarWhereInput
+}
+
+export type ClickupTaskProjectUpdateManyWithWhereWithoutClickupTaskInput = {
+  data: ClickupTaskProjectUpdateManyMutationInput
+  where: ClickupTaskProjectScalarWhereInput
+}
+
+export type ClickupTaskProjectUpdateManyWithoutClickupProjectNestedInput = {
+  connect?: InputMaybe<Array<ClickupTaskProjectWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskProjectCreateOrConnectWithoutClickupProjectInput>>
+  create?: InputMaybe<Array<ClickupTaskProjectCreateWithoutClickupProjectInput>>
+  createMany?: InputMaybe<ClickupTaskProjectCreateManyClickupProjectInputEnvelope>
+  delete?: InputMaybe<Array<ClickupTaskProjectWhereUniqueInput>>
+  deleteMany?: InputMaybe<Array<ClickupTaskProjectScalarWhereInput>>
+  disconnect?: InputMaybe<Array<ClickupTaskProjectWhereUniqueInput>>
+  set?: InputMaybe<Array<ClickupTaskProjectWhereUniqueInput>>
+  update?: InputMaybe<Array<ClickupTaskProjectUpdateWithWhereUniqueWithoutClickupProjectInput>>
+  updateMany?: InputMaybe<Array<ClickupTaskProjectUpdateManyWithWhereWithoutClickupProjectInput>>
+  upsert?: InputMaybe<Array<ClickupTaskProjectUpsertWithWhereUniqueWithoutClickupProjectInput>>
+}
+
+export type ClickupTaskProjectUpdateManyWithoutClickupTaskNestedInput = {
+  connect?: InputMaybe<Array<ClickupTaskProjectWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskProjectCreateOrConnectWithoutClickupTaskInput>>
+  create?: InputMaybe<Array<ClickupTaskProjectCreateWithoutClickupTaskInput>>
+  createMany?: InputMaybe<ClickupTaskProjectCreateManyClickupTaskInputEnvelope>
+  delete?: InputMaybe<Array<ClickupTaskProjectWhereUniqueInput>>
+  deleteMany?: InputMaybe<Array<ClickupTaskProjectScalarWhereInput>>
+  disconnect?: InputMaybe<Array<ClickupTaskProjectWhereUniqueInput>>
+  set?: InputMaybe<Array<ClickupTaskProjectWhereUniqueInput>>
+  update?: InputMaybe<Array<ClickupTaskProjectUpdateWithWhereUniqueWithoutClickupTaskInput>>
+  updateMany?: InputMaybe<Array<ClickupTaskProjectUpdateManyWithWhereWithoutClickupTaskInput>>
+  upsert?: InputMaybe<Array<ClickupTaskProjectUpsertWithWhereUniqueWithoutClickupTaskInput>>
+}
+
+export type ClickupTaskProjectUpdateWithWhereUniqueWithoutClickupProjectInput = {
+  data: ClickupTaskProjectUpdateWithoutClickupProjectInput
+  where: ClickupTaskProjectWhereUniqueInput
+}
+
+export type ClickupTaskProjectUpdateWithWhereUniqueWithoutClickupTaskInput = {
+  data: ClickupTaskProjectUpdateWithoutClickupTaskInput
+  where: ClickupTaskProjectWhereUniqueInput
+}
+
+export type ClickupTaskProjectUpdateWithoutClickupProjectInput = {
+  access?: InputMaybe<BoolFieldUpdateOperationsInput>
+  clickupTask?: InputMaybe<ClickupTaskUpdateOneRequiredWithoutProjectNestedInput>
+}
+
+export type ClickupTaskProjectUpdateWithoutClickupTaskInput = {
+  access?: InputMaybe<BoolFieldUpdateOperationsInput>
+  clickupProject?: InputMaybe<ClickupProjectUpdateOneRequiredWithoutClickupTaskProjectNestedInput>
+}
+
+export type ClickupTaskProjectUpsertWithWhereUniqueWithoutClickupProjectInput = {
+  create: ClickupTaskProjectCreateWithoutClickupProjectInput
+  update: ClickupTaskProjectUpdateWithoutClickupProjectInput
+  where: ClickupTaskProjectWhereUniqueInput
+}
+
+export type ClickupTaskProjectUpsertWithWhereUniqueWithoutClickupTaskInput = {
+  create: ClickupTaskProjectCreateWithoutClickupTaskInput
+  update: ClickupTaskProjectUpdateWithoutClickupTaskInput
+  where: ClickupTaskProjectWhereUniqueInput
+}
+
+export type ClickupTaskProjectWhereInput = {
+  AND?: InputMaybe<Array<ClickupTaskProjectWhereInput>>
+  NOT?: InputMaybe<Array<ClickupTaskProjectWhereInput>>
+  OR?: InputMaybe<Array<ClickupTaskProjectWhereInput>>
+  access?: InputMaybe<BoolFilter>
+  clickupProject?: InputMaybe<ClickupProjectRelationFilter>
+  clickupProjectId?: InputMaybe<StringFilter>
+  clickupTask?: InputMaybe<ClickupTaskRelationFilter>
+  clickupTaskId?: InputMaybe<StringFilter>
+}
+
+export type ClickupTaskProjectWhereUniqueInput = {
+  AND?: InputMaybe<Array<ClickupTaskProjectWhereInput>>
+  NOT?: InputMaybe<Array<ClickupTaskProjectWhereInput>>
+  OR?: InputMaybe<Array<ClickupTaskProjectWhereInput>>
+  access?: InputMaybe<BoolFilter>
+  clickupProject?: InputMaybe<ClickupProjectRelationFilter>
+  clickupProjectId?: InputMaybe<StringFilter>
+  clickupTask?: InputMaybe<ClickupTaskRelationFilter>
+  clickupTaskId?: InputMaybe<StringFilter>
+  clickupTaskId_clickupProjectId?: InputMaybe<ClickupTaskProjectClickupTaskIdClickupProjectIdCompoundUniqueInput>
+}
+
+export type ClickupTaskQueue = {
+  __typename?: 'ClickupTaskQueue'
+  taskId: Scalars['String']['output']
 }
 
 export type ClickupTaskQueueCountAggregate = {
   __typename?: 'ClickupTaskQueueCountAggregate'
   _all: Scalars['Int']['output']
-  id: Scalars['Int']['output']
   taskId: Scalars['Int']['output']
 }
 
@@ -5099,35 +6786,25 @@ export type ClickupTaskQueueCreateInput = {
 }
 
 export type ClickupTaskQueueCreateManyInput = {
-  id?: InputMaybe<Scalars['Int']['input']>
   taskId: Scalars['String']['input']
 }
 
 export type ClickupTaskQueueMaxAggregate = {
   __typename?: 'ClickupTaskQueueMaxAggregate'
-  id?: Maybe<Scalars['Int']['output']>
   taskId?: Maybe<Scalars['String']['output']>
 }
 
 export type ClickupTaskQueueMinAggregate = {
   __typename?: 'ClickupTaskQueueMinAggregate'
-  id?: Maybe<Scalars['Int']['output']>
   taskId?: Maybe<Scalars['String']['output']>
 }
 
 export type ClickupTaskQueueOrderByWithRelationInput = {
-  id?: InputMaybe<SortOrder>
   taskId?: InputMaybe<SortOrder>
 }
 
 export enum ClickupTaskQueueScalarFieldEnum {
-  Id = 'id',
   TaskId = 'taskId',
-}
-
-export type ClickupTaskQueueSumAggregate = {
-  __typename?: 'ClickupTaskQueueSumAggregate'
-  id?: Maybe<Scalars['Int']['output']>
 }
 
 export type ClickupTaskQueueUpdateInput = {
@@ -5142,7 +6819,6 @@ export type ClickupTaskQueueWhereInput = {
   AND?: InputMaybe<Array<ClickupTaskQueueWhereInput>>
   NOT?: InputMaybe<Array<ClickupTaskQueueWhereInput>>
   OR?: InputMaybe<Array<ClickupTaskQueueWhereInput>>
-  id?: InputMaybe<IntFilter>
   taskId?: InputMaybe<StringFilter>
 }
 
@@ -5150,7 +6826,6 @@ export type ClickupTaskQueueWhereUniqueInput = {
   AND?: InputMaybe<Array<ClickupTaskQueueWhereInput>>
   NOT?: InputMaybe<Array<ClickupTaskQueueWhereInput>>
   OR?: InputMaybe<Array<ClickupTaskQueueWhereInput>>
-  id?: InputMaybe<Scalars['Int']['input']>
   taskId?: InputMaybe<Scalars['String']['input']>
 }
 
@@ -5169,17 +6844,14 @@ export enum ClickupTaskScalarFieldEnum {
   DateDone = 'dateDone',
   DateUpdated = 'dateUpdated',
   Description = 'description',
-  FolderLocationId = 'folderLocationId',
   Id = 'id',
   LinkedTasks = 'linkedTasks',
-  ListLocationId = 'listLocationId',
   Name = 'name',
   OrderIndex = 'orderIndex',
   Parent = 'parent',
   PermissionLevel = 'permissionLevel',
   Points = 'points',
   PriorityId = 'priorityId',
-  ProjectLocationId = 'projectLocationId',
   Sharing = 'sharing',
   SpaceId = 'spaceId',
   StartDate = 'startDate',
@@ -5202,17 +6874,14 @@ export type ClickupTaskScalarWhereInput = {
   dateDone?: InputMaybe<StringNullableFilter>
   dateUpdated?: InputMaybe<StringFilter>
   description?: InputMaybe<StringNullableFilter>
-  folderLocationId?: InputMaybe<StringFilter>
   id?: InputMaybe<StringFilter>
   linkedTasks?: InputMaybe<JsonFilter>
-  listLocationId?: InputMaybe<StringFilter>
   name?: InputMaybe<StringFilter>
   orderIndex?: InputMaybe<StringFilter>
   parent?: InputMaybe<JsonNullableFilter>
   permissionLevel?: InputMaybe<StringFilter>
   points?: InputMaybe<BigIntNullableFilter>
   priorityId?: InputMaybe<StringNullableFilter>
-  projectLocationId?: InputMaybe<StringFilter>
   sharing?: InputMaybe<JsonFilter>
   spaceId?: InputMaybe<StringFilter>
   startDate?: InputMaybe<StringNullableFilter>
@@ -6282,9 +7951,9 @@ export type ClickupTaskUpdateInput = {
   attachments?: InputMaybe<ClickupTaskAttachmentUpdateManyWithoutTaskNestedInput>
   checklists?: InputMaybe<ClickupTaskChecklistUpdateManyWithoutTaskNestedInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClickupTasksNestedInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutClickupTaskNestedInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupTaskNestedInput>
   creator?: InputMaybe<ClickupUserUpdateOneRequiredWithoutCreatedTasksNestedInput>
-  customFields?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutTaskNestedInput>
   customId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateClosed?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -6293,23 +7962,25 @@ export type ClickupTaskUpdateInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutDependsOnTaskNestedInput>
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dueDates?: InputMaybe<ClickupTaskDueDateUpdateManyWithoutTaskNestedInput>
-  folderLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutFoldersNestedInput>
+  folder?: InputMaybe<ClickupTaskFolderUpdateManyWithoutClickupTaskNestedInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   linkedTasks?: InputMaybe<Scalars['JSON']['input']>
-  listLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutListsNestedInput>
+  list?: InputMaybe<ClickupTaskListUpdateManyWithoutClickupTaskNestedInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryUpdateManyWithoutClickupTaskNestedInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
   orderIndex?: InputMaybe<StringFieldUpdateOperationsInput>
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel?: InputMaybe<StringFieldUpdateOperationsInput>
   points?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
   priority?: InputMaybe<ClickupTaskPriorityUpdateOneWithoutTasksNestedInput>
-  projectLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutProjectsNestedInput>
+  project?: InputMaybe<ClickupTaskProjectUpdateManyWithoutClickupTaskNestedInput>
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataUpdateManyWithoutClickupTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
   textContent?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateUpdateManyWithoutTaskNestedInput>
@@ -6351,22 +8022,7 @@ export type ClickupTaskUpdateManyWithWhereWithoutCreatorInput = {
   where: ClickupTaskScalarWhereInput
 }
 
-export type ClickupTaskUpdateManyWithWhereWithoutFolderLocationInput = {
-  data: ClickupTaskUpdateManyMutationInput
-  where: ClickupTaskScalarWhereInput
-}
-
-export type ClickupTaskUpdateManyWithWhereWithoutListLocationInput = {
-  data: ClickupTaskUpdateManyMutationInput
-  where: ClickupTaskScalarWhereInput
-}
-
 export type ClickupTaskUpdateManyWithWhereWithoutPriorityInput = {
-  data: ClickupTaskUpdateManyMutationInput
-  where: ClickupTaskScalarWhereInput
-}
-
-export type ClickupTaskUpdateManyWithWhereWithoutProjectLocationInput = {
   data: ClickupTaskUpdateManyMutationInput
   where: ClickupTaskScalarWhereInput
 }
@@ -6409,34 +8065,6 @@ export type ClickupTaskUpdateManyWithoutCreatorNestedInput = {
   upsert?: InputMaybe<Array<ClickupTaskUpsertWithWhereUniqueWithoutCreatorInput>>
 }
 
-export type ClickupTaskUpdateManyWithoutFolderLocationNestedInput = {
-  connect?: InputMaybe<Array<ClickupTaskWhereUniqueInput>>
-  connectOrCreate?: InputMaybe<Array<ClickupTaskCreateOrConnectWithoutFolderLocationInput>>
-  create?: InputMaybe<Array<ClickupTaskCreateWithoutFolderLocationInput>>
-  createMany?: InputMaybe<ClickupTaskCreateManyFolderLocationInputEnvelope>
-  delete?: InputMaybe<Array<ClickupTaskWhereUniqueInput>>
-  deleteMany?: InputMaybe<Array<ClickupTaskScalarWhereInput>>
-  disconnect?: InputMaybe<Array<ClickupTaskWhereUniqueInput>>
-  set?: InputMaybe<Array<ClickupTaskWhereUniqueInput>>
-  update?: InputMaybe<Array<ClickupTaskUpdateWithWhereUniqueWithoutFolderLocationInput>>
-  updateMany?: InputMaybe<Array<ClickupTaskUpdateManyWithWhereWithoutFolderLocationInput>>
-  upsert?: InputMaybe<Array<ClickupTaskUpsertWithWhereUniqueWithoutFolderLocationInput>>
-}
-
-export type ClickupTaskUpdateManyWithoutListLocationNestedInput = {
-  connect?: InputMaybe<Array<ClickupTaskWhereUniqueInput>>
-  connectOrCreate?: InputMaybe<Array<ClickupTaskCreateOrConnectWithoutListLocationInput>>
-  create?: InputMaybe<Array<ClickupTaskCreateWithoutListLocationInput>>
-  createMany?: InputMaybe<ClickupTaskCreateManyListLocationInputEnvelope>
-  delete?: InputMaybe<Array<ClickupTaskWhereUniqueInput>>
-  deleteMany?: InputMaybe<Array<ClickupTaskScalarWhereInput>>
-  disconnect?: InputMaybe<Array<ClickupTaskWhereUniqueInput>>
-  set?: InputMaybe<Array<ClickupTaskWhereUniqueInput>>
-  update?: InputMaybe<Array<ClickupTaskUpdateWithWhereUniqueWithoutListLocationInput>>
-  updateMany?: InputMaybe<Array<ClickupTaskUpdateManyWithWhereWithoutListLocationInput>>
-  upsert?: InputMaybe<Array<ClickupTaskUpsertWithWhereUniqueWithoutListLocationInput>>
-}
-
 export type ClickupTaskUpdateManyWithoutPriorityNestedInput = {
   connect?: InputMaybe<Array<ClickupTaskWhereUniqueInput>>
   connectOrCreate?: InputMaybe<Array<ClickupTaskCreateOrConnectWithoutPriorityInput>>
@@ -6449,20 +8077,6 @@ export type ClickupTaskUpdateManyWithoutPriorityNestedInput = {
   update?: InputMaybe<Array<ClickupTaskUpdateWithWhereUniqueWithoutPriorityInput>>
   updateMany?: InputMaybe<Array<ClickupTaskUpdateManyWithWhereWithoutPriorityInput>>
   upsert?: InputMaybe<Array<ClickupTaskUpsertWithWhereUniqueWithoutPriorityInput>>
-}
-
-export type ClickupTaskUpdateManyWithoutProjectLocationNestedInput = {
-  connect?: InputMaybe<Array<ClickupTaskWhereUniqueInput>>
-  connectOrCreate?: InputMaybe<Array<ClickupTaskCreateOrConnectWithoutProjectLocationInput>>
-  create?: InputMaybe<Array<ClickupTaskCreateWithoutProjectLocationInput>>
-  createMany?: InputMaybe<ClickupTaskCreateManyProjectLocationInputEnvelope>
-  delete?: InputMaybe<Array<ClickupTaskWhereUniqueInput>>
-  deleteMany?: InputMaybe<Array<ClickupTaskScalarWhereInput>>
-  disconnect?: InputMaybe<Array<ClickupTaskWhereUniqueInput>>
-  set?: InputMaybe<Array<ClickupTaskWhereUniqueInput>>
-  update?: InputMaybe<Array<ClickupTaskUpdateWithWhereUniqueWithoutProjectLocationInput>>
-  updateMany?: InputMaybe<Array<ClickupTaskUpdateManyWithWhereWithoutProjectLocationInput>>
-  upsert?: InputMaybe<Array<ClickupTaskUpsertWithWhereUniqueWithoutProjectLocationInput>>
 }
 
 export type ClickupTaskUpdateManyWithoutSpaceNestedInput = {
@@ -6516,6 +8130,14 @@ export type ClickupTaskUpdateOneRequiredWithoutChecklistsNestedInput = {
   upsert?: InputMaybe<ClickupTaskUpsertWithoutChecklistsInput>
 }
 
+export type ClickupTaskUpdateOneRequiredWithoutClickupTaskCustomFieldNestedInput = {
+  connect?: InputMaybe<ClickupTaskWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupTaskCreateOrConnectWithoutClickupTaskCustomFieldInput>
+  create?: InputMaybe<ClickupTaskCreateWithoutClickupTaskCustomFieldInput>
+  update?: InputMaybe<ClickupTaskUpdateToOneWithWhereWithoutClickupTaskCustomFieldInput>
+  upsert?: InputMaybe<ClickupTaskUpsertWithoutClickupTaskCustomFieldInput>
+}
+
 export type ClickupTaskUpdateOneRequiredWithoutDependentTasksNestedInput = {
   connect?: InputMaybe<ClickupTaskWhereUniqueInput>
   connectOrCreate?: InputMaybe<ClickupTaskCreateOrConnectWithoutDependentTasksInput>
@@ -6532,6 +8154,38 @@ export type ClickupTaskUpdateOneRequiredWithoutDueDatesNestedInput = {
   upsert?: InputMaybe<ClickupTaskUpsertWithoutDueDatesInput>
 }
 
+export type ClickupTaskUpdateOneRequiredWithoutFolderNestedInput = {
+  connect?: InputMaybe<ClickupTaskWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupTaskCreateOrConnectWithoutFolderInput>
+  create?: InputMaybe<ClickupTaskCreateWithoutFolderInput>
+  update?: InputMaybe<ClickupTaskUpdateToOneWithWhereWithoutFolderInput>
+  upsert?: InputMaybe<ClickupTaskUpsertWithoutFolderInput>
+}
+
+export type ClickupTaskUpdateOneRequiredWithoutListNestedInput = {
+  connect?: InputMaybe<ClickupTaskWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupTaskCreateOrConnectWithoutListInput>
+  create?: InputMaybe<ClickupTaskCreateWithoutListInput>
+  update?: InputMaybe<ClickupTaskUpdateToOneWithWhereWithoutListInput>
+  upsert?: InputMaybe<ClickupTaskUpsertWithoutListInput>
+}
+
+export type ClickupTaskUpdateOneRequiredWithoutLocationHistoryNestedInput = {
+  connect?: InputMaybe<ClickupTaskWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupTaskCreateOrConnectWithoutLocationHistoryInput>
+  create?: InputMaybe<ClickupTaskCreateWithoutLocationHistoryInput>
+  update?: InputMaybe<ClickupTaskUpdateToOneWithWhereWithoutLocationHistoryInput>
+  upsert?: InputMaybe<ClickupTaskUpsertWithoutLocationHistoryInput>
+}
+
+export type ClickupTaskUpdateOneRequiredWithoutProjectNestedInput = {
+  connect?: InputMaybe<ClickupTaskWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupTaskCreateOrConnectWithoutProjectInput>
+  create?: InputMaybe<ClickupTaskCreateWithoutProjectInput>
+  update?: InputMaybe<ClickupTaskUpdateToOneWithWhereWithoutProjectInput>
+  upsert?: InputMaybe<ClickupTaskUpsertWithoutProjectInput>
+}
+
 export type ClickupTaskUpdateOneRequiredWithoutStatusNestedInput = {
   connect?: InputMaybe<ClickupTaskWhereUniqueInput>
   connectOrCreate?: InputMaybe<ClickupTaskCreateOrConnectWithoutStatusInput>
@@ -6546,6 +8200,14 @@ export type ClickupTaskUpdateOneRequiredWithoutTaskDependenciesNestedInput = {
   create?: InputMaybe<ClickupTaskCreateWithoutTaskDependenciesInput>
   update?: InputMaybe<ClickupTaskUpdateToOneWithWhereWithoutTaskDependenciesInput>
   upsert?: InputMaybe<ClickupTaskUpsertWithoutTaskDependenciesInput>
+}
+
+export type ClickupTaskUpdateOneRequiredWithoutTaskPeriodDataNestedInput = {
+  connect?: InputMaybe<ClickupTaskWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupTaskCreateOrConnectWithoutTaskPeriodDataInput>
+  create?: InputMaybe<ClickupTaskCreateWithoutTaskPeriodDataInput>
+  update?: InputMaybe<ClickupTaskUpdateToOneWithWhereWithoutTaskPeriodDataInput>
+  upsert?: InputMaybe<ClickupTaskUpsertWithoutTaskPeriodDataInput>
 }
 
 export type ClickupTaskUpdateOneRequiredWithoutTimeEstimatesNestedInput = {
@@ -6574,16 +8236,6 @@ export type ClickupTaskUpdateOneWithoutClockifyTimeEntriesNestedInput = {
   upsert?: InputMaybe<ClickupTaskUpsertWithoutClockifyTimeEntriesInput>
 }
 
-export type ClickupTaskUpdateOneWithoutCustomFieldsNestedInput = {
-  connect?: InputMaybe<ClickupTaskWhereUniqueInput>
-  connectOrCreate?: InputMaybe<ClickupTaskCreateOrConnectWithoutCustomFieldsInput>
-  create?: InputMaybe<ClickupTaskCreateWithoutCustomFieldsInput>
-  delete?: InputMaybe<ClickupTaskWhereInput>
-  disconnect?: InputMaybe<ClickupTaskWhereInput>
-  update?: InputMaybe<ClickupTaskUpdateToOneWithWhereWithoutCustomFieldsInput>
-  upsert?: InputMaybe<ClickupTaskUpsertWithoutCustomFieldsInput>
-}
-
 export type ClickupTaskUpdateToOneWithWhereWithoutAssigneesInput = {
   data: ClickupTaskUpdateWithoutAssigneesInput
   where?: InputMaybe<ClickupTaskWhereInput>
@@ -6599,13 +8251,13 @@ export type ClickupTaskUpdateToOneWithWhereWithoutChecklistsInput = {
   where?: InputMaybe<ClickupTaskWhereInput>
 }
 
-export type ClickupTaskUpdateToOneWithWhereWithoutClockifyTimeEntriesInput = {
-  data: ClickupTaskUpdateWithoutClockifyTimeEntriesInput
+export type ClickupTaskUpdateToOneWithWhereWithoutClickupTaskCustomFieldInput = {
+  data: ClickupTaskUpdateWithoutClickupTaskCustomFieldInput
   where?: InputMaybe<ClickupTaskWhereInput>
 }
 
-export type ClickupTaskUpdateToOneWithWhereWithoutCustomFieldsInput = {
-  data: ClickupTaskUpdateWithoutCustomFieldsInput
+export type ClickupTaskUpdateToOneWithWhereWithoutClockifyTimeEntriesInput = {
+  data: ClickupTaskUpdateWithoutClockifyTimeEntriesInput
   where?: InputMaybe<ClickupTaskWhereInput>
 }
 
@@ -6619,6 +8271,26 @@ export type ClickupTaskUpdateToOneWithWhereWithoutDueDatesInput = {
   where?: InputMaybe<ClickupTaskWhereInput>
 }
 
+export type ClickupTaskUpdateToOneWithWhereWithoutFolderInput = {
+  data: ClickupTaskUpdateWithoutFolderInput
+  where?: InputMaybe<ClickupTaskWhereInput>
+}
+
+export type ClickupTaskUpdateToOneWithWhereWithoutListInput = {
+  data: ClickupTaskUpdateWithoutListInput
+  where?: InputMaybe<ClickupTaskWhereInput>
+}
+
+export type ClickupTaskUpdateToOneWithWhereWithoutLocationHistoryInput = {
+  data: ClickupTaskUpdateWithoutLocationHistoryInput
+  where?: InputMaybe<ClickupTaskWhereInput>
+}
+
+export type ClickupTaskUpdateToOneWithWhereWithoutProjectInput = {
+  data: ClickupTaskUpdateWithoutProjectInput
+  where?: InputMaybe<ClickupTaskWhereInput>
+}
+
 export type ClickupTaskUpdateToOneWithWhereWithoutStatusInput = {
   data: ClickupTaskUpdateWithoutStatusInput
   where?: InputMaybe<ClickupTaskWhereInput>
@@ -6626,6 +8298,11 @@ export type ClickupTaskUpdateToOneWithWhereWithoutStatusInput = {
 
 export type ClickupTaskUpdateToOneWithWhereWithoutTaskDependenciesInput = {
   data: ClickupTaskUpdateWithoutTaskDependenciesInput
+  where?: InputMaybe<ClickupTaskWhereInput>
+}
+
+export type ClickupTaskUpdateToOneWithWhereWithoutTaskPeriodDataInput = {
+  data: ClickupTaskUpdateWithoutTaskPeriodDataInput
   where?: InputMaybe<ClickupTaskWhereInput>
 }
 
@@ -6649,23 +8326,8 @@ export type ClickupTaskUpdateWithWhereUniqueWithoutCreatorInput = {
   where: ClickupTaskWhereUniqueInput
 }
 
-export type ClickupTaskUpdateWithWhereUniqueWithoutFolderLocationInput = {
-  data: ClickupTaskUpdateWithoutFolderLocationInput
-  where: ClickupTaskWhereUniqueInput
-}
-
-export type ClickupTaskUpdateWithWhereUniqueWithoutListLocationInput = {
-  data: ClickupTaskUpdateWithoutListLocationInput
-  where: ClickupTaskWhereUniqueInput
-}
-
 export type ClickupTaskUpdateWithWhereUniqueWithoutPriorityInput = {
   data: ClickupTaskUpdateWithoutPriorityInput
-  where: ClickupTaskWhereUniqueInput
-}
-
-export type ClickupTaskUpdateWithWhereUniqueWithoutProjectLocationInput = {
-  data: ClickupTaskUpdateWithoutProjectLocationInput
   where: ClickupTaskWhereUniqueInput
 }
 
@@ -6684,9 +8346,9 @@ export type ClickupTaskUpdateWithoutAssigneesInput = {
   attachments?: InputMaybe<ClickupTaskAttachmentUpdateManyWithoutTaskNestedInput>
   checklists?: InputMaybe<ClickupTaskChecklistUpdateManyWithoutTaskNestedInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClickupTasksNestedInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutClickupTaskNestedInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupTaskNestedInput>
   creator?: InputMaybe<ClickupUserUpdateOneRequiredWithoutCreatedTasksNestedInput>
-  customFields?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutTaskNestedInput>
   customId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateClosed?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -6695,23 +8357,25 @@ export type ClickupTaskUpdateWithoutAssigneesInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutDependsOnTaskNestedInput>
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dueDates?: InputMaybe<ClickupTaskDueDateUpdateManyWithoutTaskNestedInput>
-  folderLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutFoldersNestedInput>
+  folder?: InputMaybe<ClickupTaskFolderUpdateManyWithoutClickupTaskNestedInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   linkedTasks?: InputMaybe<Scalars['JSON']['input']>
-  listLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutListsNestedInput>
+  list?: InputMaybe<ClickupTaskListUpdateManyWithoutClickupTaskNestedInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryUpdateManyWithoutClickupTaskNestedInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
   orderIndex?: InputMaybe<StringFieldUpdateOperationsInput>
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel?: InputMaybe<StringFieldUpdateOperationsInput>
   points?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
   priority?: InputMaybe<ClickupTaskPriorityUpdateOneWithoutTasksNestedInput>
-  projectLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutProjectsNestedInput>
+  project?: InputMaybe<ClickupTaskProjectUpdateManyWithoutClickupTaskNestedInput>
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataUpdateManyWithoutClickupTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
   textContent?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateUpdateManyWithoutTaskNestedInput>
@@ -6725,9 +8389,9 @@ export type ClickupTaskUpdateWithoutAttachmentsInput = {
   assignees?: InputMaybe<ClickupUserTaskAssigneeUpdateManyWithoutClickupTaskNestedInput>
   checklists?: InputMaybe<ClickupTaskChecklistUpdateManyWithoutTaskNestedInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClickupTasksNestedInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutClickupTaskNestedInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupTaskNestedInput>
   creator?: InputMaybe<ClickupUserUpdateOneRequiredWithoutCreatedTasksNestedInput>
-  customFields?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutTaskNestedInput>
   customId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateClosed?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -6736,23 +8400,25 @@ export type ClickupTaskUpdateWithoutAttachmentsInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutDependsOnTaskNestedInput>
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dueDates?: InputMaybe<ClickupTaskDueDateUpdateManyWithoutTaskNestedInput>
-  folderLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutFoldersNestedInput>
+  folder?: InputMaybe<ClickupTaskFolderUpdateManyWithoutClickupTaskNestedInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   linkedTasks?: InputMaybe<Scalars['JSON']['input']>
-  listLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutListsNestedInput>
+  list?: InputMaybe<ClickupTaskListUpdateManyWithoutClickupTaskNestedInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryUpdateManyWithoutClickupTaskNestedInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
   orderIndex?: InputMaybe<StringFieldUpdateOperationsInput>
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel?: InputMaybe<StringFieldUpdateOperationsInput>
   points?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
   priority?: InputMaybe<ClickupTaskPriorityUpdateOneWithoutTasksNestedInput>
-  projectLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutProjectsNestedInput>
+  project?: InputMaybe<ClickupTaskProjectUpdateManyWithoutClickupTaskNestedInput>
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataUpdateManyWithoutClickupTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
   textContent?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateUpdateManyWithoutTaskNestedInput>
@@ -6766,9 +8432,9 @@ export type ClickupTaskUpdateWithoutChecklistsInput = {
   assignees?: InputMaybe<ClickupUserTaskAssigneeUpdateManyWithoutClickupTaskNestedInput>
   attachments?: InputMaybe<ClickupTaskAttachmentUpdateManyWithoutTaskNestedInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClickupTasksNestedInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutClickupTaskNestedInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupTaskNestedInput>
   creator?: InputMaybe<ClickupUserUpdateOneRequiredWithoutCreatedTasksNestedInput>
-  customFields?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutTaskNestedInput>
   customId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateClosed?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -6777,23 +8443,25 @@ export type ClickupTaskUpdateWithoutChecklistsInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutDependsOnTaskNestedInput>
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dueDates?: InputMaybe<ClickupTaskDueDateUpdateManyWithoutTaskNestedInput>
-  folderLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutFoldersNestedInput>
+  folder?: InputMaybe<ClickupTaskFolderUpdateManyWithoutClickupTaskNestedInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   linkedTasks?: InputMaybe<Scalars['JSON']['input']>
-  listLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutListsNestedInput>
+  list?: InputMaybe<ClickupTaskListUpdateManyWithoutClickupTaskNestedInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryUpdateManyWithoutClickupTaskNestedInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
   orderIndex?: InputMaybe<StringFieldUpdateOperationsInput>
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel?: InputMaybe<StringFieldUpdateOperationsInput>
   points?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
   priority?: InputMaybe<ClickupTaskPriorityUpdateOneWithoutTasksNestedInput>
-  projectLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutProjectsNestedInput>
+  project?: InputMaybe<ClickupTaskProjectUpdateManyWithoutClickupTaskNestedInput>
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataUpdateManyWithoutClickupTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
   textContent?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateUpdateManyWithoutTaskNestedInput>
@@ -6807,9 +8475,9 @@ export type ClickupTaskUpdateWithoutClickupClockifyProjectInput = {
   assignees?: InputMaybe<ClickupUserTaskAssigneeUpdateManyWithoutClickupTaskNestedInput>
   attachments?: InputMaybe<ClickupTaskAttachmentUpdateManyWithoutTaskNestedInput>
   checklists?: InputMaybe<ClickupTaskChecklistUpdateManyWithoutTaskNestedInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutClickupTaskNestedInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupTaskNestedInput>
   creator?: InputMaybe<ClickupUserUpdateOneRequiredWithoutCreatedTasksNestedInput>
-  customFields?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutTaskNestedInput>
   customId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateClosed?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -6818,23 +8486,68 @@ export type ClickupTaskUpdateWithoutClickupClockifyProjectInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutDependsOnTaskNestedInput>
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dueDates?: InputMaybe<ClickupTaskDueDateUpdateManyWithoutTaskNestedInput>
-  folderLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutFoldersNestedInput>
+  folder?: InputMaybe<ClickupTaskFolderUpdateManyWithoutClickupTaskNestedInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   linkedTasks?: InputMaybe<Scalars['JSON']['input']>
-  listLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutListsNestedInput>
+  list?: InputMaybe<ClickupTaskListUpdateManyWithoutClickupTaskNestedInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryUpdateManyWithoutClickupTaskNestedInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
   orderIndex?: InputMaybe<StringFieldUpdateOperationsInput>
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel?: InputMaybe<StringFieldUpdateOperationsInput>
   points?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
   priority?: InputMaybe<ClickupTaskPriorityUpdateOneWithoutTasksNestedInput>
-  projectLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutProjectsNestedInput>
+  project?: InputMaybe<ClickupTaskProjectUpdateManyWithoutClickupTaskNestedInput>
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataUpdateManyWithoutClickupTaskNestedInput>
+  teamId?: InputMaybe<StringFieldUpdateOperationsInput>
+  textContent?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  timeEstimates?: InputMaybe<ClickupTaskTimeEstimateUpdateManyWithoutTaskNestedInput>
+  timeSpent?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
+  url?: InputMaybe<StringFieldUpdateOperationsInput>
+  watchers?: InputMaybe<ClickupUserTaskWatchersUpdateManyWithoutClickupTaskNestedInput>
+}
+
+export type ClickupTaskUpdateWithoutClickupTaskCustomFieldInput = {
+  archived?: InputMaybe<BoolFieldUpdateOperationsInput>
+  assignees?: InputMaybe<ClickupUserTaskAssigneeUpdateManyWithoutClickupTaskNestedInput>
+  attachments?: InputMaybe<ClickupTaskAttachmentUpdateManyWithoutTaskNestedInput>
+  checklists?: InputMaybe<ClickupTaskChecklistUpdateManyWithoutTaskNestedInput>
+  clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClickupTasksNestedInput>
+  clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupTaskNestedInput>
+  creator?: InputMaybe<ClickupUserUpdateOneRequiredWithoutCreatedTasksNestedInput>
+  customId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  dateClosed?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
+  dateDone?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  dateUpdated?: InputMaybe<StringFieldUpdateOperationsInput>
+  dependentTasks?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutDependsOnTaskNestedInput>
+  description?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  dueDates?: InputMaybe<ClickupTaskDueDateUpdateManyWithoutTaskNestedInput>
+  folder?: InputMaybe<ClickupTaskFolderUpdateManyWithoutClickupTaskNestedInput>
+  id?: InputMaybe<StringFieldUpdateOperationsInput>
+  linkedTasks?: InputMaybe<Scalars['JSON']['input']>
+  list?: InputMaybe<ClickupTaskListUpdateManyWithoutClickupTaskNestedInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryUpdateManyWithoutClickupTaskNestedInput>
+  name?: InputMaybe<StringFieldUpdateOperationsInput>
+  orderIndex?: InputMaybe<StringFieldUpdateOperationsInput>
+  parent?: InputMaybe<Scalars['JSON']['input']>
+  permissionLevel?: InputMaybe<StringFieldUpdateOperationsInput>
+  points?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
+  priority?: InputMaybe<ClickupTaskPriorityUpdateOneWithoutTasksNestedInput>
+  project?: InputMaybe<ClickupTaskProjectUpdateManyWithoutClickupTaskNestedInput>
+  sharing?: InputMaybe<Scalars['JSON']['input']>
+  space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
+  startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
+  tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
+  taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataUpdateManyWithoutClickupTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
   textContent?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateUpdateManyWithoutTaskNestedInput>
@@ -6849,8 +8562,8 @@ export type ClickupTaskUpdateWithoutClockifyTimeEntriesInput = {
   attachments?: InputMaybe<ClickupTaskAttachmentUpdateManyWithoutTaskNestedInput>
   checklists?: InputMaybe<ClickupTaskChecklistUpdateManyWithoutTaskNestedInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClickupTasksNestedInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutClickupTaskNestedInput>
   creator?: InputMaybe<ClickupUserUpdateOneRequiredWithoutCreatedTasksNestedInput>
-  customFields?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutTaskNestedInput>
   customId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateClosed?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -6859,23 +8572,25 @@ export type ClickupTaskUpdateWithoutClockifyTimeEntriesInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutDependsOnTaskNestedInput>
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dueDates?: InputMaybe<ClickupTaskDueDateUpdateManyWithoutTaskNestedInput>
-  folderLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutFoldersNestedInput>
+  folder?: InputMaybe<ClickupTaskFolderUpdateManyWithoutClickupTaskNestedInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   linkedTasks?: InputMaybe<Scalars['JSON']['input']>
-  listLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutListsNestedInput>
+  list?: InputMaybe<ClickupTaskListUpdateManyWithoutClickupTaskNestedInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryUpdateManyWithoutClickupTaskNestedInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
   orderIndex?: InputMaybe<StringFieldUpdateOperationsInput>
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel?: InputMaybe<StringFieldUpdateOperationsInput>
   points?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
   priority?: InputMaybe<ClickupTaskPriorityUpdateOneWithoutTasksNestedInput>
-  projectLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutProjectsNestedInput>
+  project?: InputMaybe<ClickupTaskProjectUpdateManyWithoutClickupTaskNestedInput>
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataUpdateManyWithoutClickupTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
   textContent?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateUpdateManyWithoutTaskNestedInput>
@@ -6890,8 +8605,8 @@ export type ClickupTaskUpdateWithoutCreatorInput = {
   attachments?: InputMaybe<ClickupTaskAttachmentUpdateManyWithoutTaskNestedInput>
   checklists?: InputMaybe<ClickupTaskChecklistUpdateManyWithoutTaskNestedInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClickupTasksNestedInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutClickupTaskNestedInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupTaskNestedInput>
-  customFields?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutTaskNestedInput>
   customId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateClosed?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -6900,64 +8615,25 @@ export type ClickupTaskUpdateWithoutCreatorInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutDependsOnTaskNestedInput>
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dueDates?: InputMaybe<ClickupTaskDueDateUpdateManyWithoutTaskNestedInput>
-  folderLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutFoldersNestedInput>
+  folder?: InputMaybe<ClickupTaskFolderUpdateManyWithoutClickupTaskNestedInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   linkedTasks?: InputMaybe<Scalars['JSON']['input']>
-  listLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutListsNestedInput>
+  list?: InputMaybe<ClickupTaskListUpdateManyWithoutClickupTaskNestedInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryUpdateManyWithoutClickupTaskNestedInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
   orderIndex?: InputMaybe<StringFieldUpdateOperationsInput>
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel?: InputMaybe<StringFieldUpdateOperationsInput>
   points?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
   priority?: InputMaybe<ClickupTaskPriorityUpdateOneWithoutTasksNestedInput>
-  projectLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutProjectsNestedInput>
+  project?: InputMaybe<ClickupTaskProjectUpdateManyWithoutClickupTaskNestedInput>
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
-  teamId?: InputMaybe<StringFieldUpdateOperationsInput>
-  textContent?: InputMaybe<NullableStringFieldUpdateOperationsInput>
-  timeEstimates?: InputMaybe<ClickupTaskTimeEstimateUpdateManyWithoutTaskNestedInput>
-  timeSpent?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
-  url?: InputMaybe<StringFieldUpdateOperationsInput>
-  watchers?: InputMaybe<ClickupUserTaskWatchersUpdateManyWithoutClickupTaskNestedInput>
-}
-
-export type ClickupTaskUpdateWithoutCustomFieldsInput = {
-  archived?: InputMaybe<BoolFieldUpdateOperationsInput>
-  assignees?: InputMaybe<ClickupUserTaskAssigneeUpdateManyWithoutClickupTaskNestedInput>
-  attachments?: InputMaybe<ClickupTaskAttachmentUpdateManyWithoutTaskNestedInput>
-  checklists?: InputMaybe<ClickupTaskChecklistUpdateManyWithoutTaskNestedInput>
-  clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClickupTasksNestedInput>
-  clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupTaskNestedInput>
-  creator?: InputMaybe<ClickupUserUpdateOneRequiredWithoutCreatedTasksNestedInput>
-  customId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
-  dateClosed?: InputMaybe<NullableStringFieldUpdateOperationsInput>
-  dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
-  dateDone?: InputMaybe<NullableStringFieldUpdateOperationsInput>
-  dateUpdated?: InputMaybe<StringFieldUpdateOperationsInput>
-  dependentTasks?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutDependsOnTaskNestedInput>
-  description?: InputMaybe<NullableStringFieldUpdateOperationsInput>
-  dueDates?: InputMaybe<ClickupTaskDueDateUpdateManyWithoutTaskNestedInput>
-  folderLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutFoldersNestedInput>
-  id?: InputMaybe<StringFieldUpdateOperationsInput>
-  linkedTasks?: InputMaybe<Scalars['JSON']['input']>
-  listLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutListsNestedInput>
-  name?: InputMaybe<StringFieldUpdateOperationsInput>
-  orderIndex?: InputMaybe<StringFieldUpdateOperationsInput>
-  parent?: InputMaybe<Scalars['JSON']['input']>
-  permissionLevel?: InputMaybe<StringFieldUpdateOperationsInput>
-  points?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
-  priority?: InputMaybe<ClickupTaskPriorityUpdateOneWithoutTasksNestedInput>
-  projectLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutProjectsNestedInput>
-  sharing?: InputMaybe<Scalars['JSON']['input']>
-  space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
-  startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
-  status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
-  tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
-  taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataUpdateManyWithoutClickupTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
   textContent?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateUpdateManyWithoutTaskNestedInput>
@@ -6972,9 +8648,9 @@ export type ClickupTaskUpdateWithoutDependentTasksInput = {
   attachments?: InputMaybe<ClickupTaskAttachmentUpdateManyWithoutTaskNestedInput>
   checklists?: InputMaybe<ClickupTaskChecklistUpdateManyWithoutTaskNestedInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClickupTasksNestedInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutClickupTaskNestedInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupTaskNestedInput>
   creator?: InputMaybe<ClickupUserUpdateOneRequiredWithoutCreatedTasksNestedInput>
-  customFields?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutTaskNestedInput>
   customId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateClosed?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -6982,23 +8658,25 @@ export type ClickupTaskUpdateWithoutDependentTasksInput = {
   dateUpdated?: InputMaybe<StringFieldUpdateOperationsInput>
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dueDates?: InputMaybe<ClickupTaskDueDateUpdateManyWithoutTaskNestedInput>
-  folderLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutFoldersNestedInput>
+  folder?: InputMaybe<ClickupTaskFolderUpdateManyWithoutClickupTaskNestedInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   linkedTasks?: InputMaybe<Scalars['JSON']['input']>
-  listLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutListsNestedInput>
+  list?: InputMaybe<ClickupTaskListUpdateManyWithoutClickupTaskNestedInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryUpdateManyWithoutClickupTaskNestedInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
   orderIndex?: InputMaybe<StringFieldUpdateOperationsInput>
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel?: InputMaybe<StringFieldUpdateOperationsInput>
   points?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
   priority?: InputMaybe<ClickupTaskPriorityUpdateOneWithoutTasksNestedInput>
-  projectLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutProjectsNestedInput>
+  project?: InputMaybe<ClickupTaskProjectUpdateManyWithoutClickupTaskNestedInput>
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataUpdateManyWithoutClickupTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
   textContent?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateUpdateManyWithoutTaskNestedInput>
@@ -7013,9 +8691,9 @@ export type ClickupTaskUpdateWithoutDueDatesInput = {
   attachments?: InputMaybe<ClickupTaskAttachmentUpdateManyWithoutTaskNestedInput>
   checklists?: InputMaybe<ClickupTaskChecklistUpdateManyWithoutTaskNestedInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClickupTasksNestedInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutClickupTaskNestedInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupTaskNestedInput>
   creator?: InputMaybe<ClickupUserUpdateOneRequiredWithoutCreatedTasksNestedInput>
-  customFields?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutTaskNestedInput>
   customId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateClosed?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -7023,23 +8701,25 @@ export type ClickupTaskUpdateWithoutDueDatesInput = {
   dateUpdated?: InputMaybe<StringFieldUpdateOperationsInput>
   dependentTasks?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutDependsOnTaskNestedInput>
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>
-  folderLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutFoldersNestedInput>
+  folder?: InputMaybe<ClickupTaskFolderUpdateManyWithoutClickupTaskNestedInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   linkedTasks?: InputMaybe<Scalars['JSON']['input']>
-  listLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutListsNestedInput>
+  list?: InputMaybe<ClickupTaskListUpdateManyWithoutClickupTaskNestedInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryUpdateManyWithoutClickupTaskNestedInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
   orderIndex?: InputMaybe<StringFieldUpdateOperationsInput>
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel?: InputMaybe<StringFieldUpdateOperationsInput>
   points?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
   priority?: InputMaybe<ClickupTaskPriorityUpdateOneWithoutTasksNestedInput>
-  projectLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutProjectsNestedInput>
+  project?: InputMaybe<ClickupTaskProjectUpdateManyWithoutClickupTaskNestedInput>
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataUpdateManyWithoutClickupTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
   textContent?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateUpdateManyWithoutTaskNestedInput>
@@ -7048,15 +8728,15 @@ export type ClickupTaskUpdateWithoutDueDatesInput = {
   watchers?: InputMaybe<ClickupUserTaskWatchersUpdateManyWithoutClickupTaskNestedInput>
 }
 
-export type ClickupTaskUpdateWithoutFolderLocationInput = {
+export type ClickupTaskUpdateWithoutFolderInput = {
   archived?: InputMaybe<BoolFieldUpdateOperationsInput>
   assignees?: InputMaybe<ClickupUserTaskAssigneeUpdateManyWithoutClickupTaskNestedInput>
   attachments?: InputMaybe<ClickupTaskAttachmentUpdateManyWithoutTaskNestedInput>
   checklists?: InputMaybe<ClickupTaskChecklistUpdateManyWithoutTaskNestedInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClickupTasksNestedInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutClickupTaskNestedInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupTaskNestedInput>
   creator?: InputMaybe<ClickupUserUpdateOneRequiredWithoutCreatedTasksNestedInput>
-  customFields?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutTaskNestedInput>
   customId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateClosed?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -7067,20 +8747,22 @@ export type ClickupTaskUpdateWithoutFolderLocationInput = {
   dueDates?: InputMaybe<ClickupTaskDueDateUpdateManyWithoutTaskNestedInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   linkedTasks?: InputMaybe<Scalars['JSON']['input']>
-  listLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutListsNestedInput>
+  list?: InputMaybe<ClickupTaskListUpdateManyWithoutClickupTaskNestedInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryUpdateManyWithoutClickupTaskNestedInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
   orderIndex?: InputMaybe<StringFieldUpdateOperationsInput>
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel?: InputMaybe<StringFieldUpdateOperationsInput>
   points?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
   priority?: InputMaybe<ClickupTaskPriorityUpdateOneWithoutTasksNestedInput>
-  projectLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutProjectsNestedInput>
+  project?: InputMaybe<ClickupTaskProjectUpdateManyWithoutClickupTaskNestedInput>
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataUpdateManyWithoutClickupTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
   textContent?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateUpdateManyWithoutTaskNestedInput>
@@ -7089,15 +8771,15 @@ export type ClickupTaskUpdateWithoutFolderLocationInput = {
   watchers?: InputMaybe<ClickupUserTaskWatchersUpdateManyWithoutClickupTaskNestedInput>
 }
 
-export type ClickupTaskUpdateWithoutListLocationInput = {
+export type ClickupTaskUpdateWithoutListInput = {
   archived?: InputMaybe<BoolFieldUpdateOperationsInput>
   assignees?: InputMaybe<ClickupUserTaskAssigneeUpdateManyWithoutClickupTaskNestedInput>
   attachments?: InputMaybe<ClickupTaskAttachmentUpdateManyWithoutTaskNestedInput>
   checklists?: InputMaybe<ClickupTaskChecklistUpdateManyWithoutTaskNestedInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClickupTasksNestedInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutClickupTaskNestedInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupTaskNestedInput>
   creator?: InputMaybe<ClickupUserUpdateOneRequiredWithoutCreatedTasksNestedInput>
-  customFields?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutTaskNestedInput>
   customId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateClosed?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -7106,22 +8788,67 @@ export type ClickupTaskUpdateWithoutListLocationInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutDependsOnTaskNestedInput>
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dueDates?: InputMaybe<ClickupTaskDueDateUpdateManyWithoutTaskNestedInput>
-  folderLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutFoldersNestedInput>
+  folder?: InputMaybe<ClickupTaskFolderUpdateManyWithoutClickupTaskNestedInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   linkedTasks?: InputMaybe<Scalars['JSON']['input']>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryUpdateManyWithoutClickupTaskNestedInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
   orderIndex?: InputMaybe<StringFieldUpdateOperationsInput>
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel?: InputMaybe<StringFieldUpdateOperationsInput>
   points?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
   priority?: InputMaybe<ClickupTaskPriorityUpdateOneWithoutTasksNestedInput>
-  projectLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutProjectsNestedInput>
+  project?: InputMaybe<ClickupTaskProjectUpdateManyWithoutClickupTaskNestedInput>
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataUpdateManyWithoutClickupTaskNestedInput>
+  teamId?: InputMaybe<StringFieldUpdateOperationsInput>
+  textContent?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  timeEstimates?: InputMaybe<ClickupTaskTimeEstimateUpdateManyWithoutTaskNestedInput>
+  timeSpent?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
+  url?: InputMaybe<StringFieldUpdateOperationsInput>
+  watchers?: InputMaybe<ClickupUserTaskWatchersUpdateManyWithoutClickupTaskNestedInput>
+}
+
+export type ClickupTaskUpdateWithoutLocationHistoryInput = {
+  archived?: InputMaybe<BoolFieldUpdateOperationsInput>
+  assignees?: InputMaybe<ClickupUserTaskAssigneeUpdateManyWithoutClickupTaskNestedInput>
+  attachments?: InputMaybe<ClickupTaskAttachmentUpdateManyWithoutTaskNestedInput>
+  checklists?: InputMaybe<ClickupTaskChecklistUpdateManyWithoutTaskNestedInput>
+  clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClickupTasksNestedInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutClickupTaskNestedInput>
+  clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupTaskNestedInput>
+  creator?: InputMaybe<ClickupUserUpdateOneRequiredWithoutCreatedTasksNestedInput>
+  customId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  dateClosed?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
+  dateDone?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  dateUpdated?: InputMaybe<StringFieldUpdateOperationsInput>
+  dependentTasks?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutDependsOnTaskNestedInput>
+  description?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  dueDates?: InputMaybe<ClickupTaskDueDateUpdateManyWithoutTaskNestedInput>
+  folder?: InputMaybe<ClickupTaskFolderUpdateManyWithoutClickupTaskNestedInput>
+  id?: InputMaybe<StringFieldUpdateOperationsInput>
+  linkedTasks?: InputMaybe<Scalars['JSON']['input']>
+  list?: InputMaybe<ClickupTaskListUpdateManyWithoutClickupTaskNestedInput>
+  name?: InputMaybe<StringFieldUpdateOperationsInput>
+  orderIndex?: InputMaybe<StringFieldUpdateOperationsInput>
+  parent?: InputMaybe<Scalars['JSON']['input']>
+  permissionLevel?: InputMaybe<StringFieldUpdateOperationsInput>
+  points?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
+  priority?: InputMaybe<ClickupTaskPriorityUpdateOneWithoutTasksNestedInput>
+  project?: InputMaybe<ClickupTaskProjectUpdateManyWithoutClickupTaskNestedInput>
+  sharing?: InputMaybe<Scalars['JSON']['input']>
+  space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
+  startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
+  tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
+  taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataUpdateManyWithoutClickupTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
   textContent?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateUpdateManyWithoutTaskNestedInput>
@@ -7136,9 +8863,9 @@ export type ClickupTaskUpdateWithoutPriorityInput = {
   attachments?: InputMaybe<ClickupTaskAttachmentUpdateManyWithoutTaskNestedInput>
   checklists?: InputMaybe<ClickupTaskChecklistUpdateManyWithoutTaskNestedInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClickupTasksNestedInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutClickupTaskNestedInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupTaskNestedInput>
   creator?: InputMaybe<ClickupUserUpdateOneRequiredWithoutCreatedTasksNestedInput>
-  customFields?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutTaskNestedInput>
   customId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateClosed?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -7147,22 +8874,24 @@ export type ClickupTaskUpdateWithoutPriorityInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutDependsOnTaskNestedInput>
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dueDates?: InputMaybe<ClickupTaskDueDateUpdateManyWithoutTaskNestedInput>
-  folderLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutFoldersNestedInput>
+  folder?: InputMaybe<ClickupTaskFolderUpdateManyWithoutClickupTaskNestedInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   linkedTasks?: InputMaybe<Scalars['JSON']['input']>
-  listLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutListsNestedInput>
+  list?: InputMaybe<ClickupTaskListUpdateManyWithoutClickupTaskNestedInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryUpdateManyWithoutClickupTaskNestedInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
   orderIndex?: InputMaybe<StringFieldUpdateOperationsInput>
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel?: InputMaybe<StringFieldUpdateOperationsInput>
   points?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
-  projectLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutProjectsNestedInput>
+  project?: InputMaybe<ClickupTaskProjectUpdateManyWithoutClickupTaskNestedInput>
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataUpdateManyWithoutClickupTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
   textContent?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateUpdateManyWithoutTaskNestedInput>
@@ -7171,15 +8900,15 @@ export type ClickupTaskUpdateWithoutPriorityInput = {
   watchers?: InputMaybe<ClickupUserTaskWatchersUpdateManyWithoutClickupTaskNestedInput>
 }
 
-export type ClickupTaskUpdateWithoutProjectLocationInput = {
+export type ClickupTaskUpdateWithoutProjectInput = {
   archived?: InputMaybe<BoolFieldUpdateOperationsInput>
   assignees?: InputMaybe<ClickupUserTaskAssigneeUpdateManyWithoutClickupTaskNestedInput>
   attachments?: InputMaybe<ClickupTaskAttachmentUpdateManyWithoutTaskNestedInput>
   checklists?: InputMaybe<ClickupTaskChecklistUpdateManyWithoutTaskNestedInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClickupTasksNestedInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutClickupTaskNestedInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupTaskNestedInput>
   creator?: InputMaybe<ClickupUserUpdateOneRequiredWithoutCreatedTasksNestedInput>
-  customFields?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutTaskNestedInput>
   customId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateClosed?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -7188,10 +8917,11 @@ export type ClickupTaskUpdateWithoutProjectLocationInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutDependsOnTaskNestedInput>
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dueDates?: InputMaybe<ClickupTaskDueDateUpdateManyWithoutTaskNestedInput>
-  folderLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutFoldersNestedInput>
+  folder?: InputMaybe<ClickupTaskFolderUpdateManyWithoutClickupTaskNestedInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   linkedTasks?: InputMaybe<Scalars['JSON']['input']>
-  listLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutListsNestedInput>
+  list?: InputMaybe<ClickupTaskListUpdateManyWithoutClickupTaskNestedInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryUpdateManyWithoutClickupTaskNestedInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
   orderIndex?: InputMaybe<StringFieldUpdateOperationsInput>
   parent?: InputMaybe<Scalars['JSON']['input']>
@@ -7204,6 +8934,7 @@ export type ClickupTaskUpdateWithoutProjectLocationInput = {
   status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataUpdateManyWithoutClickupTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
   textContent?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateUpdateManyWithoutTaskNestedInput>
@@ -7218,9 +8949,9 @@ export type ClickupTaskUpdateWithoutSpaceInput = {
   attachments?: InputMaybe<ClickupTaskAttachmentUpdateManyWithoutTaskNestedInput>
   checklists?: InputMaybe<ClickupTaskChecklistUpdateManyWithoutTaskNestedInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClickupTasksNestedInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutClickupTaskNestedInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupTaskNestedInput>
   creator?: InputMaybe<ClickupUserUpdateOneRequiredWithoutCreatedTasksNestedInput>
-  customFields?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutTaskNestedInput>
   customId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateClosed?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -7229,22 +8960,24 @@ export type ClickupTaskUpdateWithoutSpaceInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutDependsOnTaskNestedInput>
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dueDates?: InputMaybe<ClickupTaskDueDateUpdateManyWithoutTaskNestedInput>
-  folderLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutFoldersNestedInput>
+  folder?: InputMaybe<ClickupTaskFolderUpdateManyWithoutClickupTaskNestedInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   linkedTasks?: InputMaybe<Scalars['JSON']['input']>
-  listLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutListsNestedInput>
+  list?: InputMaybe<ClickupTaskListUpdateManyWithoutClickupTaskNestedInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryUpdateManyWithoutClickupTaskNestedInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
   orderIndex?: InputMaybe<StringFieldUpdateOperationsInput>
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel?: InputMaybe<StringFieldUpdateOperationsInput>
   points?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
   priority?: InputMaybe<ClickupTaskPriorityUpdateOneWithoutTasksNestedInput>
-  projectLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutProjectsNestedInput>
+  project?: InputMaybe<ClickupTaskProjectUpdateManyWithoutClickupTaskNestedInput>
   sharing?: InputMaybe<Scalars['JSON']['input']>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataUpdateManyWithoutClickupTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
   textContent?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateUpdateManyWithoutTaskNestedInput>
@@ -7259,9 +8992,9 @@ export type ClickupTaskUpdateWithoutStatusInput = {
   attachments?: InputMaybe<ClickupTaskAttachmentUpdateManyWithoutTaskNestedInput>
   checklists?: InputMaybe<ClickupTaskChecklistUpdateManyWithoutTaskNestedInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClickupTasksNestedInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutClickupTaskNestedInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupTaskNestedInput>
   creator?: InputMaybe<ClickupUserUpdateOneRequiredWithoutCreatedTasksNestedInput>
-  customFields?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutTaskNestedInput>
   customId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateClosed?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -7270,22 +9003,24 @@ export type ClickupTaskUpdateWithoutStatusInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutDependsOnTaskNestedInput>
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dueDates?: InputMaybe<ClickupTaskDueDateUpdateManyWithoutTaskNestedInput>
-  folderLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutFoldersNestedInput>
+  folder?: InputMaybe<ClickupTaskFolderUpdateManyWithoutClickupTaskNestedInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   linkedTasks?: InputMaybe<Scalars['JSON']['input']>
-  listLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutListsNestedInput>
+  list?: InputMaybe<ClickupTaskListUpdateManyWithoutClickupTaskNestedInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryUpdateManyWithoutClickupTaskNestedInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
   orderIndex?: InputMaybe<StringFieldUpdateOperationsInput>
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel?: InputMaybe<StringFieldUpdateOperationsInput>
   points?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
   priority?: InputMaybe<ClickupTaskPriorityUpdateOneWithoutTasksNestedInput>
-  projectLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutProjectsNestedInput>
+  project?: InputMaybe<ClickupTaskProjectUpdateManyWithoutClickupTaskNestedInput>
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataUpdateManyWithoutClickupTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
   textContent?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateUpdateManyWithoutTaskNestedInput>
@@ -7300,9 +9035,9 @@ export type ClickupTaskUpdateWithoutTagsInput = {
   attachments?: InputMaybe<ClickupTaskAttachmentUpdateManyWithoutTaskNestedInput>
   checklists?: InputMaybe<ClickupTaskChecklistUpdateManyWithoutTaskNestedInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClickupTasksNestedInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutClickupTaskNestedInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupTaskNestedInput>
   creator?: InputMaybe<ClickupUserUpdateOneRequiredWithoutCreatedTasksNestedInput>
-  customFields?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutTaskNestedInput>
   customId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateClosed?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -7311,22 +9046,24 @@ export type ClickupTaskUpdateWithoutTagsInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutDependsOnTaskNestedInput>
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dueDates?: InputMaybe<ClickupTaskDueDateUpdateManyWithoutTaskNestedInput>
-  folderLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutFoldersNestedInput>
+  folder?: InputMaybe<ClickupTaskFolderUpdateManyWithoutClickupTaskNestedInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   linkedTasks?: InputMaybe<Scalars['JSON']['input']>
-  listLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutListsNestedInput>
+  list?: InputMaybe<ClickupTaskListUpdateManyWithoutClickupTaskNestedInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryUpdateManyWithoutClickupTaskNestedInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
   orderIndex?: InputMaybe<StringFieldUpdateOperationsInput>
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel?: InputMaybe<StringFieldUpdateOperationsInput>
   points?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
   priority?: InputMaybe<ClickupTaskPriorityUpdateOneWithoutTasksNestedInput>
-  projectLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutProjectsNestedInput>
+  project?: InputMaybe<ClickupTaskProjectUpdateManyWithoutClickupTaskNestedInput>
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataUpdateManyWithoutClickupTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
   textContent?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateUpdateManyWithoutTaskNestedInput>
@@ -7341,9 +9078,9 @@ export type ClickupTaskUpdateWithoutTaskDependenciesInput = {
   attachments?: InputMaybe<ClickupTaskAttachmentUpdateManyWithoutTaskNestedInput>
   checklists?: InputMaybe<ClickupTaskChecklistUpdateManyWithoutTaskNestedInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClickupTasksNestedInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutClickupTaskNestedInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupTaskNestedInput>
   creator?: InputMaybe<ClickupUserUpdateOneRequiredWithoutCreatedTasksNestedInput>
-  customFields?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutTaskNestedInput>
   customId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateClosed?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -7352,22 +9089,67 @@ export type ClickupTaskUpdateWithoutTaskDependenciesInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutDependsOnTaskNestedInput>
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dueDates?: InputMaybe<ClickupTaskDueDateUpdateManyWithoutTaskNestedInput>
-  folderLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutFoldersNestedInput>
+  folder?: InputMaybe<ClickupTaskFolderUpdateManyWithoutClickupTaskNestedInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   linkedTasks?: InputMaybe<Scalars['JSON']['input']>
-  listLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutListsNestedInput>
+  list?: InputMaybe<ClickupTaskListUpdateManyWithoutClickupTaskNestedInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryUpdateManyWithoutClickupTaskNestedInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
   orderIndex?: InputMaybe<StringFieldUpdateOperationsInput>
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel?: InputMaybe<StringFieldUpdateOperationsInput>
   points?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
   priority?: InputMaybe<ClickupTaskPriorityUpdateOneWithoutTasksNestedInput>
-  projectLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutProjectsNestedInput>
+  project?: InputMaybe<ClickupTaskProjectUpdateManyWithoutClickupTaskNestedInput>
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataUpdateManyWithoutClickupTaskNestedInput>
+  teamId?: InputMaybe<StringFieldUpdateOperationsInput>
+  textContent?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  timeEstimates?: InputMaybe<ClickupTaskTimeEstimateUpdateManyWithoutTaskNestedInput>
+  timeSpent?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
+  url?: InputMaybe<StringFieldUpdateOperationsInput>
+  watchers?: InputMaybe<ClickupUserTaskWatchersUpdateManyWithoutClickupTaskNestedInput>
+}
+
+export type ClickupTaskUpdateWithoutTaskPeriodDataInput = {
+  archived?: InputMaybe<BoolFieldUpdateOperationsInput>
+  assignees?: InputMaybe<ClickupUserTaskAssigneeUpdateManyWithoutClickupTaskNestedInput>
+  attachments?: InputMaybe<ClickupTaskAttachmentUpdateManyWithoutTaskNestedInput>
+  checklists?: InputMaybe<ClickupTaskChecklistUpdateManyWithoutTaskNestedInput>
+  clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClickupTasksNestedInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutClickupTaskNestedInput>
+  clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupTaskNestedInput>
+  creator?: InputMaybe<ClickupUserUpdateOneRequiredWithoutCreatedTasksNestedInput>
+  customId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  dateClosed?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
+  dateDone?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  dateUpdated?: InputMaybe<StringFieldUpdateOperationsInput>
+  dependentTasks?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutDependsOnTaskNestedInput>
+  description?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  dueDates?: InputMaybe<ClickupTaskDueDateUpdateManyWithoutTaskNestedInput>
+  folder?: InputMaybe<ClickupTaskFolderUpdateManyWithoutClickupTaskNestedInput>
+  id?: InputMaybe<StringFieldUpdateOperationsInput>
+  linkedTasks?: InputMaybe<Scalars['JSON']['input']>
+  list?: InputMaybe<ClickupTaskListUpdateManyWithoutClickupTaskNestedInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryUpdateManyWithoutClickupTaskNestedInput>
+  name?: InputMaybe<StringFieldUpdateOperationsInput>
+  orderIndex?: InputMaybe<StringFieldUpdateOperationsInput>
+  parent?: InputMaybe<Scalars['JSON']['input']>
+  permissionLevel?: InputMaybe<StringFieldUpdateOperationsInput>
+  points?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
+  priority?: InputMaybe<ClickupTaskPriorityUpdateOneWithoutTasksNestedInput>
+  project?: InputMaybe<ClickupTaskProjectUpdateManyWithoutClickupTaskNestedInput>
+  sharing?: InputMaybe<Scalars['JSON']['input']>
+  space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
+  startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
+  tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
+  taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
   textContent?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateUpdateManyWithoutTaskNestedInput>
@@ -7382,9 +9164,9 @@ export type ClickupTaskUpdateWithoutTimeEstimatesInput = {
   attachments?: InputMaybe<ClickupTaskAttachmentUpdateManyWithoutTaskNestedInput>
   checklists?: InputMaybe<ClickupTaskChecklistUpdateManyWithoutTaskNestedInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClickupTasksNestedInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutClickupTaskNestedInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupTaskNestedInput>
   creator?: InputMaybe<ClickupUserUpdateOneRequiredWithoutCreatedTasksNestedInput>
-  customFields?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutTaskNestedInput>
   customId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateClosed?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -7393,23 +9175,25 @@ export type ClickupTaskUpdateWithoutTimeEstimatesInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutDependsOnTaskNestedInput>
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dueDates?: InputMaybe<ClickupTaskDueDateUpdateManyWithoutTaskNestedInput>
-  folderLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutFoldersNestedInput>
+  folder?: InputMaybe<ClickupTaskFolderUpdateManyWithoutClickupTaskNestedInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   linkedTasks?: InputMaybe<Scalars['JSON']['input']>
-  listLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutListsNestedInput>
+  list?: InputMaybe<ClickupTaskListUpdateManyWithoutClickupTaskNestedInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryUpdateManyWithoutClickupTaskNestedInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
   orderIndex?: InputMaybe<StringFieldUpdateOperationsInput>
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel?: InputMaybe<StringFieldUpdateOperationsInput>
   points?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
   priority?: InputMaybe<ClickupTaskPriorityUpdateOneWithoutTasksNestedInput>
-  projectLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutProjectsNestedInput>
+  project?: InputMaybe<ClickupTaskProjectUpdateManyWithoutClickupTaskNestedInput>
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataUpdateManyWithoutClickupTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
   textContent?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   timeSpent?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
@@ -7423,9 +9207,9 @@ export type ClickupTaskUpdateWithoutWatchersInput = {
   attachments?: InputMaybe<ClickupTaskAttachmentUpdateManyWithoutTaskNestedInput>
   checklists?: InputMaybe<ClickupTaskChecklistUpdateManyWithoutTaskNestedInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClickupTasksNestedInput>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutClickupTaskNestedInput>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupTaskNestedInput>
   creator?: InputMaybe<ClickupUserUpdateOneRequiredWithoutCreatedTasksNestedInput>
-  customFields?: InputMaybe<ClickupTaskCustomFieldUpdateManyWithoutTaskNestedInput>
   customId?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateClosed?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dateCreated?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -7434,23 +9218,25 @@ export type ClickupTaskUpdateWithoutWatchersInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutDependsOnTaskNestedInput>
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   dueDates?: InputMaybe<ClickupTaskDueDateUpdateManyWithoutTaskNestedInput>
-  folderLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutFoldersNestedInput>
+  folder?: InputMaybe<ClickupTaskFolderUpdateManyWithoutClickupTaskNestedInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   linkedTasks?: InputMaybe<Scalars['JSON']['input']>
-  listLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutListsNestedInput>
+  list?: InputMaybe<ClickupTaskListUpdateManyWithoutClickupTaskNestedInput>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryUpdateManyWithoutClickupTaskNestedInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
   orderIndex?: InputMaybe<StringFieldUpdateOperationsInput>
   parent?: InputMaybe<Scalars['JSON']['input']>
   permissionLevel?: InputMaybe<StringFieldUpdateOperationsInput>
   points?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
   priority?: InputMaybe<ClickupTaskPriorityUpdateOneWithoutTasksNestedInput>
-  projectLocation?: InputMaybe<ClickupTaskLocationUpdateOneRequiredWithoutProjectsNestedInput>
+  project?: InputMaybe<ClickupTaskProjectUpdateManyWithoutClickupTaskNestedInput>
   sharing?: InputMaybe<Scalars['JSON']['input']>
   space?: InputMaybe<ClickupTaskSpaceUpdateOneRequiredWithoutTasksNestedInput>
   startDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   status?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutTaskNestedInput>
   tags?: InputMaybe<ClickupTaskTagUpdateManyWithoutTasksNestedInput>
   taskDependencies?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutTaskNestedInput>
+  taskPeriodData?: InputMaybe<TaskPeriodDataUpdateManyWithoutClickupTaskNestedInput>
   teamId?: InputMaybe<StringFieldUpdateOperationsInput>
   textContent?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateUpdateManyWithoutTaskNestedInput>
@@ -7470,27 +9256,9 @@ export type ClickupTaskUpsertWithWhereUniqueWithoutCreatorInput = {
   where: ClickupTaskWhereUniqueInput
 }
 
-export type ClickupTaskUpsertWithWhereUniqueWithoutFolderLocationInput = {
-  create: ClickupTaskCreateWithoutFolderLocationInput
-  update: ClickupTaskUpdateWithoutFolderLocationInput
-  where: ClickupTaskWhereUniqueInput
-}
-
-export type ClickupTaskUpsertWithWhereUniqueWithoutListLocationInput = {
-  create: ClickupTaskCreateWithoutListLocationInput
-  update: ClickupTaskUpdateWithoutListLocationInput
-  where: ClickupTaskWhereUniqueInput
-}
-
 export type ClickupTaskUpsertWithWhereUniqueWithoutPriorityInput = {
   create: ClickupTaskCreateWithoutPriorityInput
   update: ClickupTaskUpdateWithoutPriorityInput
-  where: ClickupTaskWhereUniqueInput
-}
-
-export type ClickupTaskUpsertWithWhereUniqueWithoutProjectLocationInput = {
-  create: ClickupTaskCreateWithoutProjectLocationInput
-  update: ClickupTaskUpdateWithoutProjectLocationInput
   where: ClickupTaskWhereUniqueInput
 }
 
@@ -7524,15 +9292,15 @@ export type ClickupTaskUpsertWithoutChecklistsInput = {
   where?: InputMaybe<ClickupTaskWhereInput>
 }
 
-export type ClickupTaskUpsertWithoutClockifyTimeEntriesInput = {
-  create: ClickupTaskCreateWithoutClockifyTimeEntriesInput
-  update: ClickupTaskUpdateWithoutClockifyTimeEntriesInput
+export type ClickupTaskUpsertWithoutClickupTaskCustomFieldInput = {
+  create: ClickupTaskCreateWithoutClickupTaskCustomFieldInput
+  update: ClickupTaskUpdateWithoutClickupTaskCustomFieldInput
   where?: InputMaybe<ClickupTaskWhereInput>
 }
 
-export type ClickupTaskUpsertWithoutCustomFieldsInput = {
-  create: ClickupTaskCreateWithoutCustomFieldsInput
-  update: ClickupTaskUpdateWithoutCustomFieldsInput
+export type ClickupTaskUpsertWithoutClockifyTimeEntriesInput = {
+  create: ClickupTaskCreateWithoutClockifyTimeEntriesInput
+  update: ClickupTaskUpdateWithoutClockifyTimeEntriesInput
   where?: InputMaybe<ClickupTaskWhereInput>
 }
 
@@ -7548,6 +9316,30 @@ export type ClickupTaskUpsertWithoutDueDatesInput = {
   where?: InputMaybe<ClickupTaskWhereInput>
 }
 
+export type ClickupTaskUpsertWithoutFolderInput = {
+  create: ClickupTaskCreateWithoutFolderInput
+  update: ClickupTaskUpdateWithoutFolderInput
+  where?: InputMaybe<ClickupTaskWhereInput>
+}
+
+export type ClickupTaskUpsertWithoutListInput = {
+  create: ClickupTaskCreateWithoutListInput
+  update: ClickupTaskUpdateWithoutListInput
+  where?: InputMaybe<ClickupTaskWhereInput>
+}
+
+export type ClickupTaskUpsertWithoutLocationHistoryInput = {
+  create: ClickupTaskCreateWithoutLocationHistoryInput
+  update: ClickupTaskUpdateWithoutLocationHistoryInput
+  where?: InputMaybe<ClickupTaskWhereInput>
+}
+
+export type ClickupTaskUpsertWithoutProjectInput = {
+  create: ClickupTaskCreateWithoutProjectInput
+  update: ClickupTaskUpdateWithoutProjectInput
+  where?: InputMaybe<ClickupTaskWhereInput>
+}
+
 export type ClickupTaskUpsertWithoutStatusInput = {
   create: ClickupTaskCreateWithoutStatusInput
   update: ClickupTaskUpdateWithoutStatusInput
@@ -7557,6 +9349,12 @@ export type ClickupTaskUpsertWithoutStatusInput = {
 export type ClickupTaskUpsertWithoutTaskDependenciesInput = {
   create: ClickupTaskCreateWithoutTaskDependenciesInput
   update: ClickupTaskUpdateWithoutTaskDependenciesInput
+  where?: InputMaybe<ClickupTaskWhereInput>
+}
+
+export type ClickupTaskUpsertWithoutTaskPeriodDataInput = {
+  create: ClickupTaskCreateWithoutTaskPeriodDataInput
+  update: ClickupTaskUpdateWithoutTaskPeriodDataInput
   where?: InputMaybe<ClickupTaskWhereInput>
 }
 
@@ -7582,10 +9380,10 @@ export type ClickupTaskWhereInput = {
   checklists?: InputMaybe<ClickupTaskChecklistListRelationFilter>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectNullableRelationFilter>
   clickupClockifyProjectId?: InputMaybe<IntNullableFilter>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldListRelationFilter>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryListRelationFilter>
   creator?: InputMaybe<ClickupUserRelationFilter>
   creatorId?: InputMaybe<IntFilter>
-  customFields?: InputMaybe<ClickupTaskCustomFieldListRelationFilter>
   customId?: InputMaybe<StringNullableFilter>
   dateClosed?: InputMaybe<StringNullableFilter>
   dateCreated?: InputMaybe<StringFilter>
@@ -7594,12 +9392,11 @@ export type ClickupTaskWhereInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyListRelationFilter>
   description?: InputMaybe<StringNullableFilter>
   dueDates?: InputMaybe<ClickupTaskDueDateListRelationFilter>
-  folderLocation?: InputMaybe<ClickupTaskLocationRelationFilter>
-  folderLocationId?: InputMaybe<StringFilter>
+  folder?: InputMaybe<ClickupTaskFolderListRelationFilter>
   id?: InputMaybe<StringFilter>
   linkedTasks?: InputMaybe<JsonFilter>
-  listLocation?: InputMaybe<ClickupTaskLocationRelationFilter>
-  listLocationId?: InputMaybe<StringFilter>
+  list?: InputMaybe<ClickupTaskListListRelationFilter>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryListRelationFilter>
   name?: InputMaybe<StringFilter>
   orderIndex?: InputMaybe<StringFilter>
   parent?: InputMaybe<JsonNullableFilter>
@@ -7607,8 +9404,7 @@ export type ClickupTaskWhereInput = {
   points?: InputMaybe<BigIntNullableFilter>
   priority?: InputMaybe<ClickupTaskPriorityNullableRelationFilter>
   priorityId?: InputMaybe<StringNullableFilter>
-  projectLocation?: InputMaybe<ClickupTaskLocationRelationFilter>
-  projectLocationId?: InputMaybe<StringFilter>
+  project?: InputMaybe<ClickupTaskProjectListRelationFilter>
   sharing?: InputMaybe<JsonFilter>
   space?: InputMaybe<ClickupTaskSpaceRelationFilter>
   spaceId?: InputMaybe<StringFilter>
@@ -7616,6 +9412,7 @@ export type ClickupTaskWhereInput = {
   status?: InputMaybe<ClickupTaskStatusOnTaskListRelationFilter>
   tags?: InputMaybe<ClickupTaskTagListRelationFilter>
   taskDependencies?: InputMaybe<ClickupTaskDependencyListRelationFilter>
+  taskPeriodData?: InputMaybe<TaskPeriodDataListRelationFilter>
   teamId?: InputMaybe<StringFilter>
   textContent?: InputMaybe<StringNullableFilter>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateListRelationFilter>
@@ -7634,10 +9431,10 @@ export type ClickupTaskWhereUniqueInput = {
   checklists?: InputMaybe<ClickupTaskChecklistListRelationFilter>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectNullableRelationFilter>
   clickupClockifyProjectId?: InputMaybe<Scalars['Int']['input']>
+  clickupTaskCustomField?: InputMaybe<ClickupTaskCustomFieldListRelationFilter>
   clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryListRelationFilter>
   creator?: InputMaybe<ClickupUserRelationFilter>
   creatorId?: InputMaybe<IntFilter>
-  customFields?: InputMaybe<ClickupTaskCustomFieldListRelationFilter>
   customId?: InputMaybe<StringNullableFilter>
   dateClosed?: InputMaybe<StringNullableFilter>
   dateCreated?: InputMaybe<StringFilter>
@@ -7646,12 +9443,11 @@ export type ClickupTaskWhereUniqueInput = {
   dependentTasks?: InputMaybe<ClickupTaskDependencyListRelationFilter>
   description?: InputMaybe<StringNullableFilter>
   dueDates?: InputMaybe<ClickupTaskDueDateListRelationFilter>
-  folderLocation?: InputMaybe<ClickupTaskLocationRelationFilter>
-  folderLocationId?: InputMaybe<StringFilter>
+  folder?: InputMaybe<ClickupTaskFolderListRelationFilter>
   id?: InputMaybe<Scalars['String']['input']>
   linkedTasks?: InputMaybe<JsonFilter>
-  listLocation?: InputMaybe<ClickupTaskLocationRelationFilter>
-  listLocationId?: InputMaybe<StringFilter>
+  list?: InputMaybe<ClickupTaskListListRelationFilter>
+  locationHistory?: InputMaybe<ClickupTaskLocationHistoryListRelationFilter>
   name?: InputMaybe<StringFilter>
   orderIndex?: InputMaybe<StringFilter>
   parent?: InputMaybe<JsonNullableFilter>
@@ -7659,8 +9455,7 @@ export type ClickupTaskWhereUniqueInput = {
   points?: InputMaybe<BigIntNullableFilter>
   priority?: InputMaybe<ClickupTaskPriorityNullableRelationFilter>
   priorityId?: InputMaybe<StringNullableFilter>
-  projectLocation?: InputMaybe<ClickupTaskLocationRelationFilter>
-  projectLocationId?: InputMaybe<StringFilter>
+  project?: InputMaybe<ClickupTaskProjectListRelationFilter>
   sharing?: InputMaybe<JsonFilter>
   space?: InputMaybe<ClickupTaskSpaceRelationFilter>
   spaceId?: InputMaybe<StringFilter>
@@ -7668,6 +9463,7 @@ export type ClickupTaskWhereUniqueInput = {
   status?: InputMaybe<ClickupTaskStatusOnTaskListRelationFilter>
   tags?: InputMaybe<ClickupTaskTagListRelationFilter>
   taskDependencies?: InputMaybe<ClickupTaskDependencyListRelationFilter>
+  taskPeriodData?: InputMaybe<TaskPeriodDataListRelationFilter>
   teamId?: InputMaybe<StringFilter>
   textContent?: InputMaybe<StringNullableFilter>
   timeEstimates?: InputMaybe<ClickupTaskTimeEstimateListRelationFilter>
@@ -8180,16 +9976,14 @@ export type ClickupUserTaskAssignee = {
   clickupUser: ClickupUser
   clickupUserId: Scalars['Int']['output']
   createdAt: Scalars['DateTime']['output']
+  id: Scalars['Int']['output']
+  isAssigned: Scalars['Boolean']['output']
 }
 
 export type ClickupUserTaskAssigneeAvgAggregate = {
   __typename?: 'ClickupUserTaskAssigneeAvgAggregate'
   clickupUserId?: Maybe<Scalars['Float']['output']>
-}
-
-export type ClickupUserTaskAssigneeClickupUserIdClickupTaskIdCompoundUniqueInput = {
-  clickupTaskId: Scalars['String']['input']
-  clickupUserId: Scalars['Int']['input']
+  id?: Maybe<Scalars['Float']['output']>
 }
 
 export type ClickupUserTaskAssigneeCountAggregate = {
@@ -8198,17 +9992,22 @@ export type ClickupUserTaskAssigneeCountAggregate = {
   clickupTaskId: Scalars['Int']['output']
   clickupUserId: Scalars['Int']['output']
   createdAt: Scalars['Int']['output']
+  id: Scalars['Int']['output']
+  isAssigned: Scalars['Int']['output']
 }
 
 export type ClickupUserTaskAssigneeCreateInput = {
   clickupTask: ClickupTaskCreateNestedOneWithoutAssigneesInput
   clickupUser: ClickupUserCreateNestedOneWithoutAssignedTasksInput
   createdAt?: InputMaybe<Scalars['DateTime']['input']>
+  isAssigned?: InputMaybe<Scalars['Boolean']['input']>
 }
 
 export type ClickupUserTaskAssigneeCreateManyClickupTaskInput = {
   clickupUserId: Scalars['Int']['input']
   createdAt?: InputMaybe<Scalars['DateTime']['input']>
+  id?: InputMaybe<Scalars['Int']['input']>
+  isAssigned?: InputMaybe<Scalars['Boolean']['input']>
 }
 
 export type ClickupUserTaskAssigneeCreateManyClickupTaskInputEnvelope = {
@@ -8219,6 +10018,8 @@ export type ClickupUserTaskAssigneeCreateManyClickupTaskInputEnvelope = {
 export type ClickupUserTaskAssigneeCreateManyClickupUserInput = {
   clickupTaskId: Scalars['String']['input']
   createdAt?: InputMaybe<Scalars['DateTime']['input']>
+  id?: InputMaybe<Scalars['Int']['input']>
+  isAssigned?: InputMaybe<Scalars['Boolean']['input']>
 }
 
 export type ClickupUserTaskAssigneeCreateManyClickupUserInputEnvelope = {
@@ -8230,6 +10031,8 @@ export type ClickupUserTaskAssigneeCreateManyInput = {
   clickupTaskId: Scalars['String']['input']
   clickupUserId: Scalars['Int']['input']
   createdAt?: InputMaybe<Scalars['DateTime']['input']>
+  id?: InputMaybe<Scalars['Int']['input']>
+  isAssigned?: InputMaybe<Scalars['Boolean']['input']>
 }
 
 export type ClickupUserTaskAssigneeCreateNestedManyWithoutClickupTaskInput = {
@@ -8259,11 +10062,13 @@ export type ClickupUserTaskAssigneeCreateOrConnectWithoutClickupUserInput = {
 export type ClickupUserTaskAssigneeCreateWithoutClickupTaskInput = {
   clickupUser: ClickupUserCreateNestedOneWithoutAssignedTasksInput
   createdAt?: InputMaybe<Scalars['DateTime']['input']>
+  isAssigned?: InputMaybe<Scalars['Boolean']['input']>
 }
 
 export type ClickupUserTaskAssigneeCreateWithoutClickupUserInput = {
   clickupTask: ClickupTaskCreateNestedOneWithoutAssigneesInput
   createdAt?: InputMaybe<Scalars['DateTime']['input']>
+  isAssigned?: InputMaybe<Scalars['Boolean']['input']>
 }
 
 export type ClickupUserTaskAssigneeListRelationFilter = {
@@ -8277,6 +10082,8 @@ export type ClickupUserTaskAssigneeMaxAggregate = {
   clickupTaskId?: Maybe<Scalars['String']['output']>
   clickupUserId?: Maybe<Scalars['Int']['output']>
   createdAt?: Maybe<Scalars['DateTime']['output']>
+  id?: Maybe<Scalars['Int']['output']>
+  isAssigned?: Maybe<Scalars['Boolean']['output']>
 }
 
 export type ClickupUserTaskAssigneeMinAggregate = {
@@ -8284,6 +10091,8 @@ export type ClickupUserTaskAssigneeMinAggregate = {
   clickupTaskId?: Maybe<Scalars['String']['output']>
   clickupUserId?: Maybe<Scalars['Int']['output']>
   createdAt?: Maybe<Scalars['DateTime']['output']>
+  id?: Maybe<Scalars['Int']['output']>
+  isAssigned?: Maybe<Scalars['Boolean']['output']>
 }
 
 export type ClickupUserTaskAssigneeOrderByRelationAggregateInput = {
@@ -8296,12 +10105,16 @@ export type ClickupUserTaskAssigneeOrderByWithRelationInput = {
   clickupUser?: InputMaybe<ClickupUserOrderByWithRelationInput>
   clickupUserId?: InputMaybe<SortOrder>
   createdAt?: InputMaybe<SortOrder>
+  id?: InputMaybe<SortOrder>
+  isAssigned?: InputMaybe<SortOrder>
 }
 
 export enum ClickupUserTaskAssigneeScalarFieldEnum {
   ClickupTaskId = 'clickupTaskId',
   ClickupUserId = 'clickupUserId',
   CreatedAt = 'createdAt',
+  Id = 'id',
+  IsAssigned = 'isAssigned',
 }
 
 export type ClickupUserTaskAssigneeScalarWhereInput = {
@@ -8311,21 +10124,26 @@ export type ClickupUserTaskAssigneeScalarWhereInput = {
   clickupTaskId?: InputMaybe<StringFilter>
   clickupUserId?: InputMaybe<IntFilter>
   createdAt?: InputMaybe<DateTimeFilter>
+  id?: InputMaybe<IntFilter>
+  isAssigned?: InputMaybe<BoolFilter>
 }
 
 export type ClickupUserTaskAssigneeSumAggregate = {
   __typename?: 'ClickupUserTaskAssigneeSumAggregate'
   clickupUserId?: Maybe<Scalars['Int']['output']>
+  id?: Maybe<Scalars['Int']['output']>
 }
 
 export type ClickupUserTaskAssigneeUpdateInput = {
   clickupTask?: InputMaybe<ClickupTaskUpdateOneRequiredWithoutAssigneesNestedInput>
   clickupUser?: InputMaybe<ClickupUserUpdateOneRequiredWithoutAssignedTasksNestedInput>
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+  isAssigned?: InputMaybe<BoolFieldUpdateOperationsInput>
 }
 
 export type ClickupUserTaskAssigneeUpdateManyMutationInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+  isAssigned?: InputMaybe<BoolFieldUpdateOperationsInput>
 }
 
 export type ClickupUserTaskAssigneeUpdateManyWithWhereWithoutClickupTaskInput = {
@@ -8379,11 +10197,13 @@ export type ClickupUserTaskAssigneeUpdateWithWhereUniqueWithoutClickupUserInput 
 export type ClickupUserTaskAssigneeUpdateWithoutClickupTaskInput = {
   clickupUser?: InputMaybe<ClickupUserUpdateOneRequiredWithoutAssignedTasksNestedInput>
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+  isAssigned?: InputMaybe<BoolFieldUpdateOperationsInput>
 }
 
 export type ClickupUserTaskAssigneeUpdateWithoutClickupUserInput = {
   clickupTask?: InputMaybe<ClickupTaskUpdateOneRequiredWithoutAssigneesNestedInput>
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+  isAssigned?: InputMaybe<BoolFieldUpdateOperationsInput>
 }
 
 export type ClickupUserTaskAssigneeUpsertWithWhereUniqueWithoutClickupTaskInput = {
@@ -8407,6 +10227,8 @@ export type ClickupUserTaskAssigneeWhereInput = {
   clickupUser?: InputMaybe<ClickupUserRelationFilter>
   clickupUserId?: InputMaybe<IntFilter>
   createdAt?: InputMaybe<DateTimeFilter>
+  id?: InputMaybe<IntFilter>
+  isAssigned?: InputMaybe<BoolFilter>
 }
 
 export type ClickupUserTaskAssigneeWhereUniqueInput = {
@@ -8417,8 +10239,9 @@ export type ClickupUserTaskAssigneeWhereUniqueInput = {
   clickupTaskId?: InputMaybe<StringFilter>
   clickupUser?: InputMaybe<ClickupUserRelationFilter>
   clickupUserId?: InputMaybe<IntFilter>
-  clickupUserId_clickupTaskId?: InputMaybe<ClickupUserTaskAssigneeClickupUserIdClickupTaskIdCompoundUniqueInput>
   createdAt?: InputMaybe<DateTimeFilter>
+  id?: InputMaybe<Scalars['Int']['input']>
+  isAssigned?: InputMaybe<BoolFilter>
 }
 
 export type ClickupUserTaskWatchers = {
@@ -10968,6 +12791,7 @@ export type ClockifyTimeEntryWhereUniqueInput = {
 export type ClockifyUser = {
   __typename?: 'ClockifyUser'
   _count?: Maybe<ClockifyUserCount>
+  email: Scalars['String']['output']
   id: Scalars['String']['output']
   name: Scalars['String']['output']
   status: Scalars['String']['output']
@@ -11000,12 +12824,14 @@ export type ClockifyUserCountTimeEntriesArgs = {
 export type ClockifyUserCountAggregate = {
   __typename?: 'ClockifyUserCountAggregate'
   _all: Scalars['Int']['output']
+  email: Scalars['Int']['output']
   id: Scalars['Int']['output']
   name: Scalars['Int']['output']
   status: Scalars['Int']['output']
 }
 
 export type ClockifyUserCreateInput = {
+  email: Scalars['String']['input']
   id: Scalars['String']['input']
   name: Scalars['String']['input']
   status: Scalars['String']['input']
@@ -11014,6 +12840,7 @@ export type ClockifyUserCreateInput = {
 }
 
 export type ClockifyUserCreateManyInput = {
+  email: Scalars['String']['input']
   id: Scalars['String']['input']
   name: Scalars['String']['input']
   status: Scalars['String']['input']
@@ -11042,6 +12869,7 @@ export type ClockifyUserCreateOrConnectWithoutUserInput = {
 }
 
 export type ClockifyUserCreateWithoutTimeEntriesInput = {
+  email: Scalars['String']['input']
   id: Scalars['String']['input']
   name: Scalars['String']['input']
   status: Scalars['String']['input']
@@ -11049,6 +12877,7 @@ export type ClockifyUserCreateWithoutTimeEntriesInput = {
 }
 
 export type ClockifyUserCreateWithoutUserInput = {
+  email: Scalars['String']['input']
   id: Scalars['String']['input']
   name: Scalars['String']['input']
   status: Scalars['String']['input']
@@ -11057,6 +12886,7 @@ export type ClockifyUserCreateWithoutUserInput = {
 
 export type ClockifyUserMaxAggregate = {
   __typename?: 'ClockifyUserMaxAggregate'
+  email?: Maybe<Scalars['String']['output']>
   id?: Maybe<Scalars['String']['output']>
   name?: Maybe<Scalars['String']['output']>
   status?: Maybe<Scalars['String']['output']>
@@ -11064,6 +12894,7 @@ export type ClockifyUserMaxAggregate = {
 
 export type ClockifyUserMinAggregate = {
   __typename?: 'ClockifyUserMinAggregate'
+  email?: Maybe<Scalars['String']['output']>
   id?: Maybe<Scalars['String']['output']>
   name?: Maybe<Scalars['String']['output']>
   status?: Maybe<Scalars['String']['output']>
@@ -11075,6 +12906,7 @@ export type ClockifyUserNullableRelationFilter = {
 }
 
 export type ClockifyUserOrderByWithRelationInput = {
+  email?: InputMaybe<SortOrder>
   id?: InputMaybe<SortOrder>
   name?: InputMaybe<SortOrder>
   status?: InputMaybe<SortOrder>
@@ -11088,12 +12920,14 @@ export type ClockifyUserRelationFilter = {
 }
 
 export enum ClockifyUserScalarFieldEnum {
+  Email = 'email',
   Id = 'id',
   Name = 'name',
   Status = 'status',
 }
 
 export type ClockifyUserUpdateInput = {
+  email?: InputMaybe<StringFieldUpdateOperationsInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
   status?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -11102,6 +12936,7 @@ export type ClockifyUserUpdateInput = {
 }
 
 export type ClockifyUserUpdateManyMutationInput = {
+  email?: InputMaybe<StringFieldUpdateOperationsInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
   status?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -11136,6 +12971,7 @@ export type ClockifyUserUpdateToOneWithWhereWithoutUserInput = {
 }
 
 export type ClockifyUserUpdateWithoutTimeEntriesInput = {
+  email?: InputMaybe<StringFieldUpdateOperationsInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
   status?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -11143,6 +12979,7 @@ export type ClockifyUserUpdateWithoutTimeEntriesInput = {
 }
 
 export type ClockifyUserUpdateWithoutUserInput = {
+  email?: InputMaybe<StringFieldUpdateOperationsInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
   status?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -11165,6 +13002,7 @@ export type ClockifyUserWhereInput = {
   AND?: InputMaybe<Array<ClockifyUserWhereInput>>
   NOT?: InputMaybe<Array<ClockifyUserWhereInput>>
   OR?: InputMaybe<Array<ClockifyUserWhereInput>>
+  email?: InputMaybe<StringFilter>
   id?: InputMaybe<StringFilter>
   name?: InputMaybe<StringFilter>
   status?: InputMaybe<StringFilter>
@@ -11176,6 +13014,7 @@ export type ClockifyUserWhereUniqueInput = {
   AND?: InputMaybe<Array<ClockifyUserWhereInput>>
   NOT?: InputMaybe<Array<ClockifyUserWhereInput>>
   OR?: InputMaybe<Array<ClockifyUserWhereInput>>
+  email?: InputMaybe<StringFilter>
   id?: InputMaybe<Scalars['String']['input']>
   name?: InputMaybe<StringFilter>
   status?: InputMaybe<StringFilter>
@@ -11297,6 +13136,16 @@ export type ClockifyWebhookWhereUniqueInput = {
   webhookId?: InputMaybe<Scalars['String']['input']>
 }
 
+export type CreateUserInput = {
+  clickupUserId?: InputMaybe<Scalars['Float']['input']>
+  clockifyUserId?: InputMaybe<Scalars['String']['input']>
+  email: Scalars['String']['input']
+  githubId?: InputMaybe<Scalars['String']['input']>
+  password: Scalars['String']['input']
+  roleId: Scalars['Float']['input']
+  username: Scalars['String']['input']
+}
+
 export type DateTimeFieldUpdateOperationsInput = {
   set?: InputMaybe<Scalars['DateTime']['input']>
 }
@@ -11310,6 +13159,25 @@ export type DateTimeFilter = {
   lte?: InputMaybe<Scalars['DateTime']['input']>
   not?: InputMaybe<NestedDateTimeFilter>
   notIn?: InputMaybe<Array<Scalars['DateTime']['input']>>
+}
+
+export type FloatFieldUpdateOperationsInput = {
+  decrement?: InputMaybe<Scalars['Float']['input']>
+  divide?: InputMaybe<Scalars['Float']['input']>
+  increment?: InputMaybe<Scalars['Float']['input']>
+  multiply?: InputMaybe<Scalars['Float']['input']>
+  set?: InputMaybe<Scalars['Float']['input']>
+}
+
+export type FloatFilter = {
+  equals?: InputMaybe<Scalars['Float']['input']>
+  gt?: InputMaybe<Scalars['Float']['input']>
+  gte?: InputMaybe<Scalars['Float']['input']>
+  in?: InputMaybe<Array<Scalars['Float']['input']>>
+  lt?: InputMaybe<Scalars['Float']['input']>
+  lte?: InputMaybe<Scalars['Float']['input']>
+  not?: InputMaybe<NestedFloatFilter>
+  notIn?: InputMaybe<Array<Scalars['Float']['input']>>
 }
 
 export type IntFieldUpdateOperationsInput = {
@@ -11377,6 +13245,10 @@ export type JsonNullableFilter = {
 export type Mutation = {
   __typename?: 'Mutation'
   createManyClickupClockifyProject: AffectedRowsOutput
+  createManyClickupCustomField: AffectedRowsOutput
+  createManyClickupFolder: AffectedRowsOutput
+  createManyClickupList: AffectedRowsOutput
+  createManyClickupProject: AffectedRowsOutput
   createManyClickupTask: AffectedRowsOutput
   createManyClickupTaskAttachment: AffectedRowsOutput
   createManyClickupTaskChecklist: AffectedRowsOutput
@@ -11384,8 +13256,11 @@ export type Mutation = {
   createManyClickupTaskCustomField: AffectedRowsOutput
   createManyClickupTaskDependency: AffectedRowsOutput
   createManyClickupTaskDueDate: AffectedRowsOutput
-  createManyClickupTaskLocation: AffectedRowsOutput
+  createManyClickupTaskFolder: AffectedRowsOutput
+  createManyClickupTaskList: AffectedRowsOutput
+  createManyClickupTaskLocationHistory: AffectedRowsOutput
   createManyClickupTaskPriority: AffectedRowsOutput
+  createManyClickupTaskProject: AffectedRowsOutput
   createManyClickupTaskQueue: AffectedRowsOutput
   createManyClickupTaskSpace: AffectedRowsOutput
   createManyClickupTaskStatus: AffectedRowsOutput
@@ -11403,8 +13278,13 @@ export type Mutation = {
   createManyClockifyUser: AffectedRowsOutput
   createManyClockifyWebhook: AffectedRowsOutput
   createManyRole: AffectedRowsOutput
-  createManyUser: AffectedRowsOutput
+  createManyTaskPeriodData: AffectedRowsOutput
+  createManyUser: Array<User>
   createOneClickupClockifyProject: ClickupClockifyProject
+  createOneClickupCustomField: ClickupCustomField
+  createOneClickupFolder: ClickupFolder
+  createOneClickupList: ClickupList
+  createOneClickupProject: ClickupProject
   createOneClickupTask: ClickupTask
   createOneClickupTaskAttachment: ClickupTaskAttachment
   createOneClickupTaskChecklist: ClickupTaskChecklist
@@ -11412,8 +13292,11 @@ export type Mutation = {
   createOneClickupTaskCustomField: ClickupTaskCustomField
   createOneClickupTaskDependency: ClickupTaskDependency
   createOneClickupTaskDueDate: ClickupTaskDueDate
-  createOneClickupTaskLocation: ClickupTaskLocation
+  createOneClickupTaskFolder: ClickupTaskFolder
+  createOneClickupTaskList: ClickupTaskList
+  createOneClickupTaskLocationHistory: ClickupTaskLocationHistory
   createOneClickupTaskPriority: ClickupTaskPriority
+  createOneClickupTaskProject: ClickupTaskProject
   createOneClickupTaskQueue: ClickupTaskQueue
   createOneClickupTaskSpace: ClickupTaskSpace
   createOneClickupTaskStatus: ClickupTaskStatus
@@ -11431,8 +13314,13 @@ export type Mutation = {
   createOneClockifyUser: ClockifyUser
   createOneClockifyWebhook: ClockifyWebhook
   createOneRole: Role
+  createOneTaskPeriodData: TaskPeriodData
   createOneUser: User
   deleteManyClickupClockifyProject: AffectedRowsOutput
+  deleteManyClickupCustomField: AffectedRowsOutput
+  deleteManyClickupFolder: AffectedRowsOutput
+  deleteManyClickupList: AffectedRowsOutput
+  deleteManyClickupProject: AffectedRowsOutput
   deleteManyClickupTask: AffectedRowsOutput
   deleteManyClickupTaskAttachment: AffectedRowsOutput
   deleteManyClickupTaskChecklist: AffectedRowsOutput
@@ -11440,8 +13328,11 @@ export type Mutation = {
   deleteManyClickupTaskCustomField: AffectedRowsOutput
   deleteManyClickupTaskDependency: AffectedRowsOutput
   deleteManyClickupTaskDueDate: AffectedRowsOutput
-  deleteManyClickupTaskLocation: AffectedRowsOutput
+  deleteManyClickupTaskFolder: AffectedRowsOutput
+  deleteManyClickupTaskList: AffectedRowsOutput
+  deleteManyClickupTaskLocationHistory: AffectedRowsOutput
   deleteManyClickupTaskPriority: AffectedRowsOutput
+  deleteManyClickupTaskProject: AffectedRowsOutput
   deleteManyClickupTaskQueue: AffectedRowsOutput
   deleteManyClickupTaskSpace: AffectedRowsOutput
   deleteManyClickupTaskStatus: AffectedRowsOutput
@@ -11459,8 +13350,13 @@ export type Mutation = {
   deleteManyClockifyUser: AffectedRowsOutput
   deleteManyClockifyWebhook: AffectedRowsOutput
   deleteManyRole: AffectedRowsOutput
+  deleteManyTaskPeriodData: AffectedRowsOutput
   deleteManyUser: AffectedRowsOutput
   deleteOneClickupClockifyProject?: Maybe<ClickupClockifyProject>
+  deleteOneClickupCustomField?: Maybe<ClickupCustomField>
+  deleteOneClickupFolder?: Maybe<ClickupFolder>
+  deleteOneClickupList?: Maybe<ClickupList>
+  deleteOneClickupProject?: Maybe<ClickupProject>
   deleteOneClickupTask?: Maybe<ClickupTask>
   deleteOneClickupTaskAttachment?: Maybe<ClickupTaskAttachment>
   deleteOneClickupTaskChecklist?: Maybe<ClickupTaskChecklist>
@@ -11468,8 +13364,11 @@ export type Mutation = {
   deleteOneClickupTaskCustomField?: Maybe<ClickupTaskCustomField>
   deleteOneClickupTaskDependency?: Maybe<ClickupTaskDependency>
   deleteOneClickupTaskDueDate?: Maybe<ClickupTaskDueDate>
-  deleteOneClickupTaskLocation?: Maybe<ClickupTaskLocation>
+  deleteOneClickupTaskFolder?: Maybe<ClickupTaskFolder>
+  deleteOneClickupTaskList?: Maybe<ClickupTaskList>
+  deleteOneClickupTaskLocationHistory?: Maybe<ClickupTaskLocationHistory>
   deleteOneClickupTaskPriority?: Maybe<ClickupTaskPriority>
+  deleteOneClickupTaskProject?: Maybe<ClickupTaskProject>
   deleteOneClickupTaskQueue?: Maybe<ClickupTaskQueue>
   deleteOneClickupTaskSpace?: Maybe<ClickupTaskSpace>
   deleteOneClickupTaskStatus?: Maybe<ClickupTaskStatus>
@@ -11487,9 +13386,14 @@ export type Mutation = {
   deleteOneClockifyUser?: Maybe<ClockifyUser>
   deleteOneClockifyWebhook?: Maybe<ClockifyWebhook>
   deleteOneRole?: Maybe<Role>
+  deleteOneTaskPeriodData?: Maybe<TaskPeriodData>
   deleteOneUser?: Maybe<User>
   signin: SigninInfo
   updateManyClickupClockifyProject: AffectedRowsOutput
+  updateManyClickupCustomField: AffectedRowsOutput
+  updateManyClickupFolder: AffectedRowsOutput
+  updateManyClickupList: AffectedRowsOutput
+  updateManyClickupProject: AffectedRowsOutput
   updateManyClickupTask: AffectedRowsOutput
   updateManyClickupTaskAttachment: AffectedRowsOutput
   updateManyClickupTaskChecklist: AffectedRowsOutput
@@ -11497,8 +13401,11 @@ export type Mutation = {
   updateManyClickupTaskCustomField: AffectedRowsOutput
   updateManyClickupTaskDependency: AffectedRowsOutput
   updateManyClickupTaskDueDate: AffectedRowsOutput
-  updateManyClickupTaskLocation: AffectedRowsOutput
+  updateManyClickupTaskFolder: AffectedRowsOutput
+  updateManyClickupTaskList: AffectedRowsOutput
+  updateManyClickupTaskLocationHistory: AffectedRowsOutput
   updateManyClickupTaskPriority: AffectedRowsOutput
+  updateManyClickupTaskProject: AffectedRowsOutput
   updateManyClickupTaskQueue: AffectedRowsOutput
   updateManyClickupTaskSpace: AffectedRowsOutput
   updateManyClickupTaskStatus: AffectedRowsOutput
@@ -11516,8 +13423,13 @@ export type Mutation = {
   updateManyClockifyUser: AffectedRowsOutput
   updateManyClockifyWebhook: AffectedRowsOutput
   updateManyRole: AffectedRowsOutput
+  updateManyTaskPeriodData: AffectedRowsOutput
   updateManyUser: AffectedRowsOutput
   updateOneClickupClockifyProject?: Maybe<ClickupClockifyProject>
+  updateOneClickupCustomField?: Maybe<ClickupCustomField>
+  updateOneClickupFolder?: Maybe<ClickupFolder>
+  updateOneClickupList?: Maybe<ClickupList>
+  updateOneClickupProject?: Maybe<ClickupProject>
   updateOneClickupTask?: Maybe<ClickupTask>
   updateOneClickupTaskAttachment?: Maybe<ClickupTaskAttachment>
   updateOneClickupTaskChecklist?: Maybe<ClickupTaskChecklist>
@@ -11525,8 +13437,11 @@ export type Mutation = {
   updateOneClickupTaskCustomField?: Maybe<ClickupTaskCustomField>
   updateOneClickupTaskDependency?: Maybe<ClickupTaskDependency>
   updateOneClickupTaskDueDate?: Maybe<ClickupTaskDueDate>
-  updateOneClickupTaskLocation?: Maybe<ClickupTaskLocation>
+  updateOneClickupTaskFolder?: Maybe<ClickupTaskFolder>
+  updateOneClickupTaskList?: Maybe<ClickupTaskList>
+  updateOneClickupTaskLocationHistory?: Maybe<ClickupTaskLocationHistory>
   updateOneClickupTaskPriority?: Maybe<ClickupTaskPriority>
+  updateOneClickupTaskProject?: Maybe<ClickupTaskProject>
   updateOneClickupTaskQueue?: Maybe<ClickupTaskQueue>
   updateOneClickupTaskSpace?: Maybe<ClickupTaskSpace>
   updateOneClickupTaskStatus?: Maybe<ClickupTaskStatus>
@@ -11544,11 +13459,32 @@ export type Mutation = {
   updateOneClockifyUser?: Maybe<ClockifyUser>
   updateOneClockifyWebhook?: Maybe<ClockifyWebhook>
   updateOneRole?: Maybe<Role>
+  updateOneTaskPeriodData?: Maybe<TaskPeriodData>
   updateOneUser?: Maybe<User>
 }
 
 export type MutationCreateManyClickupClockifyProjectArgs = {
   data: Array<ClickupClockifyProjectCreateManyInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type MutationCreateManyClickupCustomFieldArgs = {
+  data: Array<ClickupCustomFieldCreateManyInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type MutationCreateManyClickupFolderArgs = {
+  data: Array<ClickupFolderCreateManyInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type MutationCreateManyClickupListArgs = {
+  data: Array<ClickupListCreateManyInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type MutationCreateManyClickupProjectArgs = {
+  data: Array<ClickupProjectCreateManyInput>
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
 }
 
@@ -11587,13 +13523,28 @@ export type MutationCreateManyClickupTaskDueDateArgs = {
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
 }
 
-export type MutationCreateManyClickupTaskLocationArgs = {
-  data: Array<ClickupTaskLocationCreateManyInput>
+export type MutationCreateManyClickupTaskFolderArgs = {
+  data: Array<ClickupTaskFolderCreateManyInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type MutationCreateManyClickupTaskListArgs = {
+  data: Array<ClickupTaskListCreateManyInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type MutationCreateManyClickupTaskLocationHistoryArgs = {
+  data: Array<ClickupTaskLocationHistoryCreateManyInput>
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
 }
 
 export type MutationCreateManyClickupTaskPriorityArgs = {
   data: Array<ClickupTaskPriorityCreateManyInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type MutationCreateManyClickupTaskProjectArgs = {
+  data: Array<ClickupTaskProjectCreateManyInput>
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
 }
 
@@ -11682,13 +13633,33 @@ export type MutationCreateManyRoleArgs = {
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
 }
 
-export type MutationCreateManyUserArgs = {
-  data: Array<UserCreateManyInput>
+export type MutationCreateManyTaskPeriodDataArgs = {
+  data: Array<TaskPeriodDataCreateManyInput>
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type MutationCreateManyUserArgs = {
+  users: Array<CreateUserInput>
 }
 
 export type MutationCreateOneClickupClockifyProjectArgs = {
   data: ClickupClockifyProjectCreateInput
+}
+
+export type MutationCreateOneClickupCustomFieldArgs = {
+  data: ClickupCustomFieldCreateInput
+}
+
+export type MutationCreateOneClickupFolderArgs = {
+  data: ClickupFolderCreateInput
+}
+
+export type MutationCreateOneClickupListArgs = {
+  data: ClickupListCreateInput
+}
+
+export type MutationCreateOneClickupProjectArgs = {
+  data: ClickupProjectCreateInput
 }
 
 export type MutationCreateOneClickupTaskArgs = {
@@ -11719,12 +13690,24 @@ export type MutationCreateOneClickupTaskDueDateArgs = {
   data: ClickupTaskDueDateCreateInput
 }
 
-export type MutationCreateOneClickupTaskLocationArgs = {
-  data: ClickupTaskLocationCreateInput
+export type MutationCreateOneClickupTaskFolderArgs = {
+  data: ClickupTaskFolderCreateInput
+}
+
+export type MutationCreateOneClickupTaskListArgs = {
+  data: ClickupTaskListCreateInput
+}
+
+export type MutationCreateOneClickupTaskLocationHistoryArgs = {
+  data: ClickupTaskLocationHistoryCreateInput
 }
 
 export type MutationCreateOneClickupTaskPriorityArgs = {
   data: ClickupTaskPriorityCreateInput
+}
+
+export type MutationCreateOneClickupTaskProjectArgs = {
+  data: ClickupTaskProjectCreateInput
 }
 
 export type MutationCreateOneClickupTaskQueueArgs = {
@@ -11795,12 +13778,32 @@ export type MutationCreateOneRoleArgs = {
   data: RoleCreateInput
 }
 
+export type MutationCreateOneTaskPeriodDataArgs = {
+  data: TaskPeriodDataCreateInput
+}
+
 export type MutationCreateOneUserArgs = {
-  data: UserCreateInput
+  user: CreateUserInput
 }
 
 export type MutationDeleteManyClickupClockifyProjectArgs = {
   where?: InputMaybe<ClickupClockifyProjectWhereInput>
+}
+
+export type MutationDeleteManyClickupCustomFieldArgs = {
+  where?: InputMaybe<ClickupCustomFieldWhereInput>
+}
+
+export type MutationDeleteManyClickupFolderArgs = {
+  where?: InputMaybe<ClickupFolderWhereInput>
+}
+
+export type MutationDeleteManyClickupListArgs = {
+  where?: InputMaybe<ClickupListWhereInput>
+}
+
+export type MutationDeleteManyClickupProjectArgs = {
+  where?: InputMaybe<ClickupProjectWhereInput>
 }
 
 export type MutationDeleteManyClickupTaskArgs = {
@@ -11831,12 +13834,24 @@ export type MutationDeleteManyClickupTaskDueDateArgs = {
   where?: InputMaybe<ClickupTaskDueDateWhereInput>
 }
 
-export type MutationDeleteManyClickupTaskLocationArgs = {
-  where?: InputMaybe<ClickupTaskLocationWhereInput>
+export type MutationDeleteManyClickupTaskFolderArgs = {
+  where?: InputMaybe<ClickupTaskFolderWhereInput>
+}
+
+export type MutationDeleteManyClickupTaskListArgs = {
+  where?: InputMaybe<ClickupTaskListWhereInput>
+}
+
+export type MutationDeleteManyClickupTaskLocationHistoryArgs = {
+  where?: InputMaybe<ClickupTaskLocationHistoryWhereInput>
 }
 
 export type MutationDeleteManyClickupTaskPriorityArgs = {
   where?: InputMaybe<ClickupTaskPriorityWhereInput>
+}
+
+export type MutationDeleteManyClickupTaskProjectArgs = {
+  where?: InputMaybe<ClickupTaskProjectWhereInput>
 }
 
 export type MutationDeleteManyClickupTaskQueueArgs = {
@@ -11907,12 +13922,32 @@ export type MutationDeleteManyRoleArgs = {
   where?: InputMaybe<RoleWhereInput>
 }
 
+export type MutationDeleteManyTaskPeriodDataArgs = {
+  where?: InputMaybe<TaskPeriodDataWhereInput>
+}
+
 export type MutationDeleteManyUserArgs = {
   where?: InputMaybe<UserWhereInput>
 }
 
 export type MutationDeleteOneClickupClockifyProjectArgs = {
   where: ClickupClockifyProjectWhereUniqueInput
+}
+
+export type MutationDeleteOneClickupCustomFieldArgs = {
+  where: ClickupCustomFieldWhereUniqueInput
+}
+
+export type MutationDeleteOneClickupFolderArgs = {
+  where: ClickupFolderWhereUniqueInput
+}
+
+export type MutationDeleteOneClickupListArgs = {
+  where: ClickupListWhereUniqueInput
+}
+
+export type MutationDeleteOneClickupProjectArgs = {
+  where: ClickupProjectWhereUniqueInput
 }
 
 export type MutationDeleteOneClickupTaskArgs = {
@@ -11943,12 +13978,24 @@ export type MutationDeleteOneClickupTaskDueDateArgs = {
   where: ClickupTaskDueDateWhereUniqueInput
 }
 
-export type MutationDeleteOneClickupTaskLocationArgs = {
-  where: ClickupTaskLocationWhereUniqueInput
+export type MutationDeleteOneClickupTaskFolderArgs = {
+  where: ClickupTaskFolderWhereUniqueInput
+}
+
+export type MutationDeleteOneClickupTaskListArgs = {
+  where: ClickupTaskListWhereUniqueInput
+}
+
+export type MutationDeleteOneClickupTaskLocationHistoryArgs = {
+  where: ClickupTaskLocationHistoryWhereUniqueInput
 }
 
 export type MutationDeleteOneClickupTaskPriorityArgs = {
   where: ClickupTaskPriorityWhereUniqueInput
+}
+
+export type MutationDeleteOneClickupTaskProjectArgs = {
+  where: ClickupTaskProjectWhereUniqueInput
 }
 
 export type MutationDeleteOneClickupTaskQueueArgs = {
@@ -12019,6 +14066,10 @@ export type MutationDeleteOneRoleArgs = {
   where: RoleWhereUniqueInput
 }
 
+export type MutationDeleteOneTaskPeriodDataArgs = {
+  where: TaskPeriodDataWhereUniqueInput
+}
+
 export type MutationDeleteOneUserArgs = {
   where: UserWhereUniqueInput
 }
@@ -12031,6 +14082,26 @@ export type MutationSigninArgs = {
 export type MutationUpdateManyClickupClockifyProjectArgs = {
   data: ClickupClockifyProjectUpdateManyMutationInput
   where?: InputMaybe<ClickupClockifyProjectWhereInput>
+}
+
+export type MutationUpdateManyClickupCustomFieldArgs = {
+  data: ClickupCustomFieldUpdateManyMutationInput
+  where?: InputMaybe<ClickupCustomFieldWhereInput>
+}
+
+export type MutationUpdateManyClickupFolderArgs = {
+  data: ClickupFolderUpdateManyMutationInput
+  where?: InputMaybe<ClickupFolderWhereInput>
+}
+
+export type MutationUpdateManyClickupListArgs = {
+  data: ClickupListUpdateManyMutationInput
+  where?: InputMaybe<ClickupListWhereInput>
+}
+
+export type MutationUpdateManyClickupProjectArgs = {
+  data: ClickupProjectUpdateManyMutationInput
+  where?: InputMaybe<ClickupProjectWhereInput>
 }
 
 export type MutationUpdateManyClickupTaskArgs = {
@@ -12068,14 +14139,29 @@ export type MutationUpdateManyClickupTaskDueDateArgs = {
   where?: InputMaybe<ClickupTaskDueDateWhereInput>
 }
 
-export type MutationUpdateManyClickupTaskLocationArgs = {
-  data: ClickupTaskLocationUpdateManyMutationInput
-  where?: InputMaybe<ClickupTaskLocationWhereInput>
+export type MutationUpdateManyClickupTaskFolderArgs = {
+  data: ClickupTaskFolderUpdateManyMutationInput
+  where?: InputMaybe<ClickupTaskFolderWhereInput>
+}
+
+export type MutationUpdateManyClickupTaskListArgs = {
+  data: ClickupTaskListUpdateManyMutationInput
+  where?: InputMaybe<ClickupTaskListWhereInput>
+}
+
+export type MutationUpdateManyClickupTaskLocationHistoryArgs = {
+  data: ClickupTaskLocationHistoryUpdateManyMutationInput
+  where?: InputMaybe<ClickupTaskLocationHistoryWhereInput>
 }
 
 export type MutationUpdateManyClickupTaskPriorityArgs = {
   data: ClickupTaskPriorityUpdateManyMutationInput
   where?: InputMaybe<ClickupTaskPriorityWhereInput>
+}
+
+export type MutationUpdateManyClickupTaskProjectArgs = {
+  data: ClickupTaskProjectUpdateManyMutationInput
+  where?: InputMaybe<ClickupTaskProjectWhereInput>
 }
 
 export type MutationUpdateManyClickupTaskQueueArgs = {
@@ -12163,6 +14249,11 @@ export type MutationUpdateManyRoleArgs = {
   where?: InputMaybe<RoleWhereInput>
 }
 
+export type MutationUpdateManyTaskPeriodDataArgs = {
+  data: TaskPeriodDataUpdateManyMutationInput
+  where?: InputMaybe<TaskPeriodDataWhereInput>
+}
+
 export type MutationUpdateManyUserArgs = {
   data: UserUpdateManyMutationInput
   where?: InputMaybe<UserWhereInput>
@@ -12171,6 +14262,26 @@ export type MutationUpdateManyUserArgs = {
 export type MutationUpdateOneClickupClockifyProjectArgs = {
   data: ClickupClockifyProjectUpdateInput
   where: ClickupClockifyProjectWhereUniqueInput
+}
+
+export type MutationUpdateOneClickupCustomFieldArgs = {
+  data: ClickupCustomFieldUpdateInput
+  where: ClickupCustomFieldWhereUniqueInput
+}
+
+export type MutationUpdateOneClickupFolderArgs = {
+  data: ClickupFolderUpdateInput
+  where: ClickupFolderWhereUniqueInput
+}
+
+export type MutationUpdateOneClickupListArgs = {
+  data: ClickupListUpdateInput
+  where: ClickupListWhereUniqueInput
+}
+
+export type MutationUpdateOneClickupProjectArgs = {
+  data: ClickupProjectUpdateInput
+  where: ClickupProjectWhereUniqueInput
 }
 
 export type MutationUpdateOneClickupTaskArgs = {
@@ -12208,14 +14319,29 @@ export type MutationUpdateOneClickupTaskDueDateArgs = {
   where: ClickupTaskDueDateWhereUniqueInput
 }
 
-export type MutationUpdateOneClickupTaskLocationArgs = {
-  data: ClickupTaskLocationUpdateInput
-  where: ClickupTaskLocationWhereUniqueInput
+export type MutationUpdateOneClickupTaskFolderArgs = {
+  data: ClickupTaskFolderUpdateInput
+  where: ClickupTaskFolderWhereUniqueInput
+}
+
+export type MutationUpdateOneClickupTaskListArgs = {
+  data: ClickupTaskListUpdateInput
+  where: ClickupTaskListWhereUniqueInput
+}
+
+export type MutationUpdateOneClickupTaskLocationHistoryArgs = {
+  data: ClickupTaskLocationHistoryUpdateInput
+  where: ClickupTaskLocationHistoryWhereUniqueInput
 }
 
 export type MutationUpdateOneClickupTaskPriorityArgs = {
   data: ClickupTaskPriorityUpdateInput
   where: ClickupTaskPriorityWhereUniqueInput
+}
+
+export type MutationUpdateOneClickupTaskProjectArgs = {
+  data: ClickupTaskProjectUpdateInput
+  where: ClickupTaskProjectWhereUniqueInput
 }
 
 export type MutationUpdateOneClickupTaskQueueArgs = {
@@ -12303,6 +14429,11 @@ export type MutationUpdateOneRoleArgs = {
   where: RoleWhereUniqueInput
 }
 
+export type MutationUpdateOneTaskPeriodDataArgs = {
+  data: TaskPeriodDataUpdateInput
+  where: TaskPeriodDataWhereUniqueInput
+}
+
 export type MutationUpdateOneUserArgs = {
   data: UserUpdateInput
   where: UserWhereUniqueInput
@@ -12349,6 +14480,17 @@ export type NestedDateTimeFilter = {
   lte?: InputMaybe<Scalars['DateTime']['input']>
   not?: InputMaybe<NestedDateTimeFilter>
   notIn?: InputMaybe<Array<Scalars['DateTime']['input']>>
+}
+
+export type NestedFloatFilter = {
+  equals?: InputMaybe<Scalars['Float']['input']>
+  gt?: InputMaybe<Scalars['Float']['input']>
+  gte?: InputMaybe<Scalars['Float']['input']>
+  in?: InputMaybe<Array<Scalars['Float']['input']>>
+  lt?: InputMaybe<Scalars['Float']['input']>
+  lte?: InputMaybe<Scalars['Float']['input']>
+  not?: InputMaybe<NestedFloatFilter>
+  notIn?: InputMaybe<Array<Scalars['Float']['input']>>
 }
 
 export type NestedIntFilter = {
@@ -12433,6 +14575,10 @@ export enum NullsOrder {
 export type Query = {
   __typename?: 'Query'
   aggregateClickupClockifyProject: AggregateClickupClockifyProject
+  aggregateClickupCustomField: AggregateClickupCustomField
+  aggregateClickupFolder: AggregateClickupFolder
+  aggregateClickupList: AggregateClickupList
+  aggregateClickupProject: AggregateClickupProject
   aggregateClickupTask: AggregateClickupTask
   aggregateClickupTaskAttachment: AggregateClickupTaskAttachment
   aggregateClickupTaskChecklist: AggregateClickupTaskChecklist
@@ -12440,8 +14586,11 @@ export type Query = {
   aggregateClickupTaskCustomField: AggregateClickupTaskCustomField
   aggregateClickupTaskDependency: AggregateClickupTaskDependency
   aggregateClickupTaskDueDate: AggregateClickupTaskDueDate
-  aggregateClickupTaskLocation: AggregateClickupTaskLocation
+  aggregateClickupTaskFolder: AggregateClickupTaskFolder
+  aggregateClickupTaskList: AggregateClickupTaskList
+  aggregateClickupTaskLocationHistory: AggregateClickupTaskLocationHistory
   aggregateClickupTaskPriority: AggregateClickupTaskPriority
+  aggregateClickupTaskProject: AggregateClickupTaskProject
   aggregateClickupTaskQueue: AggregateClickupTaskQueue
   aggregateClickupTaskSpace: AggregateClickupTaskSpace
   aggregateClickupTaskStatus: AggregateClickupTaskStatus
@@ -12459,9 +14608,18 @@ export type Query = {
   aggregateClockifyUser: AggregateClockifyUser
   aggregateClockifyWebhook: AggregateClockifyWebhook
   aggregateRole: AggregateRole
+  aggregateTaskPeriodData: AggregateTaskPeriodData
   aggregateUser: AggregateUser
   clickupClockifyProject?: Maybe<ClickupClockifyProject>
   clickupClockifyProjects: Array<ClickupClockifyProject>
+  clickupCustomField?: Maybe<ClickupCustomField>
+  clickupCustomFields: Array<ClickupCustomField>
+  clickupFolder?: Maybe<ClickupFolder>
+  clickupFolders: Array<ClickupFolder>
+  clickupList?: Maybe<ClickupList>
+  clickupLists: Array<ClickupList>
+  clickupProject?: Maybe<ClickupProject>
+  clickupProjects: Array<ClickupProject>
   clickupTask?: Maybe<ClickupTask>
   clickupTaskAttachment?: Maybe<ClickupTaskAttachment>
   clickupTaskAttachments: Array<ClickupTaskAttachment>
@@ -12475,10 +14633,16 @@ export type Query = {
   clickupTaskDependency?: Maybe<ClickupTaskDependency>
   clickupTaskDueDate?: Maybe<ClickupTaskDueDate>
   clickupTaskDueDates: Array<ClickupTaskDueDate>
-  clickupTaskLocation?: Maybe<ClickupTaskLocation>
-  clickupTaskLocations: Array<ClickupTaskLocation>
+  clickupTaskFolder?: Maybe<ClickupTaskFolder>
+  clickupTaskFolders: Array<ClickupTaskFolder>
+  clickupTaskList?: Maybe<ClickupTaskList>
+  clickupTaskLists: Array<ClickupTaskList>
+  clickupTaskLocationHistories: Array<ClickupTaskLocationHistory>
+  clickupTaskLocationHistory?: Maybe<ClickupTaskLocationHistory>
   clickupTaskPriorities: Array<ClickupTaskPriority>
   clickupTaskPriority?: Maybe<ClickupTaskPriority>
+  clickupTaskProject?: Maybe<ClickupTaskProject>
+  clickupTaskProjects: Array<ClickupTaskProject>
   clickupTaskQueue?: Maybe<ClickupTaskQueue>
   clickupTaskQueues: Array<ClickupTaskQueue>
   clickupTaskSpace?: Maybe<ClickupTaskSpace>
@@ -12511,7 +14675,9 @@ export type Query = {
   clockifyWebhook?: Maybe<ClockifyWebhook>
   clockifyWebhooks: Array<ClockifyWebhook>
   findManyClickupUserTaskWatchers: Array<ClickupUserTaskWatchers>
+  findManyTaskPeriodData: Array<TaskPeriodData>
   findUniqueClickupUserTaskWatchers?: Maybe<ClickupUserTaskWatchers>
+  findUniqueTaskPeriodData?: Maybe<TaskPeriodData>
   role?: Maybe<Role>
   roles: Array<Role>
   user?: Maybe<User>
@@ -12524,6 +14690,38 @@ export type QueryAggregateClickupClockifyProjectArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>
   take?: InputMaybe<Scalars['Int']['input']>
   where?: InputMaybe<ClickupClockifyProjectWhereInput>
+}
+
+export type QueryAggregateClickupCustomFieldArgs = {
+  cursor?: InputMaybe<ClickupCustomFieldWhereUniqueInput>
+  orderBy?: InputMaybe<Array<ClickupCustomFieldOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupCustomFieldWhereInput>
+}
+
+export type QueryAggregateClickupFolderArgs = {
+  cursor?: InputMaybe<ClickupFolderWhereUniqueInput>
+  orderBy?: InputMaybe<Array<ClickupFolderOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupFolderWhereInput>
+}
+
+export type QueryAggregateClickupListArgs = {
+  cursor?: InputMaybe<ClickupListWhereUniqueInput>
+  orderBy?: InputMaybe<Array<ClickupListOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupListWhereInput>
+}
+
+export type QueryAggregateClickupProjectArgs = {
+  cursor?: InputMaybe<ClickupProjectWhereUniqueInput>
+  orderBy?: InputMaybe<Array<ClickupProjectOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupProjectWhereInput>
 }
 
 export type QueryAggregateClickupTaskArgs = {
@@ -12582,12 +14780,28 @@ export type QueryAggregateClickupTaskDueDateArgs = {
   where?: InputMaybe<ClickupTaskDueDateWhereInput>
 }
 
-export type QueryAggregateClickupTaskLocationArgs = {
-  cursor?: InputMaybe<ClickupTaskLocationWhereUniqueInput>
-  orderBy?: InputMaybe<Array<ClickupTaskLocationOrderByWithRelationInput>>
+export type QueryAggregateClickupTaskFolderArgs = {
+  cursor?: InputMaybe<ClickupTaskFolderWhereUniqueInput>
+  orderBy?: InputMaybe<Array<ClickupTaskFolderOrderByWithRelationInput>>
   skip?: InputMaybe<Scalars['Int']['input']>
   take?: InputMaybe<Scalars['Int']['input']>
-  where?: InputMaybe<ClickupTaskLocationWhereInput>
+  where?: InputMaybe<ClickupTaskFolderWhereInput>
+}
+
+export type QueryAggregateClickupTaskListArgs = {
+  cursor?: InputMaybe<ClickupTaskListWhereUniqueInput>
+  orderBy?: InputMaybe<Array<ClickupTaskListOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupTaskListWhereInput>
+}
+
+export type QueryAggregateClickupTaskLocationHistoryArgs = {
+  cursor?: InputMaybe<ClickupTaskLocationHistoryWhereUniqueInput>
+  orderBy?: InputMaybe<Array<ClickupTaskLocationHistoryOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupTaskLocationHistoryWhereInput>
 }
 
 export type QueryAggregateClickupTaskPriorityArgs = {
@@ -12596,6 +14810,14 @@ export type QueryAggregateClickupTaskPriorityArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>
   take?: InputMaybe<Scalars['Int']['input']>
   where?: InputMaybe<ClickupTaskPriorityWhereInput>
+}
+
+export type QueryAggregateClickupTaskProjectArgs = {
+  cursor?: InputMaybe<ClickupTaskProjectWhereUniqueInput>
+  orderBy?: InputMaybe<Array<ClickupTaskProjectOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupTaskProjectWhereInput>
 }
 
 export type QueryAggregateClickupTaskQueueArgs = {
@@ -12734,6 +14956,14 @@ export type QueryAggregateRoleArgs = {
   where?: InputMaybe<RoleWhereInput>
 }
 
+export type QueryAggregateTaskPeriodDataArgs = {
+  cursor?: InputMaybe<TaskPeriodDataWhereUniqueInput>
+  orderBy?: InputMaybe<Array<TaskPeriodDataOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<TaskPeriodDataWhereInput>
+}
+
 export type QueryAggregateUserArgs = {
   cursor?: InputMaybe<UserWhereUniqueInput>
   orderBy?: InputMaybe<Array<UserOrderByWithRelationInput>>
@@ -12753,6 +14983,58 @@ export type QueryClickupClockifyProjectsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>
   take?: InputMaybe<Scalars['Int']['input']>
   where?: InputMaybe<ClickupClockifyProjectWhereInput>
+}
+
+export type QueryClickupCustomFieldArgs = {
+  where: ClickupCustomFieldWhereUniqueInput
+}
+
+export type QueryClickupCustomFieldsArgs = {
+  cursor?: InputMaybe<ClickupCustomFieldWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupCustomFieldScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupCustomFieldOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupCustomFieldWhereInput>
+}
+
+export type QueryClickupFolderArgs = {
+  where: ClickupFolderWhereUniqueInput
+}
+
+export type QueryClickupFoldersArgs = {
+  cursor?: InputMaybe<ClickupFolderWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupFolderScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupFolderOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupFolderWhereInput>
+}
+
+export type QueryClickupListArgs = {
+  where: ClickupListWhereUniqueInput
+}
+
+export type QueryClickupListsArgs = {
+  cursor?: InputMaybe<ClickupListWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupListScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupListOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupListWhereInput>
+}
+
+export type QueryClickupProjectArgs = {
+  where: ClickupProjectWhereUniqueInput
+}
+
+export type QueryClickupProjectsArgs = {
+  cursor?: InputMaybe<ClickupProjectWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupProjectScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupProjectOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupProjectWhereInput>
 }
 
 export type QueryClickupTaskArgs = {
@@ -12837,17 +15119,43 @@ export type QueryClickupTaskDueDatesArgs = {
   where?: InputMaybe<ClickupTaskDueDateWhereInput>
 }
 
-export type QueryClickupTaskLocationArgs = {
-  where: ClickupTaskLocationWhereUniqueInput
+export type QueryClickupTaskFolderArgs = {
+  where: ClickupTaskFolderWhereUniqueInput
 }
 
-export type QueryClickupTaskLocationsArgs = {
-  cursor?: InputMaybe<ClickupTaskLocationWhereUniqueInput>
-  distinct?: InputMaybe<Array<ClickupTaskLocationScalarFieldEnum>>
-  orderBy?: InputMaybe<Array<ClickupTaskLocationOrderByWithRelationInput>>
+export type QueryClickupTaskFoldersArgs = {
+  cursor?: InputMaybe<ClickupTaskFolderWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupTaskFolderScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupTaskFolderOrderByWithRelationInput>>
   skip?: InputMaybe<Scalars['Int']['input']>
   take?: InputMaybe<Scalars['Int']['input']>
-  where?: InputMaybe<ClickupTaskLocationWhereInput>
+  where?: InputMaybe<ClickupTaskFolderWhereInput>
+}
+
+export type QueryClickupTaskListArgs = {
+  where: ClickupTaskListWhereUniqueInput
+}
+
+export type QueryClickupTaskListsArgs = {
+  cursor?: InputMaybe<ClickupTaskListWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupTaskListScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupTaskListOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupTaskListWhereInput>
+}
+
+export type QueryClickupTaskLocationHistoriesArgs = {
+  cursor?: InputMaybe<ClickupTaskLocationHistoryWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupTaskLocationHistoryScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupTaskLocationHistoryOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupTaskLocationHistoryWhereInput>
+}
+
+export type QueryClickupTaskLocationHistoryArgs = {
+  where: ClickupTaskLocationHistoryWhereUniqueInput
 }
 
 export type QueryClickupTaskPrioritiesArgs = {
@@ -12861,6 +15169,19 @@ export type QueryClickupTaskPrioritiesArgs = {
 
 export type QueryClickupTaskPriorityArgs = {
   where: ClickupTaskPriorityWhereUniqueInput
+}
+
+export type QueryClickupTaskProjectArgs = {
+  where: ClickupTaskProjectWhereUniqueInput
+}
+
+export type QueryClickupTaskProjectsArgs = {
+  cursor?: InputMaybe<ClickupTaskProjectWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupTaskProjectScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupTaskProjectOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupTaskProjectWhereInput>
 }
 
 export type QueryClickupTaskQueueArgs = {
@@ -13076,8 +15397,21 @@ export type QueryFindManyClickupUserTaskWatchersArgs = {
   where?: InputMaybe<ClickupUserTaskWatchersWhereInput>
 }
 
+export type QueryFindManyTaskPeriodDataArgs = {
+  cursor?: InputMaybe<TaskPeriodDataWhereUniqueInput>
+  distinct?: InputMaybe<Array<TaskPeriodDataScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<TaskPeriodDataOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<TaskPeriodDataWhereInput>
+}
+
 export type QueryFindUniqueClickupUserTaskWatchersArgs = {
   where: ClickupUserTaskWatchersWhereUniqueInput
+}
+
+export type QueryFindUniqueTaskPeriodDataArgs = {
+  where: TaskPeriodDataWhereUniqueInput
 }
 
 export type QueryRoleArgs = {
@@ -13109,6 +15443,7 @@ export type QueryUsersArgs = {
 export type Role = {
   __typename?: 'Role'
   _count?: Maybe<RoleCount>
+  allowedToPersistData: Scalars['Boolean']['output']
   authority: Scalars['Int']['output']
   id: Scalars['Int']['output']
   name: Scalars['String']['output']
@@ -13142,18 +15477,21 @@ export type RoleCountUsersArgs = {
 export type RoleCountAggregate = {
   __typename?: 'RoleCountAggregate'
   _all: Scalars['Int']['output']
+  allowedToPersistData: Scalars['Int']['output']
   authority: Scalars['Int']['output']
   id: Scalars['Int']['output']
   name: Scalars['Int']['output']
 }
 
 export type RoleCreateInput = {
+  allowedToPersistData?: InputMaybe<Scalars['Boolean']['input']>
   authority: Scalars['Int']['input']
   name: Scalars['String']['input']
   users?: InputMaybe<UserCreateNestedManyWithoutRoleInput>
 }
 
 export type RoleCreateManyInput = {
+  allowedToPersistData?: InputMaybe<Scalars['Boolean']['input']>
   authority: Scalars['Int']['input']
   id?: InputMaybe<Scalars['Int']['input']>
   name: Scalars['String']['input']
@@ -13171,12 +15509,14 @@ export type RoleCreateOrConnectWithoutUsersInput = {
 }
 
 export type RoleCreateWithoutUsersInput = {
+  allowedToPersistData?: InputMaybe<Scalars['Boolean']['input']>
   authority: Scalars['Int']['input']
   name: Scalars['String']['input']
 }
 
 export type RoleMaxAggregate = {
   __typename?: 'RoleMaxAggregate'
+  allowedToPersistData?: Maybe<Scalars['Boolean']['output']>
   authority?: Maybe<Scalars['Int']['output']>
   id?: Maybe<Scalars['Int']['output']>
   name?: Maybe<Scalars['String']['output']>
@@ -13184,12 +15524,14 @@ export type RoleMaxAggregate = {
 
 export type RoleMinAggregate = {
   __typename?: 'RoleMinAggregate'
+  allowedToPersistData?: Maybe<Scalars['Boolean']['output']>
   authority?: Maybe<Scalars['Int']['output']>
   id?: Maybe<Scalars['Int']['output']>
   name?: Maybe<Scalars['String']['output']>
 }
 
 export type RoleOrderByWithRelationInput = {
+  allowedToPersistData?: InputMaybe<SortOrder>
   authority?: InputMaybe<SortOrder>
   id?: InputMaybe<SortOrder>
   name?: InputMaybe<SortOrder>
@@ -13202,6 +15544,7 @@ export type RoleRelationFilter = {
 }
 
 export enum RoleScalarFieldEnum {
+  AllowedToPersistData = 'allowedToPersistData',
   Authority = 'authority',
   Id = 'id',
   Name = 'name',
@@ -13214,12 +15557,14 @@ export type RoleSumAggregate = {
 }
 
 export type RoleUpdateInput = {
+  allowedToPersistData?: InputMaybe<BoolFieldUpdateOperationsInput>
   authority?: InputMaybe<IntFieldUpdateOperationsInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
   users?: InputMaybe<UserUpdateManyWithoutRoleNestedInput>
 }
 
 export type RoleUpdateManyMutationInput = {
+  allowedToPersistData?: InputMaybe<BoolFieldUpdateOperationsInput>
   authority?: InputMaybe<IntFieldUpdateOperationsInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
 }
@@ -13238,6 +15583,7 @@ export type RoleUpdateToOneWithWhereWithoutUsersInput = {
 }
 
 export type RoleUpdateWithoutUsersInput = {
+  allowedToPersistData?: InputMaybe<BoolFieldUpdateOperationsInput>
   authority?: InputMaybe<IntFieldUpdateOperationsInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
 }
@@ -13252,6 +15598,7 @@ export type RoleWhereInput = {
   AND?: InputMaybe<Array<RoleWhereInput>>
   NOT?: InputMaybe<Array<RoleWhereInput>>
   OR?: InputMaybe<Array<RoleWhereInput>>
+  allowedToPersistData?: InputMaybe<BoolFilter>
   authority?: InputMaybe<IntFilter>
   id?: InputMaybe<IntFilter>
   name?: InputMaybe<StringFilter>
@@ -13262,6 +15609,7 @@ export type RoleWhereUniqueInput = {
   AND?: InputMaybe<Array<RoleWhereInput>>
   NOT?: InputMaybe<Array<RoleWhereInput>>
   OR?: InputMaybe<Array<RoleWhereInput>>
+  allowedToPersistData?: InputMaybe<BoolFilter>
   authority?: InputMaybe<Scalars['Int']['input']>
   id?: InputMaybe<Scalars['Int']['input']>
   name?: InputMaybe<Scalars['String']['input']>
@@ -13313,6 +15661,238 @@ export type StringNullableFilter = {
   not?: InputMaybe<NestedStringNullableFilter>
   notIn?: InputMaybe<Array<Scalars['String']['input']>>
   startsWith?: InputMaybe<Scalars['String']['input']>
+}
+
+export type TaskPeriodData = {
+  __typename?: 'TaskPeriodData'
+  clickupTask: ClickupTask
+  clickupTaskId: Scalars['String']['output']
+  createdAt: Scalars['DateTime']['output']
+  endPeriod: Scalars['DateTime']['output']
+  revisedTrackedTime: Scalars['Float']['output']
+  startPeriod: Scalars['DateTime']['output']
+  updatedAt: Scalars['DateTime']['output']
+}
+
+export type TaskPeriodDataAvgAggregate = {
+  __typename?: 'TaskPeriodDataAvgAggregate'
+  revisedTrackedTime?: Maybe<Scalars['Float']['output']>
+}
+
+export type TaskPeriodDataClickupTaskIdStartPeriodEndPeriodCompoundUniqueInput = {
+  clickupTaskId: Scalars['String']['input']
+  endPeriod: Scalars['DateTime']['input']
+  startPeriod: Scalars['DateTime']['input']
+}
+
+export type TaskPeriodDataCountAggregate = {
+  __typename?: 'TaskPeriodDataCountAggregate'
+  _all: Scalars['Int']['output']
+  clickupTaskId: Scalars['Int']['output']
+  createdAt: Scalars['Int']['output']
+  endPeriod: Scalars['Int']['output']
+  revisedTrackedTime: Scalars['Int']['output']
+  startPeriod: Scalars['Int']['output']
+  updatedAt: Scalars['Int']['output']
+}
+
+export type TaskPeriodDataCreateInput = {
+  clickupTask: ClickupTaskCreateNestedOneWithoutTaskPeriodDataInput
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>
+  endPeriod: Scalars['DateTime']['input']
+  revisedTrackedTime: Scalars['Float']['input']
+  startPeriod: Scalars['DateTime']['input']
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>
+}
+
+export type TaskPeriodDataCreateManyClickupTaskInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>
+  endPeriod: Scalars['DateTime']['input']
+  revisedTrackedTime: Scalars['Float']['input']
+  startPeriod: Scalars['DateTime']['input']
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>
+}
+
+export type TaskPeriodDataCreateManyClickupTaskInputEnvelope = {
+  data: Array<TaskPeriodDataCreateManyClickupTaskInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type TaskPeriodDataCreateManyInput = {
+  clickupTaskId: Scalars['String']['input']
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>
+  endPeriod: Scalars['DateTime']['input']
+  revisedTrackedTime: Scalars['Float']['input']
+  startPeriod: Scalars['DateTime']['input']
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>
+}
+
+export type TaskPeriodDataCreateNestedManyWithoutClickupTaskInput = {
+  connect?: InputMaybe<Array<TaskPeriodDataWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<TaskPeriodDataCreateOrConnectWithoutClickupTaskInput>>
+  create?: InputMaybe<Array<TaskPeriodDataCreateWithoutClickupTaskInput>>
+  createMany?: InputMaybe<TaskPeriodDataCreateManyClickupTaskInputEnvelope>
+}
+
+export type TaskPeriodDataCreateOrConnectWithoutClickupTaskInput = {
+  create: TaskPeriodDataCreateWithoutClickupTaskInput
+  where: TaskPeriodDataWhereUniqueInput
+}
+
+export type TaskPeriodDataCreateWithoutClickupTaskInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>
+  endPeriod: Scalars['DateTime']['input']
+  revisedTrackedTime: Scalars['Float']['input']
+  startPeriod: Scalars['DateTime']['input']
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>
+}
+
+export type TaskPeriodDataListRelationFilter = {
+  every?: InputMaybe<TaskPeriodDataWhereInput>
+  none?: InputMaybe<TaskPeriodDataWhereInput>
+  some?: InputMaybe<TaskPeriodDataWhereInput>
+}
+
+export type TaskPeriodDataMaxAggregate = {
+  __typename?: 'TaskPeriodDataMaxAggregate'
+  clickupTaskId?: Maybe<Scalars['String']['output']>
+  createdAt?: Maybe<Scalars['DateTime']['output']>
+  endPeriod?: Maybe<Scalars['DateTime']['output']>
+  revisedTrackedTime?: Maybe<Scalars['Float']['output']>
+  startPeriod?: Maybe<Scalars['DateTime']['output']>
+  updatedAt?: Maybe<Scalars['DateTime']['output']>
+}
+
+export type TaskPeriodDataMinAggregate = {
+  __typename?: 'TaskPeriodDataMinAggregate'
+  clickupTaskId?: Maybe<Scalars['String']['output']>
+  createdAt?: Maybe<Scalars['DateTime']['output']>
+  endPeriod?: Maybe<Scalars['DateTime']['output']>
+  revisedTrackedTime?: Maybe<Scalars['Float']['output']>
+  startPeriod?: Maybe<Scalars['DateTime']['output']>
+  updatedAt?: Maybe<Scalars['DateTime']['output']>
+}
+
+export type TaskPeriodDataOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>
+}
+
+export type TaskPeriodDataOrderByWithRelationInput = {
+  clickupTask?: InputMaybe<ClickupTaskOrderByWithRelationInput>
+  clickupTaskId?: InputMaybe<SortOrder>
+  createdAt?: InputMaybe<SortOrder>
+  endPeriod?: InputMaybe<SortOrder>
+  revisedTrackedTime?: InputMaybe<SortOrder>
+  startPeriod?: InputMaybe<SortOrder>
+  updatedAt?: InputMaybe<SortOrder>
+}
+
+export enum TaskPeriodDataScalarFieldEnum {
+  ClickupTaskId = 'clickupTaskId',
+  CreatedAt = 'createdAt',
+  EndPeriod = 'endPeriod',
+  RevisedTrackedTime = 'revisedTrackedTime',
+  StartPeriod = 'startPeriod',
+  UpdatedAt = 'updatedAt',
+}
+
+export type TaskPeriodDataScalarWhereInput = {
+  AND?: InputMaybe<Array<TaskPeriodDataScalarWhereInput>>
+  NOT?: InputMaybe<Array<TaskPeriodDataScalarWhereInput>>
+  OR?: InputMaybe<Array<TaskPeriodDataScalarWhereInput>>
+  clickupTaskId?: InputMaybe<StringFilter>
+  createdAt?: InputMaybe<DateTimeFilter>
+  endPeriod?: InputMaybe<DateTimeFilter>
+  revisedTrackedTime?: InputMaybe<FloatFilter>
+  startPeriod?: InputMaybe<DateTimeFilter>
+  updatedAt?: InputMaybe<DateTimeFilter>
+}
+
+export type TaskPeriodDataSumAggregate = {
+  __typename?: 'TaskPeriodDataSumAggregate'
+  revisedTrackedTime?: Maybe<Scalars['Float']['output']>
+}
+
+export type TaskPeriodDataUpdateInput = {
+  clickupTask?: InputMaybe<ClickupTaskUpdateOneRequiredWithoutTaskPeriodDataNestedInput>
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+  endPeriod?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+  revisedTrackedTime?: InputMaybe<FloatFieldUpdateOperationsInput>
+  startPeriod?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+}
+
+export type TaskPeriodDataUpdateManyMutationInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+  endPeriod?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+  revisedTrackedTime?: InputMaybe<FloatFieldUpdateOperationsInput>
+  startPeriod?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+}
+
+export type TaskPeriodDataUpdateManyWithWhereWithoutClickupTaskInput = {
+  data: TaskPeriodDataUpdateManyMutationInput
+  where: TaskPeriodDataScalarWhereInput
+}
+
+export type TaskPeriodDataUpdateManyWithoutClickupTaskNestedInput = {
+  connect?: InputMaybe<Array<TaskPeriodDataWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<TaskPeriodDataCreateOrConnectWithoutClickupTaskInput>>
+  create?: InputMaybe<Array<TaskPeriodDataCreateWithoutClickupTaskInput>>
+  createMany?: InputMaybe<TaskPeriodDataCreateManyClickupTaskInputEnvelope>
+  delete?: InputMaybe<Array<TaskPeriodDataWhereUniqueInput>>
+  deleteMany?: InputMaybe<Array<TaskPeriodDataScalarWhereInput>>
+  disconnect?: InputMaybe<Array<TaskPeriodDataWhereUniqueInput>>
+  set?: InputMaybe<Array<TaskPeriodDataWhereUniqueInput>>
+  update?: InputMaybe<Array<TaskPeriodDataUpdateWithWhereUniqueWithoutClickupTaskInput>>
+  updateMany?: InputMaybe<Array<TaskPeriodDataUpdateManyWithWhereWithoutClickupTaskInput>>
+  upsert?: InputMaybe<Array<TaskPeriodDataUpsertWithWhereUniqueWithoutClickupTaskInput>>
+}
+
+export type TaskPeriodDataUpdateWithWhereUniqueWithoutClickupTaskInput = {
+  data: TaskPeriodDataUpdateWithoutClickupTaskInput
+  where: TaskPeriodDataWhereUniqueInput
+}
+
+export type TaskPeriodDataUpdateWithoutClickupTaskInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+  endPeriod?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+  revisedTrackedTime?: InputMaybe<FloatFieldUpdateOperationsInput>
+  startPeriod?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+}
+
+export type TaskPeriodDataUpsertWithWhereUniqueWithoutClickupTaskInput = {
+  create: TaskPeriodDataCreateWithoutClickupTaskInput
+  update: TaskPeriodDataUpdateWithoutClickupTaskInput
+  where: TaskPeriodDataWhereUniqueInput
+}
+
+export type TaskPeriodDataWhereInput = {
+  AND?: InputMaybe<Array<TaskPeriodDataWhereInput>>
+  NOT?: InputMaybe<Array<TaskPeriodDataWhereInput>>
+  OR?: InputMaybe<Array<TaskPeriodDataWhereInput>>
+  clickupTask?: InputMaybe<ClickupTaskRelationFilter>
+  clickupTaskId?: InputMaybe<StringFilter>
+  createdAt?: InputMaybe<DateTimeFilter>
+  endPeriod?: InputMaybe<DateTimeFilter>
+  revisedTrackedTime?: InputMaybe<FloatFilter>
+  startPeriod?: InputMaybe<DateTimeFilter>
+  updatedAt?: InputMaybe<DateTimeFilter>
+}
+
+export type TaskPeriodDataWhereUniqueInput = {
+  AND?: InputMaybe<Array<TaskPeriodDataWhereInput>>
+  NOT?: InputMaybe<Array<TaskPeriodDataWhereInput>>
+  OR?: InputMaybe<Array<TaskPeriodDataWhereInput>>
+  clickupTask?: InputMaybe<ClickupTaskRelationFilter>
+  clickupTaskId?: InputMaybe<StringFilter>
+  clickupTaskId_startPeriod_endPeriod?: InputMaybe<TaskPeriodDataClickupTaskIdStartPeriodEndPeriodCompoundUniqueInput>
+  createdAt?: InputMaybe<DateTimeFilter>
+  endPeriod?: InputMaybe<DateTimeFilter>
+  revisedTrackedTime?: InputMaybe<FloatFilter>
+  startPeriod?: InputMaybe<DateTimeFilter>
+  updatedAt?: InputMaybe<DateTimeFilter>
 }
 
 export type User = {
@@ -13380,32 +15960,6 @@ export type UserCountAggregate = {
   roleId: Scalars['Int']['output']
   updatedAt: Scalars['Int']['output']
   username: Scalars['Int']['output']
-}
-
-export type UserCreateInput = {
-  clickupUser?: InputMaybe<ClickupUserCreateNestedOneWithoutUserInput>
-  clockifyTimeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutUserInput>
-  clockifyUser?: InputMaybe<ClockifyUserCreateNestedOneWithoutUserInput>
-  createdAt?: InputMaybe<Scalars['DateTime']['input']>
-  email: Scalars['String']['input']
-  githubId?: InputMaybe<Scalars['String']['input']>
-  password: Scalars['String']['input']
-  role: RoleCreateNestedOneWithoutUsersInput
-  updatedAt?: InputMaybe<Scalars['DateTime']['input']>
-  username: Scalars['String']['input']
-}
-
-export type UserCreateManyInput = {
-  clickupUserId?: InputMaybe<Scalars['Int']['input']>
-  clockifyUserId?: InputMaybe<Scalars['String']['input']>
-  createdAt?: InputMaybe<Scalars['DateTime']['input']>
-  email: Scalars['String']['input']
-  githubId?: InputMaybe<Scalars['String']['input']>
-  id?: InputMaybe<Scalars['Int']['input']>
-  password: Scalars['String']['input']
-  roleId: Scalars['Int']['input']
-  updatedAt?: InputMaybe<Scalars['DateTime']['input']>
-  username: Scalars['String']['input']
 }
 
 export type UserCreateManyRoleInput = {
@@ -13849,7 +16403,7 @@ export type ClockifyTimeEntriesQuery = {
         __typename?: 'ClickupUserTaskAssignee'
         clickupUser: { __typename?: 'ClickupUser'; id: number; email?: string | null; username?: string | null }
       }>
-      listLocation: { __typename?: 'ClickupTaskLocation'; name: string }
+      list: Array<{ __typename?: 'ClickupTaskList'; clickupList: { __typename?: 'ClickupList'; name: string } }>
       tags: Array<{ __typename?: 'ClickupTaskTag'; name: string; tagBg: string; tagFg: string }>
       timeEstimates: Array<{ __typename?: 'ClickupTaskTimeEstimate'; createdAt: any; updatedAt: any; estimate: number }>
       dueDates: Array<{ __typename?: 'ClickupTaskDueDate'; createdAt: any; updatedAt: any; dueDate: any }>
@@ -13988,10 +16542,19 @@ export const ClockifyTimeEntriesDocument = {
                       },
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'listLocation' },
+                        name: { kind: 'Name', value: 'list' },
                         selectionSet: {
                           kind: 'SelectionSet',
-                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'clickupList' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
+                              },
+                            },
+                          ],
                         },
                       },
                       {
