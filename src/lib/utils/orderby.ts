@@ -40,6 +40,15 @@ const calculateDiff = (a: number, b: number, asc: boolean) => {
   return asc ? a - b : b - a
 }
 
+// You can use with dates if use new Date().getTime() or Date.parse()
+export const sortObjectArrayByNumber = <T>(list: T[], getNumberValue: (item: T) => number, asc: boolean) => {
+  return list.slice().sort((itemA: T, itemB: T) => {
+    const valueA = getNumberValue(itemA)
+    const valueB = getNumberValue(itemB)
+    return calculateDiff(valueA, valueB, asc)
+  })
+}
+
 const orderByDelay = (reportFiltered: Report, asc: boolean) => {
   const entries = Object.entries(reportFiltered)
 

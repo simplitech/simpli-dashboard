@@ -4,7 +4,6 @@
   import {
     calculateEstimationError,
     formatUserNamesSortedByParticipation,
-    formatUserNamesDailyParticipation,
     getClockifyEntriesAPI,
     getUniqueUsersAndEmails,
   } from '$lib/utils/clockifyServices'
@@ -13,25 +12,18 @@
   import { daysToMilis } from '$lib/utils/helper'
   import Header from '$lib/components/Header.svelte'
   import Toolbar from '$lib/components/Toolbar.svelte'
-  import {
-    formatDayMonthYear,
-    type Entry,
-    type FilterItems,
-    type Report,
-    type Group,
-    type FilterOptions,
-    type Filters,
-  } from '$lib/utils/format'
+  import type { Entry, FilterItems, FilterOptions, Filters, Group, Report } from '$lib/utils/format'
   import Loading from '$lib/components/Loading.svelte'
   import { scale } from 'svelte/transition'
   import TableRender from '$lib/components/TableRender.svelte'
   import _ from 'lodash'
   import { showToast } from '$lib/utils/toast'
-  import { validateAndSignIn, type Login } from '$lib/utils/loginServices'
-  import { createClient, graphqlClient, usersOverview } from '$lib/utils/store'
-  import type { ClickupTaskStatusOnTask, ClockifyTimeEntry, ClickupTask } from '../graphql/generated'
-  import { orderByColumns, type OrderBy, orderBySummary } from '$lib/utils/orderby'
+  import { type Login, validateAndSignIn } from '$lib/utils/loginServices'
+  import { createClient, usersOverview } from '$lib/utils/store'
+  import type { ClickupTask, ClickupTaskStatusOnTask, ClockifyTimeEntry } from '../graphql/generated'
+  import { type OrderBy, orderByColumns } from '$lib/utils/orderby'
   import type { UserOverview } from '$lib/types/UserOverview'
+  import { hierarchyGroupBy } from '$lib/utils/groupBy'
 
   let report: Report = null
   let reportFiltered: Report = null
@@ -56,7 +48,6 @@
   let dateRangeEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1)
 
   let reportGroup: Group = {}
-  let auxReportGroup: Group = {}
 
   let loginOpen = false
   let loginData: Login = {
@@ -313,99 +304,7 @@
   }
 
   const handleGroupBy = () => {
-    reportGroup = {}
-    auxReportGroup = {}
-
-    if (selectedGroupBy.some((item: FilterOptions) => item.label === 'Date')) {
-      for (const [idIssue, entry] of Object.entries(reportFiltered)) {
-        const dates = new Set(entry.timeEntry.map((item) => formatDayMonthYear(item.end || new Date().toDateString())))
-
-        dates.forEach((date: string) => {
-          if (!reportGroup[date]) {
-            reportGroup[date] = {}
-          }
-
-          const dateEntries = entry.timeEntry.filter(
-            (entry) => formatDayMonthYear(entry.end || new Date().toDateString()) === date,
-          )
-          if (dateEntries.length) {
-            const filteredEntry: Entry = { task: entry.task, timeEntry: dateEntries }
-            reportGroup[date][idIssue] = filteredEntry
-          }
-        })
-      }
-
-      if (orderBy && orderBySummary[orderBy.by]) {
-        reportGroup = orderBySummary[orderBy.by](reportGroup, orderBy.asc)
-      }
-    } else {
-      reportGroup['allDates'] = reportFiltered
-    }
-
-    for (const [dateKey, value] of Object.entries(reportGroup)) {
-      let group: Group = {}
-      auxReportGroup[dateKey] = group
-
-      if (selectedGroupBy.some((item: FilterOptions) => item.label === 'Project')) {
-        for (const [taskKey, taskValue] of Object.entries(value)) {
-          const entry = taskValue as Entry
-          const projectKey =
-            entry.task?.list?.[0]?.clickupList?.name ?? entry.timeEntry[0]?.clockifyProject?.name ?? 'No project'
-          if (!group[projectKey]) {
-            group[projectKey] = {}
-          }
-          group[projectKey][taskKey] = entry
-        }
-
-        // faz a ordenaçao pra cada grupo de data
-        if (orderBy && orderBySummary[orderBy.by]) {
-          auxReportGroup[dateKey] = orderBySummary[orderBy.by](group, orderBy.asc)
-        }
-      } else {
-        auxReportGroup[dateKey]['allProjects'] = value as Report
-      }
-    }
-    reportGroup = auxReportGroup
-
-    auxReportGroup = {}
-    for (const [key, value] of Object.entries(reportGroup)) {
-      const keyGroup: Group = {}
-      auxReportGroup[key] = keyGroup
-
-      for (const [projKey, projVal] of Object.entries(value)) {
-        let projectGroup: Group = {}
-        keyGroup[projKey] = projectGroup
-
-        if (selectedGroupBy.some((item: FilterOptions) => item.label === 'Assignee')) {
-          for (const [taskKey, taskValue] of Object.entries<Entry>(projVal as Report)) {
-            const assignees =
-              key === 'allDates'
-                ? formatUserNamesSortedByParticipation(taskValue.timeEntry).split(', ').flat()
-                : formatUserNamesDailyParticipation(taskValue.timeEntry, key)
-
-            assignees.forEach((assignee) => {
-              if (!projectGroup[assignee]) {
-                projectGroup[assignee] = {}
-              }
-
-              const assigneeEntries = taskValue.timeEntry.filter(
-                (timeEntry) => timeEntry.clockifyUser.name === assignee,
-              )
-              if (assigneeEntries) {
-                projectGroup[assignee][taskKey] = { task: taskValue.task, timeEntry: assigneeEntries }
-              }
-            })
-          }
-
-          if (orderBy && orderBySummary[orderBy.by]) {
-            keyGroup[projKey] = orderBySummary[orderBy.by](projectGroup, orderBy.asc)
-          }
-        } else {
-          projectGroup['allAssignees'] = projVal as Report
-        }
-      }
-    }
-    reportGroup = auxReportGroup
+    reportGroup = hierarchyGroupBy(reportFiltered, selectedGroupBy)
   }
 
   const checkIfStatusInRange = (
