@@ -20,13 +20,15 @@ const groupByDatesRule = (input: GroupByRuleParams): GroupByRuleReturn[] => [
 const groupByProjectsRule = (input: GroupByRuleParams): GroupByRuleReturn[] => [
   {
     groupName:
-        input.entry.task?.list?.[0]?.clickupList?.name ?? input.entry.timeEntry[0]?.clockifyProject?.name ?? 'No project',
+      input.entry.task?.list?.[0]?.clickupList?.name ?? input.entry.timeEntry[0]?.clockifyProject?.name ?? 'No project',
     editedEntry: input.entry,
   } satisfies GroupByRuleReturn,
 ]
 
 const groupByStatusRule = (input: GroupByRuleParams): GroupByRuleReturn[] => {
   let lastStatus = 'No Status'
+  // Só é pra ser agrupado de acordo com o clickup,
+  // se o log for só so clockfy será considerado como No Status
   if (input.entry.task && input.entry.task?.status.length > 0) {
     input.entry.task.status = sortObjectArrayByNumber(
       input.entry.task.status,
@@ -36,22 +38,6 @@ const groupByStatusRule = (input: GroupByRuleParams): GroupByRuleReturn[] => {
 
     const lastClickupStatus: ClickupTaskStatusOnTask = input.entry.task.status[0]
     if (lastClickupStatus.statusName) lastStatus = lastClickupStatus.statusName
-  } else {
-    input.entry.timeEntry = sortObjectArrayByNumber(
-      input.entry.timeEntry,
-      (item: ClockifyTimeEntry) => Date.parse(item.end),
-      false,
-    )
-    const lastClockfyEntry: ClockifyTimeEntry = input.entry.timeEntry[0]
-    if (lastClockfyEntry && lastClockfyEntry.tags.length > 0) {
-      lastClockfyEntry.tags = sortObjectArrayByNumber(
-        lastClockfyEntry.tags,
-        (item: ClockifyTagOnTimeEntry) => Date.parse(item.createdAt),
-        false,
-      )
-      const lastTagStatus: ClockifyTagOnTimeEntry = lastClockfyEntry.tags[0]
-      if (lastTagStatus.clockifyTag.name) lastStatus = lastTagStatus.clockifyTag.name
-    }
   }
   return [
     {
