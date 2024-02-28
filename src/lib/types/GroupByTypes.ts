@@ -1,4 +1,4 @@
-import type { Entry, Group, Report } from '$lib/utils/format'
+import type { Entry, FilterOptions, Group, Report } from '$lib/utils/format'
 
 /**
  * @type {GroupByRuleParams} - Generic type for passing information to and between group by rules.
@@ -34,4 +34,14 @@ export type GroupByHandlerParams = {
   defaultGroupName: string
   groupRoute: string[]
   groupByRule: (input: GroupByRuleParams) => GroupByRuleReturn[]
+}
+
+/**
+ * @type {GroupByParams} GroupByParam
+ * @property {Group|Report} entriesToGroup - The entries to be grouped, can be of type Group or Report.
+ * @property {FilterOptions[]} selectedGroupBy - The selected groupBy options as an array of FilterOptions.
+ */
+export type GroupByParams = {
+  entriesToGroup: Group | Report
+  selectedGroupBy: FilterOptions[]
 }

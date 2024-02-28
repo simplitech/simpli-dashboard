@@ -4,13 +4,14 @@
   import CustomSelect from './CustomSelect.svelte'
   import AddPreset from './AddPreset.svelte'
   import Presets from './Presets.svelte'
+  import { GroupByEnum } from '$lib/enums/GroupByEnum'
 
   const dispatch = createEventDispatcher()
 
   export let filters: FilterItems
   export let disabled = false
 
-  let groupByItems = ['Project', 'Assignee', 'Status', 'Date'].map((item) => ({ label: item }))
+  let groupByItems = Object.values(GroupByEnum).map((item) => ({ label: item }))
 
   let selectedFilters: Filters = {
     selectedAssignee: [],

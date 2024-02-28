@@ -3,6 +3,7 @@
   import type { OrderBy } from '$lib/utils/orderby'
   import GroupTitle from './GroupTitle.svelte'
   import Table from './Table.svelte'
+  import { GroupByEnum } from '$lib/enums/GroupByEnum'
 
   export let reportGroup: Group
   export let selectedGroupBy: FilterOptions[]
@@ -19,18 +20,9 @@
   }
 
   $: getGroupTitle = () => {
-    switch (level) {
-      case 0:
-        return selectedGroupBy?.some((item: FilterOptions) => item.label === 'Date')
-      case 1:
-        return selectedGroupBy?.some((item: FilterOptions) => item.label === 'Project')
-      case 2:
-        return selectedGroupBy?.some((item: FilterOptions) => item.label === 'Status')
-      case 3:
-        return selectedGroupBy?.some((item: FilterOptions) => item.label === 'Assignee')
-      default:
-        return false
-    }
+    if (level >= Object.values(GroupByEnum).length) return false
+    const groupByLabel = Object.values(GroupByEnum)[level]
+    return selectedGroupBy?.some((item: FilterOptions) => item.label.trim() === (groupByLabel as string))
   }
 </script>
 
@@ -40,7 +32,7 @@
       {#if getGroupTitle()}
         <GroupTitle title={key} />
       {/if}
-      {#if level < 3}
+      {#if level < Object.keys(GroupByEnum).length - 1}
         <svelte:self
           reportGroup={value}
           {selectedGroupBy}
