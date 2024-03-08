@@ -1,8 +1,9 @@
-import type { GroupByRuleParams, GroupByRuleReturn, GroupByHandlerParams } from '$lib/types/GroupByTypes'
+import type { GroupByHandlerParams, GroupByParams, GroupByRuleParams, GroupByRuleReturn } from '$lib/types/GroupByTypes'
 import { type Entry, type FilterOptions, formatDayMonthYear, type Group, type Report } from '$lib/utils/format'
 import { sortObjectArrayByNumber } from '$lib/utils/orderby'
-import type { ClickupTaskStatusOnTask, ClockifyTagOnTimeEntry, ClockifyTimeEntry } from '../../graphql/generated'
+import type { ClickupTaskStatusOnTask, ClockifyTimeEntry } from '../../graphql/generated'
 import { formatUserNamesDailyParticipation, formatUserNamesSortedByParticipation } from './clockifyServices'
+import { GroupByEnum } from '$lib/enums/GroupByEnum'
 
 // Rules:
 // - Functions that are responsible for generating subgroups from a group following some grouping rule.
@@ -75,48 +76,60 @@ const isTogroupByProp = (selectedGroupBy: FilterOptions[], prop: string) =>
 
 // Group By's
 // - Functions that are responsible for initiating the visit cycle for each subgroup and applying the rule of some Rule.
-const groupByDates = (entriesToGroup: Group | Report, selectedGroupBy: FilterOptions[]) =>
+const groupByDates = (param: GroupByParams) =>
   groupByHandler({
-    groupContent: entriesToGroup,
-    isToGroup: isTogroupByProp(selectedGroupBy, 'Date'),
+    groupContent: param.entriesToGroup,
+    isToGroup: isTogroupByProp(param.selectedGroupBy, GroupByEnum.DATE),
     defaultGroupName: 'allDates',
     groupRoute: [],
     groupByRule: groupByDatesRule,
   } satisfies GroupByHandlerParams)
 
-const groupByProjects = (entriesToGroup: Group | Report, selectedGroupBy: FilterOptions[]) =>
+const groupByProjects = (param: GroupByParams) =>
   groupByHandler({
-    groupContent: entriesToGroup,
-    isToGroup: isTogroupByProp(selectedGroupBy, 'Project'),
+    groupContent: param.entriesToGroup,
+    isToGroup: isTogroupByProp(param.selectedGroupBy, GroupByEnum.PROJECT),
     defaultGroupName: 'allProjects',
     groupRoute: [],
     groupByRule: groupByProjectsRule,
   } satisfies GroupByHandlerParams)
 
-const groupByStatus = (entriesToGroup: Group | Report, selectedGroupBy: FilterOptions[]) =>
+const groupByStatus = (param: GroupByParams) =>
   groupByHandler({
-    groupContent: entriesToGroup,
-    isToGroup: isTogroupByProp(selectedGroupBy, 'Status'),
+    groupContent: param.entriesToGroup,
+    isToGroup: isTogroupByProp(param.selectedGroupBy, GroupByEnum.STATUS),
     defaultGroupName: 'allStatus',
     groupRoute: [],
     groupByRule: groupByStatusRule,
   } satisfies GroupByHandlerParams)
 
-const groupByAssignee = (entriesToGroup: Group | Report, selectedGroupBy: FilterOptions[]) =>
+const groupByAssignee = (param: GroupByParams) =>
   groupByHandler({
-    groupContent: entriesToGroup,
-    isToGroup: isTogroupByProp(selectedGroupBy, 'Assignee'),
+    groupContent: param.entriesToGroup,
+    isToGroup: isTogroupByProp(param.selectedGroupBy, GroupByEnum.ASSIGNEE),
     defaultGroupName: 'allAssignees',
     groupRoute: [],
     groupByRule: groupByAssigneeRule,
   } satisfies GroupByHandlerParams)
 
 // Main logic
+const groupByFunctionsMap: Map<GroupByEnum, (param: GroupByParams) => Group> = new Map([
+  [GroupByEnum.PROJECT, groupByProjects],
+  [GroupByEnum.ASSIGNEE, groupByAssignee],
+  [GroupByEnum.STATUS, groupByStatus],
+  [GroupByEnum.DATE, groupByDates],
+])
 export const hierarchyGroupBy = (entriesToGroup: Group | Report, selectedGroupBy: FilterOptions[]): Group => {
-  return groupByAssignee(
-    groupByStatus(groupByProjects(groupByDates(entriesToGroup, selectedGroupBy), selectedGroupBy), selectedGroupBy),
-    selectedGroupBy,
-  )
+  let newEntriesToGroup: Group | Report = { ...entriesToGroup }
+  Object.values(GroupByEnum).forEach((groupBy) => {
+    const groupByFunction = groupByFunctionsMap.get(groupBy)
+    const groupByFunctionParams: GroupByParams = {
+      entriesToGroup: newEntriesToGroup,
+      selectedGroupBy,
+    }
+    if (groupByFunction) newEntriesToGroup = groupByFunction(groupByFunctionParams)
+  })
+  return newEntriesToGroup as Group
 }
 
 // Generic Handler
