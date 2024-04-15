@@ -33,7 +33,7 @@
   }
 
   const handleCheckDetails = () => {
-    if (filters.showDetails) {
+    if (selectedFilters.showDetails) {
       selectedFilters.showWarnings = true
     }
 
