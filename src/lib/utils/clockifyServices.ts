@@ -143,7 +143,7 @@ export function getLastTimeEntryPerUser(entries: ClockifyTimeEntry[] | null): Cl
  * So it shows the current date
  */
 export const getLastLogDate = (timeEntry: ClockifyTimeEntry) => {
-  return timeEntry.end || new Date().toDateString()
+  return timeEntry.end || new Date().toISOString()
 }
 
 export const getUniqueUsersAndEmails = (report: Report) => {
