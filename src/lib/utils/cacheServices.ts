@@ -1,6 +1,6 @@
 import { browser } from '$app/environment'
 
-export function setCacheItem(key: string, value: unknown, ttl = 2 * 24 * 60 * 60 * 1000) {
+export function setCacheItem(key: string, value: unknown, ttl = 30 * 24 * 60 * 60 * 1000) {
   if (browser) {
     localStorage.setItem(
       key,
