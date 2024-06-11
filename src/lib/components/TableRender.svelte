@@ -4,6 +4,7 @@
   import GroupTitle from './GroupTitle.svelte'
   import Table from './Table.svelte'
   import { GroupByEnum } from '$lib/enums/GroupByEnum'
+  import TableSummary from '$lib/components/TableSummary.svelte'
 
   export let reportGroup: Group
   export let selectedGroupBy: FilterOptions[]
@@ -27,14 +28,15 @@
 </script>
 
 <div class={$$props.class}>
-  {#each Object.entries(reportGroup) as [key, value]}
+  {#each Object.entries(reportGroup) as [key, group]}
     <div class={getGroupTitle() ? 'border border-gray-400 p-5 rounded-lg mb-5' : ''}>
       {#if getGroupTitle()}
         <GroupTitle title={key} />
+        <TableSummary on:orderBy {group} {orderBy} />
       {/if}
       {#if level < Object.keys(GroupByEnum).length - 1}
         <svelte:self
-          reportGroup={value}
+          reportGroup={group}
           {selectedGroupBy}
           {dateRangeEnd}
           {dateRangeStart}
@@ -49,12 +51,10 @@
         <Table
           {dateRangeStart}
           {dateRangeEnd}
-          {orderBy}
-          bind:showSummary
           bind:showDetails
           bind:showWarnings
           class="w-full mb-8"
-          report={asReport(value)}
+          report={asReport(group)}
           on:orderBy
         />
       {/if}

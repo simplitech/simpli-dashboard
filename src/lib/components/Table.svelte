@@ -29,9 +29,6 @@
     formatDateHourMinuteSec,
   } from '$lib/utils/format'
   import { daysToMilis, getContrastColorHex } from '$lib/utils/helper'
-  import TableSummary from '$lib/components/TableSummary.svelte'
-  import HeaderOrderBy from './HeaderOrderBy.svelte'
-  import type { OrderBy } from '$lib/utils/orderby'
   import ClockifyTag from './ClockifyTag.svelte'
   import UserIcon from './UserIcon.svelte'
   import { usersOverview } from '$lib/utils/store'
@@ -39,10 +36,8 @@
   export let report: Report
   export let dateRangeStart: Date
   export let dateRangeEnd: Date
-  export let showSummary = true
   export let showDetails = true
   export let showWarnings = true
-  export let orderBy: OrderBy
 
   $: highlightedIndex = {
     userIndex: -1,
@@ -87,23 +82,6 @@
 </script>
 
 <div class="table-grid text-sm {$$props.class}">
-  <div class="table-grid__header min-w-[400px] max-w-[600px]">{Object.entries(report).length} TASKS</div>
-  <div class="table-grid__header">ASSIGNEE</div>
-  <div class="table-grid__header">TASK ID</div>
-  <HeaderOrderBy on:orderBy {orderBy} headerText="TIME TRACKED" class="table-grid__header" />
-  <HeaderOrderBy on:orderBy {orderBy} headerText="TIME ESTIMATE" class="table-grid__header" />
-  <HeaderOrderBy on:orderBy {orderBy} headerText="ESTIMATIVE ERROR" class="table-grid__header" />
-  <HeaderOrderBy on:orderBy {orderBy} headerText="DUE DATE" class="table-grid__header" />
-  <HeaderOrderBy on:orderBy {orderBy} headerText="DELAY" class="table-grid__header" />
-  <HeaderOrderBy on:orderBy {orderBy} headerText="LAST LOG" class="table-grid__header" />
-  <HeaderOrderBy on:orderBy {orderBy} headerText="TO REVIEW" class="table-grid__header" />
-  <HeaderOrderBy on:orderBy {orderBy} headerText="TO TEST" class="table-grid__header" />
-
-  <!-- Summary -->
-  {#if showSummary}
-    <TableSummary {report} />
-  {/if}
-
   {#if showDetails || showWarnings}
     {#each Object.entries(report) as [id, entry], entryIndex}
       <div class="table-grid__first-cell min-w-[400px] max-w-[600px] rounded-l-lg">
@@ -260,10 +238,6 @@
 
   .table-grid > div:first-child {
     @apply text-left;
-  }
-
-  :global(.table-grid__header) {
-    @apply text-gray-400 font-semibold text-center;
   }
 
   .table-grid__cell {
