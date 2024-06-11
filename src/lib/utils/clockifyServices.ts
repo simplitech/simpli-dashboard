@@ -90,20 +90,17 @@ export const sumTimeTracked = (report: Report) => {
     .reduce((a, b) => a + b, 0)
 }
 
+export function isInThePast(date: string): boolean {
+  const now = new Date()
+  return new Date(date) < now
+}
+
 export async function getClockifyEntriesAPI(startDate: string, endDate: string): Promise<ClockifyTimeEntry[]> {
   const result = await getGraphqlClient()
     .query(ClockifyTimeEntriesDocument, {
       where: {
-        OR: [
-          {
-            start: { gte: startDate },
-            end: { lte: endDate },
-          },
-          {
-            start: { gte: startDate },
-            end: null,
-          },
-        ],
+        start: { gte: startDate },
+        end: isInThePast(endDate) ? { lte: endDate } : undefined,
       },
     })
     .toPromise()
