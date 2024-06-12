@@ -5,12 +5,12 @@
   import Table from './Table.svelte'
   import { GroupByEnum } from '$lib/enums/GroupByEnum'
   import TableSummary from '$lib/components/TableSummary.svelte'
+  import { allDefaultGroupName } from '$lib/utils/groupBy'
 
   export let reportGroup: Group
   export let selectedGroupBy: FilterOptions[]
   export let dateRangeStart: Date
   export let dateRangeEnd: Date
-  export let showSummary = true
   export let showDetails = true
   export let showWarnings = true
   export let level = 0
@@ -32,6 +32,8 @@
     <div class={getGroupTitle() ? 'border border-gray-400 p-5 rounded-lg mb-5' : ''}>
       {#if getGroupTitle()}
         <GroupTitle title={key} />
+      {/if}
+      {#if !allDefaultGroupName.includes(key) || level === 0}
         <TableSummary on:orderBy {group} {orderBy} />
       {/if}
       {#if level < Object.keys(GroupByEnum).length - 1}
@@ -41,7 +43,6 @@
           {dateRangeEnd}
           {dateRangeStart}
           {showDetails}
-          {showSummary}
           {showWarnings}
           {orderBy}
           level={level + 1}

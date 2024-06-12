@@ -59,8 +59,6 @@
     asc: false,
     by: 'LAST LOG',
   }
-
-  $: showSummary = true
   $: showDetails = true
   $: showWarnings = true
 
@@ -201,7 +199,6 @@
     selectedGroupBy = event.detail.selectedGroupBy
     showWarnings = event.detail.showWarnings
     showDetails = event.detail.showDetails
-    showSummary = event.detail.showSummary
 
     handleFilters()
   }
@@ -418,7 +415,6 @@
       {dateRangeStart}
       {orderBy}
       bind:showDetails
-      bind:showSummary
       bind:showWarnings
       on:orderBy={setOrderByValue}
     />
