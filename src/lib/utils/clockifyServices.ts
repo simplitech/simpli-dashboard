@@ -1,5 +1,5 @@
 import { ClockifyTimeEntriesDocument, type ClockifyTimeEntry } from '../../graphql/generated'
-import { formatDurationClock, type Entry, type Report, formatDayMonthYear } from '$lib/utils/format'
+import { formatDurationClock, type Entry, type Report, formatDayMonthYear, type Group } from '$lib/utils/format'
 import { getGraphqlClient } from '$lib/utils/store'
 import { parse, toSeconds } from 'iso8601-duration'
 import { getLastEstimative } from '$lib/utils/clickupServices'
@@ -19,6 +19,7 @@ function sortUserDurations(entries: ClockifyTimeEntry[]): { user: string; durati
 }
 
 export function sumDurations(entries: ClockifyTimeEntry[]) {
+  if (typeof entries === 'undefined') return 0
   return entries
     .map((item) => {
       return item.duration ? toSeconds(parse(item.duration)) : 0
@@ -74,19 +75,29 @@ export const calculateEstimationError = (entry: Entry): number => {
   return estimation ? Number((getMainGroupOfDurations(entry.timeEntry) / estimation).toFixed(2)) : 0
 }
 
-export const countUserNames = (report: Report | null): number => {
-  return [
-    ...new Set(
-      Object.values(report)
-        .map((item: Entry) => formatUserNamesSortedByParticipation(item.timeEntry).split(', '))
-        .flat(),
-    ),
-  ].length
+export function getAllAssigners(group: Report | Group): Set<string> {
+  const reportList = Object.values(group)
+  return new Set<string>(
+    typeof reportList[0].timeEntry === 'undefined'
+      ? reportList.map((report) => getAllAssigners(report)).reduce((a, b) => [...a, ...b], [])
+      : reportList.map((item: Entry) => formatUserNamesSortedByParticipation(item.timeEntry).split(', ')).flat(),
+  )
 }
 
-export const sumTimeTracked = (report: Report) => {
-  return Object.values(report)
-    .map((item: Entry) => sumDurations(item.timeEntry))
+export function countTasks(item: Group | Report): number {
+  const taskList = Object.values(item)
+  if (taskList.length === 0) return 0
+  if (typeof taskList[0].timeEntry !== 'undefined') return taskList.length
+  return taskList.map((entry) => countTasks(entry)).reduce((a, b) => a + b, 0)
+}
+
+export const sumTimeTracked = (group: Group | Report): number => {
+  return Object.values(group)
+    .map((item) =>
+      typeof item.timeEntry !== 'undefined'
+        ? sumDurations(item.timeEntry as unknown as ClockifyTimeEntry[])
+        : sumTimeTracked(item),
+    )
     .reduce((a, b) => a + b, 0)
 }
 

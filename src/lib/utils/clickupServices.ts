@@ -1,5 +1,5 @@
 import { calculateEstimationError } from '$lib/utils/clockifyServices'
-import { type Entry, type Report, formatDurationOnlyDays, formatDurationToDays } from '$lib/utils/format'
+import { type Entry, type Report, formatDurationToDays, type Group } from '$lib/utils/format'
 import type {
   ClickupTask,
   ClickupTaskDueDate,
@@ -55,32 +55,47 @@ export function getTaskTimeStatus(taskStatus: ClickupTaskStatusOnTask[] | null, 
   return 0
 }
 
-export const sumTimeEstimate = (report: Report): number => {
+export const sumTimeEstimate = (report: Report | Group, inMilis = false): number => {
   return (
     Object.values(report)
-      .map((item: Entry) => getLastEstimative(item.task?.timeEstimates)?.estimate || 0)
-      .reduce((a, b) => a + b, 0) / 1000
+      .map((item) =>
+        typeof item.task !== 'undefined'
+          ? getLastEstimative(item.task?.timeEstimates)?.estimate || 0
+          : sumTimeEstimate(item, true),
+      )
+      .reduce((a, b) => a + b, 0) / (inMilis ? 1 : 1000)
   )
 }
 
-export const avgEstimativeError = (report: Report): number => {
-  const tasksWithEstimation = Object.values(report).filter((item) => item.task?.timeEstimates[0]?.estimate != null)
+export const avgEstimativeError = (group: Report | Group): number => {
+  const reportList = Object.values(group)
+  if (reportList.length === 0) return 0
+  if (typeof reportList[0].task === 'undefined') {
+    return reportList.map((report) => avgEstimativeError(report)).reduce((a, b) => a + b, 0) / reportList.length || 0
+  }
+  const tasksWithEstimation = reportList.filter((item) => item.task?.timeEstimates[0]?.estimate != null)
   return (
     tasksWithEstimation.map((item) => calculateEstimationError(item)).reduce((a, b) => a + b, 0) /
       tasksWithEstimation.length || 0
   )
 }
 
-export const avgDaysStatus = (report: Report, statusName: string): number => {
-  const tasksWithStatus = Object.values(report).filter((item) =>
+export const avgDaysStatus = (group: Report | Group, statusName: string): number => {
+  const reportList = Object.values(group)
+  if (reportList.length === 0) return 0
+  if (typeof reportList[0].task === 'undefined') {
+    return (
+      reportList.map((report) => avgDaysStatus(report, statusName)).reduce((a, b) => a + b, 0) / reportList.length || 0
+    )
+  }
+  const tasksWithStatus = reportList.filter((item) =>
     item.task?.status.some(
       (clickupStatus: ClickupTaskStatusOnTask) => clickupStatus.statusName.trim() === statusName.trim(),
     ),
   )
-
   return (
     tasksWithStatus.map((item) => getTaskTimeStatus(item.task?.status, statusName)).reduce((a, b) => a + b, 0) /
-    tasksWithStatus.length
+      tasksWithStatus.length || 0
   )
 }
 
