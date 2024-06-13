@@ -80,7 +80,7 @@ const groupByDates = (param: GroupByParams) =>
   groupByHandler({
     groupContent: param.entriesToGroup,
     isToGroup: isTogroupByProp(param.selectedGroupBy, GroupByEnum.DATE),
-    defaultGroupName: 'allDates',
+    defaultGroupName: getDefaultGroupName(GroupByEnum.DATE),
     groupRoute: [],
     groupByRule: groupByDatesRule,
   } satisfies GroupByHandlerParams)
@@ -89,7 +89,7 @@ const groupByProjects = (param: GroupByParams) =>
   groupByHandler({
     groupContent: param.entriesToGroup,
     isToGroup: isTogroupByProp(param.selectedGroupBy, GroupByEnum.PROJECT),
-    defaultGroupName: 'allProjects',
+    defaultGroupName: getDefaultGroupName(GroupByEnum.PROJECT),
     groupRoute: [],
     groupByRule: groupByProjectsRule,
   } satisfies GroupByHandlerParams)
@@ -98,7 +98,7 @@ const groupByStatus = (param: GroupByParams) =>
   groupByHandler({
     groupContent: param.entriesToGroup,
     isToGroup: isTogroupByProp(param.selectedGroupBy, GroupByEnum.STATUS),
-    defaultGroupName: 'allStatus',
+    defaultGroupName: getDefaultGroupName(GroupByEnum.STATUS),
     groupRoute: [],
     groupByRule: groupByStatusRule,
   } satisfies GroupByHandlerParams)
@@ -107,7 +107,7 @@ const groupByAssignee = (param: GroupByParams) =>
   groupByHandler({
     groupContent: param.entriesToGroup,
     isToGroup: isTogroupByProp(param.selectedGroupBy, GroupByEnum.ASSIGNEE),
-    defaultGroupName: 'allAssignees',
+    defaultGroupName: getDefaultGroupName(GroupByEnum.ASSIGNEE),
     groupRoute: [],
     groupByRule: groupByAssigneeRule,
   } satisfies GroupByHandlerParams)
@@ -119,6 +119,13 @@ const groupByFunctionsMap: Map<GroupByEnum, (param: GroupByParams) => Group> = n
   [GroupByEnum.STATUS, groupByStatus],
   [GroupByEnum.DATE, groupByDates],
 ])
+
+export function getDefaultGroupName(group: GroupByEnum) {
+  return `all${group as string}`
+}
+
+export const allDefaultGroupName: string[] = Object.values(GroupByEnum).map((group) => getDefaultGroupName(group))
+
 export const hierarchyGroupBy = (entriesToGroup: Group | Report, selectedGroupBy: FilterOptions[]): Group => {
   let newEntriesToGroup: Group | Report = { ...entriesToGroup }
   Object.values(GroupByEnum).forEach((groupBy) => {
