@@ -12,6 +12,7 @@
   export let dateRangeStart: Date
   export let dateRangeEnd: Date
   export let showDetails = true
+  export let showSummary = true
   export let showWarnings = true
   export let level = 0
   export let orderBy: OrderBy
@@ -33,7 +34,7 @@
       {#if getGroupTitle()}
         <GroupTitle title={key} />
       {/if}
-      {#if !allDefaultGroupName.includes(key) || level === 0}
+      {#if showSummary && (!allDefaultGroupName.includes(key) || level === 0)}
         <TableSummary on:orderBy {group} {orderBy} />
       {/if}
       {#if level < Object.keys(GroupByEnum).length - 1}
@@ -43,6 +44,7 @@
           {dateRangeEnd}
           {dateRangeStart}
           {showDetails}
+          {showSummary}
           {showWarnings}
           {orderBy}
           level={level + 1}
