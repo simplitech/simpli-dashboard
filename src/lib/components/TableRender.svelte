@@ -5,7 +5,7 @@
   import Table from './Table.svelte'
   import { GroupByEnum } from '$lib/enums/GroupByEnum'
   import TableSummary from '$lib/components/TableSummary.svelte'
-  import { allDefaultGroupName } from '$lib/utils/groupBy'
+  import { allDefaultGroupName, groupByOrder } from '$lib/utils/groupBy'
 
   export let reportGroup: Group
   export let selectedGroupBy: FilterOptions[]
@@ -29,6 +29,9 @@
 </script>
 
 <div class={$$props.class}>
+  {#if showSummary && level === 0 && selectedGroupBy.some((group) => group.label === groupByOrder[0])}
+    <TableSummary on:orderBy group={reportGroup} {orderBy} />
+  {/if}
   {#each Object.entries(reportGroup) as [key, group]}
     <div class={getGroupTitle() ? 'border border-gray-400 p-5 rounded-lg mb-5' : ''}>
       {#if getGroupTitle()}
