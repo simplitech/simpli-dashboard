@@ -124,11 +124,12 @@ export function getDefaultGroupName(group: GroupByEnum) {
   return `all${group as string}`
 }
 
-export const allDefaultGroupName: string[] = Object.values(GroupByEnum).map((group) => getDefaultGroupName(group))
+export const groupByOrder = Object.values(GroupByEnum)
+export const allDefaultGroupName: string[] = groupByOrder.map((group) => getDefaultGroupName(group))
 
 export const hierarchyGroupBy = (entriesToGroup: Group | Report, selectedGroupBy: FilterOptions[]): Group => {
   let newEntriesToGroup: Group | Report = { ...entriesToGroup }
-  Object.values(GroupByEnum).forEach((groupBy) => {
+  groupByOrder.forEach((groupBy) => {
     const groupByFunction = groupByFunctionsMap.get(groupBy)
     const groupByFunctionParams: GroupByParams = {
       entriesToGroup: newEntriesToGroup,
