@@ -5,6 +5,7 @@ export const queries = gql`
     clockifyTimeEntries(where: $where) {
       id
       description
+      note
       start
       end
       duration

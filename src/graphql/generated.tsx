@@ -1,4 +1,3 @@
-import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core'
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] }
@@ -179,6 +178,13 @@ export type AggregateClickupTaskStatus = {
   _count?: Maybe<ClickupTaskStatusCountAggregate>
   _max?: Maybe<ClickupTaskStatusMaxAggregate>
   _min?: Maybe<ClickupTaskStatusMinAggregate>
+}
+
+export type AggregateClickupTaskStatusDetail = {
+  __typename?: 'AggregateClickupTaskStatusDetail'
+  _count?: Maybe<ClickupTaskStatusDetailCountAggregate>
+  _max?: Maybe<ClickupTaskStatusDetailMaxAggregate>
+  _min?: Maybe<ClickupTaskStatusDetailMinAggregate>
 }
 
 export type AggregateClickupTaskStatusOnTask = {
@@ -1003,7 +1009,7 @@ export type ClickupList = {
   _count?: Maybe<ClickupListCount>
   archived: Scalars['Boolean']['output']
   clickupTaskLocationHistory: Array<ClickupTaskLocationHistory>
-  content: Scalars['String']['output']
+  content?: Maybe<Scalars['String']['output']>
   deleted: Scalars['Boolean']['output']
   dueDate?: Maybe<Scalars['BigInt']['output']>
   id: Scalars['String']['output']
@@ -1074,7 +1080,7 @@ export type ClickupListCreateInput = {
   ClickupTaskList?: InputMaybe<ClickupTaskListCreateNestedManyWithoutClickupListInput>
   archived: Scalars['Boolean']['input']
   clickupTaskLocationHistory?: InputMaybe<ClickupTaskLocationHistoryCreateNestedManyWithoutClickupListInput>
-  content: Scalars['String']['input']
+  content?: InputMaybe<Scalars['String']['input']>
   deleted: Scalars['Boolean']['input']
   dueDate?: InputMaybe<Scalars['BigInt']['input']>
   id: Scalars['String']['input']
@@ -1088,7 +1094,7 @@ export type ClickupListCreateInput = {
 
 export type ClickupListCreateManyInput = {
   archived: Scalars['Boolean']['input']
-  content: Scalars['String']['input']
+  content?: InputMaybe<Scalars['String']['input']>
   deleted: Scalars['Boolean']['input']
   dueDate?: InputMaybe<Scalars['BigInt']['input']>
   id: Scalars['String']['input']
@@ -1125,7 +1131,7 @@ export type ClickupListCreateOrConnectWithoutClickupTaskLocationHistoryInput = {
 export type ClickupListCreateWithoutClickupTaskListInput = {
   archived: Scalars['Boolean']['input']
   clickupTaskLocationHistory?: InputMaybe<ClickupTaskLocationHistoryCreateNestedManyWithoutClickupListInput>
-  content: Scalars['String']['input']
+  content?: InputMaybe<Scalars['String']['input']>
   deleted: Scalars['Boolean']['input']
   dueDate?: InputMaybe<Scalars['BigInt']['input']>
   id: Scalars['String']['input']
@@ -1140,7 +1146,7 @@ export type ClickupListCreateWithoutClickupTaskListInput = {
 export type ClickupListCreateWithoutClickupTaskLocationHistoryInput = {
   ClickupTaskList?: InputMaybe<ClickupTaskListCreateNestedManyWithoutClickupListInput>
   archived: Scalars['Boolean']['input']
-  content: Scalars['String']['input']
+  content?: InputMaybe<Scalars['String']['input']>
   deleted: Scalars['Boolean']['input']
   dueDate?: InputMaybe<Scalars['BigInt']['input']>
   id: Scalars['String']['input']
@@ -1186,7 +1192,7 @@ export type ClickupListOrderByWithRelationInput = {
   ClickupTaskList?: InputMaybe<ClickupTaskListOrderByRelationAggregateInput>
   archived?: InputMaybe<SortOrder>
   clickupTaskLocationHistory?: InputMaybe<ClickupTaskLocationHistoryOrderByRelationAggregateInput>
-  content?: InputMaybe<SortOrder>
+  content?: InputMaybe<SortOrderInput>
   deleted?: InputMaybe<SortOrder>
   dueDate?: InputMaybe<SortOrderInput>
   id?: InputMaybe<SortOrder>
@@ -1228,7 +1234,7 @@ export type ClickupListUpdateInput = {
   ClickupTaskList?: InputMaybe<ClickupTaskListUpdateManyWithoutClickupListNestedInput>
   archived?: InputMaybe<BoolFieldUpdateOperationsInput>
   clickupTaskLocationHistory?: InputMaybe<ClickupTaskLocationHistoryUpdateManyWithoutClickupListNestedInput>
-  content?: InputMaybe<StringFieldUpdateOperationsInput>
+  content?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   deleted?: InputMaybe<BoolFieldUpdateOperationsInput>
   dueDate?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -1242,7 +1248,7 @@ export type ClickupListUpdateInput = {
 
 export type ClickupListUpdateManyMutationInput = {
   archived?: InputMaybe<BoolFieldUpdateOperationsInput>
-  content?: InputMaybe<StringFieldUpdateOperationsInput>
+  content?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   deleted?: InputMaybe<BoolFieldUpdateOperationsInput>
   dueDate?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -1283,7 +1289,7 @@ export type ClickupListUpdateToOneWithWhereWithoutClickupTaskLocationHistoryInpu
 export type ClickupListUpdateWithoutClickupTaskListInput = {
   archived?: InputMaybe<BoolFieldUpdateOperationsInput>
   clickupTaskLocationHistory?: InputMaybe<ClickupTaskLocationHistoryUpdateManyWithoutClickupListNestedInput>
-  content?: InputMaybe<StringFieldUpdateOperationsInput>
+  content?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   deleted?: InputMaybe<BoolFieldUpdateOperationsInput>
   dueDate?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -1298,7 +1304,7 @@ export type ClickupListUpdateWithoutClickupTaskListInput = {
 export type ClickupListUpdateWithoutClickupTaskLocationHistoryInput = {
   ClickupTaskList?: InputMaybe<ClickupTaskListUpdateManyWithoutClickupListNestedInput>
   archived?: InputMaybe<BoolFieldUpdateOperationsInput>
-  content?: InputMaybe<StringFieldUpdateOperationsInput>
+  content?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   deleted?: InputMaybe<BoolFieldUpdateOperationsInput>
   dueDate?: InputMaybe<NullableBigIntFieldUpdateOperationsInput>
   id?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -1329,7 +1335,7 @@ export type ClickupListWhereInput = {
   OR?: InputMaybe<Array<ClickupListWhereInput>>
   archived?: InputMaybe<BoolFilter>
   clickupTaskLocationHistory?: InputMaybe<ClickupTaskLocationHistoryListRelationFilter>
-  content?: InputMaybe<StringFilter>
+  content?: InputMaybe<StringNullableFilter>
   deleted?: InputMaybe<BoolFilter>
   dueDate?: InputMaybe<BigIntNullableFilter>
   id?: InputMaybe<StringFilter>
@@ -1348,7 +1354,7 @@ export type ClickupListWhereUniqueInput = {
   OR?: InputMaybe<Array<ClickupListWhereInput>>
   archived?: InputMaybe<BoolFilter>
   clickupTaskLocationHistory?: InputMaybe<ClickupTaskLocationHistoryListRelationFilter>
-  content?: InputMaybe<StringFilter>
+  content?: InputMaybe<StringNullableFilter>
   deleted?: InputMaybe<BoolFilter>
   dueDate?: InputMaybe<BigIntNullableFilter>
   id?: InputMaybe<Scalars['String']['input']>
@@ -7023,8 +7029,28 @@ export type ClickupTaskStatus = {
   _count?: Maybe<ClickupTaskStatusCount>
   color: Scalars['String']['output']
   createdAt: Scalars['DateTime']['output']
+  cycleStatus: Array<ClickupTaskStatusDetail>
+  details: Array<ClickupTaskStatusDetail>
   name: Scalars['String']['output']
   tasks: Array<ClickupTaskStatusOnTask>
+}
+
+export type ClickupTaskStatusCycleStatusArgs = {
+  cursor?: InputMaybe<ClickupTaskStatusDetailWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupTaskStatusDetailScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupTaskStatusDetailOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupTaskStatusDetailWhereInput>
+}
+
+export type ClickupTaskStatusDetailsArgs = {
+  cursor?: InputMaybe<ClickupTaskStatusDetailWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupTaskStatusDetailScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupTaskStatusDetailOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupTaskStatusDetailWhereInput>
 }
 
 export type ClickupTaskStatusTasksArgs = {
@@ -7043,7 +7069,17 @@ export type ClickupTaskStatusColorNameCompoundUniqueInput = {
 
 export type ClickupTaskStatusCount = {
   __typename?: 'ClickupTaskStatusCount'
+  cycleStatus: Scalars['Int']['output']
+  details: Scalars['Int']['output']
   tasks: Scalars['Int']['output']
+}
+
+export type ClickupTaskStatusCountCycleStatusArgs = {
+  where?: InputMaybe<ClickupTaskStatusDetailWhereInput>
+}
+
+export type ClickupTaskStatusCountDetailsArgs = {
+  where?: InputMaybe<ClickupTaskStatusDetailWhereInput>
 }
 
 export type ClickupTaskStatusCountTasksArgs = {
@@ -7061,6 +7097,8 @@ export type ClickupTaskStatusCountAggregate = {
 export type ClickupTaskStatusCreateInput = {
   color: Scalars['String']['input']
   createdAt?: InputMaybe<Scalars['DateTime']['input']>
+  cycleStatus?: InputMaybe<ClickupTaskStatusDetailCreateNestedManyWithoutCycleStatusInput>
+  details?: InputMaybe<ClickupTaskStatusDetailCreateNestedManyWithoutStatusInput>
   name: Scalars['String']['input']
   tasks?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutStatusInput>
 }
@@ -7071,10 +7109,32 @@ export type ClickupTaskStatusCreateManyInput = {
   name: Scalars['String']['input']
 }
 
+export type ClickupTaskStatusCreateNestedOneWithoutCycleStatusInput = {
+  connect?: InputMaybe<ClickupTaskStatusWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupTaskStatusCreateOrConnectWithoutCycleStatusInput>
+  create?: InputMaybe<ClickupTaskStatusCreateWithoutCycleStatusInput>
+}
+
+export type ClickupTaskStatusCreateNestedOneWithoutDetailsInput = {
+  connect?: InputMaybe<ClickupTaskStatusWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupTaskStatusCreateOrConnectWithoutDetailsInput>
+  create?: InputMaybe<ClickupTaskStatusCreateWithoutDetailsInput>
+}
+
 export type ClickupTaskStatusCreateNestedOneWithoutTasksInput = {
   connect?: InputMaybe<ClickupTaskStatusWhereUniqueInput>
   connectOrCreate?: InputMaybe<ClickupTaskStatusCreateOrConnectWithoutTasksInput>
   create?: InputMaybe<ClickupTaskStatusCreateWithoutTasksInput>
+}
+
+export type ClickupTaskStatusCreateOrConnectWithoutCycleStatusInput = {
+  create: ClickupTaskStatusCreateWithoutCycleStatusInput
+  where: ClickupTaskStatusWhereUniqueInput
+}
+
+export type ClickupTaskStatusCreateOrConnectWithoutDetailsInput = {
+  create: ClickupTaskStatusCreateWithoutDetailsInput
+  where: ClickupTaskStatusWhereUniqueInput
 }
 
 export type ClickupTaskStatusCreateOrConnectWithoutTasksInput = {
@@ -7082,10 +7142,288 @@ export type ClickupTaskStatusCreateOrConnectWithoutTasksInput = {
   where: ClickupTaskStatusWhereUniqueInput
 }
 
+export type ClickupTaskStatusCreateWithoutCycleStatusInput = {
+  color: Scalars['String']['input']
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>
+  details?: InputMaybe<ClickupTaskStatusDetailCreateNestedManyWithoutStatusInput>
+  name: Scalars['String']['input']
+  tasks?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutStatusInput>
+}
+
+export type ClickupTaskStatusCreateWithoutDetailsInput = {
+  color: Scalars['String']['input']
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>
+  cycleStatus?: InputMaybe<ClickupTaskStatusDetailCreateNestedManyWithoutCycleStatusInput>
+  name: Scalars['String']['input']
+  tasks?: InputMaybe<ClickupTaskStatusOnTaskCreateNestedManyWithoutStatusInput>
+}
+
 export type ClickupTaskStatusCreateWithoutTasksInput = {
   color: Scalars['String']['input']
   createdAt?: InputMaybe<Scalars['DateTime']['input']>
+  cycleStatus?: InputMaybe<ClickupTaskStatusDetailCreateNestedManyWithoutCycleStatusInput>
+  details?: InputMaybe<ClickupTaskStatusDetailCreateNestedManyWithoutStatusInput>
   name: Scalars['String']['input']
+}
+
+export type ClickupTaskStatusDetail = {
+  __typename?: 'ClickupTaskStatusDetail'
+  cycleStatus: ClickupTaskStatus
+  cycleStatusColor: Scalars['String']['output']
+  cycleStatusName: Scalars['String']['output']
+  idle: Scalars['Boolean']['output']
+  status: ClickupTaskStatus
+  statusColor: Scalars['String']['output']
+  statusName: Scalars['String']['output']
+}
+
+export type ClickupTaskStatusDetailCountAggregate = {
+  __typename?: 'ClickupTaskStatusDetailCountAggregate'
+  _all: Scalars['Int']['output']
+  cycleStatusColor: Scalars['Int']['output']
+  cycleStatusName: Scalars['Int']['output']
+  idle: Scalars['Int']['output']
+  statusColor: Scalars['Int']['output']
+  statusName: Scalars['Int']['output']
+}
+
+export type ClickupTaskStatusDetailCreateInput = {
+  cycleStatus: ClickupTaskStatusCreateNestedOneWithoutCycleStatusInput
+  idle: Scalars['Boolean']['input']
+  status: ClickupTaskStatusCreateNestedOneWithoutDetailsInput
+}
+
+export type ClickupTaskStatusDetailCreateManyCycleStatusInput = {
+  idle: Scalars['Boolean']['input']
+  statusColor: Scalars['String']['input']
+  statusName: Scalars['String']['input']
+}
+
+export type ClickupTaskStatusDetailCreateManyCycleStatusInputEnvelope = {
+  data: Array<ClickupTaskStatusDetailCreateManyCycleStatusInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type ClickupTaskStatusDetailCreateManyInput = {
+  cycleStatusColor: Scalars['String']['input']
+  cycleStatusName: Scalars['String']['input']
+  idle: Scalars['Boolean']['input']
+  statusColor: Scalars['String']['input']
+  statusName: Scalars['String']['input']
+}
+
+export type ClickupTaskStatusDetailCreateManyStatusInput = {
+  cycleStatusColor: Scalars['String']['input']
+  cycleStatusName: Scalars['String']['input']
+  idle: Scalars['Boolean']['input']
+}
+
+export type ClickupTaskStatusDetailCreateManyStatusInputEnvelope = {
+  data: Array<ClickupTaskStatusDetailCreateManyStatusInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type ClickupTaskStatusDetailCreateNestedManyWithoutCycleStatusInput = {
+  connect?: InputMaybe<Array<ClickupTaskStatusDetailWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskStatusDetailCreateOrConnectWithoutCycleStatusInput>>
+  create?: InputMaybe<Array<ClickupTaskStatusDetailCreateWithoutCycleStatusInput>>
+  createMany?: InputMaybe<ClickupTaskStatusDetailCreateManyCycleStatusInputEnvelope>
+}
+
+export type ClickupTaskStatusDetailCreateNestedManyWithoutStatusInput = {
+  connect?: InputMaybe<Array<ClickupTaskStatusDetailWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskStatusDetailCreateOrConnectWithoutStatusInput>>
+  create?: InputMaybe<Array<ClickupTaskStatusDetailCreateWithoutStatusInput>>
+  createMany?: InputMaybe<ClickupTaskStatusDetailCreateManyStatusInputEnvelope>
+}
+
+export type ClickupTaskStatusDetailCreateOrConnectWithoutCycleStatusInput = {
+  create: ClickupTaskStatusDetailCreateWithoutCycleStatusInput
+  where: ClickupTaskStatusDetailWhereUniqueInput
+}
+
+export type ClickupTaskStatusDetailCreateOrConnectWithoutStatusInput = {
+  create: ClickupTaskStatusDetailCreateWithoutStatusInput
+  where: ClickupTaskStatusDetailWhereUniqueInput
+}
+
+export type ClickupTaskStatusDetailCreateWithoutCycleStatusInput = {
+  idle: Scalars['Boolean']['input']
+  status: ClickupTaskStatusCreateNestedOneWithoutDetailsInput
+}
+
+export type ClickupTaskStatusDetailCreateWithoutStatusInput = {
+  cycleStatus: ClickupTaskStatusCreateNestedOneWithoutCycleStatusInput
+  idle: Scalars['Boolean']['input']
+}
+
+export type ClickupTaskStatusDetailListRelationFilter = {
+  every?: InputMaybe<ClickupTaskStatusDetailWhereInput>
+  none?: InputMaybe<ClickupTaskStatusDetailWhereInput>
+  some?: InputMaybe<ClickupTaskStatusDetailWhereInput>
+}
+
+export type ClickupTaskStatusDetailMaxAggregate = {
+  __typename?: 'ClickupTaskStatusDetailMaxAggregate'
+  cycleStatusColor?: Maybe<Scalars['String']['output']>
+  cycleStatusName?: Maybe<Scalars['String']['output']>
+  idle?: Maybe<Scalars['Boolean']['output']>
+  statusColor?: Maybe<Scalars['String']['output']>
+  statusName?: Maybe<Scalars['String']['output']>
+}
+
+export type ClickupTaskStatusDetailMinAggregate = {
+  __typename?: 'ClickupTaskStatusDetailMinAggregate'
+  cycleStatusColor?: Maybe<Scalars['String']['output']>
+  cycleStatusName?: Maybe<Scalars['String']['output']>
+  idle?: Maybe<Scalars['Boolean']['output']>
+  statusColor?: Maybe<Scalars['String']['output']>
+  statusName?: Maybe<Scalars['String']['output']>
+}
+
+export type ClickupTaskStatusDetailOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>
+}
+
+export type ClickupTaskStatusDetailOrderByWithRelationInput = {
+  cycleStatus?: InputMaybe<ClickupTaskStatusOrderByWithRelationInput>
+  cycleStatusColor?: InputMaybe<SortOrder>
+  cycleStatusName?: InputMaybe<SortOrder>
+  idle?: InputMaybe<SortOrder>
+  status?: InputMaybe<ClickupTaskStatusOrderByWithRelationInput>
+  statusColor?: InputMaybe<SortOrder>
+  statusName?: InputMaybe<SortOrder>
+}
+
+export enum ClickupTaskStatusDetailScalarFieldEnum {
+  CycleStatusColor = 'cycleStatusColor',
+  CycleStatusName = 'cycleStatusName',
+  Idle = 'idle',
+  StatusColor = 'statusColor',
+  StatusName = 'statusName',
+}
+
+export type ClickupTaskStatusDetailScalarWhereInput = {
+  AND?: InputMaybe<Array<ClickupTaskStatusDetailScalarWhereInput>>
+  NOT?: InputMaybe<Array<ClickupTaskStatusDetailScalarWhereInput>>
+  OR?: InputMaybe<Array<ClickupTaskStatusDetailScalarWhereInput>>
+  cycleStatusColor?: InputMaybe<StringFilter>
+  cycleStatusName?: InputMaybe<StringFilter>
+  idle?: InputMaybe<BoolFilter>
+  statusColor?: InputMaybe<StringFilter>
+  statusName?: InputMaybe<StringFilter>
+}
+
+export type ClickupTaskStatusDetailStatusColorStatusNameCompoundUniqueInput = {
+  statusColor: Scalars['String']['input']
+  statusName: Scalars['String']['input']
+}
+
+export type ClickupTaskStatusDetailUpdateInput = {
+  cycleStatus?: InputMaybe<ClickupTaskStatusUpdateOneRequiredWithoutCycleStatusNestedInput>
+  idle?: InputMaybe<BoolFieldUpdateOperationsInput>
+  status?: InputMaybe<ClickupTaskStatusUpdateOneRequiredWithoutDetailsNestedInput>
+}
+
+export type ClickupTaskStatusDetailUpdateManyMutationInput = {
+  idle?: InputMaybe<BoolFieldUpdateOperationsInput>
+}
+
+export type ClickupTaskStatusDetailUpdateManyWithWhereWithoutCycleStatusInput = {
+  data: ClickupTaskStatusDetailUpdateManyMutationInput
+  where: ClickupTaskStatusDetailScalarWhereInput
+}
+
+export type ClickupTaskStatusDetailUpdateManyWithWhereWithoutStatusInput = {
+  data: ClickupTaskStatusDetailUpdateManyMutationInput
+  where: ClickupTaskStatusDetailScalarWhereInput
+}
+
+export type ClickupTaskStatusDetailUpdateManyWithoutCycleStatusNestedInput = {
+  connect?: InputMaybe<Array<ClickupTaskStatusDetailWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskStatusDetailCreateOrConnectWithoutCycleStatusInput>>
+  create?: InputMaybe<Array<ClickupTaskStatusDetailCreateWithoutCycleStatusInput>>
+  createMany?: InputMaybe<ClickupTaskStatusDetailCreateManyCycleStatusInputEnvelope>
+  delete?: InputMaybe<Array<ClickupTaskStatusDetailWhereUniqueInput>>
+  deleteMany?: InputMaybe<Array<ClickupTaskStatusDetailScalarWhereInput>>
+  disconnect?: InputMaybe<Array<ClickupTaskStatusDetailWhereUniqueInput>>
+  set?: InputMaybe<Array<ClickupTaskStatusDetailWhereUniqueInput>>
+  update?: InputMaybe<Array<ClickupTaskStatusDetailUpdateWithWhereUniqueWithoutCycleStatusInput>>
+  updateMany?: InputMaybe<Array<ClickupTaskStatusDetailUpdateManyWithWhereWithoutCycleStatusInput>>
+  upsert?: InputMaybe<Array<ClickupTaskStatusDetailUpsertWithWhereUniqueWithoutCycleStatusInput>>
+}
+
+export type ClickupTaskStatusDetailUpdateManyWithoutStatusNestedInput = {
+  connect?: InputMaybe<Array<ClickupTaskStatusDetailWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClickupTaskStatusDetailCreateOrConnectWithoutStatusInput>>
+  create?: InputMaybe<Array<ClickupTaskStatusDetailCreateWithoutStatusInput>>
+  createMany?: InputMaybe<ClickupTaskStatusDetailCreateManyStatusInputEnvelope>
+  delete?: InputMaybe<Array<ClickupTaskStatusDetailWhereUniqueInput>>
+  deleteMany?: InputMaybe<Array<ClickupTaskStatusDetailScalarWhereInput>>
+  disconnect?: InputMaybe<Array<ClickupTaskStatusDetailWhereUniqueInput>>
+  set?: InputMaybe<Array<ClickupTaskStatusDetailWhereUniqueInput>>
+  update?: InputMaybe<Array<ClickupTaskStatusDetailUpdateWithWhereUniqueWithoutStatusInput>>
+  updateMany?: InputMaybe<Array<ClickupTaskStatusDetailUpdateManyWithWhereWithoutStatusInput>>
+  upsert?: InputMaybe<Array<ClickupTaskStatusDetailUpsertWithWhereUniqueWithoutStatusInput>>
+}
+
+export type ClickupTaskStatusDetailUpdateWithWhereUniqueWithoutCycleStatusInput = {
+  data: ClickupTaskStatusDetailUpdateWithoutCycleStatusInput
+  where: ClickupTaskStatusDetailWhereUniqueInput
+}
+
+export type ClickupTaskStatusDetailUpdateWithWhereUniqueWithoutStatusInput = {
+  data: ClickupTaskStatusDetailUpdateWithoutStatusInput
+  where: ClickupTaskStatusDetailWhereUniqueInput
+}
+
+export type ClickupTaskStatusDetailUpdateWithoutCycleStatusInput = {
+  idle?: InputMaybe<BoolFieldUpdateOperationsInput>
+  status?: InputMaybe<ClickupTaskStatusUpdateOneRequiredWithoutDetailsNestedInput>
+}
+
+export type ClickupTaskStatusDetailUpdateWithoutStatusInput = {
+  cycleStatus?: InputMaybe<ClickupTaskStatusUpdateOneRequiredWithoutCycleStatusNestedInput>
+  idle?: InputMaybe<BoolFieldUpdateOperationsInput>
+}
+
+export type ClickupTaskStatusDetailUpsertWithWhereUniqueWithoutCycleStatusInput = {
+  create: ClickupTaskStatusDetailCreateWithoutCycleStatusInput
+  update: ClickupTaskStatusDetailUpdateWithoutCycleStatusInput
+  where: ClickupTaskStatusDetailWhereUniqueInput
+}
+
+export type ClickupTaskStatusDetailUpsertWithWhereUniqueWithoutStatusInput = {
+  create: ClickupTaskStatusDetailCreateWithoutStatusInput
+  update: ClickupTaskStatusDetailUpdateWithoutStatusInput
+  where: ClickupTaskStatusDetailWhereUniqueInput
+}
+
+export type ClickupTaskStatusDetailWhereInput = {
+  AND?: InputMaybe<Array<ClickupTaskStatusDetailWhereInput>>
+  NOT?: InputMaybe<Array<ClickupTaskStatusDetailWhereInput>>
+  OR?: InputMaybe<Array<ClickupTaskStatusDetailWhereInput>>
+  cycleStatus?: InputMaybe<ClickupTaskStatusRelationFilter>
+  cycleStatusColor?: InputMaybe<StringFilter>
+  cycleStatusName?: InputMaybe<StringFilter>
+  idle?: InputMaybe<BoolFilter>
+  status?: InputMaybe<ClickupTaskStatusRelationFilter>
+  statusColor?: InputMaybe<StringFilter>
+  statusName?: InputMaybe<StringFilter>
+}
+
+export type ClickupTaskStatusDetailWhereUniqueInput = {
+  AND?: InputMaybe<Array<ClickupTaskStatusDetailWhereInput>>
+  NOT?: InputMaybe<Array<ClickupTaskStatusDetailWhereInput>>
+  OR?: InputMaybe<Array<ClickupTaskStatusDetailWhereInput>>
+  cycleStatus?: InputMaybe<ClickupTaskStatusRelationFilter>
+  cycleStatusColor?: InputMaybe<StringFilter>
+  cycleStatusName?: InputMaybe<StringFilter>
+  idle?: InputMaybe<BoolFilter>
+  status?: InputMaybe<ClickupTaskStatusRelationFilter>
+  statusColor?: InputMaybe<StringFilter>
+  statusColor_statusName?: InputMaybe<ClickupTaskStatusDetailStatusColorStatusNameCompoundUniqueInput>
+  statusName?: InputMaybe<StringFilter>
 }
 
 export type ClickupTaskStatusMaxAggregate = {
@@ -7370,6 +7708,8 @@ export type ClickupTaskStatusOnTaskWhereUniqueInput = {
 export type ClickupTaskStatusOrderByWithRelationInput = {
   color?: InputMaybe<SortOrder>
   createdAt?: InputMaybe<SortOrder>
+  cycleStatus?: InputMaybe<ClickupTaskStatusDetailOrderByRelationAggregateInput>
+  details?: InputMaybe<ClickupTaskStatusDetailOrderByRelationAggregateInput>
   name?: InputMaybe<SortOrder>
   tasks?: InputMaybe<ClickupTaskStatusOnTaskOrderByRelationAggregateInput>
 }
@@ -7388,6 +7728,8 @@ export enum ClickupTaskStatusScalarFieldEnum {
 export type ClickupTaskStatusUpdateInput = {
   color?: InputMaybe<StringFieldUpdateOperationsInput>
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+  cycleStatus?: InputMaybe<ClickupTaskStatusDetailUpdateManyWithoutCycleStatusNestedInput>
+  details?: InputMaybe<ClickupTaskStatusDetailUpdateManyWithoutStatusNestedInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
   tasks?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutStatusNestedInput>
 }
@@ -7398,6 +7740,22 @@ export type ClickupTaskStatusUpdateManyMutationInput = {
   name?: InputMaybe<StringFieldUpdateOperationsInput>
 }
 
+export type ClickupTaskStatusUpdateOneRequiredWithoutCycleStatusNestedInput = {
+  connect?: InputMaybe<ClickupTaskStatusWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupTaskStatusCreateOrConnectWithoutCycleStatusInput>
+  create?: InputMaybe<ClickupTaskStatusCreateWithoutCycleStatusInput>
+  update?: InputMaybe<ClickupTaskStatusUpdateToOneWithWhereWithoutCycleStatusInput>
+  upsert?: InputMaybe<ClickupTaskStatusUpsertWithoutCycleStatusInput>
+}
+
+export type ClickupTaskStatusUpdateOneRequiredWithoutDetailsNestedInput = {
+  connect?: InputMaybe<ClickupTaskStatusWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupTaskStatusCreateOrConnectWithoutDetailsInput>
+  create?: InputMaybe<ClickupTaskStatusCreateWithoutDetailsInput>
+  update?: InputMaybe<ClickupTaskStatusUpdateToOneWithWhereWithoutDetailsInput>
+  upsert?: InputMaybe<ClickupTaskStatusUpsertWithoutDetailsInput>
+}
+
 export type ClickupTaskStatusUpdateOneRequiredWithoutTasksNestedInput = {
   connect?: InputMaybe<ClickupTaskStatusWhereUniqueInput>
   connectOrCreate?: InputMaybe<ClickupTaskStatusCreateOrConnectWithoutTasksInput>
@@ -7406,15 +7764,55 @@ export type ClickupTaskStatusUpdateOneRequiredWithoutTasksNestedInput = {
   upsert?: InputMaybe<ClickupTaskStatusUpsertWithoutTasksInput>
 }
 
+export type ClickupTaskStatusUpdateToOneWithWhereWithoutCycleStatusInput = {
+  data: ClickupTaskStatusUpdateWithoutCycleStatusInput
+  where?: InputMaybe<ClickupTaskStatusWhereInput>
+}
+
+export type ClickupTaskStatusUpdateToOneWithWhereWithoutDetailsInput = {
+  data: ClickupTaskStatusUpdateWithoutDetailsInput
+  where?: InputMaybe<ClickupTaskStatusWhereInput>
+}
+
 export type ClickupTaskStatusUpdateToOneWithWhereWithoutTasksInput = {
   data: ClickupTaskStatusUpdateWithoutTasksInput
   where?: InputMaybe<ClickupTaskStatusWhereInput>
 }
 
+export type ClickupTaskStatusUpdateWithoutCycleStatusInput = {
+  color?: InputMaybe<StringFieldUpdateOperationsInput>
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+  details?: InputMaybe<ClickupTaskStatusDetailUpdateManyWithoutStatusNestedInput>
+  name?: InputMaybe<StringFieldUpdateOperationsInput>
+  tasks?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutStatusNestedInput>
+}
+
+export type ClickupTaskStatusUpdateWithoutDetailsInput = {
+  color?: InputMaybe<StringFieldUpdateOperationsInput>
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+  cycleStatus?: InputMaybe<ClickupTaskStatusDetailUpdateManyWithoutCycleStatusNestedInput>
+  name?: InputMaybe<StringFieldUpdateOperationsInput>
+  tasks?: InputMaybe<ClickupTaskStatusOnTaskUpdateManyWithoutStatusNestedInput>
+}
+
 export type ClickupTaskStatusUpdateWithoutTasksInput = {
   color?: InputMaybe<StringFieldUpdateOperationsInput>
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>
+  cycleStatus?: InputMaybe<ClickupTaskStatusDetailUpdateManyWithoutCycleStatusNestedInput>
+  details?: InputMaybe<ClickupTaskStatusDetailUpdateManyWithoutStatusNestedInput>
   name?: InputMaybe<StringFieldUpdateOperationsInput>
+}
+
+export type ClickupTaskStatusUpsertWithoutCycleStatusInput = {
+  create: ClickupTaskStatusCreateWithoutCycleStatusInput
+  update: ClickupTaskStatusUpdateWithoutCycleStatusInput
+  where?: InputMaybe<ClickupTaskStatusWhereInput>
+}
+
+export type ClickupTaskStatusUpsertWithoutDetailsInput = {
+  create: ClickupTaskStatusCreateWithoutDetailsInput
+  update: ClickupTaskStatusUpdateWithoutDetailsInput
+  where?: InputMaybe<ClickupTaskStatusWhereInput>
 }
 
 export type ClickupTaskStatusUpsertWithoutTasksInput = {
@@ -7429,6 +7827,8 @@ export type ClickupTaskStatusWhereInput = {
   OR?: InputMaybe<Array<ClickupTaskStatusWhereInput>>
   color?: InputMaybe<StringFilter>
   createdAt?: InputMaybe<DateTimeFilter>
+  cycleStatus?: InputMaybe<ClickupTaskStatusDetailListRelationFilter>
+  details?: InputMaybe<ClickupTaskStatusDetailListRelationFilter>
   name?: InputMaybe<StringFilter>
   tasks?: InputMaybe<ClickupTaskStatusOnTaskListRelationFilter>
 }
@@ -7440,6 +7840,8 @@ export type ClickupTaskStatusWhereUniqueInput = {
   color?: InputMaybe<StringFilter>
   color_name?: InputMaybe<ClickupTaskStatusColorNameCompoundUniqueInput>
   createdAt?: InputMaybe<DateTimeFilter>
+  cycleStatus?: InputMaybe<ClickupTaskStatusDetailListRelationFilter>
+  details?: InputMaybe<ClickupTaskStatusDetailListRelationFilter>
   name?: InputMaybe<StringFilter>
   tasks?: InputMaybe<ClickupTaskStatusOnTaskListRelationFilter>
 }
@@ -9487,6 +9889,7 @@ export type ClickupUser = {
   id: Scalars['Int']['output']
   initials?: Maybe<Scalars['String']['output']>
   profilePicture?: Maybe<Scalars['String']['output']>
+  timeEntries: Array<ClockifyTimeEntry>
   user?: Maybe<User>
   username?: Maybe<Scalars['String']['output']>
   watchedTasks: Array<ClickupUserTaskWatchers>
@@ -9555,6 +9958,15 @@ export type ClickupUserCreatedTasksArgs = {
   where?: InputMaybe<ClickupTaskWhereInput>
 }
 
+export type ClickupUserTimeEntriesArgs = {
+  cursor?: InputMaybe<ClockifyTimeEntryWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClockifyTimeEntryScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClockifyTimeEntryOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClockifyTimeEntryWhereInput>
+}
+
 export type ClickupUserUserArgs = {
   where?: InputMaybe<UserWhereInput>
 }
@@ -9582,6 +9994,7 @@ export type ClickupUserCount = {
   createdTaskDependency: Scalars['Int']['output']
   createdTaskTags: Scalars['Int']['output']
   createdTasks: Scalars['Int']['output']
+  timeEntries: Scalars['Int']['output']
   watchedTasks: Scalars['Int']['output']
 }
 
@@ -9613,6 +10026,10 @@ export type ClickupUserCountCreatedTasksArgs = {
   where?: InputMaybe<ClickupTaskWhereInput>
 }
 
+export type ClickupUserCountTimeEntriesArgs = {
+  where?: InputMaybe<ClockifyTimeEntryWhereInput>
+}
+
 export type ClickupUserCountWatchedTasksArgs = {
   where?: InputMaybe<ClickupUserTaskWatchersWhereInput>
 }
@@ -9641,6 +10058,7 @@ export type ClickupUserCreateInput = {
   id: Scalars['Int']['input']
   initials?: InputMaybe<Scalars['String']['input']>
   profilePicture?: InputMaybe<Scalars['String']['input']>
+  timeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupUserInput>
   user?: InputMaybe<UserCreateNestedOneWithoutClickupUserInput>
   username?: InputMaybe<Scalars['String']['input']>
   watchedTasks?: InputMaybe<ClickupUserTaskWatchersCreateNestedManyWithoutClickupUserInput>
@@ -9697,6 +10115,12 @@ export type ClickupUserCreateNestedOneWithoutCreatedTasksInput = {
   create?: InputMaybe<ClickupUserCreateWithoutCreatedTasksInput>
 }
 
+export type ClickupUserCreateNestedOneWithoutTimeEntriesInput = {
+  connect?: InputMaybe<ClickupUserWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupUserCreateOrConnectWithoutTimeEntriesInput>
+  create?: InputMaybe<ClickupUserCreateWithoutTimeEntriesInput>
+}
+
 export type ClickupUserCreateNestedOneWithoutUserInput = {
   connect?: InputMaybe<ClickupUserWhereUniqueInput>
   connectOrCreate?: InputMaybe<ClickupUserCreateOrConnectWithoutUserInput>
@@ -9744,6 +10168,11 @@ export type ClickupUserCreateOrConnectWithoutCreatedTasksInput = {
   where: ClickupUserWhereUniqueInput
 }
 
+export type ClickupUserCreateOrConnectWithoutTimeEntriesInput = {
+  create: ClickupUserCreateWithoutTimeEntriesInput
+  where: ClickupUserWhereUniqueInput
+}
+
 export type ClickupUserCreateOrConnectWithoutUserInput = {
   create: ClickupUserCreateWithoutUserInput
   where: ClickupUserWhereUniqueInput
@@ -9766,6 +10195,7 @@ export type ClickupUserCreateWithoutAssignedTaskChecklistItemsInput = {
   id: Scalars['Int']['input']
   initials?: InputMaybe<Scalars['String']['input']>
   profilePicture?: InputMaybe<Scalars['String']['input']>
+  timeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupUserInput>
   user?: InputMaybe<UserCreateNestedOneWithoutClickupUserInput>
   username?: InputMaybe<Scalars['String']['input']>
   watchedTasks?: InputMaybe<ClickupUserTaskWatchersCreateNestedManyWithoutClickupUserInput>
@@ -9783,6 +10213,7 @@ export type ClickupUserCreateWithoutAssignedTasksInput = {
   id: Scalars['Int']['input']
   initials?: InputMaybe<Scalars['String']['input']>
   profilePicture?: InputMaybe<Scalars['String']['input']>
+  timeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupUserInput>
   user?: InputMaybe<UserCreateNestedOneWithoutClickupUserInput>
   username?: InputMaybe<Scalars['String']['input']>
   watchedTasks?: InputMaybe<ClickupUserTaskWatchersCreateNestedManyWithoutClickupUserInput>
@@ -9800,6 +10231,7 @@ export type ClickupUserCreateWithoutCreatedTaskAttachmentsInput = {
   id: Scalars['Int']['input']
   initials?: InputMaybe<Scalars['String']['input']>
   profilePicture?: InputMaybe<Scalars['String']['input']>
+  timeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupUserInput>
   user?: InputMaybe<UserCreateNestedOneWithoutClickupUserInput>
   username?: InputMaybe<Scalars['String']['input']>
   watchedTasks?: InputMaybe<ClickupUserTaskWatchersCreateNestedManyWithoutClickupUserInput>
@@ -9817,6 +10249,7 @@ export type ClickupUserCreateWithoutCreatedTaskChecklistInput = {
   id: Scalars['Int']['input']
   initials?: InputMaybe<Scalars['String']['input']>
   profilePicture?: InputMaybe<Scalars['String']['input']>
+  timeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupUserInput>
   user?: InputMaybe<UserCreateNestedOneWithoutClickupUserInput>
   username?: InputMaybe<Scalars['String']['input']>
   watchedTasks?: InputMaybe<ClickupUserTaskWatchersCreateNestedManyWithoutClickupUserInput>
@@ -9834,6 +10267,7 @@ export type ClickupUserCreateWithoutCreatedTaskDependencyInput = {
   id: Scalars['Int']['input']
   initials?: InputMaybe<Scalars['String']['input']>
   profilePicture?: InputMaybe<Scalars['String']['input']>
+  timeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupUserInput>
   user?: InputMaybe<UserCreateNestedOneWithoutClickupUserInput>
   username?: InputMaybe<Scalars['String']['input']>
   watchedTasks?: InputMaybe<ClickupUserTaskWatchersCreateNestedManyWithoutClickupUserInput>
@@ -9851,6 +10285,7 @@ export type ClickupUserCreateWithoutCreatedTaskTagsInput = {
   id: Scalars['Int']['input']
   initials?: InputMaybe<Scalars['String']['input']>
   profilePicture?: InputMaybe<Scalars['String']['input']>
+  timeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupUserInput>
   user?: InputMaybe<UserCreateNestedOneWithoutClickupUserInput>
   username?: InputMaybe<Scalars['String']['input']>
   watchedTasks?: InputMaybe<ClickupUserTaskWatchersCreateNestedManyWithoutClickupUserInput>
@@ -9864,6 +10299,25 @@ export type ClickupUserCreateWithoutCreatedTasksInput = {
   createdTaskChecklist?: InputMaybe<ClickupTaskChecklistCreateNestedManyWithoutCreatorInput>
   createdTaskDependency?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutCreatorInput>
   createdTaskTags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutCreatorInput>
+  email?: InputMaybe<Scalars['String']['input']>
+  id: Scalars['Int']['input']
+  initials?: InputMaybe<Scalars['String']['input']>
+  profilePicture?: InputMaybe<Scalars['String']['input']>
+  timeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupUserInput>
+  user?: InputMaybe<UserCreateNestedOneWithoutClickupUserInput>
+  username?: InputMaybe<Scalars['String']['input']>
+  watchedTasks?: InputMaybe<ClickupUserTaskWatchersCreateNestedManyWithoutClickupUserInput>
+}
+
+export type ClickupUserCreateWithoutTimeEntriesInput = {
+  assignedTaskChecklistItems?: InputMaybe<ClickupTaskChecklistItemCreateNestedManyWithoutAssigneeInput>
+  assignedTasks?: InputMaybe<ClickupUserTaskAssigneeCreateNestedManyWithoutClickupUserInput>
+  color?: InputMaybe<Scalars['String']['input']>
+  createdTaskAttachments?: InputMaybe<ClickupTaskAttachmentCreateNestedManyWithoutCreatorInput>
+  createdTaskChecklist?: InputMaybe<ClickupTaskChecklistCreateNestedManyWithoutCreatorInput>
+  createdTaskDependency?: InputMaybe<ClickupTaskDependencyCreateNestedManyWithoutCreatorInput>
+  createdTaskTags?: InputMaybe<ClickupTaskTagCreateNestedManyWithoutCreatorInput>
+  createdTasks?: InputMaybe<ClickupTaskCreateNestedManyWithoutCreatorInput>
   email?: InputMaybe<Scalars['String']['input']>
   id: Scalars['Int']['input']
   initials?: InputMaybe<Scalars['String']['input']>
@@ -9886,6 +10340,7 @@ export type ClickupUserCreateWithoutUserInput = {
   id: Scalars['Int']['input']
   initials?: InputMaybe<Scalars['String']['input']>
   profilePicture?: InputMaybe<Scalars['String']['input']>
+  timeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupUserInput>
   username?: InputMaybe<Scalars['String']['input']>
   watchedTasks?: InputMaybe<ClickupUserTaskWatchersCreateNestedManyWithoutClickupUserInput>
 }
@@ -9903,6 +10358,7 @@ export type ClickupUserCreateWithoutWatchedTasksInput = {
   id: Scalars['Int']['input']
   initials?: InputMaybe<Scalars['String']['input']>
   profilePicture?: InputMaybe<Scalars['String']['input']>
+  timeEntries?: InputMaybe<ClockifyTimeEntryCreateNestedManyWithoutClickupUserInput>
   user?: InputMaybe<UserCreateNestedOneWithoutClickupUserInput>
   username?: InputMaybe<Scalars['String']['input']>
 }
@@ -9945,6 +10401,7 @@ export type ClickupUserOrderByWithRelationInput = {
   id?: InputMaybe<SortOrder>
   initials?: InputMaybe<SortOrderInput>
   profilePicture?: InputMaybe<SortOrderInput>
+  timeEntries?: InputMaybe<ClockifyTimeEntryOrderByRelationAggregateInput>
   user?: InputMaybe<UserOrderByWithRelationInput>
   username?: InputMaybe<SortOrderInput>
   watchedTasks?: InputMaybe<ClickupUserTaskWatchersOrderByRelationAggregateInput>
@@ -10505,6 +10962,7 @@ export type ClickupUserUpdateInput = {
   id?: InputMaybe<IntFieldUpdateOperationsInput>
   initials?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   profilePicture?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  timeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupUserNestedInput>
   user?: InputMaybe<UserUpdateOneWithoutClickupUserNestedInput>
   username?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   watchedTasks?: InputMaybe<ClickupUserTaskWatchersUpdateManyWithoutClickupUserNestedInput>
@@ -10585,6 +11043,16 @@ export type ClickupUserUpdateOneWithoutAssignedTaskChecklistItemsNestedInput = {
   upsert?: InputMaybe<ClickupUserUpsertWithoutAssignedTaskChecklistItemsInput>
 }
 
+export type ClickupUserUpdateOneWithoutTimeEntriesNestedInput = {
+  connect?: InputMaybe<ClickupUserWhereUniqueInput>
+  connectOrCreate?: InputMaybe<ClickupUserCreateOrConnectWithoutTimeEntriesInput>
+  create?: InputMaybe<ClickupUserCreateWithoutTimeEntriesInput>
+  delete?: InputMaybe<ClickupUserWhereInput>
+  disconnect?: InputMaybe<ClickupUserWhereInput>
+  update?: InputMaybe<ClickupUserUpdateToOneWithWhereWithoutTimeEntriesInput>
+  upsert?: InputMaybe<ClickupUserUpsertWithoutTimeEntriesInput>
+}
+
 export type ClickupUserUpdateOneWithoutUserNestedInput = {
   connect?: InputMaybe<ClickupUserWhereUniqueInput>
   connectOrCreate?: InputMaybe<ClickupUserCreateOrConnectWithoutUserInput>
@@ -10630,6 +11098,11 @@ export type ClickupUserUpdateToOneWithWhereWithoutCreatedTasksInput = {
   where?: InputMaybe<ClickupUserWhereInput>
 }
 
+export type ClickupUserUpdateToOneWithWhereWithoutTimeEntriesInput = {
+  data: ClickupUserUpdateWithoutTimeEntriesInput
+  where?: InputMaybe<ClickupUserWhereInput>
+}
+
 export type ClickupUserUpdateToOneWithWhereWithoutUserInput = {
   data: ClickupUserUpdateWithoutUserInput
   where?: InputMaybe<ClickupUserWhereInput>
@@ -10652,6 +11125,7 @@ export type ClickupUserUpdateWithoutAssignedTaskChecklistItemsInput = {
   id?: InputMaybe<IntFieldUpdateOperationsInput>
   initials?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   profilePicture?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  timeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupUserNestedInput>
   user?: InputMaybe<UserUpdateOneWithoutClickupUserNestedInput>
   username?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   watchedTasks?: InputMaybe<ClickupUserTaskWatchersUpdateManyWithoutClickupUserNestedInput>
@@ -10669,6 +11143,7 @@ export type ClickupUserUpdateWithoutAssignedTasksInput = {
   id?: InputMaybe<IntFieldUpdateOperationsInput>
   initials?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   profilePicture?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  timeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupUserNestedInput>
   user?: InputMaybe<UserUpdateOneWithoutClickupUserNestedInput>
   username?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   watchedTasks?: InputMaybe<ClickupUserTaskWatchersUpdateManyWithoutClickupUserNestedInput>
@@ -10686,6 +11161,7 @@ export type ClickupUserUpdateWithoutCreatedTaskAttachmentsInput = {
   id?: InputMaybe<IntFieldUpdateOperationsInput>
   initials?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   profilePicture?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  timeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupUserNestedInput>
   user?: InputMaybe<UserUpdateOneWithoutClickupUserNestedInput>
   username?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   watchedTasks?: InputMaybe<ClickupUserTaskWatchersUpdateManyWithoutClickupUserNestedInput>
@@ -10703,6 +11179,7 @@ export type ClickupUserUpdateWithoutCreatedTaskChecklistInput = {
   id?: InputMaybe<IntFieldUpdateOperationsInput>
   initials?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   profilePicture?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  timeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupUserNestedInput>
   user?: InputMaybe<UserUpdateOneWithoutClickupUserNestedInput>
   username?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   watchedTasks?: InputMaybe<ClickupUserTaskWatchersUpdateManyWithoutClickupUserNestedInput>
@@ -10720,6 +11197,7 @@ export type ClickupUserUpdateWithoutCreatedTaskDependencyInput = {
   id?: InputMaybe<IntFieldUpdateOperationsInput>
   initials?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   profilePicture?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  timeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupUserNestedInput>
   user?: InputMaybe<UserUpdateOneWithoutClickupUserNestedInput>
   username?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   watchedTasks?: InputMaybe<ClickupUserTaskWatchersUpdateManyWithoutClickupUserNestedInput>
@@ -10737,6 +11215,7 @@ export type ClickupUserUpdateWithoutCreatedTaskTagsInput = {
   id?: InputMaybe<IntFieldUpdateOperationsInput>
   initials?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   profilePicture?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  timeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupUserNestedInput>
   user?: InputMaybe<UserUpdateOneWithoutClickupUserNestedInput>
   username?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   watchedTasks?: InputMaybe<ClickupUserTaskWatchersUpdateManyWithoutClickupUserNestedInput>
@@ -10750,6 +11229,25 @@ export type ClickupUserUpdateWithoutCreatedTasksInput = {
   createdTaskChecklist?: InputMaybe<ClickupTaskChecklistUpdateManyWithoutCreatorNestedInput>
   createdTaskDependency?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutCreatorNestedInput>
   createdTaskTags?: InputMaybe<ClickupTaskTagUpdateManyWithoutCreatorNestedInput>
+  email?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  id?: InputMaybe<IntFieldUpdateOperationsInput>
+  initials?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  profilePicture?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  timeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupUserNestedInput>
+  user?: InputMaybe<UserUpdateOneWithoutClickupUserNestedInput>
+  username?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  watchedTasks?: InputMaybe<ClickupUserTaskWatchersUpdateManyWithoutClickupUserNestedInput>
+}
+
+export type ClickupUserUpdateWithoutTimeEntriesInput = {
+  assignedTaskChecklistItems?: InputMaybe<ClickupTaskChecklistItemUpdateManyWithoutAssigneeNestedInput>
+  assignedTasks?: InputMaybe<ClickupUserTaskAssigneeUpdateManyWithoutClickupUserNestedInput>
+  color?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  createdTaskAttachments?: InputMaybe<ClickupTaskAttachmentUpdateManyWithoutCreatorNestedInput>
+  createdTaskChecklist?: InputMaybe<ClickupTaskChecklistUpdateManyWithoutCreatorNestedInput>
+  createdTaskDependency?: InputMaybe<ClickupTaskDependencyUpdateManyWithoutCreatorNestedInput>
+  createdTaskTags?: InputMaybe<ClickupTaskTagUpdateManyWithoutCreatorNestedInput>
+  createdTasks?: InputMaybe<ClickupTaskUpdateManyWithoutCreatorNestedInput>
   email?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   id?: InputMaybe<IntFieldUpdateOperationsInput>
   initials?: InputMaybe<NullableStringFieldUpdateOperationsInput>
@@ -10772,6 +11270,7 @@ export type ClickupUserUpdateWithoutUserInput = {
   id?: InputMaybe<IntFieldUpdateOperationsInput>
   initials?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   profilePicture?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  timeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupUserNestedInput>
   username?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   watchedTasks?: InputMaybe<ClickupUserTaskWatchersUpdateManyWithoutClickupUserNestedInput>
 }
@@ -10789,6 +11288,7 @@ export type ClickupUserUpdateWithoutWatchedTasksInput = {
   id?: InputMaybe<IntFieldUpdateOperationsInput>
   initials?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   profilePicture?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  timeEntries?: InputMaybe<ClockifyTimeEntryUpdateManyWithoutClickupUserNestedInput>
   user?: InputMaybe<UserUpdateOneWithoutClickupUserNestedInput>
   username?: InputMaybe<NullableStringFieldUpdateOperationsInput>
 }
@@ -10835,6 +11335,12 @@ export type ClickupUserUpsertWithoutCreatedTasksInput = {
   where?: InputMaybe<ClickupUserWhereInput>
 }
 
+export type ClickupUserUpsertWithoutTimeEntriesInput = {
+  create: ClickupUserCreateWithoutTimeEntriesInput
+  update: ClickupUserUpdateWithoutTimeEntriesInput
+  where?: InputMaybe<ClickupUserWhereInput>
+}
+
 export type ClickupUserUpsertWithoutUserInput = {
   create: ClickupUserCreateWithoutUserInput
   update: ClickupUserUpdateWithoutUserInput
@@ -10863,6 +11369,7 @@ export type ClickupUserWhereInput = {
   id?: InputMaybe<IntFilter>
   initials?: InputMaybe<StringNullableFilter>
   profilePicture?: InputMaybe<StringNullableFilter>
+  timeEntries?: InputMaybe<ClockifyTimeEntryListRelationFilter>
   user?: InputMaybe<UserNullableRelationFilter>
   username?: InputMaybe<StringNullableFilter>
   watchedTasks?: InputMaybe<ClickupUserTaskWatchersListRelationFilter>
@@ -10884,6 +11391,7 @@ export type ClickupUserWhereUniqueInput = {
   id?: InputMaybe<Scalars['Int']['input']>
   initials?: InputMaybe<StringNullableFilter>
   profilePicture?: InputMaybe<StringNullableFilter>
+  timeEntries?: InputMaybe<ClockifyTimeEntryListRelationFilter>
   user?: InputMaybe<UserNullableRelationFilter>
   username?: InputMaybe<StringNullableFilter>
   watchedTasks?: InputMaybe<ClickupUserTaskWatchersListRelationFilter>
@@ -11249,10 +11757,12 @@ export type ClockifyTimeEntry = {
   clickupClockifyProjectId?: Maybe<Scalars['Int']['output']>
   clickupTask?: Maybe<ClickupTask>
   clickupTaskId?: Maybe<Scalars['String']['output']>
+  clickupUser?: Maybe<ClickupUser>
+  clickupUserId?: Maybe<Scalars['Int']['output']>
   clockifyProject?: Maybe<ClockifyTimeEntryProject>
   clockifyProjectId?: Maybe<Scalars['String']['output']>
-  clockifyUser: ClockifyUser
-  clockifyUserId: Scalars['String']['output']
+  clockifyUser?: Maybe<ClockifyUser>
+  clockifyUserId?: Maybe<Scalars['String']['output']>
   costRate?: Maybe<Scalars['Int']['output']>
   currentlyRunning: Scalars['Boolean']['output']
   customFieldValues?: Maybe<Scalars['JSON']['output']>
@@ -11263,6 +11773,7 @@ export type ClockifyTimeEntry = {
   id: Scalars['String']['output']
   isLocked: Scalars['Boolean']['output']
   kioskId?: Maybe<Scalars['JSON']['output']>
+  note?: Maybe<Scalars['String']['output']>
   start: Scalars['String']['output']
   tags: Array<ClockifyTagOnTimeEntry>
   task?: Maybe<Scalars['JSON']['output']>
@@ -11280,8 +11791,16 @@ export type ClockifyTimeEntryClickupTaskArgs = {
   where?: InputMaybe<ClickupTaskWhereInput>
 }
 
+export type ClockifyTimeEntryClickupUserArgs = {
+  where?: InputMaybe<ClickupUserWhereInput>
+}
+
 export type ClockifyTimeEntryClockifyProjectArgs = {
   where?: InputMaybe<ClockifyTimeEntryProjectWhereInput>
+}
+
+export type ClockifyTimeEntryClockifyUserArgs = {
+  where?: InputMaybe<ClockifyUserWhereInput>
 }
 
 export type ClockifyTimeEntryTagsArgs = {
@@ -11300,6 +11819,7 @@ export type ClockifyTimeEntryUserArgs = {
 export type ClockifyTimeEntryAvgAggregate = {
   __typename?: 'ClockifyTimeEntryAvgAggregate'
   clickupClockifyProjectId?: Maybe<Scalars['Float']['output']>
+  clickupUserId?: Maybe<Scalars['Float']['output']>
   costRate?: Maybe<Scalars['Float']['output']>
   hourlyRate?: Maybe<Scalars['Float']['output']>
   userId?: Maybe<Scalars['Float']['output']>
@@ -11320,6 +11840,7 @@ export type ClockifyTimeEntryCountAggregate = {
   billable: Scalars['Int']['output']
   clickupClockifyProjectId: Scalars['Int']['output']
   clickupTaskId: Scalars['Int']['output']
+  clickupUserId: Scalars['Int']['output']
   clockifyProjectId: Scalars['Int']['output']
   clockifyUserId: Scalars['Int']['output']
   costRate: Scalars['Int']['output']
@@ -11332,6 +11853,7 @@ export type ClockifyTimeEntryCountAggregate = {
   id: Scalars['Int']['output']
   isLocked: Scalars['Int']['output']
   kioskId: Scalars['Int']['output']
+  note: Scalars['Int']['output']
   start: Scalars['Int']['output']
   task: Scalars['Int']['output']
   type: Scalars['Int']['output']
@@ -11343,8 +11865,9 @@ export type ClockifyTimeEntryCreateInput = {
   billable: Scalars['Boolean']['input']
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClockifyTimeEntriesInput>
   clickupTask?: InputMaybe<ClickupTaskCreateNestedOneWithoutClockifyTimeEntriesInput>
+  clickupUser?: InputMaybe<ClickupUserCreateNestedOneWithoutTimeEntriesInput>
   clockifyProject?: InputMaybe<ClockifyTimeEntryProjectCreateNestedOneWithoutTimeEntryInput>
-  clockifyUser: ClockifyUserCreateNestedOneWithoutTimeEntriesInput
+  clockifyUser?: InputMaybe<ClockifyUserCreateNestedOneWithoutTimeEntriesInput>
   costRate?: InputMaybe<Scalars['Int']['input']>
   currentlyRunning: Scalars['Boolean']['input']
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -11355,6 +11878,7 @@ export type ClockifyTimeEntryCreateInput = {
   id: Scalars['String']['input']
   isLocked: Scalars['Boolean']['input']
   kioskId?: InputMaybe<Scalars['JSON']['input']>
+  note?: InputMaybe<Scalars['String']['input']>
   start: Scalars['String']['input']
   tags?: InputMaybe<ClockifyTagOnTimeEntryCreateNestedManyWithoutClockifyTimeEntryInput>
   task?: InputMaybe<Scalars['JSON']['input']>
@@ -11366,8 +11890,9 @@ export type ClockifyTimeEntryCreateInput = {
 export type ClockifyTimeEntryCreateManyClickupClockifyProjectInput = {
   billable: Scalars['Boolean']['input']
   clickupTaskId?: InputMaybe<Scalars['String']['input']>
+  clickupUserId?: InputMaybe<Scalars['Int']['input']>
   clockifyProjectId?: InputMaybe<Scalars['String']['input']>
-  clockifyUserId: Scalars['String']['input']
+  clockifyUserId?: InputMaybe<Scalars['String']['input']>
   costRate?: InputMaybe<Scalars['Int']['input']>
   currentlyRunning: Scalars['Boolean']['input']
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -11378,6 +11903,7 @@ export type ClockifyTimeEntryCreateManyClickupClockifyProjectInput = {
   id: Scalars['String']['input']
   isLocked: Scalars['Boolean']['input']
   kioskId?: InputMaybe<Scalars['JSON']['input']>
+  note?: InputMaybe<Scalars['String']['input']>
   start: Scalars['String']['input']
   task?: InputMaybe<Scalars['JSON']['input']>
   type: Scalars['String']['input']
@@ -11393,8 +11919,9 @@ export type ClockifyTimeEntryCreateManyClickupClockifyProjectInputEnvelope = {
 export type ClockifyTimeEntryCreateManyClickupTaskInput = {
   billable: Scalars['Boolean']['input']
   clickupClockifyProjectId?: InputMaybe<Scalars['Int']['input']>
+  clickupUserId?: InputMaybe<Scalars['Int']['input']>
   clockifyProjectId?: InputMaybe<Scalars['String']['input']>
-  clockifyUserId: Scalars['String']['input']
+  clockifyUserId?: InputMaybe<Scalars['String']['input']>
   costRate?: InputMaybe<Scalars['Int']['input']>
   currentlyRunning: Scalars['Boolean']['input']
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -11405,6 +11932,7 @@ export type ClockifyTimeEntryCreateManyClickupTaskInput = {
   id: Scalars['String']['input']
   isLocked: Scalars['Boolean']['input']
   kioskId?: InputMaybe<Scalars['JSON']['input']>
+  note?: InputMaybe<Scalars['String']['input']>
   start: Scalars['String']['input']
   task?: InputMaybe<Scalars['JSON']['input']>
   type: Scalars['String']['input']
@@ -11417,11 +11945,12 @@ export type ClockifyTimeEntryCreateManyClickupTaskInputEnvelope = {
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
 }
 
-export type ClockifyTimeEntryCreateManyClockifyProjectInput = {
+export type ClockifyTimeEntryCreateManyClickupUserInput = {
   billable: Scalars['Boolean']['input']
   clickupClockifyProjectId?: InputMaybe<Scalars['Int']['input']>
   clickupTaskId?: InputMaybe<Scalars['String']['input']>
-  clockifyUserId: Scalars['String']['input']
+  clockifyProjectId?: InputMaybe<Scalars['String']['input']>
+  clockifyUserId?: InputMaybe<Scalars['String']['input']>
   costRate?: InputMaybe<Scalars['Int']['input']>
   currentlyRunning: Scalars['Boolean']['input']
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -11432,6 +11961,36 @@ export type ClockifyTimeEntryCreateManyClockifyProjectInput = {
   id: Scalars['String']['input']
   isLocked: Scalars['Boolean']['input']
   kioskId?: InputMaybe<Scalars['JSON']['input']>
+  note?: InputMaybe<Scalars['String']['input']>
+  start: Scalars['String']['input']
+  task?: InputMaybe<Scalars['JSON']['input']>
+  type: Scalars['String']['input']
+  userId?: InputMaybe<Scalars['Int']['input']>
+  workspaceId: Scalars['String']['input']
+}
+
+export type ClockifyTimeEntryCreateManyClickupUserInputEnvelope = {
+  data: Array<ClockifyTimeEntryCreateManyClickupUserInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type ClockifyTimeEntryCreateManyClockifyProjectInput = {
+  billable: Scalars['Boolean']['input']
+  clickupClockifyProjectId?: InputMaybe<Scalars['Int']['input']>
+  clickupTaskId?: InputMaybe<Scalars['String']['input']>
+  clickupUserId?: InputMaybe<Scalars['Int']['input']>
+  clockifyUserId?: InputMaybe<Scalars['String']['input']>
+  costRate?: InputMaybe<Scalars['Int']['input']>
+  currentlyRunning: Scalars['Boolean']['input']
+  customFieldValues?: InputMaybe<Scalars['JSON']['input']>
+  description: Scalars['String']['input']
+  duration?: InputMaybe<Scalars['String']['input']>
+  end?: InputMaybe<Scalars['String']['input']>
+  hourlyRate?: InputMaybe<Scalars['Int']['input']>
+  id: Scalars['String']['input']
+  isLocked: Scalars['Boolean']['input']
+  kioskId?: InputMaybe<Scalars['JSON']['input']>
+  note?: InputMaybe<Scalars['String']['input']>
   start: Scalars['String']['input']
   task?: InputMaybe<Scalars['JSON']['input']>
   type: Scalars['String']['input']
@@ -11448,6 +12007,7 @@ export type ClockifyTimeEntryCreateManyClockifyUserInput = {
   billable: Scalars['Boolean']['input']
   clickupClockifyProjectId?: InputMaybe<Scalars['Int']['input']>
   clickupTaskId?: InputMaybe<Scalars['String']['input']>
+  clickupUserId?: InputMaybe<Scalars['Int']['input']>
   clockifyProjectId?: InputMaybe<Scalars['String']['input']>
   costRate?: InputMaybe<Scalars['Int']['input']>
   currentlyRunning: Scalars['Boolean']['input']
@@ -11459,6 +12019,7 @@ export type ClockifyTimeEntryCreateManyClockifyUserInput = {
   id: Scalars['String']['input']
   isLocked: Scalars['Boolean']['input']
   kioskId?: InputMaybe<Scalars['JSON']['input']>
+  note?: InputMaybe<Scalars['String']['input']>
   start: Scalars['String']['input']
   task?: InputMaybe<Scalars['JSON']['input']>
   type: Scalars['String']['input']
@@ -11475,8 +12036,9 @@ export type ClockifyTimeEntryCreateManyInput = {
   billable: Scalars['Boolean']['input']
   clickupClockifyProjectId?: InputMaybe<Scalars['Int']['input']>
   clickupTaskId?: InputMaybe<Scalars['String']['input']>
+  clickupUserId?: InputMaybe<Scalars['Int']['input']>
   clockifyProjectId?: InputMaybe<Scalars['String']['input']>
-  clockifyUserId: Scalars['String']['input']
+  clockifyUserId?: InputMaybe<Scalars['String']['input']>
   costRate?: InputMaybe<Scalars['Int']['input']>
   currentlyRunning: Scalars['Boolean']['input']
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -11487,6 +12049,7 @@ export type ClockifyTimeEntryCreateManyInput = {
   id: Scalars['String']['input']
   isLocked: Scalars['Boolean']['input']
   kioskId?: InputMaybe<Scalars['JSON']['input']>
+  note?: InputMaybe<Scalars['String']['input']>
   start: Scalars['String']['input']
   task?: InputMaybe<Scalars['JSON']['input']>
   type: Scalars['String']['input']
@@ -11498,8 +12061,9 @@ export type ClockifyTimeEntryCreateManyUserInput = {
   billable: Scalars['Boolean']['input']
   clickupClockifyProjectId?: InputMaybe<Scalars['Int']['input']>
   clickupTaskId?: InputMaybe<Scalars['String']['input']>
+  clickupUserId?: InputMaybe<Scalars['Int']['input']>
   clockifyProjectId?: InputMaybe<Scalars['String']['input']>
-  clockifyUserId: Scalars['String']['input']
+  clockifyUserId?: InputMaybe<Scalars['String']['input']>
   costRate?: InputMaybe<Scalars['Int']['input']>
   currentlyRunning: Scalars['Boolean']['input']
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -11510,6 +12074,7 @@ export type ClockifyTimeEntryCreateManyUserInput = {
   id: Scalars['String']['input']
   isLocked: Scalars['Boolean']['input']
   kioskId?: InputMaybe<Scalars['JSON']['input']>
+  note?: InputMaybe<Scalars['String']['input']>
   start: Scalars['String']['input']
   task?: InputMaybe<Scalars['JSON']['input']>
   type: Scalars['String']['input']
@@ -11533,6 +12098,13 @@ export type ClockifyTimeEntryCreateNestedManyWithoutClickupTaskInput = {
   connectOrCreate?: InputMaybe<Array<ClockifyTimeEntryCreateOrConnectWithoutClickupTaskInput>>
   create?: InputMaybe<Array<ClockifyTimeEntryCreateWithoutClickupTaskInput>>
   createMany?: InputMaybe<ClockifyTimeEntryCreateManyClickupTaskInputEnvelope>
+}
+
+export type ClockifyTimeEntryCreateNestedManyWithoutClickupUserInput = {
+  connect?: InputMaybe<Array<ClockifyTimeEntryWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClockifyTimeEntryCreateOrConnectWithoutClickupUserInput>>
+  create?: InputMaybe<Array<ClockifyTimeEntryCreateWithoutClickupUserInput>>
+  createMany?: InputMaybe<ClockifyTimeEntryCreateManyClickupUserInputEnvelope>
 }
 
 export type ClockifyTimeEntryCreateNestedManyWithoutClockifyProjectInput = {
@@ -11572,6 +12144,11 @@ export type ClockifyTimeEntryCreateOrConnectWithoutClickupTaskInput = {
   where: ClockifyTimeEntryWhereUniqueInput
 }
 
+export type ClockifyTimeEntryCreateOrConnectWithoutClickupUserInput = {
+  create: ClockifyTimeEntryCreateWithoutClickupUserInput
+  where: ClockifyTimeEntryWhereUniqueInput
+}
+
 export type ClockifyTimeEntryCreateOrConnectWithoutClockifyProjectInput = {
   create: ClockifyTimeEntryCreateWithoutClockifyProjectInput
   where: ClockifyTimeEntryWhereUniqueInput
@@ -11595,8 +12172,9 @@ export type ClockifyTimeEntryCreateOrConnectWithoutUserInput = {
 export type ClockifyTimeEntryCreateWithoutClickupClockifyProjectInput = {
   billable: Scalars['Boolean']['input']
   clickupTask?: InputMaybe<ClickupTaskCreateNestedOneWithoutClockifyTimeEntriesInput>
+  clickupUser?: InputMaybe<ClickupUserCreateNestedOneWithoutTimeEntriesInput>
   clockifyProject?: InputMaybe<ClockifyTimeEntryProjectCreateNestedOneWithoutTimeEntryInput>
-  clockifyUser: ClockifyUserCreateNestedOneWithoutTimeEntriesInput
+  clockifyUser?: InputMaybe<ClockifyUserCreateNestedOneWithoutTimeEntriesInput>
   costRate?: InputMaybe<Scalars['Int']['input']>
   currentlyRunning: Scalars['Boolean']['input']
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -11607,6 +12185,7 @@ export type ClockifyTimeEntryCreateWithoutClickupClockifyProjectInput = {
   id: Scalars['String']['input']
   isLocked: Scalars['Boolean']['input']
   kioskId?: InputMaybe<Scalars['JSON']['input']>
+  note?: InputMaybe<Scalars['String']['input']>
   start: Scalars['String']['input']
   tags?: InputMaybe<ClockifyTagOnTimeEntryCreateNestedManyWithoutClockifyTimeEntryInput>
   task?: InputMaybe<Scalars['JSON']['input']>
@@ -11618,8 +12197,9 @@ export type ClockifyTimeEntryCreateWithoutClickupClockifyProjectInput = {
 export type ClockifyTimeEntryCreateWithoutClickupTaskInput = {
   billable: Scalars['Boolean']['input']
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClockifyTimeEntriesInput>
+  clickupUser?: InputMaybe<ClickupUserCreateNestedOneWithoutTimeEntriesInput>
   clockifyProject?: InputMaybe<ClockifyTimeEntryProjectCreateNestedOneWithoutTimeEntryInput>
-  clockifyUser: ClockifyUserCreateNestedOneWithoutTimeEntriesInput
+  clockifyUser?: InputMaybe<ClockifyUserCreateNestedOneWithoutTimeEntriesInput>
   costRate?: InputMaybe<Scalars['Int']['input']>
   currentlyRunning: Scalars['Boolean']['input']
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -11630,6 +12210,32 @@ export type ClockifyTimeEntryCreateWithoutClickupTaskInput = {
   id: Scalars['String']['input']
   isLocked: Scalars['Boolean']['input']
   kioskId?: InputMaybe<Scalars['JSON']['input']>
+  note?: InputMaybe<Scalars['String']['input']>
+  start: Scalars['String']['input']
+  tags?: InputMaybe<ClockifyTagOnTimeEntryCreateNestedManyWithoutClockifyTimeEntryInput>
+  task?: InputMaybe<Scalars['JSON']['input']>
+  type: Scalars['String']['input']
+  user?: InputMaybe<UserCreateNestedOneWithoutClockifyTimeEntriesInput>
+  workspaceId: Scalars['String']['input']
+}
+
+export type ClockifyTimeEntryCreateWithoutClickupUserInput = {
+  billable: Scalars['Boolean']['input']
+  clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClockifyTimeEntriesInput>
+  clickupTask?: InputMaybe<ClickupTaskCreateNestedOneWithoutClockifyTimeEntriesInput>
+  clockifyProject?: InputMaybe<ClockifyTimeEntryProjectCreateNestedOneWithoutTimeEntryInput>
+  clockifyUser?: InputMaybe<ClockifyUserCreateNestedOneWithoutTimeEntriesInput>
+  costRate?: InputMaybe<Scalars['Int']['input']>
+  currentlyRunning: Scalars['Boolean']['input']
+  customFieldValues?: InputMaybe<Scalars['JSON']['input']>
+  description: Scalars['String']['input']
+  duration?: InputMaybe<Scalars['String']['input']>
+  end?: InputMaybe<Scalars['String']['input']>
+  hourlyRate?: InputMaybe<Scalars['Int']['input']>
+  id: Scalars['String']['input']
+  isLocked: Scalars['Boolean']['input']
+  kioskId?: InputMaybe<Scalars['JSON']['input']>
+  note?: InputMaybe<Scalars['String']['input']>
   start: Scalars['String']['input']
   tags?: InputMaybe<ClockifyTagOnTimeEntryCreateNestedManyWithoutClockifyTimeEntryInput>
   task?: InputMaybe<Scalars['JSON']['input']>
@@ -11642,7 +12248,8 @@ export type ClockifyTimeEntryCreateWithoutClockifyProjectInput = {
   billable: Scalars['Boolean']['input']
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClockifyTimeEntriesInput>
   clickupTask?: InputMaybe<ClickupTaskCreateNestedOneWithoutClockifyTimeEntriesInput>
-  clockifyUser: ClockifyUserCreateNestedOneWithoutTimeEntriesInput
+  clickupUser?: InputMaybe<ClickupUserCreateNestedOneWithoutTimeEntriesInput>
+  clockifyUser?: InputMaybe<ClockifyUserCreateNestedOneWithoutTimeEntriesInput>
   costRate?: InputMaybe<Scalars['Int']['input']>
   currentlyRunning: Scalars['Boolean']['input']
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -11653,6 +12260,7 @@ export type ClockifyTimeEntryCreateWithoutClockifyProjectInput = {
   id: Scalars['String']['input']
   isLocked: Scalars['Boolean']['input']
   kioskId?: InputMaybe<Scalars['JSON']['input']>
+  note?: InputMaybe<Scalars['String']['input']>
   start: Scalars['String']['input']
   tags?: InputMaybe<ClockifyTagOnTimeEntryCreateNestedManyWithoutClockifyTimeEntryInput>
   task?: InputMaybe<Scalars['JSON']['input']>
@@ -11665,6 +12273,7 @@ export type ClockifyTimeEntryCreateWithoutClockifyUserInput = {
   billable: Scalars['Boolean']['input']
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClockifyTimeEntriesInput>
   clickupTask?: InputMaybe<ClickupTaskCreateNestedOneWithoutClockifyTimeEntriesInput>
+  clickupUser?: InputMaybe<ClickupUserCreateNestedOneWithoutTimeEntriesInput>
   clockifyProject?: InputMaybe<ClockifyTimeEntryProjectCreateNestedOneWithoutTimeEntryInput>
   costRate?: InputMaybe<Scalars['Int']['input']>
   currentlyRunning: Scalars['Boolean']['input']
@@ -11676,6 +12285,7 @@ export type ClockifyTimeEntryCreateWithoutClockifyUserInput = {
   id: Scalars['String']['input']
   isLocked: Scalars['Boolean']['input']
   kioskId?: InputMaybe<Scalars['JSON']['input']>
+  note?: InputMaybe<Scalars['String']['input']>
   start: Scalars['String']['input']
   tags?: InputMaybe<ClockifyTagOnTimeEntryCreateNestedManyWithoutClockifyTimeEntryInput>
   task?: InputMaybe<Scalars['JSON']['input']>
@@ -11688,8 +12298,9 @@ export type ClockifyTimeEntryCreateWithoutTagsInput = {
   billable: Scalars['Boolean']['input']
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClockifyTimeEntriesInput>
   clickupTask?: InputMaybe<ClickupTaskCreateNestedOneWithoutClockifyTimeEntriesInput>
+  clickupUser?: InputMaybe<ClickupUserCreateNestedOneWithoutTimeEntriesInput>
   clockifyProject?: InputMaybe<ClockifyTimeEntryProjectCreateNestedOneWithoutTimeEntryInput>
-  clockifyUser: ClockifyUserCreateNestedOneWithoutTimeEntriesInput
+  clockifyUser?: InputMaybe<ClockifyUserCreateNestedOneWithoutTimeEntriesInput>
   costRate?: InputMaybe<Scalars['Int']['input']>
   currentlyRunning: Scalars['Boolean']['input']
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -11700,6 +12311,7 @@ export type ClockifyTimeEntryCreateWithoutTagsInput = {
   id: Scalars['String']['input']
   isLocked: Scalars['Boolean']['input']
   kioskId?: InputMaybe<Scalars['JSON']['input']>
+  note?: InputMaybe<Scalars['String']['input']>
   start: Scalars['String']['input']
   task?: InputMaybe<Scalars['JSON']['input']>
   type: Scalars['String']['input']
@@ -11711,8 +12323,9 @@ export type ClockifyTimeEntryCreateWithoutUserInput = {
   billable: Scalars['Boolean']['input']
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectCreateNestedOneWithoutClockifyTimeEntriesInput>
   clickupTask?: InputMaybe<ClickupTaskCreateNestedOneWithoutClockifyTimeEntriesInput>
+  clickupUser?: InputMaybe<ClickupUserCreateNestedOneWithoutTimeEntriesInput>
   clockifyProject?: InputMaybe<ClockifyTimeEntryProjectCreateNestedOneWithoutTimeEntryInput>
-  clockifyUser: ClockifyUserCreateNestedOneWithoutTimeEntriesInput
+  clockifyUser?: InputMaybe<ClockifyUserCreateNestedOneWithoutTimeEntriesInput>
   costRate?: InputMaybe<Scalars['Int']['input']>
   currentlyRunning: Scalars['Boolean']['input']
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -11723,6 +12336,7 @@ export type ClockifyTimeEntryCreateWithoutUserInput = {
   id: Scalars['String']['input']
   isLocked: Scalars['Boolean']['input']
   kioskId?: InputMaybe<Scalars['JSON']['input']>
+  note?: InputMaybe<Scalars['String']['input']>
   start: Scalars['String']['input']
   tags?: InputMaybe<ClockifyTagOnTimeEntryCreateNestedManyWithoutClockifyTimeEntryInput>
   task?: InputMaybe<Scalars['JSON']['input']>
@@ -11741,6 +12355,7 @@ export type ClockifyTimeEntryMaxAggregate = {
   billable?: Maybe<Scalars['Boolean']['output']>
   clickupClockifyProjectId?: Maybe<Scalars['Int']['output']>
   clickupTaskId?: Maybe<Scalars['String']['output']>
+  clickupUserId?: Maybe<Scalars['Int']['output']>
   clockifyProjectId?: Maybe<Scalars['String']['output']>
   clockifyUserId?: Maybe<Scalars['String']['output']>
   costRate?: Maybe<Scalars['Int']['output']>
@@ -11751,6 +12366,7 @@ export type ClockifyTimeEntryMaxAggregate = {
   hourlyRate?: Maybe<Scalars['Int']['output']>
   id?: Maybe<Scalars['String']['output']>
   isLocked?: Maybe<Scalars['Boolean']['output']>
+  note?: Maybe<Scalars['String']['output']>
   start?: Maybe<Scalars['String']['output']>
   type?: Maybe<Scalars['String']['output']>
   userId?: Maybe<Scalars['Int']['output']>
@@ -11762,6 +12378,7 @@ export type ClockifyTimeEntryMinAggregate = {
   billable?: Maybe<Scalars['Boolean']['output']>
   clickupClockifyProjectId?: Maybe<Scalars['Int']['output']>
   clickupTaskId?: Maybe<Scalars['String']['output']>
+  clickupUserId?: Maybe<Scalars['Int']['output']>
   clockifyProjectId?: Maybe<Scalars['String']['output']>
   clockifyUserId?: Maybe<Scalars['String']['output']>
   costRate?: Maybe<Scalars['Int']['output']>
@@ -11772,6 +12389,7 @@ export type ClockifyTimeEntryMinAggregate = {
   hourlyRate?: Maybe<Scalars['Int']['output']>
   id?: Maybe<Scalars['String']['output']>
   isLocked?: Maybe<Scalars['Boolean']['output']>
+  note?: Maybe<Scalars['String']['output']>
   start?: Maybe<Scalars['String']['output']>
   type?: Maybe<Scalars['String']['output']>
   userId?: Maybe<Scalars['Int']['output']>
@@ -11788,10 +12406,12 @@ export type ClockifyTimeEntryOrderByWithRelationInput = {
   clickupClockifyProjectId?: InputMaybe<SortOrderInput>
   clickupTask?: InputMaybe<ClickupTaskOrderByWithRelationInput>
   clickupTaskId?: InputMaybe<SortOrderInput>
+  clickupUser?: InputMaybe<ClickupUserOrderByWithRelationInput>
+  clickupUserId?: InputMaybe<SortOrderInput>
   clockifyProject?: InputMaybe<ClockifyTimeEntryProjectOrderByWithRelationInput>
   clockifyProjectId?: InputMaybe<SortOrderInput>
   clockifyUser?: InputMaybe<ClockifyUserOrderByWithRelationInput>
-  clockifyUserId?: InputMaybe<SortOrder>
+  clockifyUserId?: InputMaybe<SortOrderInput>
   costRate?: InputMaybe<SortOrderInput>
   currentlyRunning?: InputMaybe<SortOrder>
   customFieldValues?: InputMaybe<SortOrderInput>
@@ -11802,6 +12422,7 @@ export type ClockifyTimeEntryOrderByWithRelationInput = {
   id?: InputMaybe<SortOrder>
   isLocked?: InputMaybe<SortOrder>
   kioskId?: InputMaybe<SortOrderInput>
+  note?: InputMaybe<SortOrderInput>
   start?: InputMaybe<SortOrder>
   tags?: InputMaybe<ClockifyTagOnTimeEntryOrderByRelationAggregateInput>
   task?: InputMaybe<SortOrderInput>
@@ -12153,6 +12774,7 @@ export enum ClockifyTimeEntryScalarFieldEnum {
   Billable = 'billable',
   ClickupClockifyProjectId = 'clickupClockifyProjectId',
   ClickupTaskId = 'clickupTaskId',
+  ClickupUserId = 'clickupUserId',
   ClockifyProjectId = 'clockifyProjectId',
   ClockifyUserId = 'clockifyUserId',
   CostRate = 'costRate',
@@ -12165,6 +12787,7 @@ export enum ClockifyTimeEntryScalarFieldEnum {
   Id = 'id',
   IsLocked = 'isLocked',
   KioskId = 'kioskId',
+  Note = 'note',
   Start = 'start',
   Task = 'task',
   Type = 'type',
@@ -12179,8 +12802,9 @@ export type ClockifyTimeEntryScalarWhereInput = {
   billable?: InputMaybe<BoolFilter>
   clickupClockifyProjectId?: InputMaybe<IntNullableFilter>
   clickupTaskId?: InputMaybe<StringNullableFilter>
+  clickupUserId?: InputMaybe<IntNullableFilter>
   clockifyProjectId?: InputMaybe<StringNullableFilter>
-  clockifyUserId?: InputMaybe<StringFilter>
+  clockifyUserId?: InputMaybe<StringNullableFilter>
   costRate?: InputMaybe<IntNullableFilter>
   currentlyRunning?: InputMaybe<BoolFilter>
   customFieldValues?: InputMaybe<JsonNullableFilter>
@@ -12191,6 +12815,7 @@ export type ClockifyTimeEntryScalarWhereInput = {
   id?: InputMaybe<StringFilter>
   isLocked?: InputMaybe<BoolFilter>
   kioskId?: InputMaybe<JsonNullableFilter>
+  note?: InputMaybe<StringNullableFilter>
   start?: InputMaybe<StringFilter>
   task?: InputMaybe<JsonNullableFilter>
   type?: InputMaybe<StringFilter>
@@ -12201,6 +12826,7 @@ export type ClockifyTimeEntryScalarWhereInput = {
 export type ClockifyTimeEntrySumAggregate = {
   __typename?: 'ClockifyTimeEntrySumAggregate'
   clickupClockifyProjectId?: Maybe<Scalars['Int']['output']>
+  clickupUserId?: Maybe<Scalars['Int']['output']>
   costRate?: Maybe<Scalars['Int']['output']>
   hourlyRate?: Maybe<Scalars['Int']['output']>
   userId?: Maybe<Scalars['Int']['output']>
@@ -12379,8 +13005,9 @@ export type ClockifyTimeEntryUpdateInput = {
   billable?: InputMaybe<BoolFieldUpdateOperationsInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClockifyTimeEntriesNestedInput>
   clickupTask?: InputMaybe<ClickupTaskUpdateOneWithoutClockifyTimeEntriesNestedInput>
+  clickupUser?: InputMaybe<ClickupUserUpdateOneWithoutTimeEntriesNestedInput>
   clockifyProject?: InputMaybe<ClockifyTimeEntryProjectUpdateOneWithoutTimeEntryNestedInput>
-  clockifyUser?: InputMaybe<ClockifyUserUpdateOneRequiredWithoutTimeEntriesNestedInput>
+  clockifyUser?: InputMaybe<ClockifyUserUpdateOneWithoutTimeEntriesNestedInput>
   costRate?: InputMaybe<NullableIntFieldUpdateOperationsInput>
   currentlyRunning?: InputMaybe<BoolFieldUpdateOperationsInput>
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -12391,6 +13018,7 @@ export type ClockifyTimeEntryUpdateInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   isLocked?: InputMaybe<BoolFieldUpdateOperationsInput>
   kioskId?: InputMaybe<Scalars['JSON']['input']>
+  note?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   start?: InputMaybe<StringFieldUpdateOperationsInput>
   tags?: InputMaybe<ClockifyTagOnTimeEntryUpdateManyWithoutClockifyTimeEntryNestedInput>
   task?: InputMaybe<Scalars['JSON']['input']>
@@ -12411,6 +13039,7 @@ export type ClockifyTimeEntryUpdateManyMutationInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   isLocked?: InputMaybe<BoolFieldUpdateOperationsInput>
   kioskId?: InputMaybe<Scalars['JSON']['input']>
+  note?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   start?: InputMaybe<StringFieldUpdateOperationsInput>
   task?: InputMaybe<Scalars['JSON']['input']>
   type?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -12423,6 +13052,11 @@ export type ClockifyTimeEntryUpdateManyWithWhereWithoutClickupClockifyProjectInp
 }
 
 export type ClockifyTimeEntryUpdateManyWithWhereWithoutClickupTaskInput = {
+  data: ClockifyTimeEntryUpdateManyMutationInput
+  where: ClockifyTimeEntryScalarWhereInput
+}
+
+export type ClockifyTimeEntryUpdateManyWithWhereWithoutClickupUserInput = {
   data: ClockifyTimeEntryUpdateManyMutationInput
   where: ClockifyTimeEntryScalarWhereInput
 }
@@ -12468,6 +13102,20 @@ export type ClockifyTimeEntryUpdateManyWithoutClickupTaskNestedInput = {
   update?: InputMaybe<Array<ClockifyTimeEntryUpdateWithWhereUniqueWithoutClickupTaskInput>>
   updateMany?: InputMaybe<Array<ClockifyTimeEntryUpdateManyWithWhereWithoutClickupTaskInput>>
   upsert?: InputMaybe<Array<ClockifyTimeEntryUpsertWithWhereUniqueWithoutClickupTaskInput>>
+}
+
+export type ClockifyTimeEntryUpdateManyWithoutClickupUserNestedInput = {
+  connect?: InputMaybe<Array<ClockifyTimeEntryWhereUniqueInput>>
+  connectOrCreate?: InputMaybe<Array<ClockifyTimeEntryCreateOrConnectWithoutClickupUserInput>>
+  create?: InputMaybe<Array<ClockifyTimeEntryCreateWithoutClickupUserInput>>
+  createMany?: InputMaybe<ClockifyTimeEntryCreateManyClickupUserInputEnvelope>
+  delete?: InputMaybe<Array<ClockifyTimeEntryWhereUniqueInput>>
+  deleteMany?: InputMaybe<Array<ClockifyTimeEntryScalarWhereInput>>
+  disconnect?: InputMaybe<Array<ClockifyTimeEntryWhereUniqueInput>>
+  set?: InputMaybe<Array<ClockifyTimeEntryWhereUniqueInput>>
+  update?: InputMaybe<Array<ClockifyTimeEntryUpdateWithWhereUniqueWithoutClickupUserInput>>
+  updateMany?: InputMaybe<Array<ClockifyTimeEntryUpdateManyWithWhereWithoutClickupUserInput>>
+  upsert?: InputMaybe<Array<ClockifyTimeEntryUpsertWithWhereUniqueWithoutClickupUserInput>>
 }
 
 export type ClockifyTimeEntryUpdateManyWithoutClockifyProjectNestedInput = {
@@ -12535,6 +13183,11 @@ export type ClockifyTimeEntryUpdateWithWhereUniqueWithoutClickupTaskInput = {
   where: ClockifyTimeEntryWhereUniqueInput
 }
 
+export type ClockifyTimeEntryUpdateWithWhereUniqueWithoutClickupUserInput = {
+  data: ClockifyTimeEntryUpdateWithoutClickupUserInput
+  where: ClockifyTimeEntryWhereUniqueInput
+}
+
 export type ClockifyTimeEntryUpdateWithWhereUniqueWithoutClockifyProjectInput = {
   data: ClockifyTimeEntryUpdateWithoutClockifyProjectInput
   where: ClockifyTimeEntryWhereUniqueInput
@@ -12553,8 +13206,9 @@ export type ClockifyTimeEntryUpdateWithWhereUniqueWithoutUserInput = {
 export type ClockifyTimeEntryUpdateWithoutClickupClockifyProjectInput = {
   billable?: InputMaybe<BoolFieldUpdateOperationsInput>
   clickupTask?: InputMaybe<ClickupTaskUpdateOneWithoutClockifyTimeEntriesNestedInput>
+  clickupUser?: InputMaybe<ClickupUserUpdateOneWithoutTimeEntriesNestedInput>
   clockifyProject?: InputMaybe<ClockifyTimeEntryProjectUpdateOneWithoutTimeEntryNestedInput>
-  clockifyUser?: InputMaybe<ClockifyUserUpdateOneRequiredWithoutTimeEntriesNestedInput>
+  clockifyUser?: InputMaybe<ClockifyUserUpdateOneWithoutTimeEntriesNestedInput>
   costRate?: InputMaybe<NullableIntFieldUpdateOperationsInput>
   currentlyRunning?: InputMaybe<BoolFieldUpdateOperationsInput>
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -12565,6 +13219,7 @@ export type ClockifyTimeEntryUpdateWithoutClickupClockifyProjectInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   isLocked?: InputMaybe<BoolFieldUpdateOperationsInput>
   kioskId?: InputMaybe<Scalars['JSON']['input']>
+  note?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   start?: InputMaybe<StringFieldUpdateOperationsInput>
   tags?: InputMaybe<ClockifyTagOnTimeEntryUpdateManyWithoutClockifyTimeEntryNestedInput>
   task?: InputMaybe<Scalars['JSON']['input']>
@@ -12576,8 +13231,9 @@ export type ClockifyTimeEntryUpdateWithoutClickupClockifyProjectInput = {
 export type ClockifyTimeEntryUpdateWithoutClickupTaskInput = {
   billable?: InputMaybe<BoolFieldUpdateOperationsInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClockifyTimeEntriesNestedInput>
+  clickupUser?: InputMaybe<ClickupUserUpdateOneWithoutTimeEntriesNestedInput>
   clockifyProject?: InputMaybe<ClockifyTimeEntryProjectUpdateOneWithoutTimeEntryNestedInput>
-  clockifyUser?: InputMaybe<ClockifyUserUpdateOneRequiredWithoutTimeEntriesNestedInput>
+  clockifyUser?: InputMaybe<ClockifyUserUpdateOneWithoutTimeEntriesNestedInput>
   costRate?: InputMaybe<NullableIntFieldUpdateOperationsInput>
   currentlyRunning?: InputMaybe<BoolFieldUpdateOperationsInput>
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -12588,6 +13244,32 @@ export type ClockifyTimeEntryUpdateWithoutClickupTaskInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   isLocked?: InputMaybe<BoolFieldUpdateOperationsInput>
   kioskId?: InputMaybe<Scalars['JSON']['input']>
+  note?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  start?: InputMaybe<StringFieldUpdateOperationsInput>
+  tags?: InputMaybe<ClockifyTagOnTimeEntryUpdateManyWithoutClockifyTimeEntryNestedInput>
+  task?: InputMaybe<Scalars['JSON']['input']>
+  type?: InputMaybe<StringFieldUpdateOperationsInput>
+  user?: InputMaybe<UserUpdateOneWithoutClockifyTimeEntriesNestedInput>
+  workspaceId?: InputMaybe<StringFieldUpdateOperationsInput>
+}
+
+export type ClockifyTimeEntryUpdateWithoutClickupUserInput = {
+  billable?: InputMaybe<BoolFieldUpdateOperationsInput>
+  clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClockifyTimeEntriesNestedInput>
+  clickupTask?: InputMaybe<ClickupTaskUpdateOneWithoutClockifyTimeEntriesNestedInput>
+  clockifyProject?: InputMaybe<ClockifyTimeEntryProjectUpdateOneWithoutTimeEntryNestedInput>
+  clockifyUser?: InputMaybe<ClockifyUserUpdateOneWithoutTimeEntriesNestedInput>
+  costRate?: InputMaybe<NullableIntFieldUpdateOperationsInput>
+  currentlyRunning?: InputMaybe<BoolFieldUpdateOperationsInput>
+  customFieldValues?: InputMaybe<Scalars['JSON']['input']>
+  description?: InputMaybe<StringFieldUpdateOperationsInput>
+  duration?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  end?: InputMaybe<NullableStringFieldUpdateOperationsInput>
+  hourlyRate?: InputMaybe<NullableIntFieldUpdateOperationsInput>
+  id?: InputMaybe<StringFieldUpdateOperationsInput>
+  isLocked?: InputMaybe<BoolFieldUpdateOperationsInput>
+  kioskId?: InputMaybe<Scalars['JSON']['input']>
+  note?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   start?: InputMaybe<StringFieldUpdateOperationsInput>
   tags?: InputMaybe<ClockifyTagOnTimeEntryUpdateManyWithoutClockifyTimeEntryNestedInput>
   task?: InputMaybe<Scalars['JSON']['input']>
@@ -12600,7 +13282,8 @@ export type ClockifyTimeEntryUpdateWithoutClockifyProjectInput = {
   billable?: InputMaybe<BoolFieldUpdateOperationsInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClockifyTimeEntriesNestedInput>
   clickupTask?: InputMaybe<ClickupTaskUpdateOneWithoutClockifyTimeEntriesNestedInput>
-  clockifyUser?: InputMaybe<ClockifyUserUpdateOneRequiredWithoutTimeEntriesNestedInput>
+  clickupUser?: InputMaybe<ClickupUserUpdateOneWithoutTimeEntriesNestedInput>
+  clockifyUser?: InputMaybe<ClockifyUserUpdateOneWithoutTimeEntriesNestedInput>
   costRate?: InputMaybe<NullableIntFieldUpdateOperationsInput>
   currentlyRunning?: InputMaybe<BoolFieldUpdateOperationsInput>
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -12611,6 +13294,7 @@ export type ClockifyTimeEntryUpdateWithoutClockifyProjectInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   isLocked?: InputMaybe<BoolFieldUpdateOperationsInput>
   kioskId?: InputMaybe<Scalars['JSON']['input']>
+  note?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   start?: InputMaybe<StringFieldUpdateOperationsInput>
   tags?: InputMaybe<ClockifyTagOnTimeEntryUpdateManyWithoutClockifyTimeEntryNestedInput>
   task?: InputMaybe<Scalars['JSON']['input']>
@@ -12623,6 +13307,7 @@ export type ClockifyTimeEntryUpdateWithoutClockifyUserInput = {
   billable?: InputMaybe<BoolFieldUpdateOperationsInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClockifyTimeEntriesNestedInput>
   clickupTask?: InputMaybe<ClickupTaskUpdateOneWithoutClockifyTimeEntriesNestedInput>
+  clickupUser?: InputMaybe<ClickupUserUpdateOneWithoutTimeEntriesNestedInput>
   clockifyProject?: InputMaybe<ClockifyTimeEntryProjectUpdateOneWithoutTimeEntryNestedInput>
   costRate?: InputMaybe<NullableIntFieldUpdateOperationsInput>
   currentlyRunning?: InputMaybe<BoolFieldUpdateOperationsInput>
@@ -12634,6 +13319,7 @@ export type ClockifyTimeEntryUpdateWithoutClockifyUserInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   isLocked?: InputMaybe<BoolFieldUpdateOperationsInput>
   kioskId?: InputMaybe<Scalars['JSON']['input']>
+  note?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   start?: InputMaybe<StringFieldUpdateOperationsInput>
   tags?: InputMaybe<ClockifyTagOnTimeEntryUpdateManyWithoutClockifyTimeEntryNestedInput>
   task?: InputMaybe<Scalars['JSON']['input']>
@@ -12646,8 +13332,9 @@ export type ClockifyTimeEntryUpdateWithoutTagsInput = {
   billable?: InputMaybe<BoolFieldUpdateOperationsInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClockifyTimeEntriesNestedInput>
   clickupTask?: InputMaybe<ClickupTaskUpdateOneWithoutClockifyTimeEntriesNestedInput>
+  clickupUser?: InputMaybe<ClickupUserUpdateOneWithoutTimeEntriesNestedInput>
   clockifyProject?: InputMaybe<ClockifyTimeEntryProjectUpdateOneWithoutTimeEntryNestedInput>
-  clockifyUser?: InputMaybe<ClockifyUserUpdateOneRequiredWithoutTimeEntriesNestedInput>
+  clockifyUser?: InputMaybe<ClockifyUserUpdateOneWithoutTimeEntriesNestedInput>
   costRate?: InputMaybe<NullableIntFieldUpdateOperationsInput>
   currentlyRunning?: InputMaybe<BoolFieldUpdateOperationsInput>
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -12658,6 +13345,7 @@ export type ClockifyTimeEntryUpdateWithoutTagsInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   isLocked?: InputMaybe<BoolFieldUpdateOperationsInput>
   kioskId?: InputMaybe<Scalars['JSON']['input']>
+  note?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   start?: InputMaybe<StringFieldUpdateOperationsInput>
   task?: InputMaybe<Scalars['JSON']['input']>
   type?: InputMaybe<StringFieldUpdateOperationsInput>
@@ -12669,8 +13357,9 @@ export type ClockifyTimeEntryUpdateWithoutUserInput = {
   billable?: InputMaybe<BoolFieldUpdateOperationsInput>
   clickupClockifyProject?: InputMaybe<ClickupClockifyProjectUpdateOneWithoutClockifyTimeEntriesNestedInput>
   clickupTask?: InputMaybe<ClickupTaskUpdateOneWithoutClockifyTimeEntriesNestedInput>
+  clickupUser?: InputMaybe<ClickupUserUpdateOneWithoutTimeEntriesNestedInput>
   clockifyProject?: InputMaybe<ClockifyTimeEntryProjectUpdateOneWithoutTimeEntryNestedInput>
-  clockifyUser?: InputMaybe<ClockifyUserUpdateOneRequiredWithoutTimeEntriesNestedInput>
+  clockifyUser?: InputMaybe<ClockifyUserUpdateOneWithoutTimeEntriesNestedInput>
   costRate?: InputMaybe<NullableIntFieldUpdateOperationsInput>
   currentlyRunning?: InputMaybe<BoolFieldUpdateOperationsInput>
   customFieldValues?: InputMaybe<Scalars['JSON']['input']>
@@ -12681,6 +13370,7 @@ export type ClockifyTimeEntryUpdateWithoutUserInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>
   isLocked?: InputMaybe<BoolFieldUpdateOperationsInput>
   kioskId?: InputMaybe<Scalars['JSON']['input']>
+  note?: InputMaybe<NullableStringFieldUpdateOperationsInput>
   start?: InputMaybe<StringFieldUpdateOperationsInput>
   tags?: InputMaybe<ClockifyTagOnTimeEntryUpdateManyWithoutClockifyTimeEntryNestedInput>
   task?: InputMaybe<Scalars['JSON']['input']>
@@ -12697,6 +13387,12 @@ export type ClockifyTimeEntryUpsertWithWhereUniqueWithoutClickupClockifyProjectI
 export type ClockifyTimeEntryUpsertWithWhereUniqueWithoutClickupTaskInput = {
   create: ClockifyTimeEntryCreateWithoutClickupTaskInput
   update: ClockifyTimeEntryUpdateWithoutClickupTaskInput
+  where: ClockifyTimeEntryWhereUniqueInput
+}
+
+export type ClockifyTimeEntryUpsertWithWhereUniqueWithoutClickupUserInput = {
+  create: ClockifyTimeEntryCreateWithoutClickupUserInput
+  update: ClockifyTimeEntryUpdateWithoutClickupUserInput
   where: ClockifyTimeEntryWhereUniqueInput
 }
 
@@ -12733,10 +13429,12 @@ export type ClockifyTimeEntryWhereInput = {
   clickupClockifyProjectId?: InputMaybe<IntNullableFilter>
   clickupTask?: InputMaybe<ClickupTaskNullableRelationFilter>
   clickupTaskId?: InputMaybe<StringNullableFilter>
+  clickupUser?: InputMaybe<ClickupUserNullableRelationFilter>
+  clickupUserId?: InputMaybe<IntNullableFilter>
   clockifyProject?: InputMaybe<ClockifyTimeEntryProjectNullableRelationFilter>
   clockifyProjectId?: InputMaybe<StringNullableFilter>
-  clockifyUser?: InputMaybe<ClockifyUserRelationFilter>
-  clockifyUserId?: InputMaybe<StringFilter>
+  clockifyUser?: InputMaybe<ClockifyUserNullableRelationFilter>
+  clockifyUserId?: InputMaybe<StringNullableFilter>
   costRate?: InputMaybe<IntNullableFilter>
   currentlyRunning?: InputMaybe<BoolFilter>
   customFieldValues?: InputMaybe<JsonNullableFilter>
@@ -12747,6 +13445,7 @@ export type ClockifyTimeEntryWhereInput = {
   id?: InputMaybe<StringFilter>
   isLocked?: InputMaybe<BoolFilter>
   kioskId?: InputMaybe<JsonNullableFilter>
+  note?: InputMaybe<StringNullableFilter>
   start?: InputMaybe<StringFilter>
   tags?: InputMaybe<ClockifyTagOnTimeEntryListRelationFilter>
   task?: InputMaybe<JsonNullableFilter>
@@ -12765,10 +13464,12 @@ export type ClockifyTimeEntryWhereUniqueInput = {
   clickupClockifyProjectId?: InputMaybe<IntNullableFilter>
   clickupTask?: InputMaybe<ClickupTaskNullableRelationFilter>
   clickupTaskId?: InputMaybe<StringNullableFilter>
+  clickupUser?: InputMaybe<ClickupUserNullableRelationFilter>
+  clickupUserId?: InputMaybe<IntNullableFilter>
   clockifyProject?: InputMaybe<ClockifyTimeEntryProjectNullableRelationFilter>
   clockifyProjectId?: InputMaybe<StringNullableFilter>
-  clockifyUser?: InputMaybe<ClockifyUserRelationFilter>
-  clockifyUserId?: InputMaybe<StringFilter>
+  clockifyUser?: InputMaybe<ClockifyUserNullableRelationFilter>
+  clockifyUserId?: InputMaybe<StringNullableFilter>
   costRate?: InputMaybe<IntNullableFilter>
   currentlyRunning?: InputMaybe<BoolFilter>
   customFieldValues?: InputMaybe<JsonNullableFilter>
@@ -12779,6 +13480,7 @@ export type ClockifyTimeEntryWhereUniqueInput = {
   id?: InputMaybe<Scalars['String']['input']>
   isLocked?: InputMaybe<BoolFilter>
   kioskId?: InputMaybe<JsonNullableFilter>
+  note?: InputMaybe<StringNullableFilter>
   start?: InputMaybe<StringFilter>
   tags?: InputMaybe<ClockifyTagOnTimeEntryListRelationFilter>
   task?: InputMaybe<JsonNullableFilter>
@@ -12914,11 +13616,6 @@ export type ClockifyUserOrderByWithRelationInput = {
   user?: InputMaybe<UserOrderByWithRelationInput>
 }
 
-export type ClockifyUserRelationFilter = {
-  is?: InputMaybe<ClockifyUserWhereInput>
-  isNot?: InputMaybe<ClockifyUserWhereInput>
-}
-
 export enum ClockifyUserScalarFieldEnum {
   Email = 'email',
   Id = 'id',
@@ -12942,10 +13639,12 @@ export type ClockifyUserUpdateManyMutationInput = {
   status?: InputMaybe<StringFieldUpdateOperationsInput>
 }
 
-export type ClockifyUserUpdateOneRequiredWithoutTimeEntriesNestedInput = {
+export type ClockifyUserUpdateOneWithoutTimeEntriesNestedInput = {
   connect?: InputMaybe<ClockifyUserWhereUniqueInput>
   connectOrCreate?: InputMaybe<ClockifyUserCreateOrConnectWithoutTimeEntriesInput>
   create?: InputMaybe<ClockifyUserCreateWithoutTimeEntriesInput>
+  delete?: InputMaybe<ClockifyUserWhereInput>
+  disconnect?: InputMaybe<ClockifyUserWhereInput>
   update?: InputMaybe<ClockifyUserUpdateToOneWithWhereWithoutTimeEntriesInput>
   upsert?: InputMaybe<ClockifyUserUpsertWithoutTimeEntriesInput>
 }
@@ -13264,6 +13963,7 @@ export type Mutation = {
   createManyClickupTaskQueue: AffectedRowsOutput
   createManyClickupTaskSpace: AffectedRowsOutput
   createManyClickupTaskStatus: AffectedRowsOutput
+  createManyClickupTaskStatusDetail: AffectedRowsOutput
   createManyClickupTaskStatusOnTask: AffectedRowsOutput
   createManyClickupTaskTag: AffectedRowsOutput
   createManyClickupTaskTimeEstimate: AffectedRowsOutput
@@ -13300,6 +14000,7 @@ export type Mutation = {
   createOneClickupTaskQueue: ClickupTaskQueue
   createOneClickupTaskSpace: ClickupTaskSpace
   createOneClickupTaskStatus: ClickupTaskStatus
+  createOneClickupTaskStatusDetail: ClickupTaskStatusDetail
   createOneClickupTaskStatusOnTask: ClickupTaskStatusOnTask
   createOneClickupTaskTag: ClickupTaskTag
   createOneClickupTaskTimeEstimate: ClickupTaskTimeEstimate
@@ -13336,6 +14037,7 @@ export type Mutation = {
   deleteManyClickupTaskQueue: AffectedRowsOutput
   deleteManyClickupTaskSpace: AffectedRowsOutput
   deleteManyClickupTaskStatus: AffectedRowsOutput
+  deleteManyClickupTaskStatusDetail: AffectedRowsOutput
   deleteManyClickupTaskStatusOnTask: AffectedRowsOutput
   deleteManyClickupTaskTag: AffectedRowsOutput
   deleteManyClickupTaskTimeEstimate: AffectedRowsOutput
@@ -13372,6 +14074,7 @@ export type Mutation = {
   deleteOneClickupTaskQueue?: Maybe<ClickupTaskQueue>
   deleteOneClickupTaskSpace?: Maybe<ClickupTaskSpace>
   deleteOneClickupTaskStatus?: Maybe<ClickupTaskStatus>
+  deleteOneClickupTaskStatusDetail?: Maybe<ClickupTaskStatusDetail>
   deleteOneClickupTaskStatusOnTask?: Maybe<ClickupTaskStatusOnTask>
   deleteOneClickupTaskTag?: Maybe<ClickupTaskTag>
   deleteOneClickupTaskTimeEstimate?: Maybe<ClickupTaskTimeEstimate>
@@ -13409,6 +14112,7 @@ export type Mutation = {
   updateManyClickupTaskQueue: AffectedRowsOutput
   updateManyClickupTaskSpace: AffectedRowsOutput
   updateManyClickupTaskStatus: AffectedRowsOutput
+  updateManyClickupTaskStatusDetail: AffectedRowsOutput
   updateManyClickupTaskStatusOnTask: AffectedRowsOutput
   updateManyClickupTaskTag: AffectedRowsOutput
   updateManyClickupTaskTimeEstimate: AffectedRowsOutput
@@ -13445,6 +14149,7 @@ export type Mutation = {
   updateOneClickupTaskQueue?: Maybe<ClickupTaskQueue>
   updateOneClickupTaskSpace?: Maybe<ClickupTaskSpace>
   updateOneClickupTaskStatus?: Maybe<ClickupTaskStatus>
+  updateOneClickupTaskStatusDetail?: Maybe<ClickupTaskStatusDetail>
   updateOneClickupTaskStatusOnTask?: Maybe<ClickupTaskStatusOnTask>
   updateOneClickupTaskTag?: Maybe<ClickupTaskTag>
   updateOneClickupTaskTimeEstimate?: Maybe<ClickupTaskTimeEstimate>
@@ -13560,6 +14265,11 @@ export type MutationCreateManyClickupTaskSpaceArgs = {
 
 export type MutationCreateManyClickupTaskStatusArgs = {
   data: Array<ClickupTaskStatusCreateManyInput>
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type MutationCreateManyClickupTaskStatusDetailArgs = {
+  data: Array<ClickupTaskStatusDetailCreateManyInput>
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>
 }
 
@@ -13722,6 +14432,10 @@ export type MutationCreateOneClickupTaskStatusArgs = {
   data: ClickupTaskStatusCreateInput
 }
 
+export type MutationCreateOneClickupTaskStatusDetailArgs = {
+  data: ClickupTaskStatusDetailCreateInput
+}
+
 export type MutationCreateOneClickupTaskStatusOnTaskArgs = {
   data: ClickupTaskStatusOnTaskCreateInput
 }
@@ -13866,6 +14580,10 @@ export type MutationDeleteManyClickupTaskStatusArgs = {
   where?: InputMaybe<ClickupTaskStatusWhereInput>
 }
 
+export type MutationDeleteManyClickupTaskStatusDetailArgs = {
+  where?: InputMaybe<ClickupTaskStatusDetailWhereInput>
+}
+
 export type MutationDeleteManyClickupTaskStatusOnTaskArgs = {
   where?: InputMaybe<ClickupTaskStatusOnTaskWhereInput>
 }
@@ -14008,6 +14726,10 @@ export type MutationDeleteOneClickupTaskSpaceArgs = {
 
 export type MutationDeleteOneClickupTaskStatusArgs = {
   where: ClickupTaskStatusWhereUniqueInput
+}
+
+export type MutationDeleteOneClickupTaskStatusDetailArgs = {
+  where: ClickupTaskStatusDetailWhereUniqueInput
 }
 
 export type MutationDeleteOneClickupTaskStatusOnTaskArgs = {
@@ -14177,6 +14899,11 @@ export type MutationUpdateManyClickupTaskSpaceArgs = {
 export type MutationUpdateManyClickupTaskStatusArgs = {
   data: ClickupTaskStatusUpdateManyMutationInput
   where?: InputMaybe<ClickupTaskStatusWhereInput>
+}
+
+export type MutationUpdateManyClickupTaskStatusDetailArgs = {
+  data: ClickupTaskStatusDetailUpdateManyMutationInput
+  where?: InputMaybe<ClickupTaskStatusDetailWhereInput>
 }
 
 export type MutationUpdateManyClickupTaskStatusOnTaskArgs = {
@@ -14357,6 +15084,11 @@ export type MutationUpdateOneClickupTaskSpaceArgs = {
 export type MutationUpdateOneClickupTaskStatusArgs = {
   data: ClickupTaskStatusUpdateInput
   where: ClickupTaskStatusWhereUniqueInput
+}
+
+export type MutationUpdateOneClickupTaskStatusDetailArgs = {
+  data: ClickupTaskStatusDetailUpdateInput
+  where: ClickupTaskStatusDetailWhereUniqueInput
 }
 
 export type MutationUpdateOneClickupTaskStatusOnTaskArgs = {
@@ -14594,6 +15326,7 @@ export type Query = {
   aggregateClickupTaskQueue: AggregateClickupTaskQueue
   aggregateClickupTaskSpace: AggregateClickupTaskSpace
   aggregateClickupTaskStatus: AggregateClickupTaskStatus
+  aggregateClickupTaskStatusDetail: AggregateClickupTaskStatusDetail
   aggregateClickupTaskStatusOnTask: AggregateClickupTaskStatusOnTask
   aggregateClickupTaskTag: AggregateClickupTaskTag
   aggregateClickupTaskTimeEstimate: AggregateClickupTaskTimeEstimate
@@ -14648,6 +15381,8 @@ export type Query = {
   clickupTaskSpace?: Maybe<ClickupTaskSpace>
   clickupTaskSpaces: Array<ClickupTaskSpace>
   clickupTaskStatus?: Maybe<ClickupTaskStatus>
+  clickupTaskStatusDetail?: Maybe<ClickupTaskStatusDetail>
+  clickupTaskStatusDetails: Array<ClickupTaskStatusDetail>
   clickupTaskStatusOnTask?: Maybe<ClickupTaskStatusOnTask>
   clickupTaskStatusOnTasks: Array<ClickupTaskStatusOnTask>
   clickupTaskStatuses: Array<ClickupTaskStatus>
@@ -14842,6 +15577,14 @@ export type QueryAggregateClickupTaskStatusArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>
   take?: InputMaybe<Scalars['Int']['input']>
   where?: InputMaybe<ClickupTaskStatusWhereInput>
+}
+
+export type QueryAggregateClickupTaskStatusDetailArgs = {
+  cursor?: InputMaybe<ClickupTaskStatusDetailWhereUniqueInput>
+  orderBy?: InputMaybe<Array<ClickupTaskStatusDetailOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupTaskStatusDetailWhereInput>
 }
 
 export type QueryAggregateClickupTaskStatusOnTaskArgs = {
@@ -15212,6 +15955,19 @@ export type QueryClickupTaskSpacesArgs = {
 
 export type QueryClickupTaskStatusArgs = {
   where: ClickupTaskStatusWhereUniqueInput
+}
+
+export type QueryClickupTaskStatusDetailArgs = {
+  where: ClickupTaskStatusDetailWhereUniqueInput
+}
+
+export type QueryClickupTaskStatusDetailsArgs = {
+  cursor?: InputMaybe<ClickupTaskStatusDetailWhereUniqueInput>
+  distinct?: InputMaybe<Array<ClickupTaskStatusDetailScalarFieldEnum>>
+  orderBy?: InputMaybe<Array<ClickupTaskStatusDetailOrderByWithRelationInput>>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  take?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ClickupTaskStatusDetailWhereInput>
 }
 
 export type QueryClickupTaskStatusOnTaskArgs = {
@@ -16381,6 +17137,7 @@ export type ClockifyTimeEntriesQuery = {
     __typename?: 'ClockifyTimeEntry'
     id: string
     description: string
+    note?: string | null
     start: string
     end?: string | null
     duration?: string | null
@@ -16391,7 +17148,7 @@ export type ClockifyTimeEntriesQuery = {
       clockifyTag: { __typename?: 'ClockifyTimeEntryTag'; name: string }
     }>
     clockifyProject?: { __typename?: 'ClockifyTimeEntryProject'; name: string; color: string } | null
-    clockifyUser: { __typename?: 'ClockifyUser'; name: string }
+    clockifyUser?: { __typename?: 'ClockifyUser'; name: string } | null
     user?: { __typename?: 'User'; username: string; email: string } | null
     clickupTask?: {
       __typename?: 'ClickupTask'
@@ -16457,6 +17214,7 @@ export const ClockifyTimeEntriesDocument = {
               selections: [
                 { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'note' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'start' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'end' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'duration' } },
