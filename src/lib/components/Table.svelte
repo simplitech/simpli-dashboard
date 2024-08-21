@@ -32,12 +32,16 @@
   import ClockifyTag from './ClockifyTag.svelte'
   import UserIcon from './UserIcon.svelte'
   import { usersOverview } from '$lib/utils/store'
+  import Modal from '$lib/components/Modal.svelte'
+  import NotesTable from '$lib/components/NotesTable.svelte'
 
   export let report: Report
   export let dateRangeStart: Date
   export let dateRangeEnd: Date
   export let showDetails = true
   export let showWarnings = true
+
+  let selectedEntryForNotes: Entry = null
 
   $: highlightedIndex = {
     userIndex: -1,
@@ -64,6 +68,14 @@
 
   function getUserOverview(email: string) {
     return $usersOverview[email]
+  }
+
+  function selectEntryForNotes(entry: Entry) {
+    selectedEntryForNotes = entry
+  }
+
+  function hasNotes(entry: Entry): boolean {
+    return entry.timeEntry.some((it) => it.note)
   }
 
   $: shouldShowChart = (userIndex: number, entryIndex: number, length: number) => {
@@ -95,7 +107,7 @@
           <div class="w-2 h-2 rounded-sm bg-transparent mr-3" />
         {/if}
 
-        <div class="text-left py-2">
+        <div class="text-left py-2 flex-grow">
           <p class="font-semibold text-gray-400">
             {getProjectName(entry)}
           </p>
@@ -126,6 +138,11 @@
             {/each}
           </div>
         </div>
+        {#if hasNotes(entry)}
+          <button class="flex-shrink-0 p-2" on:click={() => selectEntryForNotes(entry)}>
+            <img src="./images/notes.svg" alt="notes icon" />
+          </button>
+        {/if}
       </div>
       <div class="table-grid__cell">
         <div
@@ -228,6 +245,12 @@
     {/each}
   {/if}
 </div>
+
+{#if selectedEntryForNotes !== null}
+  <Modal on:close={() => (selectedEntryForNotes = null)} title="Notes">
+    <NotesTable {selectedEntryForNotes} />
+  </Modal>
+{/if}
 
 <style>
   .table-grid {

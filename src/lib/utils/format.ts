@@ -104,6 +104,11 @@ export const formatReport: Record<
     }
     return ''
   },
+  Notes: (_id, entry) =>
+    entry.timeEntry
+      .filter((it) => it.note)
+      .map((it) => it.note)
+      .join(', '),
   Assignees: (_id, entry) => formatUserNamesSortedByParticipation(entry.timeEntry),
   'Days in Review': (_id, entry) => formatDurationWithDays(getTaskTimeStatus(entry.task?.status, 'to review')),
   'Days in Test': (_id, entry) => formatDurationWithDays(getTaskTimeStatus(entry.task?.status, 'to test')),
